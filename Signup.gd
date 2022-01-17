@@ -130,13 +130,17 @@ func _input(e):
 		if e.pressed:
 			if sc == KEY_ESCAPE:
 				get_parent().back()
-			if sc == KEY_D:
+			if sc == KEY_Q and Input.is_action_pressed("signup0b")\
+			or sc == KEY_E and Input.is_action_pressed("signup0"):
 				kb_queue(0)
-			elif sc == KEY_N:
+			elif sc == KEY_F and Input.is_action_pressed("signup1b")\
+			or sc == KEY_H and Input.is_action_pressed("signup1"):
 				kb_queue(1)
-			elif sc == KEY_L:
+			elif sc == KEY_U and Input.is_action_pressed("signup2b")\
+			or sc == KEY_O and Input.is_action_pressed("signup2"):
 				kb_queue(2)
-			elif sc == KEY_KP_6:
+			elif sc == KEY_KP_7 and Input.is_action_pressed("signup3b")\
+			or sc == KEY_KP_9 and Input.is_action_pressed("signup3"):
 				kb_queue(3)
 			elif sc == KEY_ENTER or sc == KEY_KP_ENTER:
 				# check if anyone's signing up
