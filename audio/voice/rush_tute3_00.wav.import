@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rush_tute3_00.wav-ee38ddb77d38cd702f875c6c579babc8.sample"
+
+[deps]
+
+source_file="res://audio/voice/rush_tute3_00.wav"
+dest_files=[ "res://.import/rush_tute3_00.wav-ee38ddb77d38cd702f875c6c579babc8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

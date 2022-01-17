@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/q_first_04.wav-2e329a0e8ae20763b4af1845f5908181.sample"
+
+[deps]
+
+source_file="res://audio/voice/q_first_04.wav"
+dest_files=[ "res://.import/q_first_04.wav-2e329a0e8ae20763b4af1845f5908181.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

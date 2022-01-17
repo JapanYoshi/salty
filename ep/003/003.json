@@ -1,0 +1,90 @@
+{
+  "episode_name": "Give Me Your Answers Do",
+  "episode_desc": "Introducing the tireless, smirking, and chaotic audio engineer, Daisy Chaine. She enjoys pranking the other crew members, but what is she up to this time? Find out on this very special episode.",
+  "audio": {
+    "welcome": {
+      "v": "welcome",
+      "s": "Welcome to Salty Trivia![#1000#]Have we told you about our hard-working audio engineer that makes all the sound effect jokes land perfectly,[#2000#]Daisy Chaine?[#3000#]Miles, Daisy, and me:[#4000#]We're basically the Salty Trivia Holy Trinity."
+    },
+    "player_1": {
+      "v": "default"
+    },
+    "player_2": {
+      "v": "default"
+    },
+    "player_3": {
+      "v": "default"
+    },
+    "player_4": {
+      "v": "default"
+    },
+    "lifesaver": {
+      "v": "default"
+    },
+    "lifesaver_tute0": {
+      "v": "default"
+    },
+    "lifesaver_tute1": {
+      "v": "default"
+    },
+    "lifesaver_tute2": {
+      "v": "default"
+    },
+    "lifesaver_tute3": {
+      "v": "default"
+    },
+    "intermission": {
+      "v": "intermission",
+      "s": "That’s all for Round 1![#1000#]Wait, there’s [i]another[/i] round left?![#2000#]Oh, you’d lose your pants when you hear that there’s a third bonus round![#3000#]But we’ll come to that later! Stay on the channel!"
+    },
+    "round2": {
+      "v": "welcome_back",
+      "s": "Welcome back to Salty Trivia![#1000#]We have a great crew back here, just excellent at making my humor really pop.[#2000#](pop sound effect)[#3000#]Thanks, Daisy, perfectly timed!"
+    },
+    "round2_tute": {
+      "v": "round2_tute",
+      "s": "Did I mention that point values are doubled in Round 2?[#1000#]I’m sure you know already, but I’m just making sure."
+    },
+    "lifesaver2": {
+      "v": "lifesaver2",
+      "s": "Remember, Lifesavers are there to help you. Use them wisely."
+    },
+    "lifesaver2_tute0": {
+      "v": "lifesaver2_tute0",
+      "s": "A Lifesaver will give you more time to answer, and eliminate two of the options."
+    },
+    "lifesaver2_tute1": {
+      "v": "lifesaver2_tute1",
+      "s": "But this is the last round you can use your Lifesaver, so that means you have to use it by Question 12."
+    },
+    "lifesaver2_tute2": {
+      "v": "lifesaver2_tute2",
+      "s": "You can press the L or R button to activate that helpful function."
+    },
+    "outro": {
+      "v": "outro",
+      "s": "That’s it![#1000#]I hope you’ve learned how capable of an audio engineer Daisy is.[#2000#]But considering what she uses her capabilities for,[#3000#]sometimes I wish she were [i]less[/i] capable.[#4000#](Daisy snickers)"
+    },
+    "outro_slam": {
+      "v": "outro_slam",
+      "s": "Daisy, I know you’re snickering back there!"
+    }
+  },
+  "question_id": [
+    "n001",
+    "n002",
+    "n003",
+    "s001",
+    "n004",
+    "c001",
+
+    "n005",
+    "g001",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
+
+    "h001"
+  ]
+}

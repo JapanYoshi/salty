@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/like_outro.ogg-6a0cf1a02455c841938e07d61a4db4d1.oggstr"
+
+[deps]
+
+source_file="res://audio/music/like_outro.ogg"
+dest_files=[ "res://.import/like_outro.ogg-6a0cf1a02455c841938e07d61a4db4d1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

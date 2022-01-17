@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/buzz_in_05.wav-cd823b33917f271209b263319dcf94d3.sample"
+
+[deps]
+
+source_file="res://audio/voice/buzz_in_05.wav"
+dest_files=[ "res://.import/buzz_in_05.wav-cd823b33917f271209b263319dcf94d3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

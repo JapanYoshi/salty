@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rush_yes.ogg-d164f524cfba04bd01c082a3691aab62.oggstr"
+
+[deps]
+
+source_file="res://audio/sfx/rush_yes.ogg"
+dest_files=[ "res://.import/rush_yes.ogg-d164f524cfba04bd01c082a3691aab62.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

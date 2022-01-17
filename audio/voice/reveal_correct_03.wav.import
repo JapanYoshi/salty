@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reveal_correct_03.wav-a666e650fc9199946812fdb1a2c94d9a.sample"
+
+[deps]
+
+source_file="res://audio/voice/reveal_correct_03.wav"
+dest_files=[ "res://.import/reveal_correct_03.wav-a666e650fc9199946812fdb1a2c94d9a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

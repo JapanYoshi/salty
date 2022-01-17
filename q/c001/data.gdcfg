@@ -1,0 +1,106 @@
+[root]
+type = "C"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "Sweets That Make You Groan"
+v = "title"
+s = "
+“Sweets That Make You Groan”
+"
+
+[intro]
+v = "intro"
+s = "
+So there was a time in my life when I worked as the joke proofreader on Laffy Taffy bars.[#4110#]
+It made me bitter for the rest of my life,[#6044#]
+but I still like eating Laffy Taffy, so now I’m dragging your toes into my fresh Hell.
+"
+
+[setup]
+t = "Why do seagulls fly over the sea?"
+v = "setup"
+s = "
+“Why do seagulls fly over the sea?[#2621#]
+"
+
+[punchline]
+t = "If they flied over the bay, they’d be bagels."
+v = "punchline"
+s = "
+If they flied over the bay, they’d be bagels.”
+"
+
+[post_punchline]
+v = "post_punchline"
+s = "Okay, that one’s a bit clever. Speaking of bagels,"
+
+[question]
+t = "If you smoked weed that made you feel like a bagel, what would you say?"
+v = "question"
+s = "
+If you smoked weed that made you feel like a bagel, what would you say?
+"
+
+[options]
+t = [
+    "“Dude, I’m so [b]baked and fried[/b] right now.”",
+    "“Whoa, I’m absolutely [b]steamed and baked[/b].”",
+    "“Man, I feel totally [b]boiled and baked[/b].”",
+    "“Holy $#%&, I feel like I’m [b]baked and boiled[/b], dude!”"
+]
+v = "options"
+s = "
+“Dude, I’m so baked and fried right now.”,[#2723#]
+“Whoa, I’m absolutely steamed and baked.”,[#5364#]
+“Man, I feel totally boiled and baked.”, or[#8260#]
+“Holy sh**, I feel like I’m baked and boiled, dude!”?
+"
+i = 2
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "
+There’s a reason why bagels are healthier than donuts. But also, less tastier.
+"
+
+[option1]
+v = "option1"
+s = "
+The only thing getting steamed here is the hams I put on the bagels.
+"
+
+[option2]
+v = "option2"
+s = "Bagels are made by first boiling the batter, then baking it for emphasis."
+
+[option3]
+v = "random"
+
+[outro]
+v = "outro"
+s = "
+Bagels are like the boring uncles of donuts.[#2134#]
+But on the bright side, you can load it up with tomato sauce and Italian sausage[#5720#]
+and make it just as tasty and unhealthy as a donut.
+"

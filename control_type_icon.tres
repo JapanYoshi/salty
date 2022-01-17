@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=2]
+
+[ext_resource path="res://images/icon_right.png" type="Texture" id=1]
+[ext_resource path="res://images/icon_retro.png" type="Texture" id=2]
+[ext_resource path="res://images/icon_left.png" type="Texture" id=3]
+[ext_resource path="res://images/icon_solo.png" type="Texture" id=4]
+[ext_resource path="res://images/icon_kb.png" type="Texture" id=5]
+[ext_resource path="res://images/icon_online.png" type="Texture" id=6]
+[ext_resource path="res://images/icon_touch.png" type="Texture" id=7]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "online",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "gp_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "retro",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "gp_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "gp",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "kb",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "touch",
+"speed": 5.0
+} ]

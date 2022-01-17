@@ -1,0 +1,479 @@
+{
+  "audio_episode": {
+    "welcome" : [
+      {"v": "intro_00", "s": "Welcome to Salty Trivia with Candy Barre, where the only thing sweet is victory."}
+    , {"v": "intro_01", "s": "Welcome to Salty Trivia with Candy Barre, where if you google my questions, you’re a bad sport and a loser."}
+    , {"v": "intro_02", "s": "Welcome to Salty Trivia with Candy Barre, where you must endure pun after another. [rimshot]"}
+    , {"v": "intro_03", "s": "Welcome to Salty Trivia with Candy Barre, where the questions are ridiculous, but the answers are serious."}
+    , {"v": "intro_04", "s": "Welcome to Salty Trivia with Candy Barre, and Hell hath no fury like this game."}
+    , {"v": "intro_05", "s": "Welcome to Salty Trivia with Candy Barre, the trivia show with no artificial flavoring. All my sass is real."}
+    , {"v": "intro_06", "s": "Welcome to Salty Trivia with Candy Barre, where, of all the flavors in the world, I choose to be salty."}
+    , {"v": "intro_07", "s": "Welcome to Salty Trivia with Candy Barre. I hope you’re smarter AND funnier than a fifth-grader."}
+    , {"v": "intro_08", "s": "Welcome to Salty Trivia with Candy Barre. I woke up like this."}
+    , {"v": "intro_09", "s": "Welcome to Salty Trivia with Candy Barre, where my sass is real, but my laughs are fake. [obviously fake laugh:] Hahahaha."}
+    ]
+  , "player_1" : [
+      {"v": "p1_00", "s": "You’re a lone wolf, I see. Or just alone."}
+    , {"v": "p1_01", "s": "Playing by yourself? That’s fine, but next time, could you bring a friend who’s more interesting and easy to joke about?"}
+    , {"v": "p1_02", "s": "There’s nothing wrong with playing with yourself. Sometimes, it’s more satisfying doing whatever you want in the privacy of your own room."}
+  ]
+  , "player_2" : [
+      {"v": "p2_00", "s": "You two seem like you’re here to finally decide who’s better, mano a mano. I like that."}
+    , {"v": "p2_01", "s": "Two of a kind, peas in a pod, birds of a feather. Oh, sorry, I was thinking of Thing One and Thing Two. Sorry to get sidetracked."}
+  ]
+  , "player_3" : [
+      {"v": "p3_00", "s": "Three contestants? Hm, I wonder who’s the least liked."}
+    , {"v": "p3_01", "s": "What, couldn’t you get a fourth player, or does your keyboard not have a numpad?"}
+    , {"v": "p3_02", "s": "Ooh, this harkens back to the days of hosting my local church trivia night. Only three people came most of the time, and I’m a satanist now."}
+  ]
+  , "player_4" : [
+      {"v": "p4_00", "s": "Thanks to all of you for coming in on such short notice. I invited 13 other people, but only you said yes."}
+    , {"v": "p4_01", "s": "Quite a party going on here, huh? Must be getting a bit less exciting, considering you whipped this game out."}
+    , {"v": "p4_02", "s": "This is the greatest number of people who have ever played a video game on PC, at the same time, on one keyboard! Except in 12 Orbits."}
+  ]
+  , "player_callout_0": [
+    {"v": "player_callout_0", "s": "Player 1,"}
+  ]
+  , "player_callout_1": [
+    {"v": "player_callout_1", "s": "Player 2,"}
+  ]
+  , "player_callout_2": [
+    {"v": "player_callout_2", "s": "Player 3,"}
+  ]
+  , "player_callout_3": [
+    {"v": "player_callout_3", "s": "Player 4,"}
+  ]
+  , "player_callout_4": [
+    {"v": "player_callout_4", "s": "Player 5,"}
+  ]
+  , "player_callout_5": [
+    {"v": "player_callout_5", "s": "Player 6,"}
+  ]
+  , "player_callout_6": [
+    {"v": "player_callout_6", "s": "Player 7,"}
+  ]
+  , "player_callout_7": [
+    {"v": "player_callout_7", "s": "Player 8,"}
+  ]
+  , "2_player_callout": [
+    {"v": "2_player_callout", "s": "Both of you,"}
+  ]
+  , "3_player_callout": [
+    {"v": "3_player_callout", "s": "Really? All three of you?"}
+  ]
+  , "name_censored" : [
+    {"v": "name_censored_00", "s": "I see what you typed. And frankly, it was funny the first 2000 times. I’m gonna give you a better name."},
+    {"v": "name_censored_01", "s": "I thought our producers agreed to prevent kids from entering the studio. Well, now that you’re here, let me give you a real name."},
+    {"v": "name_censored_02", "s": "You think you’re clever, huh? F**k me? F**k you. Hope you like your new name."}
+  ]
+  , "give_name": [
+    {"v": "give_name_00", "name": "Stooge",       "s": "Stooge. Because you’re too dumb to know what that means."},
+    {"v": "give_name_01", "name": "Jibberjabber", "s": "Jibberjabber. Your favorite pastime."},
+    {"v": "give_name_02", "name": "Defenestrate", "s": "Defenestrate. A fitting punishment for you."},
+    {"v": "give_name_03", "name": "Scrappy",      "s": "Scrappy. Everyone’s least favorite Doo."},
+    {"v": "give_name_04", "name": "Bubsy",        "s": "Bubsy. Because you always tell yourself, what could possibly go wrong?[#4574#]This. This is what could possibly go wrong."},
+    {"v": "give_name_05", "name": "Jack Squat",   "s": "Jack Squat. That’s what you know."},
+    {"v": "give_name_06", "name": "Stinky",       "s": "Stinky. Need I say more?"},
+    {"v": "give_name_07", "name": "Two-Incher",   "s": "Two-Incher. I’m told that’s an insult."},
+    {"v": "give_name_08", "name": "Lard Chugger", "s": "Lard Chugger. Because how else did you get that body?"},
+    {"v": "give_name_09", "name": "Veal",         "s": "Veal. Because you seem like the type of guy to keep saying “Try me, b***h”."},
+    {"v": "give_name_10", "name": "Dimwit",       "s": "Dimwit. Now that’s a fitting name."},
+    {"v": "give_name_11", "name": "Phuc Yu",      "s": "Phuc Yu. That’s a totally real Vietnamese name."},
+    {"v": "give_name_12", "name": "Family Guy",   "s": "Family Guy. Because you’re crude and overrated."},
+    {"v": "give_name_13", "name": "Low-Life",     "s": "Low-Life. Because what other kind of person sets their own name to “#@$* you” in a video game to see what the host says next?[#6095#]I’m talking to you, the player staring at this very video game screen.[#9207#]I’m some person talking alone to a microphone[#13108#]to someone I don’t know, and probably never will."},
+    {"v": "give_name_14", "name": "Screw You",    "s": "[i]Screw[/i] You. Because think of the kids."},
+    {"v": "give_name_15", "name": "Arby’s",       "s": "Arby’s. Because you have the meats. Where your brains should be."},
+    {"v": "give_name_16", "name": "Mariner",      "s": "Mariner. After the Ancient Mariner with the albatross around his neck."},
+    {"v": "give_name_17", "name": "Buzz Lippman", "s": "Buzz Lippman. The game show host we love to hate."},
+    {"v": "give_name_18", "name": "Gene",         "s": "Gene. The first four letters of “generic”."},
+    {"v": "give_name_19", "name": "Snowflake",    "s": "Snowflake. Because you can’t handle the heat of this game."},
+    {"v": "give_name_20", "name": "Couch Potato", "s": "Couch Potato. You look like one, at least."},
+    {"v": "give_name_21", "name": "xXxSLAYERxXx", "s": "xXxSLAYERxXx. Because you’re so edgy it’s not even funny."},
+    {"v": "give_name_22", "name": "Matryoshka",   "s": "Matryoshka. Because you’re so full of yourself."},
+    {"v": "give_name_23", "name": "Surströmming", "s": "Surströmming. Because you smell putrid."}
+  ]
+  , "multiple_names_censored" : [
+    {"v": "multiple_names_censored_00", "s": "I see your lack of originality. Let me fix that up by giving you some decent names."},
+    {"v": "multiple_names_censored_01", "s": "You sound like you’re the frat type who drinks a six-pack a day and burps at each other’s faces[#4865#]watching Frasier or Wacked Out Sports. Some new names are in order."},
+    {"v": "multiple_names_censored_02", "s": "You want an easter egg? You get an embarrassing name each."}
+  ]
+  , "give_multiple_names": [
+    {"v": "give_multiple_names_00", "s": "Oh, that’s much better. Let’s start the show."}
+  ]
+  , "all_names_censored": [
+    {"v": "all_names_censored_00", "s": "You guys, I’m not just gonna sit here and watch you pull this $#!%.[#2879#]So you know what? I’m gonna take away everyone’s names and chances for a positive score.[#7465#]Because $@#* you, that’s why."}
+  ]
+  , "lifesaver": [
+      {"v": "lifesaver_00", "s": "You get a Lifesaver! You get a Lifesaver! Everybody gets a Lifesaver!"}
+    , {"v": "lifesaver_01", "s": "Everybody in the splash zone, have a Lifesaver."}
+    , {"v": "lifesaver_02", "s": "But enough of that! Here’s a Lifesaver!"}
+    , {"v": "lifesaver_03", "s": "There are no life jackets on this flight; only Lifesavers."}
+    , {"v": "lifesaver_04", "s": "I just ate all the donuts, but I do have another torus-shaped thing for you."}
+    , {"v": "lifesaver_05", "s": "Here’s a Lifesaver. THINK FAST!"}
+    , {"v": "lifesaver_06", "s": "Having trouble staying afloat? Float back up with a Lifesaver!"}
+    , {"v": "lifesaver_07", "s": "Is it getting tropical in here, or is it just these Lifesavers?"}
+    , {"v": "lifesaver_08", "s": "You know what costs less than five cents? These complementary Lifesavers!"}
+    , {"v": "lifesaver_09", "s": "Have a Lifesaver! No, don’t put that in your mouth!"}
+    , {"v": "lifesaver_10", "s": "Oh buoy, it’s a Lifesaver!"}
+    , {"v": "lifesaver_11", "s": "Before we dive into Question 1, take a Lifesaver."}
+  ]
+  , "lifesaver_tute0": [
+    {"v": "lifesaver_tute0_00", "s": "If you’re unsure of the answer, press a shoulder button to eliminate two choices."}
+    , {"v": "lifesaver_tute0_01", "s": "The Lifesaver will let you answer later, after two of the options are gone."}
+  ]
+  , "lifesaver_tute1": [
+    {"v": "lifesaver_tute1_00", "s": "If there are other players who didn’t use a Lifesaver, you get to pick an option out of 2, after they pick an option out of 4!"}
+  ]
+  , "lifesaver_tute2": [
+    {"v": "lifesaver_tute2_00", "s": "You get one Lifesaver for a dozen questions, so use it strategically."}
+  ]
+  , "lifesaver_tute3": [
+    {"v": "lifesaver_tute3_00", "s": "Lifesavers don't work on special question types, so keep that in mind too. Let’s get going."}
+  ]
+  , "intermission" : [
+    {"v": "break_00", "s": "That’s all for this round! We’ll be right back after the break."}
+  , {"v": "break_01", "s": "And that’s the round! We’ll be right back after a short intermission."}
+  , {"v": "break_02", "s": "You just answered 6 questions since the start of this round, which means it’s time to end this one and start a new one."}
+  , {"v": "break_03", "s": "Are you satisfied with the outcome of that round? That was rhetorical, because the next one’s starting either way."}
+  ]
+  , "round2" : [
+    {"v": "round2_00", "s": "Whoa, hey there! Didn’t see you just waiting patiently for Round 2 of Salty Trivia."}
+  , {"v": "round2_01", "s": "Welcome back to Salty Trivia. We’re just firing up the charcoal grill for our next batch of questions."}
+  , {"v": "round2_02", "s": "Hey! I hope you didn’t lose interest in Salty Trivia yet, because we’re not even halfway there![#4899#]We got a whole other round starting up."}
+  , {"v": "round2_03", "s": "Welcome back! It sure was fun doing some aerobics during break time. Now it’s time to exercise your brain too!"}
+  , {"v": "round2_04", "s": "Aah. Welcome back to Salty Trivia. You have no idea how much I needed to excuse myself in that last break.[#5483#]But now I’m ready to host for at least another ten minutes!"}
+  , {"v": "round2_05", "s": "And here, we see an elusive trivia game contestant in its natural habitat.[#4737#]They attack when provoked, and answer when quizzed!"}
+  ]
+  , "round2_tute" : [
+    {"v": "round2_tute_00", "s": "In this round, questions are worth double. But watch out, because penalties are also worth double! Onward."}
+  , {"v": "round2_tute_01", "s": "From now, questions are worth twice as much. Let’s dip our toes into this one."}
+  , {"v": "round2_tute_02", "s": "This round makes all the stakes higher—twice as high, to be exact. Let’s dip our toes into this one."}
+  , {"v": "round2_tute_03", "s": "I hope you didn’t forget that Round 2 has double the points, because you can’t forget what I didn’t tell you![#5224#]Well, don’t forget now!"}
+  , {"v": "round2_tute_04", "s": "You know what’s up with Round 2? You guessed it: point values are double! Let’s dive in."}
+  , {"v": "round2_tute_05", "s": "Point values are double in Round 2, because [i]of course.[/i] Let’s get going."}
+  ]
+  , "lifesaver2" : [
+    {"v": "wrong_00", "s": ""}
+  ]
+  , "lifesaver2_tute0" : [
+    {"v": "wrong_00", "s": ""}
+  ]
+  , "lifesaver2_tute1" : [
+    {"v": "wrong_00", "s": ""}
+  ]
+  , "outro" : [
+    {"v": "", "s": ""}
+  ]
+  , "outro_slam" : [
+    {"v": "", "s": ""}
+  ]
+  , "cuss_a0": [
+    {"v": "cuss_a0", "s": "ROBOT VOICE: Congratulations! You have unlocked the “fuck you” easter egg.[#4362#]Please take a look at your score to receive your prize."}
+  ]
+  , "cuss_a1": [
+    {"v": "cuss_a1", "s": "ROBOT VOICE: Please note that it is discouraged for someone else to continue doing the same thing.[#4509#]You will be penalized further as a warning."}
+  ]
+  , "cuss_a2": [
+    {"v": "cuss_a2", "s": "ROBOT VOICE: It is advisable that we get back to the question."}
+  ]
+  , "cuss_b0": [
+    {"v": "cuss_b0", "s": "ROBOT VOICE: Congratulations for revealing the second layer of the “fuck you” easter egg![#4557#]Please take a look at your score to receive your prize."}
+  ]
+  , "cuss_b1": [
+    {"v": "cuss_b1", "s": "ROBOT VOICE: There is no prize, because typing in “fuck you” is no longer original.[#4851#]Please get back to the question."}
+  ]
+  , "cuss_c0": [
+    {"v": "cuss_c0", "s": "ROBOT VOICE: Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
+  ]
+}
+, "audio_question" : {
+      "skip" : [
+      {"v": "skip_00", "s": "Oh, am I getting in the way? Excuuuse me."}
+    , {"v": "skip_01", "s": "So much to do, so little time, right?"}
+    , {"v": "skip_02", "s": "Yeah, making sure you know, just in case."}
+    , {"v": "skip_03", "s": "No time to waste, let’s go! (clap)"}
+    , {"v": "skip_04", "s": "Well, let’s start then, pro player."}
+    , {"v": "skip_05", "s": "Alright, down the fast lane you go."}
+    , {"v": "skip_06", "s": "No need to explain. Let’s begin."}
+    , {"v": "skip_07", "s": "Sorry, am I rambling?"}
+    , {"v": "skip_08", "s": "Okay, cool, you remembered."}
+    , {"v": "skip_09", "s": "Aight, less work for me."}
+    , {"v": "skip_10", "s": "Good, I hate repeating myself."}
+    , {"v": "skip_11", "s": "Less talk, more walk. I like that."}
+    , {"v": "skip_12", "s": "Someone’s in a hurry today."}
+    , {"v": "skip_13", "s": "You get it. Same rules."}
+    , {"v": "skip_14", "s": "Roger that. Let’s advance."}
+    , {"v": "skip_15", "s": "Without further ado, let’s begin."}
+    , {"v": "skip_16", "s": "Yeah, you know the drill, blah blah blah."}
+    ]
+    , "pretitle_q1": [
+      {"v": "q_first_00", "s": "The first category is:"}
+    , {"v": "q_first_01", "s": "First up:"}
+    , {"v": "q_first_02", "s": "First on the chopping block:"}
+    , {"v": "q_first_03", "s": "Let’s warm up on:"}
+    , {"v": "q_first_04", "s": "Starting with:"}
+    , {"v": "q_first_05", "s": "Let’s get the party started with:"}
+    , {"v": "q_first_06", "s": "Let’s get the ball rolling with:"}
+    , {"v": "q_first_07", "s": "Here’s your appetizer:"}
+    , {"v": "q_first_08", "s": "Stretch your mental muscles with:"}
+    , {"v": "q_first_09", "s": "Let’s put this into motion with:"}
+    , {"v": "q_first_10", "s": "What better way to begin, other than with this?"}
+  ]
+  , "pretitle": [
+      {"v": "q_intro_00", "s": "Here’s your next category:"}
+    , {"v": "q_intro_01", "s": "I love this one."}
+    , {"v": "q_intro_02", "s": "Your food for thought:"}
+    , {"v": "q_intro_03", "s": "Coming up next:"}
+    , {"v": "q_intro_04", "s": "Let’s move on to:"}
+    , {"v": "q_intro_05", "s": "Say hello to:"}
+    , {"v": "q_intro_06", "s": "Riddle me this:"}
+    , {"v": "q_intro_07", "s": "Next on the chopping block:"}
+    , {"v": "q_intro_08", "s": "This next one’s called:"}
+    , {"v": "q_intro_09", "s": "Let’s see how you do in:"}
+    , {"v": "q_intro_10", "s": "The title of this question is:"}
+    , {"v": "q_intro_11", "s": "You’re gonna love this one."}
+    , {"v": "q_intro_12", "s": "Can you handle this?"}
+    , {"v": "q_intro_13", "s": "Are you ready for this?"}
+    , {"v": "q_intro_14", "s": "Please welcome:"}
+    , {"v": "q_intro_15", "s": "On your left hand side, you can see:"}
+    , {"v": "q_intro_16", "s": "Coming right up:"}
+    , {"v": "q_intro_17", "s": "Brace yourself for:"}
+    , {"v": "q_intro_18", "s": "Prepare your mind for:"}
+    , {"v": "q_intro_19", "s": "Next in line:"}
+    ] 
+  , "used_lifesaver": [
+    {"v": "wrong_00", "s": "(tbd) Now it’s time for the Lifesaver users to answer."}
+  ]
+  , "reveal": [
+    {"v": "reveal_00", "s": "Let’s see who got it."}
+  , {"v": "reveal_01", "s": "Here’s the tea."}
+  , {"v": "reveal_02", "s": "And the big reveal..."}
+  , {"v": "reveal_03", "s": "To set the record straight..."}
+  , {"v": "reveal_04", "s": "This is the fun part."}
+  , {"v": "reveal_05", "s": "Drum roll please... Okay, now stop."}
+  , {"v": "reveal_06", "s": "Can you handle the truth?"}
+  , {"v": "reveal_07", "s": "Let’s see if you passed."}
+  , {"v": "reveal_08", "s": "Let’s find out."}
+  , {"v": "reveal_09", "s": "Allow me to explain."}
+  , {"v": "reveal_10", "s": "Alright, shush, this is important."}
+  , {"v": "reveal_11", "s": "This is the part where I correct you."}
+  , {"v": "reveal_12", "s": "This is gonna be good."}
+  , {"v": "reveal_13", "s": "Enough thinking."}
+  ]
+  , "reveal_split": [
+    {"v": "reveal_split_00", "s": "Split opinion! This is gonna be exciting!"}
+  , {"v": "reveal_split_01", "s": "The contestants are disagreeing! Let’s see who’s right."}
+  , {"v": "reveal_split_02", "s": "We’re leaving no stone left unturned!"}
+  , {"v": "reveal_split_03", "s": "Oooh, I get to use all my wrong answer jokes!"}
+  , {"v": "reveal_split_04", "s": "Nice, all the options get picked! This is gonna take a while."}
+  , {"v": "reveal_split_05", "s": "Alright, no option left behind."}
+  , {"v": "reveal_split_06", "s": "Ooh, you can tell already that at least three people are wrong here."}
+  ]
+  , "reveal_jinx": [
+    {"v": "reveal_jinx_00", "s": "Piece of cake, huh?"}
+  , {"v": "reveal_jinx_01", "s": "By unanimous decision..."}
+  , {"v": "reveal_jinx_02", "s": "Survey says..."}
+  , {"v": "reveal_jinx_03", "s": "Whoa, you guys are well coordinated."}
+  , {"v": "reveal_jinx_04", "s": "Let’s face it: that was easy."}
+  , {"v": "reveal_jinx_05", "s": "No variety? This is boring."}
+  , {"v": "reveal_jinx_06", "s": "Great minds think alike, but fools seldom differ."}
+  , {"v": "reveal_jinx_07", "s": "What are you, a hive mind?"}
+  ]
+  , "reveal_crickets": [
+    {"v": "reveal_crickets_00", "s": "Are you AFK?"}
+  , {"v": "reveal_crickets_01", "s": "Come on, not even a guess?"}
+  , {"v": "reveal_crickets_02", "s": "Welp, I’ve wasted that question."}
+  , {"v": "reveal_crickets_03", "s": "I guess that went way over your head."}
+  , {"v": "reveal_crickets_04", "s": "I see you’re too scared of risk."}
+  , {"v": "reveal_crickets_05", "s": "Hello? Anyone there? I’m about to reveal the right answer!"}
+  , {"v": "reveal_crickets_06", "s": "Did you just ignore me?"}
+  , {"v": "reveal_crickets_07", "s": "No answer. Just like my Sweet Sixteen invitations."}
+  , {"v": "reveal_crickets_08", "s": "You still do exist, right??"}
+  ]
+  , "reveal_correct": [
+    {"v": "reveal_correct_00", "s": "Disappointingly..."}
+  , {"v": "reveal_correct_01", "s": "Here’s what you should have picked."}
+  , {"v": "reveal_correct_02", "s": "This would’ve worked."}
+  , {"v": "reveal_correct_03", "s": "Open sesame."}
+  , {"v": "reveal_correct_04", "s": "Here’s the big reveal."}
+  , {"v": "reveal_correct_05", "s": "None of you got it."}
+  , {"v": "reveal_correct_06", "s": "The shocking truth is..."}
+  , {"v": "reveal_correct_07", "s": "Really? Nobody picked this?"}
+  , {"v": "reveal_correct_08", "s": "I thought it was pretty simple, but..."}
+  , {"v": "reveal_correct_09", "s": "Oof, this has gotta hurt."}
+  ]
+  , "option": [
+    {"v": "wrong_00", "s": "[saxophone glide down]"}
+  ]
+  , "gib_wrong": [
+    {"v": "wrong_00", "s": "[wrong answer id 000]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 001]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 002]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 003]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 004]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 005]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 006]"}
+  , {"v": "wrong_00", "s": "[wrong answer id 007]"}
+  ]
+  , "sort_segue": [
+    {"v": "sort_segue", "s": "And it’s a Sorta Kinda!"}
+  ]
+  , "sort_category_names": [
+    {"v": "sort_category_names", "s": "I’m going to list seven names."}
+  ]
+  , "sort_category_ingredients": [
+    {"v": "sort_category_ingredients", "s": "I’m going to list seven ingredients."}
+  ]
+  , "sort_explain": [
+    {"v": "sort_explain_00", "s": "And for each of them, I need you to tell me if it’s:"}
+  , {"v": "sort_explain_01", "s": "And for each of them, you gotta tell me if it’s:"}
+  ]
+  , "sort_both": [
+    {"v": "sort_both", "s": "Or both! If it’s..."}
+  ]
+  , "sort_press_left": [
+    {"v": "sort_press_left", "s": "Press [i]Left[/i]. And if it’s..."}
+  ]
+  , "sort_press_right": [
+    {"v": "sort_press_right", "s": "Press [i]Right[/i]."}
+  ]
+  , "sort_press_up": [
+    {"v": "sort_press_up", "s": "And as usual, press [i]Up[/i] if it’s both."}
+  ]
+  , "gib_tute0": [
+    {"v": "gib_tute0", "s": "I’m gonna give you a silly phrase, whose syllables rhyme with another, more popular phrase.[#4518#]Buzz in and type the answer as soon as you know what it is."}
+  ]
+  , "gib_tute1": [
+    {"v": "gib_tute1", "s": "Though, as a disclaimer: even though the answer rhymes in my accent,[#3158#]the answer might not perfectly rhyme, or rhyme at all in yours.[#6673#]Don’t @ me."}
+  ]
+  , "gib_tute2": [
+    {"v": "gib_tute2", "s": "If you’re stumped, I’ll drip-feed you up to three clues every quarter of the way."}
+  ]
+  , "gib_tute3": [
+    {"v": "gib_tute3", "s": "But every half a second, the value of the question will go down,[#2863#]so you should buzz in as soon as you know it."}
+  ]
+  , "gib_tute4": [
+    {"v": "gib_tute4", "s": "Put your rhyming cap on and tell me..."}
+  ]
+  , "gib_genre_catchphrase": [
+    {"v": "gib_genre_catchphrase", "s": "With what [i]catch phrase[/i] does this rhyme?"}
+  ]
+  , "gib_genre_cliche": [
+    {"v": "gib_genre_cliche", "s": "With what [i]cliché[/i] does this rhyme?"}
+  ]
+  , "gib_genre_general": [
+    {"v": "gib_genre_general", "s": "With what [i]phrase[/i] does this rhyme?"}
+  ]
+  , "gib_genre_meme": [
+    {"v": "gib_genre_meme", "s": "With what [i]Internet meme[/i] does this rhyme?"}
+  ]
+  , "gib_genre_name": [
+    {"v": "gib_genre_name", "s": "With what [i]name[/i] does this rhyme?"}
+  ]
+  , "gib_genre_saying": [
+    {"v": "gib_genre_saying", "s": "With what [i]saying[/i] does this rhyme?"}
+  ]
+  , "gib_genre_slogan": [
+    {"v": "gib_genre_slogan", "s": "With what [i]slogan[/i] does this rhyme?"}
+  ]
+  , "gib_genre_song": [
+    {"v": "gib_genre_song", "s": "With what [i]song title[/i] does this rhyme?"}
+  ]
+  , "gib_genre_videogame": [
+    {"v": "gib_genre_videogame", "s": "With what [i]video game title[/i] does this rhyme?"}
+  ]
+  , "thou_segue": [
+    {"v": "thou_segue_00", "s": "And oh my goodness, it’s a Thousand-Question Question!"}
+  , {"v": "thou_segue_01", "s": "And can you believe it? It’s a Thousand-Question Question!"}
+  , {"v": "thou_segue_02", "s": "Brace yourselves, this one’s a Thousand-Question Question!"}
+  , {"v": "thou_segue_03", "s": "And oh! There’s big money at stake here; it’s a Thousand-Question Question!"}
+  , {"v": "thou_segue_04", "s": "And now’s your chance! It’s a Thousand-Question Question!"}
+  ]
+  , "thou_tute0": [
+    {"v": "thou_tute0_00", "s": "This question’s worth a whopping thousand times more than a normal question."}
+  , {"v": "thou_tute0_01", "s": "And that means it’s worth as much as a thousand other questions."}
+  , {"v": "thou_tute0_02", "s": "We call it the Thousand-Question Question, because a thousand times the winnings are at stake."}
+  ]
+  , "thou_tute1": [
+    {"v": "thou_tute1_00", "s": "But the prize money goes down the longer it takes to answer."}
+  , {"v": "thou_tute1_01", "s": "But as the clock keeps ticking, the value also keeps decreasing if you don’t answer."}
+  , {"v": "thou_tute1_02", "s": "But the longer you take to answer, the less money you can make."}
+  ]
+  , "thou_tute2": [
+    {"v": "thou_tute2_00", "s": "And since we can’t just give away big money to everyone, only the first person to answer it will win the prize."}
+  , {"v": "thou_tute2_01", "s": "And you better act fast, because only the first contestant to get it right will be rewarded."}
+  , {"v": "thou_tute2_02", "s": "And we’ll close it as soon as anyone gets the right answer, so get your right answers in ASAP."}
+  ]
+  , "thou_intro": [
+    {"v": "thou_intro_00", "s": "On your mark, get set, start the clock!"}
+  , {"v": "thou_intro_01", "s": "Alright, are you ready? Start the clock!"}
+  ]
+  , "rush_intro": [
+    {"v": "rush_intro_00", "s": "Welcome to the Sugar Rush."}
+  , {"v": "rush_intro_01", "s": "You’ve made it to the Sugar Rush."}
+  , {"v": "rush_intro_02", "s": "Brace yourselves for the Sugar Rush."}
+  ]
+  , "rush_tute0": [
+    {"v": "rush_tute0_00", "s": "For each of the six sections, select only the options that match that description."}
+  ]
+  , "rush_tute1": [
+    {"v": "rush_tute1_00", "s": "1 point gained for each right answer or omission."}
+  ]
+  , "rush_tute2": [
+    {"v": "rush_tute2_00", "s": "But 1 point lost for each wrong answer or omission."}
+  ]
+  , "rush_tute3": [
+    {"v": "rush_tute3_00", "s": "Only choose matches that fit this topic:"}
+  ]
+  , "rush_ready": [
+    {"v": "rush_ready_00", "s": "I’ll see you on the other side."}
+  , {"v": "rush_ready_01", "s": "We’ll meet again on the other side."}
+  , {"v": "rush_ready_02", "s": "Let’s hope you’ll make it through to the other side."}
+  , {"v": "rush_ready_03", "s": "And don’t let the Rush hit you while you’re down."}
+  , {"v": "rush_ready_04", "s": "Will you feel the Rush, or will you feel the crush?"}
+  ]
+  , "rush_skip" : [
+    {"v": "skip_00", "s": "Oh, am I getting in the way? Excuuuse me."}
+  ]
+  , "buzz_in": [
+    {"v": "buzz_in_00", "s": "Alright, hit me!"}
+  , {"v": "buzz_in_01", "s": "I see you, I see you."}
+  , {"v": "buzz_in_02", "s": "You’re up to bat!"}
+  , {"v": "buzz_in_03", "s": "Show me what you got."}
+  , {"v": "buzz_in_04", "s": "Alright, what’s the answer?"}
+  , {"v": "buzz_in_05", "s": "Type that answer in."}
+  , {"v": "buzz_in_06", "s": "Okay, what are you thinking of?"}
+  , {"v": "buzz_in_07", "s": "What do you have for me?"}
+  ]
+}
+, "questions": {
+    "n" : [
+      "n001"
+    , "n002"
+    , "n003"
+    , "n004"
+    , "n005"
+    , "n006"
+    , "n008"
+    , "n009"
+    , "n010"
+    , "n011"
+    ]
+    , "s" : [
+      "s001"
+    , "s002"
+    ]
+    , "c" : [
+      "c001"
+    ]
+    , "g" : [
+      "g001"
+    ]
+    , "h" : [
+      "h001"
+    ]
+    , "r" : [
+      "r001"
+    ]
+  } 
+}

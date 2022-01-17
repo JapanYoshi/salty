@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/drum_roll.ogg-d87edbee836b45ad2cdca8f92eb142a5.oggstr"
+
+[deps]
+
+source_file="res://audio/music/drum_roll.ogg"
+dest_files=[ "res://.import/drum_roll.ogg-d87edbee836b45ad2cdca8f92eb142a5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

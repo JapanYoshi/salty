@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/thou_intro_01.wav-f0634e49a59dd3944f860b27bab0373d.sample"
+
+[deps]
+
+source_file="res://audio/voice/thou_intro_01.wav"
+dest_files=[ "res://.import/thou_intro_01.wav-f0634e49a59dd3944f860b27bab0373d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

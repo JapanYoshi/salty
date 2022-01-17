@@ -1,0 +1,2217 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://images/gib_4.png" type="Texture" id=1]
+[ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://TextTick.gd" type="Script" id=3]
+[ext_resource path="res://images/gib_fake_0.png" type="Texture" id=4]
+[ext_resource path="res://images/gib_3.png" type="Texture" id=5]
+[ext_resource path="res://images/gib_fake_1.png" type="Texture" id=7]
+[ext_resource path="res://images/gib_fake_2.png" type="Texture" id=8]
+[ext_resource path="res://images/gib_logo.png" type="Texture" id=9]
+[ext_resource path="res://images/gib_0.png" type="Texture" id=10]
+[ext_resource path="res://images/gib_1.png" type="Texture" id=11]
+[ext_resource path="res://images/gib_fake_3.png" type="Texture" id=12]
+[ext_resource path="res://images/gib_2.png" type="Texture" id=13]
+[ext_resource path="res://images/gib_5.png" type="Texture" id=14]
+[ext_resource path="res://images/thousand_thousand.png" type="Texture" id=15]
+[ext_resource path="res://images/thousand_logo.png" type="Texture" id=16]
+[ext_resource path="res://images/gib_time_0.png" type="Texture" id=18]
+[ext_resource path="res://images/gib_time_1.png" type="Texture" id=19]
+[ext_resource path="res://images/gib_time_2.png" type="Texture" id=20]
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=21]
+[ext_resource path="res://images/gib_time_6.png" type="Texture" id=22]
+[ext_resource path="res://images/gib_time_4.png" type="Texture" id=23]
+[ext_resource path="res://images/gib_time_3.png" type="Texture" id=24]
+[ext_resource path="res://images/gib_time_5.png" type="Texture" id=25]
+[ext_resource path="res://fonts/timer_font.tres" type="DynamicFont" id=26]
+[ext_resource path="res://images/gib_time_8.png" type="Texture" id=27]
+[ext_resource path="res://images/gib_clue.png" type="Texture" id=28]
+[ext_resource path="res://images/gib_time_7.png" type="Texture" id=29]
+[ext_resource path="res://audio/sfx/question_show.wav" type="AudioStream" id=30]
+[ext_resource path="res://audio/sfx/gib_hints.wav" type="AudioStream" id=31]
+[ext_resource path="res://audio/sfx/option_highlight.wav" type="AudioStream" id=32]
+[ext_resource path="res://audio/sfx/gib_time.wav" type="AudioStream" id=33]
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=34]
+[ext_resource path="res://ThemeBigText.tres" type="Theme" id=35]
+
+[sub_resource type="DynamicFont" id=2]
+size = 512
+outline_color = Color( 0, 0, 0, 0.384314 )
+extra_spacing_top = 48
+extra_spacing_bottom = -48
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "countdown"
+length = 60.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 60 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -10.0, 10.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 60 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.4, 0.4 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32, 32.5, 33, 33.5, 34, 34.5, 35, 35.5, 36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46, 46.5, 47, 47.5, 48, 48.5, 49, 49.5, 50, 50.5, 51, 51.5, 52, 52.5, 53, 53.5, 54, 54.5, 55, 55.5, 56, 56.5, 57, 57.5, 58, 58.5, 59, 59.5, 60 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "entry"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 15.0, 7.5, -9.3, -10.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:rect_scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.44, 0.44 ), Vector2( 0.35, 0.35 ), Vector2( 0.4, 0.4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "gib_logo"
+length = 5.0
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("GibBase/G0/Gib0:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.9, 1 ),
+"transitions": PoolRealArray( 0.5, 1, 2, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GibBase/G0/Gib1:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.1, 1.9, 2 ),
+"transitions": PoolRealArray( 1, 0.5, 1, 2, 1 ),
+"update": 0,
+"values": [ 0.0, 1e-05, 1.0, 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GibBase/G0/Gib2:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.9, 2 ),
+"transitions": PoolRealArray( 0.5, 1, 2, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("GibBase/G1/Gib3:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25, 0.35, 1.15, 1.25 ),
+"transitions": PoolRealArray( 1, 0.5, 1, 2, 0.5 ),
+"update": 0,
+"values": [ 1e-05, 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("GibBase/G1/Gib4:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.25, 1.35, 1.9, 2 ),
+"transitions": PoolRealArray( 1, 0.5, 1, 2, 1 ),
+"update": 0,
+"values": [ 1e-05, 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("GibBase/G1/Gib5:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 1.4, 1.5, 1.6, 1.9, 2 ),
+"transitions": PoolRealArray( 1, 0.5, 1, -2, -2, 1, 2, 1 ),
+"update": 0,
+"values": [ 1e-05, 0.0, 1.0, 1.0, 0.8, 1.0, 1.0, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("GibBase:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2, 2.05, 3.55, 3.65, 3.75, 4.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 2, 0.5, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0.333, 0.333 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, -0.5 ), Vector2( 0.5, -0.5 ), Vector2( 0.6, 0 ), Vector2( 0.667, 0.667 ), Vector2( 0.667, 0.667 ), Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("GibBase/GibFake0:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 2.1, 2.25, 3.6, 3.65 ),
+"transitions": PoolRealArray( 1, 2, 1, 1e+06, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( 1, -1 ), Vector2( 1, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("GibBase/GibFake1:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 2.6, 2.75, 3.6, 3.65 ),
+"transitions": PoolRealArray( 1, 2, 1, 1e+06, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( 1, -1 ), Vector2( 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("GibBase/GibFake2:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 3, 3.15, 3.6, 3.65 ),
+"transitions": PoolRealArray( 1, 2, 1, 1e+06, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( 1, -1 ), Vector2( 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("GibBase/GibFake3:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 3.1, 3.25, 3.6, 3.65 ),
+"transitions": PoolRealArray( 1, 2, 1, 1e+06, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( 1, -1 ), Vector2( 1, 0 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("GibBase/GibLogo:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 3.65, 3.7 ),
+"transitions": PoolRealArray( 1, 1e-05, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0 ), Vector2( 1, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("GibBase:modulate:a")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 4.5, 5 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.25 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("GibBase:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("ThouBase:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Label:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("GibBase:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 4.5, 5 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -10.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("GibBase/G0:position:x")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 0.9, 1.1 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -512.0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("GibBase/G1:position:x")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 1.15, 1.35 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 296.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "thou_logo"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ThouBase:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GibBase:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ThouBase:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 3.9, 4, 4.5 ),
+"transitions": PoolRealArray( 0.8, 0.8, 0.8, 1, 1, 0.8, 0.8, 0.8, 1, 0.25, 1 ),
+"update": 0,
+"values": [ Vector2( 9, 9 ), Vector2( 4, 4 ), Vector2( 2, 2 ), Vector2( 1, 1 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ), Vector2( 0.125, 0.125 ), Vector2( 0.063, 0.063 ), Vector2( 0.02, 0.02 ), Vector2( 0, 0 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ThouBase:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3.9, 4 ),
+"transitions": PoolRealArray( 1, 1e+06, 1 ),
+"update": 0,
+"values": [ -6.0, -6.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ThouBase/ThousandThousand:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 3.1, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ThouBase/ThousandLogo:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("ThouBase:modulate:a")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 4.5, 6 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.2 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Label:rect_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("ColorRect:modulate:a")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 4, 4.3 ),
+"transitions": PoolRealArray( 1, 1, 0.5 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "0"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibTute/Label2/Label3:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibTute/Label2:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibTute/Label2/Label4:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibTute/AnimatedSprite:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 0.3, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1.25, 1.25 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("../GibTute/AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 32 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 30 )
+} ],
+"times": PoolRealArray( 0, 0.4 )
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../GibTute:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../GibTute:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../GibTute/AnimatedSprite/GibClue1:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../GibTute/AnimatedSprite/GibClue2:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../GibTute/AnimatedSprite/GibClue3:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "1"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibTute/Label2/Label3:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 0.3, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibTute/Label2/Label3:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ -320.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibTute/Label2/Label4:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "2"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibTute/AnimatedSprite/GibClue1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.2, 1.5 ),
+"transitions": PoolRealArray( 0.3, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibTute/AnimatedSprite/GibClue1:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1.2, 1.5 ),
+"transitions": PoolRealArray( 0.5, 1, -2, 1 ),
+"update": 0,
+"values": [ -256.0, -320.0, -320.0, -96.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibTute/AnimatedSprite/GibClue1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -256, 64 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibTute/AnimatedSprite/GibClue1:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 90.0, 90.0, -45.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../GibTute/AnimatedSprite/GibClue2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, 0.3, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../GibTute/AnimatedSprite/GibClue2:offset:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.9, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, 0.5, 1, -2, 1 ),
+"update": 0,
+"values": [ -256.0, -256.0, -320.0, -320.0, -96.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../GibTute/AnimatedSprite/GibClue2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -256, 64 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../GibTute/AnimatedSprite/GibClue2:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 180.0, 180.0, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../GibTute/AnimatedSprite/GibClue3:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.2, 0.7, 1.4, 1.7 ),
+"transitions": PoolRealArray( 1, 0.3, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../GibTute/AnimatedSprite/GibClue3:offset:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.2, 1, 1.4, 1.7 ),
+"transitions": PoolRealArray( 1, 0.5, 1, -2, 1 ),
+"update": 0,
+"values": [ -256.0, -256.0, -320.0, -320.0, -96.0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../GibTute/AnimatedSprite/GibClue3:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 1.4, 1.7 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -256, 64 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../GibTute/AnimatedSprite/GibClue3:rotation_degrees")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.4, 1.7 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 270.0, 270.0, 45.0 ]
+}
+tracks/12/type = "audio"
+tracks/12/path = NodePath("../GibTute/AudioStreamPlayer")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 31 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "3"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibTute/AnimatedSprite:animation")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "tick", "default" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibTute/AnimatedSprite:frame")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("../GibTute/AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 33 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "4"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibTute/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "default" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibTute:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.3, 1.3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibTute:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 0.3, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibBase:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.05, 1.05 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../GibBase:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 0.3, 1 ),
+"update": 0,
+"values": [ 0.25, 0.25, 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "gibA"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibQ:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibACont:rect_scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibACont:modulate")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibQ:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "gibClue1"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibClue1:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibClue1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "gibClue2"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibClue2:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibClue2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "gibClue3"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibClue3:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibClue3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "gibQ"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibQ:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibQ:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "reset"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../GibQ:rect_scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1e-05 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibACont:rect_scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibClue1:rect_scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1e-05 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibClue2:rect_scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1e-05 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../GibClue3:rect_scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1e-05 ]
+}
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 22 ), ExtResource( 29 ), ExtResource( 27 ) ],
+"loop": false,
+"name": "tick",
+"speed": 4.0
+} ]
+
+[sub_resource type="Animation" id=19]
+resource_name = "0"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../ThouTute/Label:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ThouTute/Label:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1.4, 1.4 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ThouTute/Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "×1000" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ThouTute/Label:custom_colors/font_color_shadow:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "thou_tute_set_value"
+} ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "1"
+length = 4.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("../ThouTute/AnimatedSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ThouTute/AnimatedSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "tick" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ThouTute/AnimatedSprite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 3.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ThouTute/AnimatedSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 8 ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("../GibTute/AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 33 )
+} ],
+"times": PoolRealArray( 0.5 )
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../ThouTute/Label:custom_colors/font_color_shadow")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+}, {
+"args": [  ],
+"method": "thou_tute_set_value"
+} ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../ThouTute/Label2:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 800.0, 500.0 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "3"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../ThouTute:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ThouTute:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ThouBase:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.2, 0.0 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "reset"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../ThouTute/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ThouTute/AnimatedSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ThouTute:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ThouTute:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="TextTick" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibBase" type="Node2D" parent="."]
+visible = false
+position = Vector2( 640, 360 )
+scale = Vector2( 0.333, 0.333 )
+
+[node name="G0" type="Node2D" parent="GibBase"]
+position = Vector2( 0, -180 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Gib0" type="Sprite" parent="GibBase/G0"]
+position = Vector2( -168.168, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 10 )
+
+[node name="Gib1" type="Sprite" parent="GibBase/G0"]
+position = Vector2( -168.168, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 11 )
+
+[node name="Gib2" type="Sprite" parent="GibBase/G0"]
+position = Vector2( 369.37, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 13 )
+
+[node name="G1" type="Node2D" parent="GibBase"]
+position = Vector2( 0, 180 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Gib3" type="Sprite" parent="GibBase/G1"]
+position = Vector2( -567.567, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 5 )
+
+[node name="Gib4" type="Sprite" parent="GibBase/G1"]
+position = Vector2( -567.567, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 1 )
+
+[node name="Gib5" type="Sprite" parent="GibBase/G1"]
+position = Vector2( 267.267, 0 )
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 14 )
+
+[node name="GibFake0" type="Sprite" parent="GibBase"]
+position = Vector2( -560, -80 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -80 )
+
+[node name="GibFake1" type="Sprite" parent="GibBase"]
+position = Vector2( -198, -80 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 7 )
+offset = Vector2( 0, -80 )
+
+[node name="GibFake2" type="Sprite" parent="GibBase"]
+position = Vector2( 129, -80 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 8 )
+offset = Vector2( 0, -80 )
+
+[node name="GibFake3" type="Sprite" parent="GibBase"]
+position = Vector2( 495, -80 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 12 )
+offset = Vector2( 0, -80 )
+
+[node name="GibLogo" type="Sprite" parent="GibBase"]
+scale = Vector2( 1, 1e-05 )
+texture = ExtResource( 9 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+color = Color( 0.141176, 0.105882, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThouBase" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.2 )
+position = Vector2( 640, 360 )
+scale = Vector2( 0.75, 0.75 )
+
+[node name="ThousandThousand" type="Sprite" parent="ThouBase"]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 15 )
+offset = Vector2( 0, 192 )
+
+[node name="ThousandLogo" type="Sprite" parent="ThouBase"]
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1500.0
+margin_top = -376.0
+margin_right = 1500.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 3000, 700 )
+rect_rotation = -10.0
+rect_scale = Vector2( 0.2, 0.2 )
+rect_pivot_offset = Vector2( 1500, 350 )
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.25098, 0.141176, 0.0156863, 0.494118 )
+custom_fonts/font = SubResource( 2 )
+text = "$1,000,000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/countdown = SubResource( 3 )
+anims/entry = SubResource( 4 )
+anims/gib_logo = SubResource( 5 )
+anims/thou_logo = SubResource( 6 )
+
+[node name="GibTute" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GibTute"]
+stream = ExtResource( 33 )
+bus = "SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GibTute"]
+root_node = NodePath("../../AnimationPlayer")
+anims/0 = SubResource( 7 )
+anims/1 = SubResource( 8 )
+anims/2 = SubResource( 9 )
+anims/3 = SubResource( 11 )
+anims/4 = SubResource( 12 )
+anims/gibA = SubResource( 13 )
+anims/gibClue1 = SubResource( 14 )
+anims/gibClue2 = SubResource( 15 )
+anims/gibClue3 = SubResource( 16 )
+anims/gibQ = SubResource( 17 )
+anims/reset = SubResource( 18 )
+
+[node name="Label2" type="Label" parent="GibTute"]
+anchor_right = 1.0
+margin_top = 48.0
+margin_bottom = 178.0
+rect_pivot_offset = Vector2( 640, 50 )
+custom_fonts/font = ExtResource( 26 )
+text = "What rhymes?"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="GibTute/Label2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 313.0
+margin_top = -65.0
+margin_right = 380.0
+margin_bottom = 65.0
+rect_rotation = -320.0
+rect_scale = Vector2( 1e-05, 1e-05 )
+rect_pivot_offset = Vector2( 33, 46 )
+custom_fonts/font = ExtResource( 26 )
+text = "*"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="GibTute/Label2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1280.0
+margin_top = 47.0
+margin_right = 1280.0
+margin_bottom = 127.0
+rect_scale = Vector2( 1e-05, 1e-05 )
+rect_pivot_offset = Vector2( 1280, 40 )
+custom_constants/line_spacing = -12
+custom_fonts/font = ExtResource( 21 )
+text = "DISCLAIMER: RHYMES MAY NOT BE AVAILABLE IN YOUR AREA. “SALTY TRIVIA WITH CANDY BARRE” DOES NOT ASSUME RESPONSIBILITY FOR ANY BROKEN RHYMES IN YOUR PERSONAL DIALECT. THESE RHYMES ARE PRESENTED “AS-IS” WITH NO WARRANTY."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="GibTute"]
+position = Vector2( 640, 390 )
+scale = Vector2( 1e-05, 1e-05 )
+frames = SubResource( 10 )
+playing = true
+offset = Vector2( 128, 0 )
+
+[node name="GibClue1" type="Sprite" parent="GibTute/AnimatedSprite"]
+rotation = 1.5708
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 28 )
+offset = Vector2( 0, -256 )
+
+[node name="GibClue2" type="Sprite" parent="GibTute/AnimatedSprite"]
+rotation = 3.14159
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 28 )
+offset = Vector2( 0, -256 )
+
+[node name="GibClue3" type="Sprite" parent="GibTute/AnimatedSprite"]
+rotation = 4.71239
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 28 )
+offset = Vector2( 0, -256 )
+
+[node name="ThouTute" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ThouTute"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -228.0
+margin_top = 72.0
+margin_right = 229.0
+margin_bottom = 202.0
+rect_scale = Vector2( 1.4, 1.4 )
+rect_pivot_offset = Vector2( 228.571, 88 )
+theme = ExtResource( 35 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 26 )
+text = "×1000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ThouTute"]
+position = Vector2( 640, 360 )
+scale = Vector2( 1e-05, 1e-05 )
+frames = SubResource( 10 )
+animation = "tick"
+offset = Vector2( 128, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ThouTute"]
+root_node = NodePath("../../AnimationPlayer")
+anims/0 = SubResource( 19 )
+anims/1 = SubResource( 20 )
+anims/2 = SubResource( 21 )
+anims/3 = SubResource( 22 )
+anims/reset = SubResource( 23 )
+
+[node name="Label2" type="Label" parent="ThouTute"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -384.0
+margin_top = 440.0
+margin_right = 384.0
+margin_bottom = 568.0
+theme = ExtResource( 35 )
+text = "First come, first served"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibQ" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 64.0
+margin_right = 1216.0
+margin_bottom = 160.0
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( 576, 80 )
+theme = ExtResource( 35 )
+text = "Wow, gourmet wing? Smith-Bauer."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibACont" type="CenterContainer" parent="."]
+margin_left = 64.0
+margin_right = 1216.0
+margin_bottom = 160.0
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( 0, 80 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibA" type="RichTextLabel" parent="GibACont"]
+margin_top = 45.0
+margin_right = 1152.0
+margin_bottom = 114.0
+grow_vertical = 2
+rect_min_size = Vector2( 1152, 0 )
+rect_pivot_offset = Vector2( 576, 0 )
+rect_clip_content = false
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource( 35 )
+bbcode_enabled = true
+bbcode_text = "[center]Now you're playing with power.[/center]"
+text = "Now you're playing with power."
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibClue1" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_left = 88.0
+margin_top = 272.0
+margin_right = -40.0
+margin_bottom = 320.0
+grow_vertical = 2
+rect_min_size = Vector2( 0, 48 )
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( -8, 24 )
+rect_clip_content = false
+theme = ExtResource( 34 )
+bbcode_enabled = true
+bbcode_text = "It’s an ad slogan for a hit game console..."
+text = "It’s an ad slogan for a hit game console..."
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibClue2" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_left = 88.0
+margin_top = 368.0
+margin_right = -40.0
+margin_bottom = 416.0
+grow_vertical = 2
+rect_min_size = Vector2( 0, 48 )
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( -8, 24 )
+rect_clip_content = false
+theme = ExtResource( 34 )
+bbcode_enabled = true
+bbcode_text = "...that gave rise to a lot of long-running franchises."
+text = "...that gave rise to a lot of long-running franchises."
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GibClue3" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_left = 88.0
+margin_top = 464.0
+margin_right = -40.0
+margin_bottom = 512.0
+grow_vertical = 2
+rect_min_size = Vector2( 0, 48 )
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( -8, 24 )
+rect_clip_content = false
+theme = ExtResource( 34 )
+bbcode_enabled = true
+bbcode_text = "It was a [i]System[/i] designed for [i]Entertainment![/i]"
+text = "It was a System designed for Entertainment!"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="checkpoint" from="." to="." method="_on_TextTick_checkpoint"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

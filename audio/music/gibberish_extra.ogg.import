@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/gibberish_extra.ogg-d46291e56f7c64e2c3e87cd559fcf5ca.oggstr"
+
+[deps]
+
+source_file="res://audio/music/gibberish_extra.ogg"
+dest_files=[ "res://.import/gibberish_extra.ogg-d46291e56f7c64e2c3e87cd559fcf5ca.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

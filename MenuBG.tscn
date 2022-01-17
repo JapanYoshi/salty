@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://SeetheShader.gd" type="Script" id=1]
+[ext_resource path="res://images/bg1.png" type="Texture" id=2]
+[ext_resource path="res://Seethe.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/offset = Vector2( 0, 0 )
+shader_param/canvas_size = Vector2( 1280, 720 )
+shader_param/scale = 0.05
+shader_param/strength = 50.0
+shader_param/p_time = 0.0
+
+[node name="ColorRect" type="TextureRect"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -16.0
+margin_right = 24.0
+margin_bottom = 16.0
+texture = ExtResource( 2 )
+stretch_mode = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

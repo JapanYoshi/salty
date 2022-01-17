@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/clue2.wav-7b65e9be08f0c2bc5f9e568af531b7e8.sample"
+
+[deps]
+
+source_file="res://q/g001/clue2.wav"
+dest_files=[ "res://.import/clue2.wav-7b65e9be08f0c2bc5f9e568af531b7e8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/intro.wav-c520e9af245469487b43dc49c777b35d.sample"
+
+[deps]
+
+source_file="res://q/n001/intro.wav"
+dest_files=[ "res://.import/intro.wav-c520e9af245469487b43dc49c777b35d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

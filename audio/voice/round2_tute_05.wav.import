@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/round2_tute_05.wav-c7b87dce24e8cf436d0dce5c2dfa130a.sample"
+
+[deps]
+
+source_file="res://audio/voice/round2_tute_05.wav"
+dest_files=[ "res://.import/round2_tute_05.wav-c7b87dce24e8cf436d0dce5c2dfa130a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

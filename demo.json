@@ -1,0 +1,85 @@
+{
+  "episode_name": "Demo",
+  "episode_desc": "Here’s a little taste of what’s to come with [i]Salty Trivia with Candy Barre[/i]. Sample one of each question type.",
+  "audio": {
+    "welcome": {
+      "v": "default"
+    },
+    "player_1": {
+      "v": "default"
+    },
+    "player_2": {
+      "v": "default"
+    },
+    "player_3": {
+      "v": "default"
+    },
+    "player_4": {
+      "v": "default"
+    },
+    "lifesaver": {
+      "v": "default"
+    },
+    "lifesaver_tute0": {
+      "v": "default"
+    },
+    "lifesaver_tute1": {
+      "v": "default"
+    },
+    "lifesaver_tute2": {
+      "v": "default"
+    },
+    "lifesaver_tute3": {
+      "v": "default"
+    },
+    "intermission": {
+      "v": "default"
+    },
+    "round2": {
+      "v": "default"
+    },
+    "round2_tute": {
+      "v": "default"
+    },
+    "lifesaver2": {
+      "v": "default"
+    },
+    "lifesaver2_tute0": {
+      "v": "default"
+    },
+    "lifesaver2_tute1": {
+      "v": "default"
+    },
+    "lifesaver2_tute2": {
+      "v": "default"
+    },
+    "outro": {
+      "v": "outro",
+      "s": "From the bottom of my heart,[#1920#]thank you for participating in this very first episode[#5598#]of Salty Trivia with Candy Barre.[#7395#]"
+    },
+    "outro_slam": {
+      "v": "outro_slam",
+      "s": "Now get out."
+    },
+    "skip": {
+      "v": "default"
+    }
+  },
+  "question_id": [
+    "n001",
+    "c001",
+    "s001",
+    "s002",
+    "g001",
+    "t001",
+
+    "n005",
+    "g001",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
+
+    "h001"
+  ]
+}

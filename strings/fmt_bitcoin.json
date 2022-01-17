@@ -1,0 +1,12 @@
+{
+  "name": "Bitcoin"
+, "multiplier": 0.01
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-", "₿"]
+, "zero":   ["±", "₿"]
+, "posi":   ["+", "₿"]
+, "noSign": ["", "₿"]
+}

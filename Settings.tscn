@@ -1,0 +1,697 @@
+[gd_scene load_steps=40 format=2]
+
+[ext_resource path="res://flicker.gd" type="Script" id=1]
+[ext_resource path="res://radial.tres" type="Shader" id=2]
+[ext_resource path="res://scroll.gdshader" type="Shader" id=3]
+[ext_resource path="res://RushRing.gd" type="Script" id=4]
+[ext_resource path="res://images/rush_2.png" type="Texture" id=5]
+[ext_resource path="res://images/rush_0.png" type="Texture" id=6]
+[ext_resource path="res://images/rush_6.png" type="Texture" id=7]
+[ext_resource path="res://images/rush_3.png" type="Texture" id=8]
+[ext_resource path="res://images/rush_1.png" type="Texture" id=9]
+[ext_resource path="res://images/rush_4.png" type="Texture" id=10]
+[ext_resource path="res://images/rush_5.png" type="Texture" id=11]
+[ext_resource path="res://images/rush_10.png" type="Texture" id=12]
+[ext_resource path="res://images/rush_9.png" type="Texture" id=13]
+[ext_resource path="res://images/rush_8.png" type="Texture" id=14]
+[ext_resource path="res://images/rush_7.png" type="Texture" id=15]
+[ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=16]
+[ext_resource path="res://ThemeEpisode.tres" type="Theme" id=17]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=18]
+[ext_resource path="res://green.stylebox" type="StyleBox" id=19]
+[ext_resource path="res://BackButton.tscn" type="PackedScene" id=20]
+[ext_resource path="res://ThemeSettingOption.tres" type="Theme" id=21]
+[ext_resource path="res://Settings.gd" type="Script" id=22]
+[ext_resource path="res://BackButton.gd" type="Script" id=23]
+[ext_resource path="res://fonts/small_bold.tres" type="DynamicFont" id=24]
+[ext_resource path="res://RingsContainer.gd" type="Script" id=25]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 3 )
+shader_param/offset = 0.0
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 600
+border_width_top = 600
+border_width_right = 600
+border_width_bottom = 600
+border_color = Color( 0.278431, 0.278431, 0.278431, 1 )
+border_blend = true
+corner_radius_top_left = 800
+corner_radius_top_right = 800
+corner_radius_bottom_right = 800
+corner_radius_bottom_left = 800
+corner_detail = 16
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = ExtResource( 2 )
+shader_param/scale = 1.0
+shader_param/blend = 1.0
+shader_param/canvas_size = Vector2( 1312, 752 )
+
+[sub_resource type="ViewportTexture" id=14]
+flags = 4
+viewport_path = NodePath("ViewportContainer/RingsVp")
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -504, -80 )
+script = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1024.0
+margin_top = -928.0
+margin_right = 1024.0
+margin_bottom = -416.0
+mouse_filter = 2
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RingsVp" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 2048, 512 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Container" type="Control" parent="ViewportContainer/RingsVp"]
+margin_right = 2048.0
+margin_bottom = 512.0
+script = ExtResource( 25 )
+
+[node name="Rush0" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 1 )
+anchor_right = 1.0
+margin_top = 460.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 6.5
+
+[node name="Rush1" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 2 )
+anchor_right = 1.0
+margin_top = 400.0
+margin_bottom = 452.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 9.0
+
+[node name="Rush2" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 3 )
+anchor_right = 1.0
+margin_top = 310.0
+margin_bottom = 390.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 32.0
+
+[node name="Rush3" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 4 )
+anchor_right = 1.0
+margin_top = 339.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 20.0
+
+[node name="Rush4" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 5 )
+anchor_right = 1.0
+margin_top = 326.0
+margin_bottom = 328.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 12.0
+
+[node name="Rush5" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 6 )
+anchor_right = 1.0
+margin_top = 255.0
+margin_bottom = 289.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 16.0
+
+[node name="Rush6" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 7 )
+anchor_right = 1.0
+margin_top = 138.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 36.0
+
+[node name="Rush7" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 8 )
+anchor_right = 1.0
+margin_top = 123.0
+margin_bottom = 131.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 8.0
+
+[node name="Rush8" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 9 )
+anchor_right = 1.0
+margin_top = 85.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 64.0
+
+[node name="Rush9" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 10 )
+anchor_right = 1.0
+margin_top = 4.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 48.0
+
+[node name="Rush10" type="TextureRect" parent="ViewportContainer/RingsVp/Container"]
+material = SubResource( 11 )
+anchor_right = 1.0
+margin_top = 170.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 1024, 0 )
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 4 )
+period = 64.0
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color( 0.0627451, 0.168627, 0.309804, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -440.0
+margin_right = 160.0
+margin_bottom = 440.0
+custom_styles/panel = SubResource( 12 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rings" type="TextureRect" parent="."]
+material = SubResource( 22 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = SubResource( 14 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -296.0
+margin_right = 576.0
+margin_bottom = 296.0
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scroll"]
+margin_right = 728.0
+margin_bottom = 594.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="TopSpacer" type="Control" parent="Scroll/VBoxContainer"]
+margin_right = 728.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 20.0
+margin_right = 728.0
+margin_bottom = 127.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 99.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer/VBox"]
+margin_right = 712.0
+margin_bottom = 39.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer/VBox/HSplit"]
+margin_right = 500.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Graphics quality"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 5.0
+margin_right = 712.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "smart fridge"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer/VBox"]
+margin_top = 43.0
+margin_right = 712.0
+margin_bottom = 91.0
+
+[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/PanelContainer/VBox/HBoxContainer"]
+margin_right = 712.0
+margin_bottom = 48.0
+focus_neighbour_bottom = NodePath("../../../../PanelContainer6/VBox/HBoxContainer/HSlider")
+size_flags_horizontal = 3
+max_value = 2.0
+value = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer6" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 131.0
+margin_right = 728.0
+margin_bottom = 238.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer6"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 99.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer6/VBox"]
+margin_right = 712.0
+margin_bottom = 39.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
+margin_right = 500.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Room openness"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 5.0
+margin_right = 712.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "open room"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer6/VBox"]
+margin_top = 43.0
+margin_right = 712.0
+margin_bottom = 91.0
+
+[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HBoxContainer"]
+margin_right = 712.0
+margin_bottom = 48.0
+focus_neighbour_top = NodePath("../../../../PanelContainer/VBox/HBoxContainer/HSlider")
+size_flags_horizontal = 3
+max_value = 2.0
+value = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer2" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 242.0
+margin_right = 728.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer2"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 72.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer2/VBox"]
+margin_right = 712.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit"]
+margin_top = 12.0
+margin_right = 500.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Subtitles"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 17.0
+margin_right = 644.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "on"
+clip_text = true
+
+[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit"]
+margin_left = 648.0
+margin_right = 712.0
+margin_bottom = 64.0
+focus_neighbour_top = NodePath("../../../../PanelContainer6/VBox/HBoxContainer/HSlider")
+pressed = true
+align = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 326.0
+margin_right = 728.0
+margin_bottom = 406.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer3"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 72.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer3/VBox"]
+margin_right = 712.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
+margin_top = 12.0
+margin_right = 500.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Music"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 17.0
+margin_right = 644.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "on"
+clip_text = true
+
+[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
+margin_left = 648.0
+margin_right = 712.0
+margin_bottom = 64.0
+pressed = true
+align = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 410.0
+margin_right = 728.0
+margin_bottom = 490.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer4"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 72.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer4/VBox"]
+margin_right = 712.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
+margin_top = 12.0
+margin_right = 500.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Cutscenes/Tutorials"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 17.0
+margin_right = 644.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "on"
+clip_text = true
+
+[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
+margin_left = 648.0
+margin_right = 712.0
+margin_bottom = 64.0
+pressed = true
+align = 2
+
+[node name="PanelContainer5" type="PanelContainer" parent="Scroll/VBoxContainer"]
+margin_top = 494.0
+margin_right = 728.0
+margin_bottom = 574.0
+rect_min_size = Vector2( 0, 80 )
+theme = ExtResource( 21 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer5"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 72.0
+
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer5/VBox"]
+margin_right = 712.0
+margin_bottom = 64.0
+
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
+margin_top = 12.0
+margin_right = 500.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+text = "Detect awesomeness"
+
+[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
+margin_left = 504.0
+margin_top = 17.0
+margin_right = 644.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 140, 0 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 18 )
+text = "on"
+clip_text = true
+
+[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
+margin_left = 648.0
+margin_right = 712.0
+margin_bottom = 64.0
+pressed = true
+align = 2
+
+[node name="BottomSpacer" type="Control" parent="Scroll/VBoxContainer"]
+margin_top = 578.0
+margin_right = 728.0
+margin_bottom = 594.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="Details" type="Panel" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 64.0
+margin_top = -168.0
+margin_right = 448.0
+margin_bottom = 168.0
+theme = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Details"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 376.0
+margin_bottom = 64.0
+text = "Episode Name"
+
+[node name="Desc" type="RichTextLabel" parent="Details"]
+margin_left = 8.0
+margin_top = 56.0
+margin_right = 376.0
+margin_bottom = 328.0
+theme = ExtResource( 17 )
+bbcode_enabled = true
+bbcode_text = "Episode description. \\[b]bold[/b]"
+text = "Episode description. \\bold"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" parent="." instance=ExtResource( 20 )]
+margin_top = 72.0
+margin_bottom = 128.0
+
+[node name="SaveButton" type="Panel" parent="."]
+margin_left = -16.0
+margin_top = 8.0
+margin_right = 328.0
+margin_bottom = 64.0
+custom_styles/panel = ExtResource( 19 )
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SaveButton"]
+margin_left = 82.0
+margin_top = 16.0
+margin_right = 216.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 18 )
+text = "Save changes"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Button" parent="SaveButton"]
+margin_left = 226.0
+margin_top = 8.0
+margin_right = 336.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 18 )
+custom_styles/normal = ExtResource( 16 )
+text = "Space/↑"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 0 ]]
+[connection signal="value_changed" from="Scroll/VBoxContainer/PanelContainer/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer6/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 1 ]]
+[connection signal="value_changed" from="Scroll/VBoxContainer/PanelContainer6/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 2 ]]
+[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 3 ]]
+[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 4 ]]
+[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
+[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 5 ]]
+[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
+[connection signal="back_pressed" from="BackButton" to="." method="_on_BackButton_back_pressed"]
+[connection signal="back_pressed" from="SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="SaveButton/Panel" to="SaveButton" method="_on_Panel_pressed"]

@@ -1,0 +1,86 @@
+{
+  "episode_name": "Pandering to Gamers",
+  "episode_desc": "Candy is really into watching e-Sports streams now, and she’s leaning into that obsession hard in this very special episode, dedicated to gamers of all sorts, PC, console, or Jackbox. Where would we be without you?",
+  "audio": {
+    "welcome": {
+      "v": "welcome",
+      "s": "Welcome to a very special episode of Salty Trivia with Candy Barre.[#1000#]Why is this episode special, you ask?[#2000#]Well, it’s because I brought some unsponsored corn chips and energy drinks![#3000#]I’m not sharing them.[#4000#]Get your own snacks, scrub."
+    },
+    "player_1": {
+      "v": "default"
+    },
+    "player_2": {
+      "v": "default"
+    },
+    "player_3": {
+      "v": "default"
+    },
+    "player_4": {
+      "v": "default"
+    },
+    "lifesaver": {
+      "v": "default"
+    },
+    "lifesaver_tute0": {
+      "v": "default"
+    },
+    "lifesaver_tute1": {
+      "v": "default"
+    },
+    "lifesaver_tute2": {
+      "v": "default"
+    },
+    "lifesaver_tute3": {
+      "v": "default"
+    },
+    "intermission": {
+      "v": "intermission",
+      "s": "That’s it for Round 1![#1000#]If you’re playing as teams, feel free to take this time to rebalance your teams for Round 2.[#2000#]If you’re playing battle royale, please kick half of the contestants out of the game.[#3000#]We’ll be back in a moment!"
+    },
+    "round2": {
+      "v": "welcome_back",
+      "s": "Welcome back to Salty Trivia![#1000#]I hope you took some time to rehydrate yourselves[#2000#]before another ruthless, cutthroat, competitive round of this game."
+    },
+    "round2_tute": {
+      "v": "round2_tute",
+      "s": "Round 2 comes with a +100% buff for game show winnings![#1000#]But that also means you could also take 100% more damage, so watch out!"
+    },
+    "lifesaver2": {
+        "v": "random"
+      },
+    "lifesaver2_tute0": {
+        "v": "random"
+      },
+    "lifesaver2_tute1": {
+        "v": "random"
+      },
+    "lifesaver2_tute2": {
+        "v": "random"
+      },
+    "outro": {
+      "v": "outro",
+      "s": "GG, everyone![#1000#]I mean, I say GG even if my team lost horribly,[#2000#]just absolutely destroyed, just completely demolished by the other team,[#3000#]and I went down like 7 ranks in one game.[#4000#]"
+    },
+    "outro_slam": {
+      "v": "outro_slam",
+      "s": "Totally not venting. Nope."
+    }
+  },
+  "question_id": [
+    "n001",
+    "n002",
+    "n003",
+    "s001",
+    "n004",
+    "c001",
+
+    "n005",
+    "g001",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
+
+    "h001"
+  ]
+}

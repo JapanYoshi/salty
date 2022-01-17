@@ -1,0 +1,13 @@
+[gd_resource type="DynamicFont" load_steps=3 format=2]
+
+[ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/BarlowSemiCondensed-Medium.ttf"
+
+[resource]
+size = 48
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+fallback/0 = ExtResource( 1 )

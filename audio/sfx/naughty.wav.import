@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/naughty.wav-c29326ef2ff094739328435f1fa2361f.sample"
+
+[deps]
+
+source_file="res://audio/sfx/naughty.wav"
+dest_files=[ "res://.import/naughty.wav-c29326ef2ff094739328435f1fa2361f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

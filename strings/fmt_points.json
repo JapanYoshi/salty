@@ -1,0 +1,12 @@
+{
+  "name": "points"
+, "multiplier": 1
+, "decimalDigits": 2
+, "decimalSymbol": "."
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-", "pt"]
+, "zero":   ["±", "pt"]
+, "posi":   ["+", "pt"]
+, "noSign": ["", "pt"]
+}

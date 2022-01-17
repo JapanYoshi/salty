@@ -1,0 +1,12 @@
+{
+  "name": "yen"
+, "multiplier": 1
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-¥", "万"]
+, "zero":   ["±¥", "万"]
+, "posi":   ["+¥", "万"]
+, "noSign": [ "¥", "万"]
+}

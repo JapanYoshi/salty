@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/question_leave.wav-6f514ee0ec09409c0416ccbc37c36d69.sample"
+
+[deps]
+
+source_file="res://audio/sfx/question_leave.wav"
+dest_files=[ "res://.import/question_leave.wav-6f514ee0ec09409c0416ccbc37c36d69.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

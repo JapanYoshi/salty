@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/candy_base.ogg-b00166054e41bd96d080e3e7c7619f22.oggstr"
+
+[deps]
+
+source_file="res://audio/music/candy_base.ogg"
+dest_files=[ "res://.import/candy_base.ogg-b00166054e41bd96d080e3e7c7619f22.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gib_hints.wav-e9a4054c3612dbc8fa6d92262d8039bd.sample"
+
+[deps]
+
+source_file="res://audio/sfx/gib_hints.wav"
+dest_files=[ "res://.import/gib_hints.wav-e9a4054c3612dbc8fa6d92262d8039bd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

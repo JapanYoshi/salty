@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rush_phase_4.ogg-3d6b495de4f77684d8a4fa4a2933deff.oggstr"
+
+[deps]
+
+source_file="res://audio/music/rush_phase_4.ogg"
+dest_files=[ "res://.import/rush_phase_4.ogg-3d6b495de4f77684d8a4fa4a2933deff.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

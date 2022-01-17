@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/give_name_07.wav-e5d9bab90ddf752c6bc7a9e21213d599.sample"
+
+[deps]
+
+source_file="res://audio/voice/give_name_07.wav"
+dest_files=[ "res://.import/give_name_07.wav-e5d9bab90ddf752c6bc7a9e21213d599.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

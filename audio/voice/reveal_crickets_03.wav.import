@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reveal_crickets_03.wav-f73a81464882f94ae3f6f7d1c3b67763.sample"
+
+[deps]
+
+source_file="res://audio/voice/reveal_crickets_03.wav"
+dest_files=[ "res://.import/reveal_crickets_03.wav-f73a81464882f94ae3f6f7d1c3b67763.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/menu_signin.wav-2ff87784c7a3eac4f2b144ea7a62a565.sample"
+
+[deps]
+
+source_file="res://audio/sfx/menu_signin.wav"
+dest_files=[ "res://.import/menu_signin.wav-2ff87784c7a3eac4f2b144ea7a62a565.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

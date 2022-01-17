@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pause_enter.wav-02f576faf3d8e040f958807051284079.sample"
+
+[deps]
+
+source_file="res://audio/sfx/pause_enter.wav"
+dest_files=[ "res://.import/pause_enter.wav-02f576faf3d8e040f958807051284079.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

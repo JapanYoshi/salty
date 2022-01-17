@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/key_move.wav-69729e046cf0d7cab106b9105be4a301.sample"
+
+[deps]
+
+source_file="res://audio/sfx/key_move.wav"
+dest_files=[ "res://.import/key_move.wav-69729e046cf0d7cab106b9105be4a301.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

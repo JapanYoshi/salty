@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reveal_jinx_05.wav-f9e869f4c4d37c50f008a780bdd87f59.sample"
+
+[deps]
+
+source_file="res://audio/voice/reveal_jinx_05.wav"
+dest_files=[ "res://.import/reveal_jinx_05.wav-f9e869f4c4d37c50f008a780bdd87f59.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,12 @@
+{
+  "name": "dollars"
+, "multiplier": 100
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-$", ""]
+, "zero":   ["±$", ""]
+, "posi":   ["+$", ""]
+, "noSign": [ "$", ""]
+}

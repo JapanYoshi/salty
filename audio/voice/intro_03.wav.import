@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/intro_03.wav-f36c8c97ce20b80296bc731d365355ef.sample"
+
+[deps]
+
+source_file="res://audio/voice/intro_03.wav"
+dest_files=[ "res://.import/intro_03.wav-f36c8c97ce20b80296bc731d365355ef.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

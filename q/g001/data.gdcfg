@@ -1,0 +1,88 @@
+[root]
+type = "G"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "Where Chicken and High Culture Collide"
+v = "title"
+s = "
+“Where Chicken and High Culture Collide”
+"
+
+[gib_tute0]
+v = "random"
+
+[gib_tute1]
+v = "random"
+
+[gib_tute2]
+v = "random"
+
+[gib_tute3]
+v = "random"
+
+[gib_tute4]
+v = "random"
+
+[gib_genre]
+v = "_gib_genre_slogan"
+
+[question]
+t = "Wow, gourmet wing? Smith-Bauer."
+v = "question"
+s = "“Wow, gourmet wing? Smith-Bauer.”"
+
+[answer]
+t = "Now you’re playing with power."
+r = "NOW YOU'?RE? PLAYING WITH POWER[.!]?"
+
+[clue0]
+t = "It’s an ad slogan for a hit game console..."
+v = "clue0"
+s = "
+It’s an ad slogan for a hit game console...[#2765#]
+Hm, like the Ouya, perhaps?
+"
+
+[clue1]
+t = "...that gave rise to a lot of long-running franchises."
+v = "clue1"
+s = "
+For a hit game console that gave rise to a lot of long-running franchises.[#4283#]
+But You Don’t Know Jack wasn’t one of them.
+"
+
+[clue2]
+t = "It was a System designed for Entertainment!"
+v = "clue2"
+s = "It was a System designed for Entertainment!"
+
+; always generic wrong answer.
+[gib_wrong0]
+v = "random"
+[gib_wrong1]
+v = "random"
+[gib_wrong2]
+v = "random"
+
+[reveal]
+v = "reveal"
+s = "
+Oh, you’ve never heard of that popular game console called the NES?[#4132#]
+“Wow gourmet wing Smith-Bauer”.
+"
+
+[outro]
+v = "outro"
+s = "
+Yep, that’s the ad slogan for the Nintendo Entertainment System back in 1985.[#4425#]
+Though nowadays you can play with more power just by doomscrolling Twitter on your phone.
+"
+
+[buzz_in]
+v = "random"
+
+[skip]
+v = "random"

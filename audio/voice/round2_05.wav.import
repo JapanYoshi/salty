@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/round2_05.wav-e504ae316d62ddc7f3ea240f9a6cd689.sample"
+
+[deps]
+
+source_file="res://audio/voice/round2_05.wav"
+dest_files=[ "res://.import/round2_05.wav-e504ae316d62ddc7f3ea240f9a6cd689.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=11 format=2]
+
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://green.stylebox" type="StyleBox" id=2]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/small_italic.tres" type="DynamicFont" id=4]
+[ext_resource path="res://KeyBox_Highlight.stylebox" type="StyleBox" id=5]
+[ext_resource path="res://KeyBox_Pressed.stylebox" type="StyleBox" id=6]
+[ext_resource path="res://KeyBox.stylebox" type="StyleBox" id=7]
+[ext_resource path="res://optionBox.tres" type="StyleBox" id=8]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 16.0
+content_margin_bottom = 16.0
+bg_color = Color( 0.831373, 0.0509804, 0.352941, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.12549, 0.00784314, 0.00784314, 0 )
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.32549, 0.0627451, 0.164706, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.12549, 0.00784314, 0.00784314, 1 )
+corner_detail = 4
+
+[resource]
+default_font = ExtResource( 1 )
+Button/styles/focus = ExtResource( 5 )
+Button/styles/hover = ExtResource( 5 )
+Button/styles/normal = ExtResource( 7 )
+Button/styles/pressed = ExtResource( 6 )
+Panel/styles/panel = ExtResource( 8 )
+PanelContainer/styles/panel = ExtResource( 2 )
+RichTextLabel/fonts/italics_font = ExtResource( 4 )
+RichTextLabel/fonts/normal_font = ExtResource( 3 )
+VScrollBar/styles/grabber = SubResource( 1 )
+VScrollBar/styles/grabber_highlight = SubResource( 1 )
+VScrollBar/styles/grabber_pressed = SubResource( 1 )
+VScrollBar/styles/scroll = SubResource( 2 )
+VScrollBar/styles/scroll_focus = SubResource( 2 )

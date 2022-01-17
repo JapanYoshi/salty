@@ -1,0 +1,73 @@
+[title]
+h = "Salty Trivia with Candy Barre"
+b = ["presented by hai!touch Studios"]
+
+[director]
+h = "Creative Director"
+b = ["Haley Walker"]
+
+[engineer]
+h = "Lead Engineer"
+b = ["Haley Walker"]
+
+[game]
+h = "Game Programmer"
+b = ["Haley Walker"]
+
+[controller]
+h = "Web Controller Programmer"
+b = ["Haley Walker"]
+
+[sound_design]
+h = "Sound Design"
+b = ["Akira Sora"]
+
+[voices]
+h = "Voice Actors"
+b = [
+    "Haley Walker · [i]Candy Barre[/i]",
+"??? · [i]Daisy Chaine[/i]",
+"??? · [i]Miles Stone[/i]",
+"??? · [i]unnamed bandmate[/i]"
+]
+
+[writers]
+h = "Writers"
+b = [
+"Haley Walker"
+]
+
+[technologies]
+h = "Technologies Used"
+b = [
+"Godot Engine · [i]game engine[/i]",
+"Gotm.io · [i]game hosting[/i]",
+"WebSocket · [i]client-server communication[/i]",
+"Heroku · [i]Web controller[/i]",
+"GitHub Pages · [i]home page hosting[/i]",
+"Casting Call Club · [i]Voice talent recruitment[/i]"
+]
+
+[encouragement]
+h = "Encouragement and Ideas from"
+b = [
+"TheDarkSid3r",
+"shslsquirrel",
+"ManBurning"
+]
+
+[misc]
+h = "Misc. Acknowledgements"
+b = [
+"The body text font, Barlow Semi Condensed, was designed by Jeremy Tribby. It is released under the Open Font License.",
+"The headline font, Abril Fatface, was designed by Veronika Burian & José Scaglione of TypeTogether. It is released under a proprietary license for use without cost.",
+"All trademarks used in this game are the property of their respective owners. They are used for commentary, comedy, and education, and should not be taken as an implication of ownership, endorsement, or criticism."
+]
+
+[special_thanks]
+h = "Special Thanks"
+b = [
+"Jackbox Games · [i]owner and publisher of You Don’t Know Jack[/i]",
+"Harry Gottlieb · [i]original creator of You Don’t Know Jack, founder of Jackbox Games, and voice of Nate Shapiro[/i]",
+"you · [i]Thanks for playing![/i]"
+]

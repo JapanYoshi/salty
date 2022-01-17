@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/time_close.wav-7b657bf9e4f63c13952d1fbcb5cd0b45.sample"
+
+[deps]
+
+source_file="res://audio/sfx/time_close.wav"
+dest_files=[ "res://.import/time_close.wav-7b657bf9e4f63c13952d1fbcb5cd0b45.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

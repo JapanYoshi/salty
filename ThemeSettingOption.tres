@@ -1,0 +1,78 @@
+[gd_resource type="Theme" load_steps=13 format=2]
+
+[ext_resource path="res://KeyBox_Pressed.stylebox" type="StyleBox" id=1]
+[ext_resource path="res://KeyBox_Highlight.stylebox" type="StyleBox" id=2]
+[ext_resource path="res://KeyBox.stylebox" type="StyleBox" id=3]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=4]
+[ext_resource path="res://images/rush_false.png" type="Texture" id=5]
+[ext_resource path="res://images/grabber.svg" type="Texture" id=6]
+[ext_resource path="res://images/rush_true.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.286275, 0.835294, 0.384314, 1 )
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color( 0.0627451, 0.498039, 0.270588, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.0941176, 0.384314, 0.180392, 1 )
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color( 0.0196078, 0.298039, 0.192157, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.152941, 0.152941, 0.152941, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.227451, 0.227451, 0.227451, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 3
+
+[resource]
+default_font = ExtResource( 4 )
+Button/styles/hover = ExtResource( 2 )
+Button/styles/normal = ExtResource( 3 )
+Button/styles/pressed = ExtResource( 1 )
+CheckBox/icons/checked = ExtResource( 7 )
+CheckBox/icons/unchecked = ExtResource( 5 )
+CheckBox/styles/focus = SubResource( 5 )
+CheckBox/styles/hover = SubResource( 1 )
+CheckBox/styles/hover_pressed = SubResource( 1 )
+CheckBox/styles/normal = SubResource( 1 )
+CheckBox/styles/pressed = SubResource( 1 )
+HSlider/icons/grabber = ExtResource( 6 )
+HSlider/icons/grabber_highlight = ExtResource( 6 )
+HSlider/styles/grabber_area = SubResource( 2 )
+HSlider/styles/grabber_area_highlight = SubResource( 2 )
+HSlider/styles/slider = SubResource( 3 )
+PanelContainer/styles/panel = SubResource( 4 )

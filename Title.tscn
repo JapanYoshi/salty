@@ -1,0 +1,232 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://MenuBG.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/bg0.png" type="Texture" id=2]
+[ext_resource path="res://Logo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=4]
+[ext_resource path="res://images/salty_trivia_new_logo.png" type="Texture" id=5]
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=6]
+[ext_resource path="res://Title.gd" type="Script" id=7]
+[ext_resource path="res://audio/music/main_theme.ogg" type="AudioStream" id=8]
+[ext_resource path="res://KeyBox.stylebox" type="StyleBox" id=9]
+[ext_resource path="res://ThemeEpisode.tres" type="Theme" id=10]
+
+[node name="Title" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" parent="." instance=ExtResource( 1 )]
+margin_left = -16.0
+margin_right = 16.0
+texture = ExtResource( 2 )
+expand = true
+flip_h = true
+
+[node name="Logo" parent="." instance=ExtResource( 3 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_right = -64.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+margin_top = 218.0
+margin_right = 576.0
+margin_bottom = 286.0
+rect_pivot_offset = Vector2( -1168, 328 )
+theme = ExtResource( 10 )
+text = "Play"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+margin_top = 290.0
+margin_right = 576.0
+margin_bottom = 358.0
+rect_pivot_offset = Vector2( -1168, 328 )
+theme = ExtResource( 10 )
+text = "About"
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+margin_top = 362.0
+margin_right = 576.0
+margin_bottom = 430.0
+rect_pivot_offset = Vector2( -1168, 328 )
+theme = ExtResource( 10 )
+text = "Settings"
+
+[node name="Button4" type="Button" parent="VBoxContainer"]
+margin_top = 434.0
+margin_right = 576.0
+margin_bottom = 502.0
+rect_pivot_offset = Vector2( -1168, 328 )
+theme = ExtResource( 10 )
+text = "Exit"
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 40.0
+margin_top = 464.0
+margin_right = 616.0
+margin_bottom = 536.0
+theme = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+bbcode_enabled = true
+bbcode_text = "Description"
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 48.0
+margin_top = 320.0
+margin_right = 608.0
+margin_bottom = 411.0
+custom_fonts/font = ExtResource( 4 )
+text = "(PRE-ALPHA. Lots of stuff is broken.)"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="About" type="Popup" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PanelContainer" type="PanelContainer" parent="About"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 64.0
+margin_right = -64.0
+margin_bottom = -56.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="About/PanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1144.0
+margin_bottom = 584.0
+theme = ExtResource( 10 )
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="About/PanelContainer/ScrollContainer"]
+margin_right = 1136.0
+margin_bottom = 2060.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="TextureRect" parent="About/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_right = 1136.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 256 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="RichTextLabel" type="RichTextLabel" parent="About/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 260.0
+margin_right = 1136.0
+margin_bottom = 2060.0
+theme = ExtResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[b]Salty Trivia with Candy Barre[/b] is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
+Salty Trivia with Candy Barre is a fangame of [i]You Don’t Know Jack,[/i] the original irreverent trivia game by [url=\"https://www.jackboxgames.com\"]Jackbox Games[/url]. This game has no relation with [i]You Don’t Know Jack[/i] in any official capacity.
+
+[b]Premise[/b]
+You are remote participants of a game show! Answer right to win money, but flub it up and lose potential winnings.
+You each have one [i]Lifesaver[/i] per 12 questions, which can be used to eliminate a choice from a multiple-choice question. Gain an advantage over your competitors with it.
+
+[b]Controls[/b]
+Each player has control of 6 buttons or keys.
+
+[b]Gamepad:[/b] 2 players can play per gamepad. Each player has control of one joystick and four face buttons or a D-pad.
+There are 3 different input methods:
+• [b]Grid:[/b] Move the cursor with the joystick, and push the focused key with the right face button. Included for legacy purposes.
+• [b]DaisyWheel:[/b] Select one of nine directions with the joystick, and press one of four face buttons to type a letter. Most efficient, but takes a bit of time to get used to.
+• [b]Spiral:[/b] Seek through the letters with the joystick, and press any face button to type the selected letter. Less efficient than DaisyWheel, but easier to learn.
+
+[b]Keyboard:[/b] 4 players can play on one keyboard. Assuming QWERTY, the keybinds are as follows:
+• [b]Player 1:[/b] QWE ASD
+• [b]Player 2:[/b] FGH VBN
+• [b]Player 3:[/b] UIO JKL
+• [b]Player 4:[/b] 789 456 (on numeric keypad)
+For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
+
+[b]Phone:[/b] Additional players can connect via a Web browser. Go to [url]https://haitouch.herokuapp.com[/url] to test it out. (Typing an answer is not yet supported, as of 2022 Jan 6.)"
+text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
+Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
+
+Premise
+You are remote participants of a game show! Answer right to win money, but flub it up and lose potential winnings.
+You each have one Lifesaver per 12 questions, which can be used to eliminate a choice from a multiple-choice question. Gain an advantage over your competitors with it.
+
+Controls
+Each player has control of 6 buttons or keys.
+
+Gamepad: 2 players can play per gamepad. Each player has control of one joystick and four face buttons or a D-pad.
+There are 3 different input methods:
+• Grid: Move the cursor with the joystick, and push the focused key with the right face button. Included for legacy purposes.
+• DaisyWheel: Select one of nine directions with the joystick, and press one of four face buttons to type a letter. Most efficient, but takes a bit of time to get used to.
+• Spiral: Seek through the letters with the joystick, and press any face button to type the selected letter. Less efficient than DaisyWheel, but easier to learn.
+
+Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are as follows:
+• Player 1: QWE ASD
+• Player 2: FGH VBN
+• Player 3: UIO JKL
+• Player 4: 789 456 (on numeric keypad)
+For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
+
+Phone: Additional players can connect via a Web browser. Go to https://haitouch.herokuapp.com to test it out. (Typing an answer is not yet supported, as of 2022 Jan 6.)"
+fit_content_height = true
+
+[node name="Close" type="Button" parent="About"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -88.0
+margin_top = 24.0
+margin_right = -24.0
+margin_bottom = 88.0
+theme = ExtResource( 6 )
+text = "×"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="VBoxContainer/Button" to="." method="_on_Button_mouse_entered" binds= [ 0 ]]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Play_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Button2" to="." method="_on_Button_mouse_entered" binds= [ 1 ]]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_About_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Button3" to="." method="_on_Button_mouse_entered" binds= [ 2 ]]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Options_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Button4" to="." method="_on_Button_mouse_entered" binds= [ 3 ]]
+[connection signal="pressed" from="VBoxContainer/Button4" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="About/Close" to="." method="_on_Close_pressed"]

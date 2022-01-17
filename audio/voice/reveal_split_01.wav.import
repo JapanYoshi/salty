@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/reveal_split_01.wav-0ae01143583c5b3bd05e0c90d860b3bb.sample"
+
+[deps]
+
+source_file="res://audio/voice/reveal_split_01.wav"
+dest_files=[ "res://.import/reveal_split_01.wav-0ae01143583c5b3bd05e0c90d860b3bb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

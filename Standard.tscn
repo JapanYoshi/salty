@@ -1,0 +1,987 @@
+[gd_scene load_steps=39 format=2]
+
+[ext_resource path="res://Noise.gd" type="Script" id=2]
+[ext_resource path="res://Thousand.gdshader" type="Shader" id=3]
+[ext_resource path="res://ThemeQuestion.theme" type="Theme" id=4]
+[ext_resource path="res://ThemeTitle.theme" type="Theme" id=5]
+[ext_resource path="res://Option.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Standard.gd" type="Script" id=7]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=8]
+[ext_resource path="res://fonts/timer_font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://GameTimer.gd" type="Script" id=10]
+[ext_resource path="res://Vignette.gd" type="Script" id=11]
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=12]
+[ext_resource path="res://audio/sfx/rimshot.ogg" type="AudioStream" id=13]
+[ext_resource path="res://fonts/candy_joke.tres" type="DynamicFont" id=15]
+[ext_resource path="res://images/candy_blank.png" type="Texture" id=16]
+[ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=18]
+[ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=19]
+[ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=20]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=21]
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = ExtResource( 3 )
+shader_param/offset = null
+shader_param/canvas_size = Vector2( 1280, 720 )
+shader_param/scale = 8.0
+shader_param/p_time = null
+shader_param/blend = 0.2
+shader_param/radius = 1.5
+
+[sub_resource type="DynamicFont" id=17]
+size = 1024
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 20 )
+fallback/0 = ExtResource( 19 )
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Candy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 376, 720 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Qbox/Question:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1300, 256 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Title:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 64, 512 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Title:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Qbox/Candy:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Qbox/Candy:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "candy_bruh"
+length = 1.2
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Candy:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.75, 0.783333, 0.816667, 0.85 ),
+"transitions": PoolRealArray( 1, -2, -2, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -4.2, -2.5, -3.0 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 13 )
+} ],
+"times": PoolRealArray( -0.0166667 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Qbox/Candy:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.75, 0.783333, 0.816667, 0.85 ),
+"transitions": PoolRealArray( 1, -2, -2, -2, -2 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -4, 78 ), Vector2( -3, 58 ), Vector2( -3, 68 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "candy_enter"
+length = 0.5
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Candy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
+"transitions": PoolRealArray( 0.25, -2, 2, 1 ),
+"update": 0,
+"values": [ Vector2( 376, 720 ), Vector2( 0, -8 ), Vector2( 0, 2 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Qbox/Candy:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Qbox/Candy/Bg/punchline:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Qbox/Candy:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Qbox/Candy:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "candy_punchline"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Candy/Bg/punchline:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "finale_enter"
+length = 7.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vignette:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Vignette:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "finale_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Vignette:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "question_enter"
+length = 0.5
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Question:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0666667, 0.216667 ),
+"transitions": PoolRealArray( 0.3, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1300, 256 ), Vector2( 48, 256 ), Vector2( 64, 256 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Qbox/Candy:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0666667, 0.216667 ),
+"transitions": PoolRealArray( 0.3, -2, -2 ),
+"update": 0,
+"values": [ Vector2( -3, 68 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Qbox/Candy:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.0666667, 0.216667 ),
+"transitions": PoolRealArray( 0.3, -2, -2 ),
+"update": 0,
+"values": [ -3.0, 0.2, 0.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "question_exit"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Question:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 64, 64 ), Vector2( 64, -256 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Qbox/Question:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( -2 ),
+"update": 0,
+"values": [ Vector2( 0.9, 0.9 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "question_shrink"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Qbox/Question:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 0.3, -2 ),
+"update": 0,
+"values": [ Vector2( 64, 256 ), Vector2( 64, 64 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Qbox/Question:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.25 ),
+"transitions": PoolRealArray( 0.3, -3, -3, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 0.92, 0.92 ), Vector2( 0.9, 0.9 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Qbox/Candy:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -64, -212 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Qbox/Candy:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.8, 0.8 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Qbox/Candy:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "title_enter"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Title:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Title:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 64, 512 ), Vector2( 64, 232 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "title_exit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Title:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.4 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Title:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 64, 232 ), Vector2( -800, 232 ) ]
+}
+
+[sub_resource type="Theme" id=13]
+Label/colors/font_color = Color( 0.109804, 0.0901961, 0.239216, 1 )
+Label/fonts/font = ExtResource( 15 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 2, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 2, 0.5 ),
+"update": 0,
+"values": [ 0.0, 20.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("tens:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ones:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "show"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
+"update": 0,
+"values": [ -20.0, 2.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("tens:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ones:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "tick"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("ones:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( -2, -2, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 0.8 ), Vector2( 0.9, 1.1 ), Vector2( 1.02, 0.98 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 10.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "tick_tens"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("ones:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( -2, -2, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 0.8 ), Vector2( 0.9, 1.1 ), Vector2( 1.02, 0.98 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("tens:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( -2, -2, -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1.2, 0.8 ), Vector2( 0.9, 1.1 ), Vector2( 1.02, 0.98 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 10.0, 0.0 ]
+}
+
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+
+uniform float radius: hint_range(0.0, 1.5) = 0.5;
+uniform float smoothing: hint_range(0.0, 1.0) = 0.0;
+
+void fragment() {
+	vec2 uv = (UV - 0.5) * 2.0;
+	COLOR.a = smoothstep(radius - smoothing, radius, length(uv));
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+shader_param/radius = 0.0
+shader_param/smoothing = 0.0
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+material = SubResource( 18 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.411765, 0.34902, 0.2, 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+undul_speed = 0.25
+radius = 1.5
+
+[node name="QNum" type="Label" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.145098 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -720.0
+margin_top = -614.0
+margin_right = 720.0
+margin_bottom = 826.0
+rect_min_size = Vector2( 1440, 1440 )
+rect_rotation = 5.0
+rect_pivot_offset = Vector2( 720, 610 )
+custom_fonts/font = SubResource( 17 )
+text = "12"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/RESET = SubResource( 14 )
+anims/candy_bruh = SubResource( 19 )
+anims/candy_enter = SubResource( 15 )
+anims/candy_punchline = SubResource( 16 )
+anims/finale_enter = SubResource( 20 )
+anims/finale_out = SubResource( 21 )
+anims/question_enter = SubResource( 2 )
+anims/question_exit = SubResource( 12 )
+anims/question_shrink = SubResource( 9 )
+anims/title_enter = SubResource( 3 )
+anims/title_exit = SubResource( 4 )
+
+[node name="Options" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 808, 608 )
+mouse_filter = 2
+theme = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option" parent="Options" instance=ExtResource( 6 )]
+position = Vector2( 32, 16 )
+
+[node name="Option2" parent="Options" instance=ExtResource( 6 )]
+position = Vector2( 0, 88 )
+index = 1
+
+[node name="Option3" parent="Options" instance=ExtResource( 6 )]
+position = Vector2( 64, 160 )
+index = 2
+
+[node name="Option4" parent="Options" instance=ExtResource( 6 )]
+position = Vector2( 32, 232 )
+index = 3
+
+[node name="Qbox" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Candy" type="Node2D" parent="Qbox"]
+visible = false
+position = Vector2( 376, 720 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Bg" type="TextureRect" parent="Qbox/Candy"]
+margin_left = 27.0
+margin_top = 10.0
+margin_right = 1067.0
+margin_bottom = 250.0
+mouse_filter = 2
+theme = SubResource( 13 )
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="setup" type="Label" parent="Qbox/Candy/Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 109.0
+margin_top = 38.0
+margin_right = -107.0
+margin_bottom = -122.0
+text = "Why do seagulls fly over the sea?"
+uppercase = true
+
+[node name="punchline" type="Label" parent="Qbox/Candy/Bg"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 109.0
+margin_top = 126.0
+margin_right = -107.0
+margin_bottom = -38.0
+text = "If they flied over the bay, they’d be bagels."
+valign = 2
+uppercase = true
+
+[node name="Question" type="RichTextLabel" parent="Qbox"]
+margin_left = 1300.0
+margin_top = 256.0
+margin_right = 2452.0
+margin_bottom = 487.0
+mouse_filter = 2
+theme = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "Lorem ipsum dolor sit amet, [i]consectetur adipiscing[/i] elit, sed do [b][i]eiusmod[/i] tempor[/b] incididunt ut labore et dolore [code]magna_aliqua()[/code]. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat? The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. 3.1459265358979"
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna_aliqua(). Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat? The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. 3.1459265358979"
+scroll_active = false
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuestionRevealTimer" type="Timer" parent="Qbox"]
+one_shot = true
+
+[node name="QuestionRevealTween" type="Tween" parent="Qbox"]
+
+[node name="Timer" type="Node2D" parent="Qbox"]
+position = Vector2( 1208, 56 )
+rotation = -0.349066
+scale = Vector2( 1e-05, 1e-05 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="title" type="Label" parent="Qbox/Timer"]
+margin_left = -96.0
+margin_top = 16.0
+margin_right = 96.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 8 )
+text = "seconds"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tens" type="Label" parent="Qbox/Timer"]
+margin_left = -96.0
+margin_top = -32.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 64, 104 )
+custom_fonts/font = ExtResource( 9 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ones" type="Label" parent="Qbox/Timer"]
+margin_top = -32.0
+margin_right = 96.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 32, 104 )
+custom_fonts/font = ExtResource( 9 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Qbox/Timer"]
+anims/hide = SubResource( 5 )
+anims/show = SubResource( 6 )
+anims/tick = SubResource( 7 )
+anims/tick_tens = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Qbox/Timer"]
+one_shot = true
+
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource( 11 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -640.0
+margin_right = 640.0
+margin_bottom = 640.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="RichTextLabel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 64.0
+margin_top = 512.0
+margin_right = 1216.0
+margin_bottom = 668.0
+rect_min_size = Vector2( 1152, 0 )
+rect_scale = Vector2( 0.25, 0.25 )
+mouse_filter = 2
+size_flags_horizontal = 0
+theme = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "To [code]sleep(1);[/code] Perchance to Dream"
+meta_underlined = false
+text = "To sleep(1); Perchance to Dream"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="TouchButton" type="Button" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.627451 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -168.0
+margin_right = 160.0
+margin_bottom = -104.0
+custom_fonts/font = ExtResource( 21 )
+custom_styles/hover = ExtResource( 18 )
+custom_styles/pressed = ExtResource( 18 )
+custom_styles/focus = ExtResource( 18 )
+custom_styles/disabled = ExtResource( 18 )
+custom_styles/normal = ExtResource( 18 )
+text = "↔ — buzz in"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LSButton" type="Button" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.627451 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -168.0
+margin_right = 160.0
+margin_bottom = -104.0
+custom_fonts/font = ExtResource( 21 )
+custom_styles/hover = ExtResource( 18 )
+custom_styles/pressed = ExtResource( 18 )
+custom_styles/focus = ExtResource( 18 )
+custom_styles/disabled = ExtResource( 18 )
+custom_styles/normal = ExtResource( 18 )
+text = "↖/↗ — Use Lifesaver"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_anim_finished"]
+[connection signal="timeout" from="Qbox/QuestionRevealTimer" to="." method="_on_QuestionRevealTimer_timeout"]
+[connection signal="timeout" from="Qbox/Timer/Timer" to="Qbox/Timer" method="_on_Timer_timeout"]
+[connection signal="pressed" from="TouchButton" to="." method="_on_TouchButton_pressed"]
+[connection signal="pressed" from="LSButton" to="." method="_on_LSButton_pressed"]

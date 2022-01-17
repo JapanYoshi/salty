@@ -1,0 +1,94 @@
+[root]
+type = "T"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "The Writing Team’s Attempt at Breaking the Host"
+v = "title"
+s = "
+“The Writing Team’s Attempt at Breaking the Host”
+"
+
+[thou_segue]
+v = "_thou_segue"
+
+[thou_tute0]
+v = "_thou_tute0"
+
+[thou_tute1]
+v = "_thou_tute1"
+
+[thou_tute2]
+v = "_thou_tute2"
+
+[thou_intro]
+v = "_thou_intro"
+
+[question]
+t = "What could a person with supercalifragilisticexpialidocious levels of hippopotomonstrosesquipedaliophobia [#9312#]say to perform floccinaucinihilipilification [#20996#]of antidisestablishmentarianism?[#24524#]"
+v = "question"
+s = "
+What could a person with supercalifragilisticexpialidocious levels of[#4743#]
+hippopotomonstrosesquipedaliophobia[#9312#]
+say to perform floc— flocci— nauci— nihili...[#14080#]
+What the hell is this word?[#16005#]
+floccinaucinihilipilification...[#20996#]
+of antidisestablishmentarianism? I know that word, at least.[#24524#]
+Okay, here are the options.
+"
+
+[options]
+t = [
+  "“I like what you have to say about managing a company.”",
+  "“I’m scared of eating Hawaiian fish.”",
+  "“I’m amazed at how your thyroid seems to be defective but isn’t.”",
+  "“I don’t care for people who think the gov’t should be religious.”"
+]
+v = "options"
+s = "
+“I like what you have to say about managing a company.”,[#2674#]
+“I’m scared of eating Hawaiian fish.”[#4619#]
+“I’m amazed at how your thyroid seems to be defective but isn’t.”,[#8005#]
+or “I don’t care for people who think the government should be religious.”?[#11270#]
+Oh, that was a hell of a question.
+"
+i = 3
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "
+Well, you’re gonna be a middle manager at best.
+"
+
+[option1]
+v = "option1"
+s = "
+No, that’s humuhumunukunukuapua‘a, silly! Everybody knows that!
+"
+
+[option2]
+v = "option2"
+s = "No, that option is about pseudopseudohypothyroidism. And yes, that is apparently a real medical term. Go figure."
+
+[option3]
+v = "option3"
+s = "
+Antidisestablishmentarianism is the political view that opposes the opposition[#4655#]
+to separation of church and state.[#6550#]
+Floccinaucinihilipilification is the act of evaluating that something is unimportant or worthless.[#13106#]
+And finally, hippopotomonstrosesquipedaliophobia is the fear of long words. How ironic.[#20405#]
+"
+
+[outro]
+v = "outro"
+s = "
+Why yes, I [i]am[/i] very fun to play Scrabble against; why do you ask?
+"
+
+[skip]
+v = "random"

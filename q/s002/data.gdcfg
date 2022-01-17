@@ -1,0 +1,101 @@
+[root]
+type = "S"
+has_both = true
+
+[pretitle]
+v = "random"
+
+[title]
+t = "We’re Not So Different, You and I"
+v = "title"
+s = "“We’re Not So Different, You and I”"
+
+[sort_segue]
+v = "_sort_segue"
+
+[sort_category]
+v = "_sort_category_ingredients"
+
+[sort_explain]
+v = "_sort_explain"
+
+[sort_a]
+t = "in a Big Mac®"
+v = "sort_a"
+s = "in a Big Mac,"
+
+[sort_b]   
+t = "in a Whopper®"
+v = "sort_b"
+s = "in a Whopper,"
+
+[sort_both]
+v = "_sort_both"
+
+[sort_a_short]
+t = "Big Mac®"
+v = "sort_a_short"
+s = "Big Mac,"
+
+[sort_press_left]
+v = "_sort_press_left"
+
+[sort_b_short]
+t = "Whopper®"
+v = "sort_b_short"
+s = "Whopper,"
+
+[sort_press_right]
+v = "_sort_press_right"
+
+[sort_press_up]
+v = "_sort_press_up"
+
+[sort_options]
+t = [
+    "quarter-pound beef patty",
+    "a second beef patty",
+    "tomato",
+    "ketchup",
+    "cheese",
+    "mayo-based sauce",
+    "a third bun"
+]
+s = [
+    "Quarter-pound beef patty!",
+    "A second beef patty!",
+    "Tomato!",
+    "Ketchup!",
+    "Cheese!",
+    "Mayo-based sauce!",
+    "A third bun!"
+]
+a = [2, 0, 1, 1, 0, 2, 0]
+
+[sort_perfect]
+v = "sort_perfect"
+s = "You had this question your way!"
+
+[sort_good]
+v = "sort_good"
+s = "I’m [i]likin’[/i] your performance, but I’m not particularly [i]lovin’[/i] it."
+
+[sort_ok]
+v = "sort_ok"
+s = "Your performance was like a soggy, greasy burger."
+
+[sort_bad]
+v = "sort_bad"
+s = "Your answers need a health inspection."
+
+[outro]
+v = "outro"
+s = "
+The Big Mac costs less, but hey, you get what you pay for.[#3228#]
+That’s why I eat out at places that are more high-brow,[#5875#]
+[#6560#]
+like Denny’s.
+"
+
+[skip]
+v = "random"

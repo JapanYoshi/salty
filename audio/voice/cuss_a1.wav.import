@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cuss_a1.wav-23fa97f0a5c3405e5edd38bb58cf8711.sample"
+
+[deps]
+
+source_file="res://audio/voice/cuss_a1.wav"
+dest_files=[ "res://.import/cuss_a1.wav-23fa97f0a5c3405e5edd38bb58cf8711.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
