@@ -130,6 +130,8 @@ func _input(e):
 		if e.pressed:
 			if sc == KEY_ESCAPE:
 				get_parent().back()
+			# this is a hacky workaround caused by "physical scancode" being backported from Godot 4
+			# but not "is physical key pressed". the workaround involves creating 8 input actions.
 			if sc == KEY_Q and Input.is_action_pressed("signup0b")\
 			or sc == KEY_E and Input.is_action_pressed("signup0"):
 				kb_queue(0)

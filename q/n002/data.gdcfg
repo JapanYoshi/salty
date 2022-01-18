@@ -1,0 +1,89 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "A Tarot to the Knee"
+v = "title"
+s = "“A Tarot to the Knee”."
+
+[intro]
+v = "intro"
+s = "
+So I've been going to Renaissance fairs lately,[#2142#]
+and it inspired me to take up a few new hobbies,[#4348#]
+like tarot reading and juggling.[#6240#]
+I've actually gotten pretty good at it. So,
+"
+ 
+[question]
+t = "If I wanted to juggle an object that is one of the suits in a standard Tarot deck, which of these things should I [b]not[/b] learn to juggle?"
+v = "question"
+s = "
+If I wanted to juggle an object that is one of the suits in a standard Tarot deck,[#3831#]
+which of these things should I [i]not[/i] learn to juggle?
+"
+
+[options]
+t = [
+  "sharp swords",
+  "plush balls",
+  "juggling rings",
+  "shaker cups"
+]
+v = "options"
+s = "Sharp swords, plush balls, juggling rings, or shaker cups?"
+i = 1
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "Well, you're no sharp cookie."
+
+[option1]
+v = "option1"
+s = "
+Swords, cups, and rings (better known as pentacles or coins)[#3088#]
+are all suits in the Minor Arcana.[#5364#]
+But the fourth one is wands or batons, not balls.[#8986#]
+Maybe devil sticks would complete the set.
+"
+
+[option2]
+v = "option2"
+s = "No, rings is another name for pentacles.[#2368#]
+[#4296#]
+What the hell are pentacles?"
+
+[option3]
+v = "option3"
+s = "That theory doesn't hold water."
+
+[outro]
+v = "outro"
+s = "
+I'm well on my way to completing all four tarot suits,[#2670#]
+because I've already gotten pretty decent at juggling rings.[#5041#]
+Watch this![#5779#]
+[#9364#]
+Whoa, whoa, whoa![#10470#]
+[sound effect of Sonic losing Rings] Ow."
