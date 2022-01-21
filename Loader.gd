@@ -194,6 +194,18 @@ func load_question(id, first_question: bool):
 				"rush_tute0", "rush_tute1", "rush_tute2", "rush_tute3",
 				"title", "explanation", "rush_ready", "skip"
 			]
+		"L":
+			keys = [
+				"like_intro",
+				"like_tute0", "like_tute1", #"like_tute2", "like_tute3",
+				"like_title", "title", "like_options", "options", "like_ready",
+				"section0", "answer0",
+				"section1", "answer1",
+				"section2", "answer2",
+				"section3", "answer3",
+				"section4", "answer4",
+				"like_outro", "skip"
+			]
 		_:
 			printerr("Question type can't be parsed yet: " + data.type)
 	for key in keys:
@@ -231,7 +243,17 @@ func load_question(id, first_question: bool):
 				# All Outta Salt
 				#"gib_segue",
 				"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
-				"gib_wrong0", "gib_wrong1", "gib_wrong2"
+				"gib_wrong0", "gib_wrong1", "gib_wrong2",
+				# Thousand-Question Question
+				"thou_segue", "thou_tute0", "thou_tute1", "thou_tute2", "thou_intro",
+				# Sugar Rush
+				"rush_intro", "rush_tute0", "rush_tute1", "rush_tute2", "rush_tute3",
+				"rush_ready",
+				# Like/Leave
+				"like_intro",
+				"like_tute0", "like_tute1", "like_tute2", "like_tute3",
+				"like_title", "like_options", "like_ready",
+				"like_outro"
 			]:
 				# some logic depending on the situation
 				var pool =\

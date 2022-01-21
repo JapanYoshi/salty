@@ -1,0 +1,1062 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://LikeBG.gd" type="Script" id=1]
+[ext_resource path="res://LikePhone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://images/like_logo.png" type="Texture" id=3]
+[ext_resource path="res://audio/music/like_outro.ogg" type="AudioStream" id=4]
+[ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=5]
+[ext_resource path="res://PlayerBox.stylebox" type="StyleBox" id=6]
+[ext_resource path="res://images/like_heart.png" type="Texture" id=7]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=8]
+[ext_resource path="res://fonts/player_number_font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/small_bold.tres" type="DynamicFont" id=10]
+[ext_resource path="res://LikeLB.gd" type="Script" id=11]
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Shader" id=16]
+code = "shader_type canvas_item;
+
+uniform vec2 center = vec2(0.5, 0.5);
+uniform float scale = 1.0;
+uniform float offset = 0.0;
+uniform float blend = 0.5;
+uniform vec2 canvas_size = vec2(1280., 720.);
+
+void fragment() {
+	// scale the coordinates to dp, starting from center
+	vec2 aspect = canvas_size / length(canvas_size);
+	vec2 uv = (UV - center) * aspect;
+	vec2 polar = vec2(
+		atan(uv.y, uv.x) / 6.2831853 + 0.5,
+		fract(length(uv) * scale - offset)
+	);
+	vec4 color = texture(TEXTURE, polar);
+	COLOR.rgb = mix(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, COLOR.rgb, color.a * blend);
+}"
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+shader_param/center = Vector2( 0.625, 0.5 )
+shader_param/scale = 1.0
+shader_param/offset = 0.0
+shader_param/blend = 0.4
+shader_param/canvas_size = Vector2( 1312, 752 )
+
+[sub_resource type="ViewportTexture" id=18]
+flags = 4
+viewport_path = NodePath("RingThing/RingsVp")
+
+[sub_resource type="Animation" id=6]
+resource_name = "off0"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart0:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart0:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.494118, 0.494118, 0.494118, 0.627451 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "off1"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart1:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.494118, 0.494118, 0.494118, 0.627451 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "off2"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart2:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.494118, 0.494118, 0.494118, 0.627451 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "off3"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart3:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.494118, 0.494118, 0.494118, 0.627451 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "on0"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart0:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart0:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.839216, 0.870588, 0.305882, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "on1"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart1:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart1:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.537255, 0.870588, 0.305882, 1 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "on2"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart2:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.352941, 0.756863, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "on3"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("HeartPanel/Heart3:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HeartPanel/Heart3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.85098, 0.435294, 0.952941, 1 ) ]
+}
+
+[sub_resource type="ViewportTexture" id=1]
+flags = 4
+viewport_path = NodePath("ViewportContainer/Viewport")
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="Animation" id=2]
+resource_name = "logo"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("LogoBg:rect_size:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.7 ),
+"transitions": PoolRealArray( -2, -2, 1 ),
+"update": 0,
+"values": [ 720.0, 720.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LogoBg/Logo:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.7 ),
+"transitions": PoolRealArray( 0.3, 1, -2, 0.732043 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LogoBg:rect_position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 1.7 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -480.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LogoBg:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0.12549, 0.372549, 0.823529, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PhoneTxr:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 2, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 3.5, 3.5 ), Vector2( 3.5, 3.5 ), Vector2( 2, 2 ), Vector2( 0.8, 0.8 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PhoneTxr:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.3, 2 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 383.799, -152 ), Vector2( 384, -152 ), Vector2( 512, -336 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("PhoneTxr:rect_rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.3, 2 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 5.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PhoneTxr:rect_pivot_offset")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.6, 2 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 256, 512.79 ), Vector2( 256, 512 ), Vector2( 160, 1440 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("LogoBg/Logo:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("LB:rect_position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 1.6, 2 ),
+"transitions": PoolRealArray( 1, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 640, 0 ), Vector2( 640, 0 ), Vector2( 224, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("LB:rect_scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "outro"
+length = 5.625
+step = 0.03125
+tracks/0/type = "value"
+tracks/0/path = NodePath("PhoneTxr:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.75, 0.9375 ),
+"transitions": PoolRealArray( 0.25, 3, 1 ),
+"update": 0,
+"values": [ 5.0, -815.0, -809.988 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PhoneTxr:rect_pivot_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.05, 1 ),
+"update": 0,
+"values": [ Vector2( 160, 1440 ), Vector2( 256, 512 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PhoneTxr:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Vector2( 512, -336 ), Vector2( 384, -152 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PhoneTxr:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9375, 2.3125, 2.5625, 2.8125, 3.0625 ),
+"transitions": PoolRealArray( 0.3, 1, 0.1, 0.1, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 0.8, 0.8 ), Vector2( 2, 2 ) ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("AudioStreamPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("LogoBg:rect_size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 256, 256 ), Vector2( 256, 256 ), Vector2( 512, 256 ), Vector2( 512, 256 ), Vector2( 1280, 720 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("LogoBg/Logo:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.75, 0.9375, 2.3125, 2.5625, 2.8125, 3.0625 ),
+"transitions": PoolRealArray( 3, 1, 0.1, 0.1, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ), Vector2( 0.63, 0.63 ), Vector2( 0.56, 0.56 ), Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("LogoBg:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 514, 232 ), Vector2( 514, 232 ), Vector2( 386, 232 ), Vector2( 386, 232 ), Vector2( 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("LogoBg:rect_rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.75, 0.9375 ),
+"transitions": PoolRealArray( 3, 1 ),
+"update": 0,
+"values": [ -95.0, 0.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("LogoBg:rect_pivot_offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 128, 128 ), Vector2( 128, 128 ), Vector2( 256, 128 ), Vector2( 256, 128 ), Vector2( 640, 360 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("LogoBg:modulate:a")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.75, 0.78125 ),
+"transitions": PoolRealArray( 1, 1e-05, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("LogoBg:color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 3.75, 5.625 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("LogoBg/Logo:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 3.75, 5.625 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("LB:rect_scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0.78125, 0.9375 ),
+"transitions": PoolRealArray( 6, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.6, 0.6 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("LB:rect_position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0.78125, 0.9375 ),
+"transitions": PoolRealArray( 6, 1 ),
+"update": 0,
+"values": [ Vector2( 224, 0 ), Vector2( 360, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "reveal"
+length = 2.09375
+step = 0.03125
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.65625, 1.125, 1.59375, 2.0625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "_reveal_index"
+}, {
+"args": [ 1 ],
+"method": "_reveal_index"
+}, {
+"args": [ 2 ],
+"method": "_reveal_index"
+}, {
+"args": [ 3 ],
+"method": "_reveal_index"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "swipe"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("PhoneTxr:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 5, 0, 0, 0.01, -0.6, 4.2, -0.08, 0, 0.2, 0, 5, -0.6, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1, 1 )
+}
+
+[node name="LikeBG" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.12549, 0.372549, 0.823529, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RingThing" type="ViewportContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1024.0
+margin_top = -1186.0
+margin_right = -1008.0
+margin_bottom = -162.0
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RingsVp" type="Viewport" parent="RingThing"]
+size = Vector2( 16, 1024 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="RingThing/RingsVp"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Panel" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1002.0
+margin_bottom = -956.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel2" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -922.0
+margin_bottom = -796.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel3" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -662.0
+margin_bottom = -632.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel4" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -564.0
+margin_bottom = -478.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel5" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -372.0
+margin_bottom = -356.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel6" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -312.0
+margin_bottom = -166.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Panel7" type="Panel" parent="RingThing/RingsVp"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -82.0
+margin_bottom = -44.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="Rings" type="TextureRect" parent="."]
+material = SubResource( 17 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = SubResource( 18 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -512.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 512, 1024 )
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 512, 1024 )
+transparent_bg = true
+handle_input_locally = false
+msaa = 1
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="LikePhone" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
+
+[node name="LB" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -360.0
+margin_right = 360.001
+margin_bottom = 360.0
+rect_pivot_offset = Vector2( 180, 360 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="LB"]
+
+[node name="Player" type="Control" parent="LB"]
+margin_right = 360.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 360, 90 )
+
+[node name="Panel" type="Panel" parent="LB/Player"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -48.0
+margin_bottom = -10.0
+custom_styles/panel = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="LB/Player/Panel"]
+margin_left = 40.0
+margin_top = 4.0
+margin_right = 240.0
+margin_bottom = 38.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "0 OF 0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="LB/Player/Panel"]
+margin_top = 40.0
+margin_right = 240.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 8 )
+text = "WWWWWWWWWWWW"
+align = 2
+
+[node name="HeartPanel" type="Panel" parent="LB/Player"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -88.0
+margin_top = -40.0
+margin_right = -8.0
+margin_bottom = 40.0
+custom_styles/panel = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart0" type="TextureRect" parent="LB/Player/HeartPanel"]
+modulate = Color( 0.494118, 0.494118, 0.494118, 0.627451 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -24.0
+margin_top = -1.0
+margin_right = 24.0
+margin_bottom = 47.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 24, 16 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart1" type="TextureRect" parent="LB/Player/HeartPanel"]
+modulate = Color( 0.494118, 0.494118, 0.494118, 0.627451 )
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -17.0
+margin_right = 40.0
+margin_bottom = 31.0
+rect_rotation = 90.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 24, 16 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart2" type="TextureRect" parent="LB/Player/HeartPanel"]
+modulate = Color( 0.494118, 0.494118, 0.494118, 0.627451 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -17.0
+margin_right = 8.0
+margin_bottom = 31.0
+rect_rotation = -90.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 24, 16 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heart3" type="TextureRect" parent="LB/Player/HeartPanel"]
+modulate = Color( 0.494118, 0.494118, 0.494118, 0.627451 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -24.0
+margin_top = -33.0
+margin_right = 24.0
+margin_bottom = 15.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 24, 16 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="LB/Player"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -45.0
+margin_right = 40.0
+margin_bottom = 19.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "8"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LB/Player"]
+anims/off0 = SubResource( 6 )
+anims/off1 = SubResource( 7 )
+anims/off2 = SubResource( 8 )
+anims/off3 = SubResource( 9 )
+anims/on0 = SubResource( 10 )
+anims/on1 = SubResource( 11 )
+anims/on2 = SubResource( 12 )
+anims/on3 = SubResource( 13 )
+
+[node name="PhoneTxr" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -256.201
+margin_top = -512.0
+margin_right = 255.799
+margin_bottom = 512.0
+rect_min_size = Vector2( 512, 1024 )
+rect_scale = Vector2( 3.5, 3.5 )
+rect_pivot_offset = Vector2( 256, 512.79 )
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="PhoneTxr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 498.0
+margin_right = -46.0
+margin_bottom = -430.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="PhoneTxr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 598.0
+margin_right = -46.0
+margin_bottom = -330.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="PhoneTxr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 698.0
+margin_right = -46.0
+margin_bottom = -230.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="PhoneTxr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 798.0
+margin_right = -46.0
+margin_bottom = -130.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LogoBg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
+color = Color( 0.12549, 0.372549, 0.823529, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="TextureRect" parent="LogoBg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -128.0
+margin_right = 512.0
+margin_bottom = 128.0
+rect_scale = Vector2( 1.2, 1.2 )
+rect_pivot_offset = Vector2( 512, 128 )
+texture = ExtResource( 3 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/logo = SubResource( 2 )
+anims/outro = SubResource( 5 )
+anims/reveal = SubResource( 4 )
+anims/swipe = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -80.0
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="PhoneTxr/Button" to="." method="_on_Button_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="PhoneTxr/Button2" to="." method="_on_Button_pressed" binds= [ 3 ]]
+[connection signal="pressed" from="PhoneTxr/Button3" to="." method="_on_Button_pressed" binds= [ 5 ]]
+[connection signal="pressed" from="PhoneTxr/Button4" to="." method="_on_Button_pressed" binds= [ 4 ]]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ab-sorta.png-6aeac177101d991fa9b4804c45edf8bd.stex"
+path="res://.import/like_phone.png-1b69bcab712ef4609faba222dc1d030b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ab-sorta.png"
-dest_files=[ "res://.import/ab-sorta.png-6aeac177101d991fa9b4804c45edf8bd.stex" ]
+source_file="res://images/like_phone.png"
+dest_files=[ "res://.import/like_phone.png-1b69bcab712ef4609faba222dc1d030b.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
