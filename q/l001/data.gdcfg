@@ -1,23 +1,23 @@
 [root]
 type = "L"
 
-[hike_intro]
-v = "_hike_intro"
+[like_intro]
+v = "random"
 
-[hike_tute0]
-v = "_hike_tute0"
+[like_tute0]
+v = "random"
 
-[hike_tute1]
-v = "_hike_tute1"
+[like_tute1]
+v = "random"
 
-[hike_tute2]
-v = "_hike_tute2"
+[like_tute2]
+v = "random"
 
-[hike_tute3]
-v = "_hike_tute3"
+[like_tute3]
+v = "random"
 
-[hike_title]
-v = "_hike_title"
+[like_title]
+v = "random"
 
 [title]
 t = "Flying Colors"
@@ -26,8 +26,8 @@ s = "
 “Flying Colors”
 "
 
-[hike_options]
-v = "_hike_options"
+[like_options]
+v = "random"
 
 [options]
 v = "options"
@@ -40,12 +40,12 @@ s = "
 red, blue, and yellow.
 "
 
-[hike_ready]
-v = "_hike_ready"
+[like_ready]
+v = "random"
 
 [section0]
 v = "section0"
-q = "used in the flag of Poland"
+t = "used in the flag of Poland"
 s = "
 Used in the flag of Poland.
 "
@@ -57,14 +57,14 @@ o = [
 a = [1, 0, 0, 1]
 v = "answer0"
 s = "
-Poland’s flag in white and red. Yep, white is on top.
+Poland’s flag is white and red. Yep, white is on top.
 "
 
 [section1]
 v = "section1"
-q = "a color of standard printer ink"
+t = "a color of standard printer ink"
 s = "
-A color of printer ink.
+A color of standard printer ink.
 "
 o = [
     "red", "blue", "yellow", "black"
@@ -79,9 +79,9 @@ The four colors of ink a printer uses are cyan, magenta, yellow, and black.
 
 [section2]
 v = "section2"
-q = "included in British Smarties from the start"
+t = "included in British Smarties from the start"
 s = "
-Included in British Smarties from the start..
+Included in British Smarties from the start.
 "
 o = [
     "red", "blue", "yellow", "pink"
@@ -91,14 +91,14 @@ o = [
 a = [1, 0, 1, 1]
 v = "answer2"
 s = "
-Blue Smarties replaced light-brown smarties in 1988,[##]
-then were replaced with white Smarties in 2006,[##]
-but added back in 2008 when they found a less artificial and less controversial blue dye.
+Blue Smarties replaced light-brown smarties in 1988,[#3616#]
+then were replaced with white Smarties in 2006,[#6628#]
+but added back in 2008 when they found a less artificial and less controversial dye.
 "
 
 [section3]
 v = "section3"
-q = "Japanese Gen-1 Pokémon games"
+t = "Japanese Gen-1 Pokémon games"
 s = "
 Japanese Generation-1 Pokémon games.
 "
@@ -110,13 +110,13 @@ o = [
 a = [1, 1, 0, 1]
 v = "answer3"
 s = "
-Japan had [i]Pokémon Red[/i] and [i]Green[/i] first,[##]
+Japan had [i]Pokémon Red[/i] and [i]Green[/i] first,[#2019#]
 then [i]Blue[/i], then [i]Pikachu[/i].
 "
 
 [section4]
 v = "section4"
-q = "a Coldplay song title"
+t = "a Coldplay song title"
 s = "
 A Coldplay song title.
 "
@@ -131,8 +131,8 @@ s = "
 “Yellow” is a Coldplay song, and so is “Shiver”. But there’s no Coldplay song called “Silver”.
 "
 
-[hike_outro]
-v = "_hike_outro"
+[like_outro]
+v = "random"
 
 [skip]
-v = "skip"
+v = "random"
