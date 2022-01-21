@@ -85,6 +85,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	var voice = load((questions_path if question_specific else voice_path) + filename + ".wav")
 	if voice == null:
 		printerr("Voice line could not load! File path: " + (questions_path if question_specific else voice_path) + filename + ".wav")
+		voice = load(voice_path + "cuss_a2.wav")
 	# avoid duplicate keys
 	for e in voice_list:
 		if e[0] == key:
@@ -219,6 +220,8 @@ func play_sfx(name, speed = 1.0):
 		sfx.set_pitch_scale(speed)
 		sfx.play()
 		_log("Played SFX ", name, sfx.get_playback_position())
+	else:
+		printerr("SFX not found: ", name)
 
 func play_voice(id):
 	if last_voice != "":
@@ -235,7 +238,7 @@ func play_voice(id):
 	if is_instance_valid(sub_node):
 		sub_node.queue_subtitles(voice_line[2])
 	last_voice = voice_line[0]
-	voice_line[1].play()
+	voice_line[1].call_deferred("play")
 	_log("Played voice ", voice_line[0], voice_line[1].get_playback_position())
 
 func stop_voice(should_be_playing = ""):
