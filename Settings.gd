@@ -116,6 +116,7 @@ onready var temp_config = R.cfg.duplicate()
 onready var vbox = $Scroll/VBoxContainer
 onready var title = $Details/Name
 onready var desc = $Details/Desc
+var setup_done = false
 
 func _ready():
 	S.play_music("options", 1)
@@ -124,6 +125,7 @@ func _ready():
 		change_desc(true)
 	focus_index = 0
 	vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider").grab_focus()
+	setup_done = true
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -156,6 +158,10 @@ func change_desc(backwards: bool = true):
 func _on_HSlider_value_changed(value):
 	var setting_name = settings_dict[focus_index].k
 	temp_config[setting_name] = value
+	if typeof(value) == TYPE_REAL and setup_done:
+		var slider = vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider")
+		if slider:
+			S.play_sfx("key_move", 1.0 + ((0.0 + value) / slider.max_value))
 	if settings_dict[focus_index].k == "graphics_quality":
 		R._set_visual_quality(value)
 	elif settings_dict[focus_index].k == "music":
@@ -171,6 +177,8 @@ func _change_focus(extra_arg_0):
 	change_desc()
 
 func _on_check_toggled(button_pressed):
+	if setup_done:
+		S.play_sfx("rush_o" + ("n" if button_pressed else "ff"))
 	_on_HSlider_value_changed(button_pressed)
 
 func _on_BackButton_back_pressed():
@@ -182,3 +190,6 @@ func _on_SaveButton_pressed():
 	R.save_settings()
 	R._set_visual_quality(R.cfg.graphics_quality)
 	get_tree().change_scene("res://Title.tscn")
+
+func _on_option_mouse_entered(extra_arg_0):
+	_change_focus(extra_arg_0)
