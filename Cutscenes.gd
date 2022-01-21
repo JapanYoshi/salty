@@ -42,16 +42,16 @@ func round2_logo(backwards):
 		anim.play("round2")
 
 func open_bg():
-	$Tween.interpolate_method(
+	tween.interpolate_method(
 		self, "set_radius", 0.0, 0.75, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
-	$Tween.start()
+	tween.start()
 
 func close_bg():
-	$Tween.interpolate_method(
+	tween.interpolate_method(
 		self, "set_radius", 0.75, 0.0, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
-	$Tween.start()
+	tween.start()
 
 func show_lifesaver_logo():
 	$Lifesavers.show()

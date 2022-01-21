@@ -10,11 +10,15 @@ var skippable = false
 var skipped = false
 var DEBUG = false
 var remote_players = []
+var penalize_pausing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	q_box.ep = self
+	q_box.kb = get_node("TypingHandler")
 	q_box.set_process(false)
 	c_box.set_process(true)
+	S.play_sfx("blank")
 	$Shutter/AnimationPlayer.stop()
 	$SkipButton.hide()
 	$BackButton.hide()
@@ -26,17 +30,17 @@ func _ready():
 	if not R.pass_between.has("episode_name"):
 		# we're debugging
 		R.pass_between.episode_name = "demo"
-#		question_number = 12
-#		episode_data = Loader.load_episode(R.pass_between.episode_name)
-#		load_next_question()
-#		return
-#	elif R.pass_between.episode_name == "demo":
-#		# still debug for now
-#		DEBUG = true
-#		question_number = 12
-#		episode_data = Loader.load_episode(R.pass_between.episode_name)
-#		load_next_question()
-#		return
+		question_number = 12
+		episode_data = Loader.load_episode(R.pass_between.episode_name)
+		load_next_question()
+		return
+	elif R.pass_between.episode_name == "demo":
+		# still debug for now
+		DEBUG = true
+		question_number = 12
+		episode_data = Loader.load_episode(R.pass_between.episode_name)
+		load_next_question()
+		return
 	$Cutscenes/Round2.scale = Vector2(0, 1)
 	episode_data = Loader.load_episode(R.pass_between.episode_name)
 	call_deferred("play_intro")
@@ -120,6 +124,7 @@ func play_intro():
 				'playerIndex': R.players[i].player_number,
 				'isVip': false
 			});
+	# censored names will be given later
 	# will be used later if cutscenes are on.
 	var voice_lines = [
 		"welcome"
@@ -156,6 +161,7 @@ func play_intro():
 				player_voice = "player_callout_%d" % censored_players[0]
 				global_voice_lines.append(player_voice)
 				global_voice_lines.append("name_censored")
+				S.preload_ep_voice("give_name", names[chosen_names[0]].v, false, names[chosen_names[0]].s)
 			2, 3:
 				player_voice = "%d_player_callout" % len(censored_players)
 				global_voice_lines.append(player_voice)
@@ -206,7 +212,7 @@ func play_intro():
 			false,
 			Loader.random_dict.audio_question.skip[skip_index].s
 		)
-		yield(get_tree().create_timer(0.1), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		S.play_music("new_theme", true)
 		c_box.play_intro(); yield(c_box, "animation_finished")
 		S.play_track(0, 0.4)
@@ -226,8 +232,8 @@ func play_intro():
 			if R.cfg.cutscenes:
 				q_box.hud.highlight_players(censored_players)
 				S.play_voice("name_censored"); yield(S, "voice_end")
-			q_box.hud.set_player_name(censored_players[0], R.players[censored_players[0]].name, true)
 			R.players[censored_players[0]].name = names[chosen_names[0]].name
+			q_box.hud.set_player_name(censored_players[0], R.players[censored_players[0]].name, true)
 			if censored_players[0] in remote_players:
 				Ws.send('message', {
 					'to': R.players[censored_players[0]].device_name,
@@ -297,7 +303,7 @@ func play_intro():
 						'playerIndex': R.players[i].player_number,
 						'isVip': false
 					});
-			q_box.hud.punish_players(range(len(R.players)), 500)
+			q_box.hud.punish_players(range(len(R.players)), 500.01)
 			if R.cfg.cutscenes:
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
 			q_box.hud.reset_all_playerboxes()
@@ -328,6 +334,7 @@ func play_intro():
 			S.unload_voice(k)
 		end_intro()
 	else:
+		q_box.show_loading_logo()
 		load_next_question()
 
 func play_intro_2():
@@ -407,6 +414,7 @@ func end_intro():
 	S.play_track(0, 0.0, false)
 	S.play_sfx("question_leave")
 	hud.slide_playerbar(false)
+	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
 	c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
 	disable_skip()
@@ -444,9 +452,10 @@ func play_intermission():
 	play_intro_2()
 
 func load_next_question():
+	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
 	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
 		# DEBUG: Skip Round 2 because we don't have enough questions or Round 2 cutscene lines yet.
-		# TODO: record extra questions and Round 2 lines
+		# TODO: record extra questions and Round 2 Lifesaver lines
 		if DEBUG:
 			question_number = 12;
 			load_question(episode_data.question_id[question_number])
@@ -471,16 +480,35 @@ func load_question(q_name):
 	question_number += 1
 	q_box.call_deferred("change_stage", "init")
 
+func too_many_pauses():
+	# freeze frame effect
+	var txr: ImageTexture = ImageTexture.new()
+	# Let frames pass to make sure the screen was captured.
+#	yield(get_tree(), "idle_frame")
+	# Retrieve the captured image.
+	var screenshot: Image = get_viewport().get_texture().get_data()
+	txr.create_from_image(screenshot, 0)
+	$Screen.set_texture(txr)
+#	$Screen.show()
+	
+	S.play_music("", 0)
+	S.stop_voice()
+	q_box.queue_free()
+	yield(get_tree().create_timer(0.5), "timeout")
+	#S.play_voice("")
+	disqualified()
+
 func disqualified():
 	Ws.close_room()
 	$Shutter.set_texture(load("res://images/shutter.png"))
-	S.play_sfx("dq")
 	$Shutter/AnimationPlayer.play("disqualified")
+	S.play_sfx("dq")
 	yield($Shutter/AnimationPlayer, "animation_finished")
 	get_tree().change_scene("res://Title.tscn")
 
 func play_outro():
 	$Pause.hide()
+	c_box.set_radius(0)
 	intermission_played = false
 	S.preload_music("drum_roll")
 	var voice_lines = [
@@ -521,6 +549,9 @@ func play_outro():
 	c_box.roll_credits()
 	C.connect("gp_button", self, "_back_button")
 	intermission_played = true
+
+func set_pause_penalty(truthy: bool):
+	penalize_pausing = truthy
 
 func _on_SkipButton_gui_input(event):
 	if event is InputEventMouseButton:

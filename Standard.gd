@@ -17,6 +17,8 @@ signal question_done
 # end
 var stage = ""
 
+var point_value = 0
+
 var question_number = 0
 var question_type = "N"
 var S_question_number = 0
@@ -35,9 +37,9 @@ const musics = {
 	]
 }
 
+var ep: Node
 var hud: Node
-
-var point_value = 10
+var kb: Node
 
 onready var anim = $AnimationPlayer
 onready var title = $Title
@@ -51,7 +53,6 @@ onready var option_boxes = [
 ]
 onready var timer = $Qbox/Timer
 
-onready var kb = get_parent().get_node("TypingHandler")
 
 onready var bgs = {}
 
@@ -137,7 +138,7 @@ func enable_skip():
 		return
 	send_scene('enableSkip')
 	can_skip = true
-	get_parent().get_node("SkipButton").show()
+	ep.get_node("SkipButton").show()
 	var result = C.connect("gp_button", self, "_gp_button")
 	print("Result of Standard connecting to C.gp_button is: ", result)
 
@@ -148,7 +149,7 @@ func disable_skip():
 	send_scene('disableSkip')
 	revert_scene('enableSkip')
 	can_skip = false
-	get_parent().get_node("SkipButton").hide()
+	ep.get_node("SkipButton").hide()
 	var result = C.disconnect("gp_button", self, "_gp_button")
 	print("Result of Standard disconnecting from C.gp_button is: ", result)
 
@@ -168,6 +169,8 @@ func skip():
 			change_stage("thou_intro")
 		"R":
 			change_stage("rush_clue")
+		"L":
+			change_stage("like_clue")
 
 func _gp_button(input_player, button, pressed):
 	var player = -1
@@ -228,14 +231,14 @@ func _gp_button(input_player, button, pressed):
 						bgs.G.countdown_pause(true)
 						S.play_track(1, 0)
 						activate_keyboard(player)
+						yield(get_tree().create_timer(0.75), "timeout")
 						if R.players[player].device == C.DEVICES.REMOTE:
 							Ws.send('message', {'action': 'gibYourTurn'}, R.players[player].device_name)
-						yield(get_tree().create_timer(0.75), "timeout")
 						S.play_voice("buzz_in")
 			"T":
 				if not pressed: return
 				if no_answer.find(player) != -1:
-					var option = [-2, 0, -2, 1, 3, 2, -1][button]
+					var option = [-1, 0, -1, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
 						set_buzz_in(false)
 						player_buzz_in(player)
@@ -252,6 +255,9 @@ func _gp_button(input_player, button, pressed):
 			"R":
 				if not pressed: return
 				R_synced_button(player, button, -1)
+			"L":
+				if not pressed: return
+				L_synced_button(player, button, -1)
 			_:
 				printerr("Unimplemented input.")
 	elif can_skip:
@@ -270,16 +276,23 @@ func _gp_button(input_player, button, pressed):
 					bgs.R.tute(3)
 					bgs.R.abort = true
 					skip()
+				"L":
+					bgs.L.tute(-1)
+					bgs.L.abort = true
+					skip()
 
 func _on_synced_button(input_player, button, new_state):
 	if !can_buzz_in: return
-	if question_type == "R":
+	if question_type in ["R", "L"]:
 		var player = -1
 		for i in range(len(R.players)):
 			if R.players[i].device_index == input_player:
 				player = i
 				break
-		R_synced_button(player, button, new_state)
+		if question_type == "R":
+			R_synced_button(player, button, new_state)
+		else:
+			L_synced_button(player, button, new_state)
 
 func R_synced_button(player, button, new_state):
 	if player == -1 or button == -1:
@@ -295,6 +308,22 @@ func R_synced_button(player, button, new_state):
 		answers[button].push_back(player)
 		S.play_sfx("rush_on")
 		hud.set_finale_answer(player, button, true)
+
+func L_synced_button(player, button, new_state):
+	if player == -1 or button in [-1, 0, 2]:
+		return
+	var option = [-1, 0, -1, 1, 3, 2, -1][button]
+	var old_state = answers[option].has(player)
+	# if new_state isn't -1, it's the state the option should be in at the end.
+	if new_state != -1 and bool(new_state) == old_state: return
+	if old_state:
+		answers[option].erase(player)
+		S.play_sfx("rush_off")
+		bgs.L.toggle_player_input(player, option, false)
+	else:
+		answers[option].push_back(player)
+		S.play_sfx("rush_on")
+		bgs.L.toggle_player_input(player, option, true)
 
 func activate_keyboard(player):
 	S.stop_voice()
@@ -358,7 +387,7 @@ func answer_submitted(text):
 			# "you know what we quit"
 			S.play_voice("cuss_c0")
 			yield(S, "voice_end")
-			get_parent().disqualified()
+			ep.disqualified()
 	else:
 		print("incorrect")
 		S.play_voice("gib_wrong0")
@@ -374,10 +403,18 @@ func reset_answers():
 	for i in range(len(R.players)):
 		no_answer.append(i)
 
+# Called during the unloading of the previous question (unloading used backgrounds)
+# and during the ending of the round intro
+func show_loading_logo():
+	print("show loading logo")
+	anim.play("touchprism_enter", -1, 1.0)
+
 # Advance to the next stage of the question!
 func change_stage(next_stage):
 	if next_stage == "init":
 		stage = "init"
+		print("CHANGE STAGE TO INIT")
+		S.play_sfx("blank")
 		can_buzz_in = false
 		question_type = data.type
 		title.bbcode_text = data.title.t
@@ -483,12 +520,20 @@ func change_stage(next_stage):
 				send_scene("rush", {
 					'title': data.title
 				})
-		if question_type in ["R", "H"]:
-			$Vignette.color = Color.black
-			S.play_music("rush_intro", 1)
-			$AnimationPlayer.play("finale_enter")
-			return
-		elif question_type in ["N", "C", "T"]:
+			"L":
+				hud.enable_lifesaver(false)
+				accuracy = [
+					[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]
+				]
+				S_question_number = 0
+				bgs.L = load("res://LikeBG.tscn").instance()
+				$BG.add_child(bgs.L)
+				hud.show_finale_box(2)
+				hud.show_accuracy(accuracy)
+				send_scene("like", {
+					'title': data.title.t,
+				})
+		if question_type in ["N", "C", "T"]:
 			question_queue = Loader.parse_time_markers(data.question.t)
 			question.bbcode_text = ""
 			question.visible_characters = 0
@@ -514,8 +559,16 @@ func change_stage(next_stage):
 				"question": question.bbcode_text,
 				"options": data.options.t
 			})
-		yield(get_tree().create_timer(3.0/8.0), "timeout")
-		change_stage("pretitle")
+		if anim.is_playing():
+			yield(anim, "animation_finished")
+		anim.play("touchprism_leave")
+		yield(anim, "animation_finished")
+		if question_type in ["R", "L"]:
+			$Vignette.color = Color.black
+			anim.play("finale_enter")
+			S.play_music("rush_intro" if question_type == "R" else "like_loop_base", 1)
+		else:
+			call_deferred("change_stage", "pretitle")
 	elif stage == "init" and next_stage == "pretitle":
 		stage = "pretitle"
 		S.play_voice("pretitle")
@@ -574,6 +627,31 @@ func change_stage(next_stage):
 			S.play_voice("rush_tute3")
 			yield(S, "voice_end")
 		change_stage("rush_clue")
+	elif stage == "init" and next_stage == "intro_L":
+		stage = "intro_L"
+		bgs.L.play_intro()
+		anim.play("finale_out")
+		yield(get_tree().create_timer(0.7), "timeout")
+		S.play_track(0, 0.75)
+		S.play_voice("like_intro")
+		yield(S, "voice_end")
+		if R.cfg.cutscenes:
+			enable_skip()
+			bgs.L.tute(0)
+			S.play_voice("like_tute0")
+			yield(S, "voice_end"); if !can_skip: return
+			bgs.L.tute(1)
+			S.play_voice("like_tute1")
+			yield(S, "voice_end"); if !can_skip: return
+#			bgs.L.tute(2)
+#			S.play_voice("like_tute2")
+#			yield(S, "voice_end"); if !can_skip: return
+#			bgs.L.tute(3)
+#			S.play_voice("like_tute3")
+#			yield(S, "voice_end"); if !can_skip: return
+			bgs.L.tute(-1)
+			disable_skip()
+		change_stage("like_clue")
 	
 	elif stage == "intro" and next_stage == "question":
 		stage = "question"
@@ -587,6 +665,7 @@ func change_stage(next_stage):
 		S.play_voice("question")
 		anim.play("question_enter")
 		send_scene('showQuestion')
+		ep.set_pause_penalty(true)
 		advance_question()
 	elif stage == "question" and next_stage == "options":
 		stage = "options"
@@ -608,6 +687,8 @@ func change_stage(next_stage):
 		timer.start_timer()
 	elif stage == "options" or stage == "countdown" and next_stage == "reveal":
 		stage = "reveal"
+		if !len(used_lifesaver) or len(answered_wrong):
+			ep.set_pause_penalty(false)
 		S.stop_voice("options")
 		S.play_track(0, false); S.play_track(1, false); S.play_track(2, false)
 		yield(get_tree().create_timer(0.25), "timeout")
@@ -638,6 +719,8 @@ func change_stage(next_stage):
 			S.play_voice("reveal")
 	elif stage == "rush_question" and next_stage == "reveal":
 		R_show_answers()
+	elif stage == "like_question" and next_stage == "reveal":
+		L_show_answers()
 	
 	elif stage == "sorta_setup" and next_stage == "sorta_questions":
 		stage = "sorta_questions"
@@ -662,6 +745,7 @@ func change_stage(next_stage):
 		bgs.G.show_price()
 	elif stage == "gib_genre" and next_stage == "gib_question":
 		stage = "gib_question"
+		ep.set_pause_penalty(true)
 		set_buzz_in(true)
 		S.seek_multitrack(0)
 		S.play_track(1, 1)
@@ -672,6 +756,7 @@ func change_stage(next_stage):
 		bgs.G.connect("checkpoint", self, "G_checkpoint")
 	elif stage == "gib_question" and next_stage == "gib_answer":
 		stage = "gib_answer"
+		ep.set_pause_penalty(false)
 		bgs.G.gib_reveal()
 		S.play_music("gibberish_end", 1)
 		send_scene('gibReveal', {
@@ -699,6 +784,7 @@ func change_stage(next_stage):
 		bgs.G.show_price()
 	elif stage == "thou_intro" and next_stage == "thou_question":
 		stage = "thou_question"
+		ep.set_pause_penalty(true)
 		hud.slide_playerbar(true)
 		bgs.G.countdown()
 		S.play_track(1, 1)
@@ -729,6 +815,27 @@ func change_stage(next_stage):
 		yield(get_tree().create_timer(1.5), "timeout")
 		last_pos = S.music_dict[S.tracks[0]].get_playback_position()
 		stage = "rush_wait"
+	
+	elif stage == "intro_L" and next_stage == "like_clue":
+		stage = "intro_L"
+		S.play_voice("like_title")
+		yield(S, "voice_end")
+		bgs.L.show_title(data.title.t)
+		S.play_voice("title")
+		send_scene("likeClue")
+		yield(S, "voice_end")
+		S.play_voice("like_options")
+		yield(S, "voice_end")
+		var options = data.options.o
+		assert(typeof(options) == TYPE_ARRAY)
+		bgs.L.show_initial_options(options)
+		S.play_voice("options")
+		yield(S, "voice_end")
+		S.play_voice("like_ready")
+		timer.initialize(10)
+		yield(S, "voice_end")
+		S.play_music("like_loop_ingame", 0.75)
+		L_show_question()
 
 	elif next_stage == "outro":
 		stage = "outro"
@@ -737,32 +844,46 @@ func change_stage(next_stage):
 		S.play_voice("outro")
 	elif stage == "outro" and next_stage == "end":
 		stage = "end"
+		print("Change stage to end")
 		S.play_track(0, false)
 		send_scene('endQuestion')
 		revert_scene('')
 		S.play_sfx("question_leave")
-		for k in musics[question_type]:
-			S.unload_music(k)
 		if question_type in ["N", "C", "T"]:
 			anim.play("question_exit")
-			if question_type == "C":
-				bgs.C.queue_free()
-			elif question_type == "T":
-				#bgs.G.disconnect("checkpoint", self, "T_checkpoint")
-				bgs.G.queue_free()
-		elif question_type == "G":
-			bgs.G.queue_free()
-		elif question_type == "S":
-			bgs.S.queue_free()
-		elif question_type == "R":
-			bgs.R.queue_free()
 		$Vignette.close()
+		if question_number != 5:
+			$Vignette.connect("tween_finished", self, "show_loading_logo", [], CONNECT_ONESHOT)
 		hud.slide_playerbar(false)
-		yield(get_tree().create_timer(1.0), "timeout")
+		print("DEBUG PRINT UNLOAD MUSIC")
+		for k in musics[question_type]:
+			S.unload_music(k)
 		for b in option_boxes:
 			b.reset()
-
+		print("DEBUG PRINT UNLOAD BG")
+		if question_type == "T" or question_type == "G":
+			if is_instance_valid(bgs.G):
+				bgs.G.queue_free()
+		elif question_type == "S":
+			if is_instance_valid(bgs.S):
+				bgs.S.queue_free()
+		elif question_type == "R":
+			if is_instance_valid(bgs.R):
+				bgs.R.queue_free()
+		elif question_type == "L":
+			if is_instance_valid(bgs.L):
+				bgs.L.queue_free()
+		elif question_type == "C":
+			if is_instance_valid(bgs.C):
+				bgs.C.queue_free()
 		question_number += 1
+		print("Question is successfully finished!")
+		if $Vignette.tween.is_active():
+			print("DEBUG PRINT WAIT FOR VIGNETTE")
+			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
+			yield($Vignette, "tween_finished")
+			if question_number != 5:
+				show_loading_logo()
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
 		# just finished revealing lifesaver decoys
@@ -773,7 +894,7 @@ func change_stage(next_stage):
 		S.play_voice("used_lifesaver")
 	else:
 		printerr("Unrecognized stage: ", next_stage)
-		breakpoint
+		#	breakpoint
 
 func _on_voice_end(voice_id):
 	match stage:
@@ -1142,7 +1263,10 @@ func _on_anim_finished(anim_name):
 				printerr("Unrecognized question type: " + question_type)
 				change_stage("intro")
 	elif anim_name == "finale_enter":
-		change_stage("intro_R")
+		if question_type == "R":
+			change_stage("intro_R")
+		else:
+			change_stage("intro_L")
 
 func _on_QuestionRevealTimer_timeout():
 	advance_question()
@@ -1152,8 +1276,8 @@ func _on_question_time_up():
 	if question_type in ["G"]:
 		kb.submit()
 		return
-	# Sorta Kinda should not play default "time up" sound effect.
-	if question_type in ["N", "C"]:
+	# Some special question types should not play default "time up" sound effect.
+	if question_type in ["N", "C", "L"]:
 		S.play_sfx("time_up")
 	change_stage("reveal")
 
@@ -1226,7 +1350,7 @@ func S_show_question():
 				losers.append(p)
 			else:
 				breakevens.append(p)
-			if p in get_parent().remote_players:
+			if p in ep.remote_players:
 				Ws.send('message', {
 					'action': 'changeScene',
 					'sceneName': 'sortAcc',
@@ -1252,6 +1376,7 @@ func S_show_question():
 		hud.reset_playerboxes(breakevens)
 	else:
 		reset_answers()
+		ep.set_pause_penalty(true)
 		# DEBUG: let players randomly answer
 #		for p in range(0, 8):
 #			var choice = R.rng.randi_range(0, 2 if data.has_both else 1)
@@ -1278,6 +1403,7 @@ func S_show_question():
 func S_show_answer():
 	timer.stop_timer()
 	timer.hide_timer()
+	ep.set_pause_penalty(false)
 	set_buzz_in(false)
 	var i = S_question_number
 	bgs.S.answer(data.sort_options.a[i])
@@ -1330,6 +1456,7 @@ func G_checkpoint(id: int):
 			})
 		3:
 			set_buzz_in(false)
+			ep.set_pause_penalty(false)
 			S.play_track(0, 0); S.play_track(1, 0)
 			S.play_sfx("time_up")
 			yield(get_tree().create_timer(0.5), "timeout")
@@ -1342,6 +1469,7 @@ func T_checkpoint(id: int):
 		set_buzz_in(false)
 		S.play_track(0, 0); S.play_track(1, 0)
 		S.play_sfx("time_up")
+		ep.set_pause_penalty(false)
 		yield(get_tree().create_timer(0.5), "timeout")
 		print("Gibberish gave up")
 		bgs.G.disconnect("checkpoint", self, "T_checkpoint")
@@ -1357,15 +1485,10 @@ func R_show_question():
 		for i in range(len(R.players)):
 			var gain = 180 * (accuracy[i][0] - (accuracy[i][1] / 2)) / accuracy[i][1]
 			R.players[i].score += gain
-		bgs.R.hide()
-		for k in [
-			"rush_intro",
-			"rush_phase_1", "rush_phase_2", "rush_phase_3",
-			"rush_phase_4", "rush_phase_5", "rush_phase_6"
-		]:
-			S.unload_music(k)
+		bgs.R.queue_free()
 		emit_signal("question_done")
 	else:
+		ep.set_pause_penalty(true)
 		hud.reset_finale_box()
 		reset_answers()
 		S._stop_music(0)
@@ -1376,7 +1499,8 @@ func R_show_question():
 		)
 		timer.initialize(15)
 		timer.start_timer()
-		revert_scene("rushSection")
+		if S_question_number > 0:
+			revert_scene("rushSection")
 		send_scene("rushSection", {
 			'question': section.q,
 			'options': section.o
@@ -1385,6 +1509,7 @@ func R_show_question():
 
 func R_show_answers():
 	set_buzz_in(false)
+	ep.set_pause_penalty(false)
 	bgs.R.time_up(true)
 	var solutions = data["section%d" % S_question_number].a
 	send_scene("rushReveal", {
@@ -1410,6 +1535,59 @@ func R_show_answers():
 	yield(get_tree().create_timer(0.5), "timeout")
 	S_question_number += 1
 	R_show_question()
+
+func L_show_question():
+	if S_question_number == 5:
+		# maximum 180 points for final round
+		for i in range(len(R.players)):
+			var gain = 180 * (accuracy[i][0] - (accuracy[i][1] / 2)) / accuracy[i][1]
+			R.players[i].score += gain
+		S.play_music("like_outro", 0.75)
+		bgs.L.end_question()
+		yield(get_tree().create_timer(1.0), "timeout")
+		S.play_voice("like_outro")
+		yield(get_tree().create_timer(6.0), "timeout") # wait for animation to end
+		emit_signal("question_done")
+		bgs.L.queue_free()
+	else:
+		stage = "like_question"
+		timer.initialize(10)
+		ep.set_pause_penalty(true)
+		timer.show_timer()
+		var section = data["section%d" % S_question_number]
+		bgs.L.show_question(section.t, section.o, S_question_number)
+		S.play_voice("section%d" % S_question_number)
+		timer.start_timer()
+		reset_answers()
+		bgs.L.reset_all_answers()
+		set_buzz_in(true)
+		if S_question_number > 0:
+			revert_scene("likeSection")
+		send_scene("likeSection", {
+			'question': section.t,
+			'options': section.o
+		})
+
+func L_show_answers():
+	set_buzz_in(false)
+	ep.set_pause_penalty(false)
+	timer.hide_timer()
+	var section = data["answer%d" % S_question_number]
+	bgs.L.reveal(section.a)
+	yield(bgs.L.anim, "animation_finished")
+	yield(get_tree().create_timer(1), "timeout")
+	send_scene("likeReveal", {
+		'answers': section.a
+	})
+	for i in range(4):
+		for j in range(len(R.players)):
+			if answers[i].has(j) == bool(section.a[i]):
+				accuracy[j][0] += 1
+			accuracy[j][1] += 1
+	S.play_voice("answer%d" % S_question_number)
+	yield(S, "voice_end")
+	S_question_number += 1
+	L_show_question()
 
 func play_answer_music():
 	match R.rng.randi_range(1, 5):
@@ -1460,7 +1638,7 @@ func _on_server_reply(id):
 		_send_scenes_to(id)
 
 func _on_player_requested_nick(id):
-	for i in get_parent().remote_players:
+	for i in ep.remote_players:
 		if R.players[i].device_name == id:
 			Ws.send('message', {
 				action = 'changeNick',
