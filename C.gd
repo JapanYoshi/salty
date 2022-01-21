@@ -8,6 +8,9 @@ enum DEVICES {
 }
 signal gp_button(index, button, pressed)
 signal gp_axis(index, axis, value)
+# prevent inputs from leaking out to the game when paused
+signal gp_button_paused(index, button, pressed)
+signal gp_axis_paused(index, axis, value)
 signal gp_connect
 signal gp_disconnect
 
@@ -41,15 +44,22 @@ func _input(event):
 		)
 		if which.player != -1:
 			print("Player %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
-			emit_signal("gp_button", which.player, which.button, event.pressed)
+			if get_tree().paused:
+				emit_signal("gp_button_paused", which.player, which.button, event.pressed)
+			else:
+				emit_signal("gp_button", which.player, which.button, event.pressed)
 	elif event is InputEventJoypadMotion:
 		var which = lookup_axis(event.device, event.axis)
 		if which.player != -1:
 			#print("Player %d, axis %d, value %f" % [which.player, which.axis, event.axis_value])
-			emit_signal("gp_axis", which.player, which.axis, event.axis_value)
+			if get_tree().paused:
+				emit_signal("gp_axis_paused", which.player, which.button, event.axis_value)
+			else:
+				emit_signal("gp_axis", which.player, which.axis, event.axis_value)
 
 func inject_button(player: int, button: int, pressed: bool):
 	print("Player %d, button %d, pressed %s" % [player, button, str(pressed)])
+	# remote or touchscreen can't leave pause menu
 	emit_signal("gp_button", player, button, pressed)
 
 func _on_input_changed(device: int, connected: bool):

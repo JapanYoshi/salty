@@ -14,6 +14,7 @@ onready var count_label = $NinePatchRect/Label2
 func _ready():
 	hide()
 	C.connect("gp_button", self, "_gp_button")
+	C.connect("gp_button_paused", self, "_gp_button_paused")
 
 func _process(delta):
 	if !visible: return
@@ -32,16 +33,37 @@ func _update_shader(delta):
 		)
 
 func pause_modal(player_number, device_index):
-	paused_times += 1
+	if get_parent().penalize_pausing:
+		paused_times += 1
+		if paused_times >= 3:
+			var rand = R.rng.randi() # max: 4294967295
+			var thres = (1 << 28) * (2 + paused_times)
+			if rand < thres:
+				print("too many pauses")
+				get_parent().too_many_pauses()
+				C.disconnect("gp_button", self, "_gp_button")
+				return
 	device = device_index
-	number_label.set_text("%d" % (player_number + 1))
-	count_label.set_text("You have paused %s this game." % (
-		"once" if paused_times == 1 else (
-			"twice" if paused_times == 2 else (
-				"%d times" % paused_times
-			)
-		)
-	))
+	if player_number == -1:
+		$NinePatchRect/Sprite.hide()
+	else:
+		$NinePatchRect/Sprite.show()
+		number_label.set_text("%d" % (player_number + 1))
+	match paused_times:
+		0:
+			count_label.set_text("What now, contestant?")
+		1:
+			count_label.set_text("Don’t pause too much during a question.")
+		2:
+			count_label.set_text("Busy? Come back soon.")
+		3:
+			count_label.set_text("You’re being a bit suspicious right now.")
+		4:
+			count_label.set_text("The host is getting upset.")
+		5:
+			count_label.set_text("You’re on thin ice.")
+		_:
+			count_label.set_text("Dude, why are you doing this?")
 	show()
 	anim.play("show")
 	get_tree().paused = true
@@ -71,15 +93,19 @@ func _gp_button(index, button, pressed):
 					i = p.player_number
 			pause_modal(i, index)
 		return
+
+func _gp_button_paused(index, button, pressed):
 	# other buttons?
 	if !self.visible: return
 	if index != device: return
-	if button == 5:
+	if button == 5 or button == 6:
 		accept_event()
 		resume()
+		return;
 	elif button == 3:
 		accept_event()
 		quit()
+		return;
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "hide":
