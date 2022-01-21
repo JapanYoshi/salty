@@ -72,14 +72,14 @@ func incorrect(loss = 5):
 		self, "score", score, score - loss, 0.7, Tween.TRANS_QUAD
 	)
 	$Tween.start()
-	$Anim.play("Wrong")
+	$Anim.play("Wrong", 0.05)
 
 func correct(gain = 5):
 	$Tween.interpolate_property(
 		self, "score", score, score + gain, 0.7, Tween.TRANS_QUAD
 	)
 	$Tween.start()
-	$Anim.play("Right")
+	$Anim.play("Right", 0.05)
 
 func set_score():
 	$Score.set_text(R.format_currency(score))
