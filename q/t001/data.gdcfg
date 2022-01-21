@@ -12,19 +12,19 @@ s = "
 "
 
 [thou_segue]
-v = "_thou_segue"
+v = "random"
 
 [thou_tute0]
-v = "_thou_tute0"
+v = "random"
 
 [thou_tute1]
-v = "_thou_tute1"
+v = "random"
 
 [thou_tute2]
-v = "_thou_tute2"
+v = "random"
 
 [thou_intro]
-v = "_thou_intro"
+v = "random"
 
 [question]
 t = "What could a person with supercalifragilisticexpialidocious levels of hippopotomonstrosesquipedaliophobia [#9312#]say to perform floccinaucinihilipilification [#20996#]of antidisestablishmentarianism?[#24524#]"

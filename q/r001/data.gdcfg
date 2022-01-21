@@ -2,19 +2,19 @@
 type = "R"
 
 [rush_intro]
-v = "_rush_intro"
+v = "random"
 
 [rush_tute0]
-v = "_rush_tute0"
+v = "random"
 
 [rush_tute1]
-v = "_rush_tute1"
+v = "random"
 
 [rush_tute2]
-v = "_rush_tute2"
+v = "random"
 
 [rush_tute3]
-v = "_rush_tute3"
+v = "random"
 
 [title]
 t = "Grand Finale"

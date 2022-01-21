@@ -12,10 +12,10 @@ s = "“A Tarot to the Knee”."
 [intro]
 v = "intro"
 s = "
-So I've been going to Renaissance fairs lately,[#2142#]
+So I’ve been going to Renaissance fairs lately,[#2142#]
 and it inspired me to take up a few new hobbies,[#4348#]
 like tarot reading and juggling.[#6240#]
-I've actually gotten pretty good at it. So,
+I’ve actually gotten pretty good at it. So,
 "
  
 [question]
@@ -57,7 +57,7 @@ v = "random"
 
 [option0]
 v = "option0"
-s = "Well, you're no sharp cookie."
+s = "Well, you’re no sharp cookie."
 
 [option1]
 v = "option1"
@@ -76,13 +76,13 @@ What the hell are pentacles?"
 
 [option3]
 v = "option3"
-s = "That theory doesn't hold water."
+s = "That theory doesn’t hold water."
 
 [outro]
 v = "outro"
 s = "
-I'm well on my way to completing all four tarot suits,[#2670#]
-because I've already gotten pretty decent at juggling rings.[#5041#]
+I’m well on my way to completing all four tarot suits,[#2670#]
+because I’ve already gotten pretty decent at juggling rings.[#5041#]
 Watch this![#5779#]
 [#9364#]
 Whoa, whoa, whoa![#10470#]
