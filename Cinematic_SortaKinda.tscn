@@ -45,14 +45,14 @@ region_rect = Rect2( 0, 0, 640, 180 )
 modulate_color = Color( 0.486275, 1, 0.431373, 1 )
 
 [sub_resource type="ViewportTexture" id=18]
-viewport_path = NodePath("Viewport/OptionsVP")
+viewport_path = NodePath("ViewportContainer/Viewport/OptionsVP")
 
 [sub_resource type="Animation" id=4]
 resource_name = "answer_a"
 length = 2.0
 step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/Camera:rotation_degrees:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -112,7 +112,7 @@ tracks/4/keys = {
 "values": [ 1.0, 4.0, 4.0, 1.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:translation:z")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:translation:z")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -136,7 +136,7 @@ tracks/6/keys = {
 "values": [ Vector2( 240, 460 ), Vector2( 160, 460 ), Vector2( 160, 460 ), Vector2( -880, 460 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Viewport/OptionsVP/PanelB:modulate:a")
+tracks/7/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -148,7 +148,7 @@ tracks/7/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Viewport/OptionsVP/PanelAB:modulate:a")
+tracks/8/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelAB:modulate:a")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -160,7 +160,7 @@ tracks/8/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Viewport/OptionsVP/PromptB:modulate:a")
+tracks/9/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptB:modulate:a")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -172,7 +172,7 @@ tracks/9/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Viewport/OptionsVP/PromptAB:modulate:a")
+tracks/10/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:modulate:a")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -189,7 +189,7 @@ resource_name = "answer_ab"
 length = 2.0
 step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/Camera:rotation_degrees:x")
+tracks/0/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -249,7 +249,7 @@ tracks/4/keys = {
 "values": [ 1.0, 4.0, 4.0, 1.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:translation:z")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:translation:z")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -261,7 +261,7 @@ tracks/5/keys = {
 "values": [ 20.0, 19.96, 19.96, 20.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Viewport/Camera:translation:y")
+tracks/6/path = NodePath("ViewportContainer/Viewport/Camera:translation:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -285,7 +285,7 @@ tracks/7/keys = {
 "values": [ Vector2( 240, 460 ), Vector2( 240, 430 ), Vector2( 240, 430 ), Vector2( 240, -200 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Viewport/OptionsVP/PanelB:modulate:a")
+tracks/8/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:modulate:a")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -297,7 +297,7 @@ tracks/8/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Viewport/OptionsVP/PanelA:modulate:a")
+tracks/9/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:modulate:a")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -309,7 +309,7 @@ tracks/9/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Viewport/OptionsVP/PromptB:modulate:a")
+tracks/10/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptB:modulate:a")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -321,7 +321,7 @@ tracks/10/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Viewport/OptionsVP/PromptA:modulate:a")
+tracks/11/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptA:modulate:a")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -338,7 +338,7 @@ resource_name = "answer_b"
 length = 2.0
 step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/Camera:rotation_degrees:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -398,7 +398,7 @@ tracks/4/keys = {
 "values": [ 1.0, 4.0, 4.0, 1.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:translation:z")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:translation:z")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -422,7 +422,7 @@ tracks/6/keys = {
 "values": [ Vector2( 240, 460 ), Vector2( 320, 460 ), Vector2( 320, 460 ), Vector2( 1360, 460 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Viewport/OptionsVP/PanelA:modulate:a")
+tracks/7/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -434,7 +434,7 @@ tracks/7/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Viewport/OptionsVP/PanelAB:modulate:a")
+tracks/8/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelAB:modulate:a")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -446,7 +446,7 @@ tracks/8/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Viewport/OptionsVP/PromptA:modulate:a")
+tracks/9/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptA:modulate:a")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -458,7 +458,7 @@ tracks/9/keys = {
 "values": [ 1.0, 0.0, 0.0, 1.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Viewport/OptionsVP/PromptAB:modulate:a")
+tracks/10/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:modulate:a")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -475,7 +475,7 @@ resource_name = "ending"
 length = 6.66668
 step = 0.0166667
 tracks/0/type = "audio"
-tracks/0/path = NodePath("Viewport/AudioStreamPlayer")
+tracks/0/path = NodePath("ViewportContainer/Viewport/AudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -489,7 +489,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/SprSorta:translation:x")
+tracks/1/path = NodePath("ViewportContainer/Viewport/SprSorta:translation:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -501,7 +501,7 @@ tracks/1/keys = {
 "values": [ 0.0, 2.5, -16.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/SprKinda:translation:x")
+tracks/2/path = NodePath("ViewportContainer/Viewport/SprKinda:translation:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -513,7 +513,7 @@ tracks/2/keys = {
 "values": [ 0.0, -2.5, 16.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/SprSorta:opacity")
+tracks/3/path = NodePath("ViewportContainer/Viewport/SprSorta:opacity")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -525,7 +525,7 @@ tracks/3/keys = {
 "values": [ 0.3, 0.8 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/SprKinda:opacity")
+tracks/4/path = NodePath("ViewportContainer/Viewport/SprKinda:opacity")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -537,7 +537,7 @@ tracks/4/keys = {
 "values": [ 0.3, 0.8 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:translation")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:translation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -549,7 +549,7 @@ tracks/5/keys = {
 "values": [ Vector3( 0, 0, 20 ), Vector3( 0, -0.3, 60 ), Vector3( 0, -0.3, 10 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Viewport/Camera:rotation_degrees")
+tracks/6/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -609,7 +609,7 @@ tracks/10/keys = {
 "values": [ 1.0, 0.5, 8.0, 8.0, 1.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Viewport/SprSorta:rotation_degrees:z")
+tracks/11/path = NodePath("ViewportContainer/Viewport/SprSorta:rotation_degrees:z")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -621,7 +621,7 @@ tracks/11/keys = {
 "values": [ 5.0, 0.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Viewport/SprKinda:rotation_degrees:z")
+tracks/12/path = NodePath("ViewportContainer/Viewport/SprKinda:rotation_degrees:z")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -633,7 +633,7 @@ tracks/12/keys = {
 "values": [ 5.0, 0.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Viewport/Options:modulate:a")
+tracks/13/path = NodePath("ViewportContainer/Viewport/Options:modulate:a")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -645,7 +645,7 @@ tracks/13/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("Viewport/SprSorta:rotation_degrees:y")
+tracks/14/path = NodePath("ViewportContainer/Viewport/SprSorta:rotation_degrees:y")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -657,7 +657,7 @@ tracks/14/keys = {
 "values": [ 0.0, 16.0, 16.0, 0.0 ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("Viewport/SprKinda:rotation_degrees:y")
+tracks/15/path = NodePath("ViewportContainer/Viewport/SprKinda:rotation_degrees:y")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
@@ -669,7 +669,7 @@ tracks/15/keys = {
 "values": [ 0.0, -16.0, -16.0, 0.0 ]
 }
 tracks/16/type = "value"
-tracks/16/path = NodePath("Viewport/SprSorta:translation:y")
+tracks/16/path = NodePath("ViewportContainer/Viewport/SprSorta:translation:y")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/imported = false
@@ -681,7 +681,7 @@ tracks/16/keys = {
 "values": [ 0.0, 2.0, 0.0 ]
 }
 tracks/17/type = "value"
-tracks/17/path = NodePath("Viewport/SprKinda:translation:y")
+tracks/17/path = NodePath("ViewportContainer/Viewport/SprKinda:translation:y")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
@@ -738,7 +738,7 @@ resource_name = "initialize"
 length = 0.0166667
 step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/SprSorta:translation:x")
+tracks/0/path = NodePath("ViewportContainer/Viewport/SprSorta:translation:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -750,7 +750,7 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/SprKinda:translation:x")
+tracks/1/path = NodePath("ViewportContainer/Viewport/SprKinda:translation:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -762,7 +762,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/SprSorta:opacity")
+tracks/2/path = NodePath("ViewportContainer/Viewport/SprSorta:opacity")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -774,7 +774,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/SprKinda:opacity")
+tracks/3/path = NodePath("ViewportContainer/Viewport/SprKinda:opacity")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -786,7 +786,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/Camera:translation")
+tracks/4/path = NodePath("ViewportContainer/Viewport/Camera:translation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -798,7 +798,7 @@ tracks/4/keys = {
 "values": [ Vector3( 0, 0, 20 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:rotation_degrees")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -858,7 +858,7 @@ tracks/9/keys = {
 "values": [ 0.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Viewport/SprSorta:rotation_degrees:z")
+tracks/10/path = NodePath("ViewportContainer/Viewport/SprSorta:rotation_degrees:z")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -870,7 +870,7 @@ tracks/10/keys = {
 "values": [ 5.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Viewport/SprKinda:rotation_degrees:z")
+tracks/11/path = NodePath("ViewportContainer/Viewport/SprKinda:rotation_degrees:z")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -882,7 +882,7 @@ tracks/11/keys = {
 "values": [ 5.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Viewport/OptionsVP/PanelA:rect_scale")
+tracks/12/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:rect_scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -894,7 +894,7 @@ tracks/12/keys = {
 "values": [ Vector2( 1, 0 ) ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Viewport/OptionsVP/PanelB:rect_scale")
+tracks/13/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:rect_scale")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -906,7 +906,7 @@ tracks/13/keys = {
 "values": [ Vector2( 1, 0 ) ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("Viewport/OptionsVP/PanelAB:rect_scale")
+tracks/14/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelAB:rect_scale")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -918,7 +918,7 @@ tracks/14/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("Viewport/Options:modulate:a")
+tracks/15/path = NodePath("ViewportContainer/Viewport/Options:modulate:a")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
@@ -942,7 +942,7 @@ tracks/16/keys = {
 "values": [ 720.0 ]
 }
 tracks/17/type = "value"
-tracks/17/path = NodePath("Viewport/OptionsVP/PromptA:rect_scale")
+tracks/17/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptA:rect_scale")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
@@ -954,7 +954,7 @@ tracks/17/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Viewport/OptionsVP/PromptB:rect_scale")
+tracks/18/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptB:rect_scale")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -966,7 +966,7 @@ tracks/18/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/19/type = "value"
-tracks/19/path = NodePath("Viewport/OptionsVP/PromptAB:rect_scale")
+tracks/19/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:rect_scale")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/imported = false
@@ -990,7 +990,7 @@ tracks/20/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/21/type = "value"
-tracks/21/path = NodePath("Viewport/OptionsVP/PromptAB:visible")
+tracks/21/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:visible")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/imported = false
@@ -1006,7 +1006,7 @@ tracks/21/keys = {
 length = 2.25
 step = 0.0166667
 tracks/0/type = "audio"
-tracks/0/path = NodePath("Viewport/AudioStreamPlayer")
+tracks/0/path = NodePath("ViewportContainer/Viewport/AudioStreamPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1020,7 +1020,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/SprSorta:translation:x")
+tracks/1/path = NodePath("ViewportContainer/Viewport/SprSorta:translation:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1032,7 +1032,7 @@ tracks/1/keys = {
 "values": [ 35.0, 15.0, 15.0, 12.0, 11.5385, -0.5, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/SprKinda:translation:x")
+tracks/2/path = NodePath("ViewportContainer/Viewport/SprKinda:translation:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1044,7 +1044,7 @@ tracks/2/keys = {
 "values": [ -35.0, -35.0, -15.0, -15.0, -12.0, -11.5385, 0.5, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/SprSorta:opacity")
+tracks/3/path = NodePath("ViewportContainer/Viewport/SprSorta:opacity")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1056,7 +1056,7 @@ tracks/3/keys = {
 "values": [ 1.0, 0.0, 1.0, 1.0, 0.5 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/SprKinda:opacity")
+tracks/4/path = NodePath("ViewportContainer/Viewport/SprKinda:opacity")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -1068,7 +1068,7 @@ tracks/4/keys = {
 "values": [ 0.0, 1.0, 1.0, 0.5 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/Camera:translation")
+tracks/5/path = NodePath("ViewportContainer/Viewport/Camera:translation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -1080,7 +1080,7 @@ tracks/5/keys = {
 "values": [ Vector3( 3, 2, 5 ), Vector3( -3, -2, 5 ), Vector3( 0, 0, 64 ), Vector3( 0, 0, 15 ), Vector3( 0, 0, 20 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Viewport/Camera:rotation_degrees")
+tracks/6/path = NodePath("ViewportContainer/Viewport/Camera:rotation_degrees")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -1140,7 +1140,7 @@ tracks/10/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Viewport/SprSorta:rotation_degrees:z")
+tracks/11/path = NodePath("ViewportContainer/Viewport/SprSorta:rotation_degrees:z")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -1152,7 +1152,7 @@ tracks/11/keys = {
 "values": [ 0.0, 0.0, 5.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Viewport/SprKinda:rotation_degrees:z")
+tracks/12/path = NodePath("ViewportContainer/Viewport/SprKinda:rotation_degrees:z")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -1164,7 +1164,7 @@ tracks/12/keys = {
 "values": [ 0.0, 0.0, 5.0 ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Viewport/Options:modulate:a")
+tracks/13/path = NodePath("ViewportContainer/Viewport/Options:modulate:a")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -1200,7 +1200,7 @@ tracks/14/keys = {
 resource_name = "opt_a"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelA:rect_scale:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:rect_scale:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1212,7 +1212,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1224,7 +1224,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
+tracks/2/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1240,7 +1240,7 @@ tracks/2/keys = {
 resource_name = "opt_ab"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelAB:rect_scale")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelAB:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1252,7 +1252,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PromptAB:visible")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1268,7 +1268,7 @@ tracks/1/keys = {
 resource_name = "opt_b"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelB:rect_scale:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:rect_scale:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1280,7 +1280,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1292,7 +1292,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
+tracks/2/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1308,7 +1308,7 @@ tracks/2/keys = {
 resource_name = "press_a"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PromptA:rect_scale")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptA:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1324,7 +1324,7 @@ tracks/0/keys = {
 resource_name = "press_ab"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PromptAB:rect_scale")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1340,7 +1340,7 @@ tracks/0/keys = {
 resource_name = "press_b"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PromptB:rect_scale")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptB:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1356,7 +1356,7 @@ tracks/0/keys = {
 resource_name = "short_a"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelA:rect_scale:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:rect_scale:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1368,7 +1368,7 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0, 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1380,7 +1380,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
+tracks/2/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1396,7 +1396,7 @@ tracks/2/keys = {
 resource_name = "short_b"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelB:rect_scale:y")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:rect_scale:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1408,7 +1408,7 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0, 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1420,7 +1420,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
+tracks/2/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1436,7 +1436,7 @@ tracks/2/keys = {
 resource_name = "skip_intro"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/OptionsVP/PanelA:rect_scale")
+tracks/0/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/imported = false
@@ -1448,7 +1448,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/OptionsVP/PanelB:rect_scale")
+tracks/1/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB:rect_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = false
 tracks/1/imported = false
@@ -1460,7 +1460,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
+tracks/2/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/RTL:self_modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/imported = false
@@ -1472,7 +1472,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
+tracks/3/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/RTL:self_modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
@@ -1484,7 +1484,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
+tracks/4/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelA/Center/Short:self_modulate:a")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/imported = false
@@ -1496,7 +1496,7 @@ tracks/4/keys = {
 "values": [ 1.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
+tracks/5/path = NodePath("ViewportContainer/Viewport/OptionsVP/PanelB/Center/Short:self_modulate:a")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/imported = false
@@ -1508,7 +1508,7 @@ tracks/5/keys = {
 "values": [ 1.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Viewport/OptionsVP/PromptA:rect_scale")
+tracks/6/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptA:rect_scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -1520,7 +1520,7 @@ tracks/6/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Viewport/OptionsVP/PromptB:rect_scale")
+tracks/7/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptB:rect_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -1532,7 +1532,7 @@ tracks/7/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Viewport/OptionsVP/PromptAB:rect_scale")
+tracks/8/path = NodePath("ViewportContainer/Viewport/OptionsVP/PromptAB:rect_scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -1545,7 +1545,7 @@ tracks/8/keys = {
 }
 
 [sub_resource type="ViewportTexture" id=2]
-viewport_path = NodePath("Viewport")
+viewport_path = NodePath("ViewportContainer/Viewport")
 
 [sub_resource type="Animation" id=26]
 resource_name = "vibrate"
@@ -1595,71 +1595,41 @@ __meta__ = {
 }
 ptimeSpeed = 1.0
 
-[node name="Viewport" type="Viewport" parent="."]
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1024.0
+margin_bottom = -1024.0
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 1280, 720 )
 transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="OptionsVP" type="Viewport" parent="Viewport"]
+[node name="OptionsVP" type="Viewport" parent="ViewportContainer/Viewport"]
 size = Vector2( 1280, 720 )
 transparent_bg = true
+disable_3d = true
 
-[node name="PanelA" type="Panel" parent="Viewport/OptionsVP"]
-margin_top = 220.0
-margin_right = 640.0
-margin_bottom = 580.0
-rect_scale = Vector2( 1, 1e-05 )
+[node name="PanelA" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
+anchor_top = 0.3
+anchor_right = 0.5
+anchor_bottom = 0.8
 rect_pivot_offset = Vector2( 320, 180 )
 custom_styles/panel = SubResource( 1 )
 
-[node name="Center" type="CenterContainer" parent="Viewport/OptionsVP/PanelA"]
+[node name="Center" type="CenterContainer" parent="ViewportContainer/Viewport/OptionsVP/PanelA"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
 margin_right = -20.0
 
-[node name="RTL" type="RichTextLabel" parent="Viewport/OptionsVP/PanelA/Center"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 10.0
-margin_top = 121.0
-margin_right = 590.0
-margin_bottom = 239.0
-rect_min_size = Vector2( 580, 0 )
-theme = ExtResource( 8 )
-bbcode_enabled = true
-bbcode_text = "[center]the nickname of a version of the [i]Android[/i] operating system[/center]"
-text = "the nickname of a version of the Android operating system"
-fit_content_height = true
-scroll_active = false
-
-[node name="Short" type="RichTextLabel" parent="Viewport/OptionsVP/PanelA/Center"]
-margin_top = 135.0
-margin_right = 600.0
-margin_bottom = 224.0
-rect_min_size = Vector2( 600, 0 )
-theme = ExtResource( 12 )
-bbcode_enabled = true
-bbcode_text = "[center]Android[/center]"
-text = "Android"
-fit_content_height = true
-scroll_active = false
-
-[node name="PanelB" type="Panel" parent="Viewport/OptionsVP"]
-margin_left = 640.0
-margin_top = 220.0
-margin_right = 1280.0
-margin_bottom = 580.0
-rect_scale = Vector2( 1, 1e-05 )
-rect_pivot_offset = Vector2( 320, 180 )
-custom_styles/panel = SubResource( 15 )
-
-[node name="Center" type="CenterContainer" parent="Viewport/OptionsVP/PanelB"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_right = -20.0
-
-[node name="RTL" type="RichTextLabel" parent="Viewport/OptionsVP/PanelB/Center"]
-self_modulate = Color( 1, 1, 1, 0 )
+[node name="RTL" type="RichTextLabel" parent="ViewportContainer/Viewport/OptionsVP/PanelA/Center"]
 margin_left = 10.0
 margin_top = 150.0
 margin_right = 590.0
@@ -1667,37 +1637,69 @@ margin_bottom = 209.0
 rect_min_size = Vector2( 580, 0 )
 theme = ExtResource( 8 )
 bbcode_enabled = true
-bbcode_text = "[center]a flavor of [i]Pocky[/i] sold in Japan[/center]"
-text = "a flavor of Pocky sold in Japan"
 fit_content_height = true
 scroll_active = false
 
-[node name="Short" type="RichTextLabel" parent="Viewport/OptionsVP/PanelB/Center"]
+[node name="Short" type="RichTextLabel" parent="ViewportContainer/Viewport/OptionsVP/PanelA/Center"]
+self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 135.0
 margin_right = 600.0
 margin_bottom = 224.0
 rect_min_size = Vector2( 600, 0 )
 theme = ExtResource( 12 )
 bbcode_enabled = true
-bbcode_text = "[center]Pocky[/center]"
-text = "Pocky"
 fit_content_height = true
 scroll_active = false
 
-[node name="PanelAB" type="Panel" parent="Viewport/OptionsVP"]
-margin_left = 320.0
-margin_top = 30.0
-margin_right = 960.0
-margin_bottom = 210.0
-rect_scale = Vector2( 1e-05, 1e-05 )
+[node name="PanelB" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
+anchor_left = 0.5
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.8
+rect_pivot_offset = Vector2( 320, 180 )
+custom_styles/panel = SubResource( 15 )
+
+[node name="Center" type="CenterContainer" parent="ViewportContainer/Viewport/OptionsVP/PanelB"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+
+[node name="RTL" type="RichTextLabel" parent="ViewportContainer/Viewport/OptionsVP/PanelB/Center"]
+margin_left = 10.0
+margin_top = 150.0
+margin_right = 590.0
+margin_bottom = 209.0
+rect_min_size = Vector2( 580, 0 )
+theme = ExtResource( 8 )
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+
+[node name="Short" type="RichTextLabel" parent="ViewportContainer/Viewport/OptionsVP/PanelB/Center"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 135.0
+margin_right = 600.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 600, 0 )
+theme = ExtResource( 12 )
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+
+[node name="PanelAB" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
+anchor_left = 0.25
+anchor_top = 0.05
+anchor_right = 0.75
+anchor_bottom = 0.3
 rect_pivot_offset = Vector2( 320, 90 )
 custom_styles/panel = SubResource( 16 )
 
-[node name="Center" type="CenterContainer" parent="Viewport/OptionsVP/PanelAB"]
+[node name="Center" type="CenterContainer" parent="ViewportContainer/Viewport/OptionsVP/PanelAB"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="RTL" type="RichTextLabel" parent="Viewport/OptionsVP/PanelAB/Center"]
+[node name="RTL" type="RichTextLabel" parent="ViewportContainer/Viewport/OptionsVP/PanelAB/Center"]
 margin_left = 20.0
 margin_top = 60.0
 margin_right = 620.0
@@ -1710,7 +1712,7 @@ text = "Both!"
 fit_content_height = true
 scroll_active = false
 
-[node name="PromptA" type="Panel" parent="Viewport/OptionsVP"]
+[node name="PromptA" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
 margin_left = 30.0
 margin_top = 270.0
 margin_right = 94.0
@@ -1718,7 +1720,7 @@ margin_bottom = 334.0
 rect_scale = Vector2( 1e-05, 1e-05 )
 custom_styles/panel = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="Viewport/OptionsVP/PromptA"]
+[node name="Label" type="Label" parent="ViewportContainer/Viewport/OptionsVP/PromptA"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -4.0
@@ -1728,7 +1730,7 @@ text = "←"
 align = 1
 valign = 1
 
-[node name="PromptB" type="Panel" parent="Viewport/OptionsVP"]
+[node name="PromptB" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
 margin_left = 670.0
 margin_top = 270.0
 margin_right = 734.0
@@ -1736,7 +1738,7 @@ margin_bottom = 334.0
 rect_scale = Vector2( 1e-05, 1e-05 )
 custom_styles/panel = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="Viewport/OptionsVP/PromptB"]
+[node name="Label" type="Label" parent="ViewportContainer/Viewport/OptionsVP/PromptB"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -4.0
@@ -1746,8 +1748,7 @@ text = "→"
 align = 1
 valign = 1
 
-[node name="PromptAB" type="Panel" parent="Viewport/OptionsVP"]
-visible = false
+[node name="PromptAB" type="Panel" parent="ViewportContainer/Viewport/OptionsVP"]
 margin_left = 340.0
 margin_top = 50.0
 margin_right = 404.0
@@ -1755,7 +1756,7 @@ margin_bottom = 114.0
 rect_scale = Vector2( 1e-05, 1e-05 )
 custom_styles/panel = ExtResource( 16 )
 
-[node name="Label" type="Label" parent="Viewport/OptionsVP/PromptAB"]
+[node name="Label" type="Label" parent="ViewportContainer/Viewport/OptionsVP/PromptAB"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -4.0
@@ -1765,29 +1766,29 @@ text = "↑"
 align = 1
 valign = 1
 
-[node name="SprSorta" type="Sprite3D" parent="Viewport"]
+[node name="SprSorta" type="Sprite3D" parent="ViewportContainer/Viewport"]
 transform = Transform( 0.996195, -0.0871558, 0, 0.0871558, 0.996195, 0, 0, 0, 1, 0, 0, 0 )
 offset = Vector2( -270, 144 )
-opacity = 0.5
-double_sided = false
+opacity = 0.0
 texture = ExtResource( 1 )
 
-[node name="SprKinda" type="Sprite3D" parent="Viewport"]
+[node name="SprKinda" type="Sprite3D" parent="ViewportContainer/Viewport"]
 transform = Transform( 0.996195, -0.0871558, 0, 0.0871558, 0.996195, 0, 0, 0, 1, 0, 0, 0 )
 offset = Vector2( 270, -144 )
-opacity = 0.5
-double_sided = false
+opacity = 0.0
 texture = ExtResource( 3 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Viewport"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ViewportContainer/Viewport"]
 stream = ExtResource( 2 )
 
-[node name="Camera" type="Camera" parent="Viewport"]
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20 )
 keep_aspect = 0
 
-[node name="Options" type="Sprite3D" parent="Viewport"]
+[node name="Options" type="Sprite3D" parent="ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 19.9 )
+cast_shadow = 0
+generate_lightmap = false
 flip_v = true
 pixel_size = 0.0001
 texture = SubResource( 18 )
@@ -1814,8 +1815,14 @@ anims/skip_intro = SubResource( 19 )
 [node name="Screen3D" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.69
+margin_top = 0.03
+margin_right = 1.68994
+margin_bottom = 0.0300293
+rect_min_size = Vector2( 1280, 720 )
 texture = SubResource( 2 )
-stretch_mode = 1
+expand = true
+stretch_mode = 6
 flip_v = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1825,10 +1832,10 @@ __meta__ = {
 anims/vibrate = SubResource( 26 )
 
 [node name="Option" type="Panel" parent="."]
-margin_left = -880.0
-margin_top = 720.0
-margin_right = -80.0
-margin_bottom = 840.001
+margin_left = 240.0
+margin_top = 460.0
+margin_right = 1040.0
+margin_bottom = 580.001
 custom_styles/panel = ExtResource( 13 )
 __meta__ = {
 "_edit_group_": true,
@@ -1855,8 +1862,6 @@ margin_bottom = 62.0
 rect_min_size = Vector2( 600, 0 )
 theme = ExtResource( 14 )
 bbcode_enabled = true
-bbcode_text = "[center]What you want is what you get[/center]"
-text = "What you want is what you get"
 fit_content_height = true
 
 [node name="AbTurn1" type="AnimatedSprite" parent="Option"]

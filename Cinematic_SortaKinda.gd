@@ -3,13 +3,14 @@ extends Control
 signal intro_ended
 signal answer_done
 signal outro_ended
-onready var a_long = $Viewport/OptionsVP/PanelA/Center/RTL
-onready var b_long = $Viewport/OptionsVP/PanelB/Center/RTL
-onready var a_short = $Viewport/OptionsVP/PanelA/Center/Short
-onready var b_short = $Viewport/OptionsVP/PanelB/Center/Short
+onready var a_long = $ViewportContainer/Viewport/OptionsVP/PanelA/Center/RTL
+onready var b_long = $ViewportContainer/Viewport/OptionsVP/PanelB/Center/RTL
+onready var a_short = $ViewportContainer/Viewport/OptionsVP/PanelA/Center/Short
+onready var b_short = $ViewportContainer/Viewport/OptionsVP/PanelB/Center/Short
 var has_both = false
 
 func _ready():
+	get_tree().get_root().connect("size_changed", self, "_on_resized")
 	hide()
 	init()
 
@@ -127,3 +128,10 @@ func _on_TouchB_pressed():
 func _on_TouchAB_pressed():
 	# 4 = touchscreen, 1 = up face button, true = pressed
 	C.inject_button(4, 1, true)
+
+func _on_resized():
+	var size = get_tree().get_root().size # already in the correct aspect ratio
+	$ViewportContainer.rect_size = size
+	# i want to scale the meta viewport but it doesn't affect the text size
+	#$ViewportContainer/Viewport/OptionsVP.size = size
+	pass # Replace with function body.
