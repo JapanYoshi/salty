@@ -12,9 +12,11 @@ onready var tween = Tween.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	R._set_visual_quality(R.cfg.graphics_quality)
 	add_child(tween)
 	$Logo.play_intro()
 	S.play_music("new_theme", 1.0)
+	now_focused = -1
 	change_focus_to(0)
 
 func _on_Button_mouse_entered(i):
@@ -22,11 +24,10 @@ func _on_Button_mouse_entered(i):
 
 func change_focus_to(i):
 	$VBoxContainer.get_child(i).grab_focus()
-	if now_focused != i:
-		if now_focused != -1:
+	if now_focused != i: # changing focus
+		if now_focused != -1: # not first time
 			S.play_sfx("menu_move")
-		$Panel/RichTextLabel.clear()
-		$Panel/RichTextLabel.append_bbcode(desc[i])
+		$Panel/RichTextLabel.bbcode_text = desc[i]
 		now_focused = i
 
 func _input(e):
