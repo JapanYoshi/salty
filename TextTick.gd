@@ -102,7 +102,7 @@ func update_price():
 			value = 0
 			anim.stop(false)
 			emit_signal("checkpoint", 0)
-		dollars.set_text(R.format_currency(value, true, 4))
+		dollars.set_text(R.format_currency(value, true, 3))
 		print(str(count) + ": The question is worth " + str(value) + " points.")
 	elif mode == "G":
 		value = max_value * (80 - count) / 80.0
