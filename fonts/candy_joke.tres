@@ -4,6 +4,7 @@
 
 [resource]
 size = 36
+use_filter = true
 extra_spacing_top = -6
 extra_spacing_bottom = -4
 extra_spacing_char = -1

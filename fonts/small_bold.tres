@@ -3,5 +3,6 @@
 [ext_resource path="res://fonts/body_bold_data.tres" type="DynamicFontData" id=1]
 
 [resource]
-size = 32
+size = 28
+use_filter = true
 font_data = ExtResource( 1 )

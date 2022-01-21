@@ -5,4 +5,5 @@
 [resource]
 size = 64
 outline_size = 4
+use_filter = true
 font_data = ExtResource( 1 )

@@ -4,6 +4,8 @@
 [ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=2]
 
 [resource]
-size = 24
+size = 22
+use_filter = true
+extra_spacing_char = -1
 font_data = ExtResource( 1 )
 fallback/0 = ExtResource( 2 )
