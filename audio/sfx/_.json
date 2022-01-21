@@ -1,4 +1,5 @@
 {
+    "blank": "../_.wav",
     "buzz_in": "buzz_in.wav",
     "dq": "dq.wav",
     "key_delete": "key_delete.wav",
@@ -13,6 +14,7 @@
     "like_3_yes": "like_3_yes.ogg",
     "like_4_no":  "like_4_no.ogg",
     "like_4_yes": "like_4_yes.ogg",
+    "like_whoosh": "like_whoosh.wav",
     "lock_in": "lock_in.wav",
     "logo_flip": "logo_flip.wav",
     "logo_leave": "logo_leave.wav",

@@ -408,6 +408,27 @@
     {"v": "thou_intro_00", "s": "On your mark, get set, start the clock!"}
   , {"v": "thou_intro_01", "s": "Alright, are you ready? Start the clock!"}
   ]
+  , "like_intro": [
+    {"v": "like_intro_00", "s": "Welcome to Like It or Leave It!"}
+  ]
+  , "like_tute0": [
+    {"v": "like_tute0_00", "s": "For each of the 5 sections, Like the options that match the description, but Leave everything else."}
+  ]
+  , "like_tute1": [
+    {"v": "like_tute1_00", "s": "The first 3 items stay the same, but the 4th item changes every section."}
+  ]
+  , "like_title": [
+    {"v": "like_title_00", "s": "The topic is:"}
+  ]
+  , "like_options": [
+    {"v": "like_options_00", "s": "And the options are:"}
+  ]
+  , "like_ready": [
+    {"v": "like_ready_00", "s": "Get ready to make some connections!"}
+  ]
+  , "like_outro": [
+    {"v": "like_outro_00", "s": "That’s all five! Let’s see how it affected your final score."}
+  ]
   , "rush_intro": [
     {"v": "rush_intro_00", "s": "Welcome to the Sugar Rush."}
   , {"v": "rush_intro_01", "s": "You’ve made it to the Sugar Rush."}
