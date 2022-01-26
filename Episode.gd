@@ -22,6 +22,7 @@ func _ready():
 	$Shutter/AnimationPlayer.stop()
 	$SkipButton.hide()
 	$BackButton.hide()
+	$Cutscenes/Circle.color = Color.black
 	$Cutscenes/Circle.modulate = Color.white
 	$Cutscenes/Final.hide()
 	q_box.connect("question_done", self, "load_next_question")
@@ -30,17 +31,17 @@ func _ready():
 	if not R.pass_between.has("episode_name"):
 		# we're debugging
 		R.pass_between.episode_name = "demo"
-		question_number = 12
+		question_number = 0
 		episode_data = Loader.load_episode(R.pass_between.episode_name)
 		load_next_question()
 		return
-	elif R.pass_between.episode_name == "demo":
-		# still debug for now
-		DEBUG = true
-		question_number = 12
-		episode_data = Loader.load_episode(R.pass_between.episode_name)
-		load_next_question()
-		return
+#	elif R.pass_between.episode_name == "demo":
+#		# still debug for now
+#		DEBUG = true
+#		question_number = 12
+#		episode_data = Loader.load_episode(R.pass_between.episode_name)
+#		load_next_question()
+#		return
 	$Cutscenes/Round2.scale = Vector2(0, 1)
 	episode_data = Loader.load_episode(R.pass_between.episode_name)
 	call_deferred("play_intro")

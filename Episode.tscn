@@ -1190,14 +1190,13 @@ anims/round2_reverse = SubResource( 16 )
 [node name="Tween" type="Tween" parent="Cutscenes"]
 
 [node name="Circle" type="ColorRect" parent="Cutscenes"]
-modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -1.0
 margin_bottom = -1.0
 mouse_filter = 2
-color = Color( 0.0431373, 0.211765, 0.00392157, 1 )
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1394,6 +1393,7 @@ __meta__ = {
 }
 
 [node name="Final" type="ColorRect" parent="Cutscenes"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -1534,6 +1534,7 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="Cutscenes"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0

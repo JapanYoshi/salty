@@ -6,6 +6,7 @@ signal tween_finished
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	color = Color.black
 	add_child(tween)
 	tween.connect("tween_all_completed", self, "emit_signal", ["tween_finished"])
 #	set_radius(0)
