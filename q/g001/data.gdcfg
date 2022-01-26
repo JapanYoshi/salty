@@ -59,12 +59,8 @@ t = "It was a System designed for Entertainment!"
 v = "clue2"
 s = "It was a System designed for Entertainment!"
 
-; always generic wrong answer.
-[gib_wrong0]
-v = "random"
-[gib_wrong1]
-v = "random"
-[gib_wrong2]
+; always generic wrong answer. might override later if guest host happens
+[gib_wrong]
 v = "random"
 
 [reveal]

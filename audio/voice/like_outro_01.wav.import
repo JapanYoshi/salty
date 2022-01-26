@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/like_outro_01.wav-e073c623c17766f5905372202a8bf2de.sample"
+
+[deps]
+
+source_file="res://audio/voice/like_outro_01.wav"
+dest_files=[ "res://.import/like_outro_01.wav-e073c623c17766f5905372202a8bf2de.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

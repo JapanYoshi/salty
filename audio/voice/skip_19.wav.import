@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/skip_19.wav-2b91e0c544e4ba6d1a687f82bffc3e00.sample"
+
+[deps]
+
+source_file="res://audio/voice/skip_19.wav"
+dest_files=[ "res://.import/skip_19.wav-2b91e0c544e4ba6d1a687f82bffc3e00.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

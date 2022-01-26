@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/too_many_pauses_01.wav-0ce26f1754d038cd979d1ae53fc4632f.sample"
+
+[deps]
+
+source_file="res://audio/voice/too_many_pauses_01.wav"
+dest_files=[ "res://.import/too_many_pauses_01.wav-0ce26f1754d038cd979d1ae53fc4632f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

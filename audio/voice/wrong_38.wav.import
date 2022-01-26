@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/outro.wav-604160dc8933863fefce0fa691f325b9.sample"
+path="res://.import/wrong_38.wav-969f86e832039d4c565e742f6b3a519a.sample"
 
 [deps]
 
-source_file="res://ep/demo/outro.wav"
-dest_files=[ "res://.import/outro.wav-604160dc8933863fefce0fa691f325b9.sample" ]
+source_file="res://audio/voice/wrong_38.wav"
+dest_files=[ "res://.import/wrong_38.wav-969f86e832039d4c565e742f6b3a519a.sample" ]
 
 [params]
 

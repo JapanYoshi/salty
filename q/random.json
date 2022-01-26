@@ -153,13 +153,25 @@
   , {"v": "round2_tute_05", "s": "Point values are double in Round 2, because [i]of course.[/i] Let’s get going."}
   ]
   , "lifesaver2" : [
-    {"v": "wrong_00", "s": ""}
+    {"v": "lifesaver2_00", "s": ""}
+  , {"v": "lifesaver2_01", "s": ""}
+  , {"v": "lifesaver2_02", "s": ""}
+  , {"v": "lifesaver2_03", "s": ""}
+  , {"v": "lifesaver2_04", "s": ""}
+  , {"v": "lifesaver2_05", "s": ""}
+  , {"v": "lifesaver2_06", "s": ""}
+  , {"v": "lifesaver2_07", "s": ""}
   ]
   , "lifesaver2_tute0" : [
-    {"v": "wrong_00", "s": ""}
+    {"v": "lifesaver2_tute0_00", "s": ""}
+  , {"v": "lifesaver2_tute0_01", "s": ""}
+  , {"v": "lifesaver2_tute0_02", "s": ""}
+  , {"v": "lifesaver2_tute0_03", "s": ""}
   ]
   , "lifesaver2_tute1" : [
-    {"v": "wrong_00", "s": ""}
+    {"v": "lifesaver2_tute1_00", "s": ""}
+  , {"v": "lifesaver2_tute1_01", "s": ""}
+  , {"v": "lifesaver2_tute1_02", "s": ""}
   ]
   , "outro" : [
     {"v": "", "s": ""}
@@ -185,6 +197,10 @@
   , "cuss_c0": [
     {"v": "cuss_c0", "s": "ROBOT VOICE: Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
   ]
+  , "too_many_pauses": [
+    {"v": "too_many_pauses_00", "s": ""}
+  , {"v": "too_many_pauses_01", "s": ""}
+  ]
 }
 , "audio_question" : {
       "skip" : [
@@ -192,12 +208,12 @@
     , {"v": "skip_01", "s": "So much to do, so little time, right?"}
     , {"v": "skip_02", "s": "Yeah, making sure you know, just in case."}
     , {"v": "skip_03", "s": "No time to waste, let’s go! (clap)"}
-    , {"v": "skip_04", "s": "Well, let’s start then, pro player."}
+    , {"v": "skip_04", "s": "Let’s start then, pro player."}
     , {"v": "skip_05", "s": "Alright, down the fast lane you go."}
     , {"v": "skip_06", "s": "No need to explain. Let’s begin."}
     , {"v": "skip_07", "s": "Sorry, am I rambling?"}
     , {"v": "skip_08", "s": "Okay, cool, you remembered."}
-    , {"v": "skip_09", "s": "Aight, less work for me."}
+    , {"v": "skip_09", "s": "Alright, less work for me."}
     , {"v": "skip_10", "s": "Good, I hate repeating myself."}
     , {"v": "skip_11", "s": "Less talk, more walk. I like that."}
     , {"v": "skip_12", "s": "Someone’s in a hurry today."}
@@ -205,6 +221,9 @@
     , {"v": "skip_14", "s": "Roger that. Let’s advance."}
     , {"v": "skip_15", "s": "Without further ado, let’s begin."}
     , {"v": "skip_16", "s": "Yeah, you know the drill, blah blah blah."}
+    , {"v": "skip_17", "s": "Fine by me. I’m paid per episode."}
+    , {"v": "skip_18", "s": "Yeah, I’m sure you know by now."}
+    , {"v": "skip_19", "s": "Oh, that’s a time-saver."}
     ]
     , "pretitle_q1": [
       {"v": "q_first_00", "s": "The first category is:"}
@@ -303,17 +322,72 @@
   , {"v": "reveal_correct_09", "s": "Oof, this has gotta hurt."}
   ]
   , "option": [
-    {"v": "wrong_00", "s": "[saxophone glide down]"}
+    {"v": "wrong_00", "s": "Congratulations! You’re wrong!"}
+  , {"v": "wrong_01", "s": "So wrong, yet so uninterestingly so."}
+  , {"v": "wrong_02", "s": "Knock knock, who’s there? Wrong answer."}
+  , {"v": "wrong_03", "s": "Good news! Nah, I’m just kidding."}
+  , {"v": "wrong_04", "s": "That’s just sad."}
+  , {"v": "wrong_05", "s": "I believed in you."}
+  , {"v": "wrong_06", "s": "I’ll be taking that, thank you."}
+  , {"v": "wrong_07", "s": "I would say I understand why you chose that, but that would be dishonest."}
+  , {"v": "wrong_08", "s": "If only you had a second chance!"}
+  , {"v": "wrong_09", "s": "I’d love to spare you, but I’m not allowed to."}
+  , {"v": "wrong_10", "s": "Were you thinking there?"}
+  , {"v": "wrong_11", "s": "At least you chose [i]an[/i] answer."}
+  , {"v": "wrong_12", "s": "What’s the opposite of “winner winner chicken dinner”? “You you beef stew”?"}
+  , {"v": "wrong_13", "s": "Contrary to popular be—Wait, never mind, I thought you chose a different one."}
+  , {"v": "wrong_14", "s": "Hold on, let me check again.[#1985#]Hm. Mmhm.[#3460#]Still not correct."}
+  , {"v": "wrong_15", "s": "Hi, it’s Candy, just checking on that answer again.[#2299#][#3756#]Uh huh, thanks.[#5300#]Wrong answer."}
+  , {"v": "wrong_16", "s": "To quote Shakespeare’s [i]Hamlet,[/i] Act 3, Scene 2, Line 176:[#5230#]“No, no”."}
+  , {"v": "wrong_17", "s": "Your mind must have 404’d."}
+  , {"v": "wrong_18", "s": "Roll for intelligence...[#1759#][#2461#]1."}
+  , {"v": "wrong_19", "s": "Now, you can’t go bankrupt on this game, but I [i]will[/i] punish you."}
+  , {"v": "wrong_20", "s": "I mean, I didn’t expect much from you, but holy hell."}
+  , {"v": "wrong_21", "s": "Yikety yike, Christ on a bike."}
+  , {"v": "wrong_22", "s": "Careful. Your dumb is showing."}
+  , {"v": "wrong_23", "s": "Thaaat’s embarrassing. For you."}
+  , {"v": "wrong_24", "s": "I thought so at first, but then I knew better."}
+  , {"v": "wrong_25", "s": "[#1445#]Wow, even the crickets are speechless."}
+  , {"v": "wrong_26", "s": "[#1440#]Y’know, I can’t even make fun of that."}
+  , {"v": "wrong_27", "s": "[sips][#1440#][swallows][#2438#]Aaaah.[#3442#][coughs][#4005#][#4621#]No."}
+  , {"v": "wrong_28", "s": "What do you want, a cookie?"}
+  , {"v": "wrong_29", "s": "Really? You picked [i]that?![/i]"}
+  , {"v": "wrong_30", "s": "Look at me. Look right at me.[#2432#]Wait, shit, you can’t."}
+  , {"v": "wrong_31", "s": "I sure hope you didn’t pick that answer sober."}
+  , {"v": "wrong_32", "s": "Ooo, that’s gotta hurt."}
+  , {"v": "wrong_33", "s": "[laughs][#1863#][#2682#]You serious?"}
+  , {"v": "wrong_34", "s": "Please do better next time."}
+  , {"v": "wrong_35", "s": "[in British accent]\nOh! You’ve been Wangernumbed!"}
+  , {"v": "wrong_36", "s": "Don’t quit your day job."}
+  , {"v": "wrong_37", "s": "If you’re good at it, don’t do it for free.[#1869#]If you’re bad at it, it’s probably trivia."}
+  , {"v": "wrong_38", "s": "Hindsight really is 20/20, isn’t it?"}
+  , {"v": "wrong_39", "s": "So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."}
+  , {"v": "wrong_40", "s": "That’s gotta be the correct answer for some other question."}
+  , {"v": "wrong_41", "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][chuckles] This is dumb."}
+  , {"v": "wrong_42", "s": "[sound of crickets]"}
+  ]
+  , "gib_early": [
+    {"v": "gib_early_00", "s": "Hey, did your finger slip onto the buzzer?"}
+  , {"v": "gib_early_01", "s": "You went for the big money, and big money is what you lost.[#3228#]Tough break, kid."}
+  , {"v": "gib_early_02", "s": "Maybe if you waited for a clue, you might have come up with something decent."}
+  , {"v": "gib_early_03", "s": "Maybe next time, don’t move fast and break things."}
   ]
   , "gib_wrong": [
-    {"v": "wrong_00", "s": "[wrong answer id 000]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 001]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 002]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 003]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 004]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 005]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 006]"}
-  , {"v": "wrong_00", "s": "[wrong answer id 007]"}
+    {"v": "gib_wrong_00", "s": "I don’t know what that is, but that’s not it."}
+  , {"v": "gib_wrong_01", "s": "I’d say I understand why you typed that in, but that would be dishonest."}
+  , {"v": "gib_wrong_02", "s": "I’m not gonna judge, maybe it rhymes in your accent.[#2566#][#3158#]I lied. That was dumb."}
+  , {"v": "gib_wrong_03", "s": "Well, you wrote [i]something,[/i] alright."}
+  ]
+  , "gib_late": [
+    {"v": "gib_late_00", "s": "Three clues, and you [i]still[/i] got it wrong? Unreal."}
+  , {"v": "gib_late_01", "s": "I gave you all the clues! What do you want from me?"}
+  , {"v": "gib_late_02", "s": "Oh, for crying out loud, you had all the time and clues you needed! How do you not get it?"}
+  , {"v": "gib_late_03", "s": "Took you long enough.[#1242#][#1858#]To be wrong."}
+  ]
+  , "gib_blank": [
+    {"v": "gib_blank_00", "s": "Hm, interesting. Very minimalist.[#2589#]Hey, let me help you minimize that score there."}
+  , {"v": "gib_blank_01", "s": "I said “give me a rhyming phrase”,[#1416#]not “give me a detailed look into what little is going on in your head”."}
+  , {"v": "gib_blank_02", "s": "Uh, did your keyboard break, or did you genuinely have no idea?"}
   ]
   , "sort_segue": [
     {"v": "sort_segue", "s": "And it’s a Sorta Kinda!"}
@@ -379,6 +453,9 @@
   , "gib_genre_song": [
     {"v": "gib_genre_song", "s": "With what [i]song title[/i] does this rhyme?"}
   ]
+  , "gib_genre_title": [
+    {"v": "gib_genre_title", "s": "With what [i]title[/i] does this rhyme?"}
+  ]
   , "gib_genre_videogame": [
     {"v": "gib_genre_videogame", "s": "With what [i]video game title[/i] does this rhyme?"}
   ]
@@ -425,9 +502,13 @@
   ]
   , "like_ready": [
     {"v": "like_ready_00", "s": "Get ready to make some connections!"}
+  , {"v": "like_ready_01", "s": "It’s time to relate."}
+  , {"v": "like_ready_02", "s": "Let’s see who has the best taste."}
   ]
   , "like_outro": [
     {"v": "like_outro_00", "s": "That’s all five! Let’s see how it affected your final score."}
+  , {"v": "like_outro_01", "s": "That’s enough social media time. Who’s on top at the end?"}
+  , {"v": "like_outro_02", "s": "That’s the end of the game! Now for the final scoreboard."}
   ]
   , "rush_intro": [
     {"v": "rush_intro_00", "s": "Welcome to the Sugar Rush."}
