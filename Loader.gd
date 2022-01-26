@@ -316,13 +316,16 @@ func parse_time_markers(contents = ""):
 		})
 	return queue
 
-func load_random_voice_line(key, pool = ""):
+func load_random_voice_line(key, pool = "", episode = false):
 	if pool == "":
 		pool = key
-	var selection = random_dict.audio_question[pool][\
-		rng.randi_range(
-			0, len(random_dict.audio_question[pool]) - 1
-		)\
+	var sel
+	if episode:
+		sel = random_dict.audio_episode[pool]
+	else:
+		sel = random_dict.audio_question[pool]
+	var selection = sel[\
+		rng.randi_range(0, len(sel) - 1)\
 	]
 	S.preload_voice(
 		key, selection.v, false, selection.s
