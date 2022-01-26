@@ -10,6 +10,7 @@ var eps = {"RQ": {
 var selected_now = ""
 var first = "RQ"
 var last = "RQ"
+var disable_controls = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,7 +55,7 @@ func focus_shifted(which):
 			ep_scroller.get_parent().set_v_scroll(1 << 15)
 
 func _input(event):
-	var focus_index = get_focus_owner().get_index()
+	var focus_index = ep_scroller.get_focus_owner().get_index()
 	if event.is_action_pressed("ui_down"):
 		accept_event()
 		var child = ep_scroller.get_child(focus_index+1)
@@ -82,11 +83,14 @@ func _input(event):
 		accept_event()
 
 func _on_Option_pressed():
+	if disable_controls: return
 	if selected_now == get_focus_owner().name:
 		if eps[selected_now].has('locked') and eps[selected_now].locked:
 			S.play_sfx("menu_fail")
 		else:
+			disable_controls = true
 			S.play_sfx("menu_confirm")
+			release_focus()
 			get_parent().load_episode(selected_now)
 	else:
 		focus_shifted(get_focus_owner().name)
