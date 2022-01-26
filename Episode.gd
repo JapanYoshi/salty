@@ -500,6 +500,9 @@ func too_many_pauses():
 
 func disqualified():
 	Ws.close_room()
+	Loader.load_random_voice_line("too_many_pauses", "", true)
+	S.play_voice("too_many_pauses")
+	yield(S, "voice_end")
 	$Shutter.set_texture(load("res://images/shutter.png"))
 	$Shutter/AnimationPlayer.play("disqualified")
 	S.play_sfx("dq")

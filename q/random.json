@@ -198,8 +198,12 @@
     {"v": "cuss_c0", "s": "ROBOT VOICE: Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
   ]
   , "too_many_pauses": [
-    {"v": "too_many_pauses_00", "s": ""}
-  , {"v": "too_many_pauses_01", "s": ""}
+    {"v": "too_many_pauses_00", "s": "Oh, did Dr. Google give you that answer you were looking for?[#3408#]Either way, that answer’s useless now that you’re disqualified. Bye."}
+  , {"v": "too_many_pauses_01", "s": "Great power, like stopping time, comes with great responsibility.[#4203#]Now you’re a villain."}
+  , {"v": "too_many_pauses_02", "s": "Either someone calls you every minute, or you call Google every question.[#4252#]Either way, you sound too busy to play."}
+  , {"v": "too_many_pauses_03", "s": "I give you a set amount of time on each question for a reason.[#4010#]Next game, try following it."}
+  , {"v": "too_many_pauses_04", "s": "There’s no shame in being wrong, but there [i]is[/i] shame in cheating.[#4106#]Why don’t you [i]pause[/i] and think of what you’ve done?"}
+  , {"v": "too_many_pauses_05", "s": "You lose. You get nothing. Good day, sir."}
   ]
 }
 , "audio_question" : {
