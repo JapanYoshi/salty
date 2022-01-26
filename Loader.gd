@@ -176,7 +176,7 @@ func load_question(id, first_question: bool):
 				#"gib_segue", # i dont think we need one for every question type
 				"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
 				"gib_genre", "question", "clue0", "clue1", "clue2",
-				"buzz_in", "gib_wrong0", "gib_wrong1", "gib_wrong2", "reveal",
+				"buzz_in", "reveal",
 				"outro", "skip"
 			]
 		"T":
@@ -220,13 +220,14 @@ func load_question(id, first_question: bool):
 					# question-specific voice line
 					S.preload_voice(key, id + "/" + data[key].v, true, data[key].s)
 				else:
-					# common voice line
-					var possible_lines = random_dict.audio_question[data[key].v.substr(1)]
-					if len(possible_lines) == 1:
-						S.preload_voice(key, possible_lines[0].v, false, possible_lines[0].s)
-					else:
-						var index = R.rng.randi_range(0, len(possible_lines) - 1)
-						S.preload_voice(key, possible_lines[index].v, false, possible_lines[index].s)
+#					# common voice line
+#					var possible_lines = random_dict.audio_question[data[key].v.substr(1)]
+#					if len(possible_lines) == 1:
+#						S.preload_voice(key, possible_lines[0].v, false, possible_lines[0].s)
+#					else:
+#						var index = R.rng.randi_range(0, len(possible_lines) - 1)
+#						S.preload_voice(key, possible_lines[index].v, false, possible_lines[index].s)
+					load_random_voice_line(key, data[key].v.substr(1))
 			# is random?
 			elif key in [
 				# Normal / Candy Trivia
@@ -243,7 +244,7 @@ func load_question(id, first_question: bool):
 				# All Outta Salt
 				#"gib_segue",
 				"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
-				"gib_wrong0", "gib_wrong1", "gib_wrong2",
+				"gib_early", "gib_wrong", "gib_late", "gib_blank",
 				# Thousand-Question Question
 				"thou_segue", "thou_tute0", "thou_tute1", "thou_tute2", "thou_intro",
 				# Sugar Rush
@@ -258,17 +259,9 @@ func load_question(id, first_question: bool):
 				# some logic depending on the situation
 				var pool =\
 					"option" if key.begins_with("option") else\
-					"gib_wrong" if key.begins_with("gib_wrong") else\
 					"pretitle_q1" if first_question == true and key == "pretitle" else\
 					key
-				var selection = random_dict.audio_question[pool][\
-					rng.randi_range(
-						0, len(random_dict.audio_question[pool]) - 1
-					)\
-				]
-				S.preload_voice(
-					key, selection.v, false, selection.s
-				)
+				load_random_voice_line(key, pool)
 		else:
 			# is optional?
 			if key in ["intro"] or (
@@ -322,3 +315,15 @@ func parse_time_markers(contents = ""):
 			"duration": -1.0
 		})
 	return queue
+
+func load_random_voice_line(key, pool = ""):
+	if pool == "":
+		pool = key
+	var selection = random_dict.audio_question[pool][\
+		rng.randi_range(
+			0, len(random_dict.audio_question[pool]) - 1
+		)\
+	]
+	S.preload_voice(
+		key, selection.v, false, selection.s
+	)
