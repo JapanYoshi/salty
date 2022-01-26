@@ -84,6 +84,7 @@ var can_skip = false
 
 var ans_regex = RegEx.new()
 var cuss_level = 0
+var gib_clues = 0
 
 var scene_history = []
 
@@ -341,6 +342,12 @@ func answer_submitted(text):
 	kb.disconnect("text_confirmed", self, "answer_submitted")
 	timer.stop_timer()
 	timer.hide_timer()
+	# blank?
+	if len(text) == 0:
+		Loader.load_random_voice_line("gib_wrong", "gib_blank")
+		S.play_voice("gib_wrong")
+		return
+	# cuss word?
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
 		print("correct")
@@ -374,6 +381,7 @@ func answer_submitted(text):
 			yield(get_tree().create_timer(1.25), "timeout")
 			# let's get back to the game
 			S.play_voice("cuss_a2")
+			return
 		elif cuss_level == 1:
 			cuss_level = 2
 			# "take a look at your score"
@@ -383,14 +391,22 @@ func answer_submitted(text):
 			yield(get_tree().create_timer(3.3), "timeout")
 			# let's get back to the game
 			S.play_voice("cuss_b1")
+			return
 		else:
 			# "you know what we quit"
 			S.play_voice("cuss_c0")
 			yield(S, "voice_end")
 			ep.disqualified()
+			return
 	else:
 		print("incorrect")
-		S.play_voice("gib_wrong0")
+		Loader.load_random_voice_line("gib_wrong",
+			"gib_early" if gib_clues == 0 else
+			"gib_wrong" if gib_clues < 3 else
+			"gib_late"
+		)
+		S.play_voice("gib_wrong")
+		return
 
 # for cosmetic animation/sfx.
 func player_buzz_in(player):
@@ -491,6 +507,7 @@ func change_stage(next_stage):
 				)
 				bgs.G.show()
 				hud.enable_lifesaver(false)
+				gib_clues = 0
 				var result = ans_regex.compile(data.answer.r)
 				if result != OK:
 					print("Could not compile RegEx %s: error code %d" % [data.answer.r, result])
@@ -1033,7 +1050,7 @@ func _on_voice_end(voice_id):
 			if voice_id == "reveal":
 				change_stage("gib_answer")
 				return
-			elif voice_id in ["gib_wrong0", "gib_wrong1", "gib_wrong2"]:
+			elif voice_id == "gib_wrong":
 				# penalize
 				S.play_sfx("option_wrong")
 				hud.punish_players(answers[0], bgs.G.value)
@@ -1041,8 +1058,8 @@ func _on_voice_end(voice_id):
 				yield(get_tree().create_timer(1.5), "timeout")
 				# pass through to "prepare for next player"
 			elif voice_id == "cuss_a2":
-				pass
 				# pass through to "prepare for next player"
+				pass
 			elif voice_id == "cuss_b1":
 				hud.punish_players(answers[0], 0)
 				# pass through to "prepare for next player"
@@ -1055,7 +1072,7 @@ func _on_voice_end(voice_id):
 				S.play_voice("reveal")
 			else:
 				# load next wrong line
-				S.cycle_voices(["gib_wrong0", "gib_wrong1", "gib_wrong2"])
+				#S.cycle_voices(["gib_wrong0", "gib_wrong1", "gib_wrong2"])
 				
 				# prepare buzz in
 				answers[0] = []
@@ -1442,18 +1459,21 @@ func G_checkpoint(id: int):
 				i = 0,
 				t = data.clue0.t
 			})
+			gib_clues = 1
 		1:
 			S.play_voice("clue1")
 			send_scene('gibClue', {
 				i = 1,
 				t = data.clue1.t
 			})
+			gib_clues = 2
 		2:
 			S.play_voice("clue2")
 			send_scene('gibClue', {
 				i = 2,
 				t = data.clue2.t
 			})
+			gib_clues = 3
 		3:
 			set_buzz_in(false)
 			ep.set_pause_penalty(false)

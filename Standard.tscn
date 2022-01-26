@@ -1302,6 +1302,7 @@ margin_top = -640.0
 margin_right = 640.0
 margin_bottom = 640.0
 mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
