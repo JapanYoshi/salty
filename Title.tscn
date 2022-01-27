@@ -102,7 +102,7 @@ margin_top = 320.0
 margin_right = 608.0
 margin_bottom = 411.0
 custom_fonts/font = ExtResource( 4 )
-text = "(PRE-ALPHA. Lots of stuff is broken.)"
+text = "ALPHA: 1 full playable episode!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
