@@ -1,0 +1,76 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "Horrible Histories, Horribler Pop Songs"
+v = "title"
+s = "“Horrible Histories, Horribler Pop Songs”."
+
+[intro]
+v = ""
+
+[question]
+t = "If Horrible Histories parodied a Miley Cyrus song to teach kids about King Cyrus, which of the following titles might it have?"
+v = "question"
+s = "
+If Horrible Histories parodied a Miley Cyrus song to teach kids about King Cyrus, which of the following titles might it have?
+"
+
+[options]
+t = [
+  "Nothing Breaks Like Macedon",
+  "The Holy Roman Empire Can’t Stop",
+  "Party in the Persian Empire",
+  "Hungarian Throwdown"
+]
+v = "options"
+s = "
+Nothing Breaks Like Macedon,[#1614#]
+The Holy Roman Empire Can’t Stop,[#3402#]
+Party in the Persian Empire,[#4888#]
+or Hungarian Throwdown?
+"
+i = 2
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "You must be Alexander the Not-So-Great."
+
+[option1]
+v = "option1"
+s = "You’re as good as the Holy Roman Empire was holy or Roman."
+
+[option2]
+v = "option2"
+s = "King Cyrus was the king of the first Persian Empire."
+
+[option3]
+v = "random"
+
+[outro]
+v = "outro"
+s = "
+I feel like Horrible Histories is a misnomer.[#2902#]
+I mean, those videos are less horrible to sit through than an actual history lesson.
+"
