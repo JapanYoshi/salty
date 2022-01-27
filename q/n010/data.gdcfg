@@ -1,0 +1,79 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "[i]Very[/i] Remote Work"
+v = "title"
+s = "
+“[i]Very[/i] Remote Work”.
+"
+
+[intro]
+v = ""
+
+[question]
+t = "If you have one day to finish an assignment, being on which planet will give you the most time to procrastinate?"
+v = "question"
+s = "
+If you have one day to finish an assignment, being on which planet will give you the most time to procrastinate?
+"
+
+[options]
+t = [
+  "Mercury",
+  "Venus",
+  "Mars",
+  "Earth, actually"
+]
+v = "options"
+s = "
+Mercury, Venus, Mars, or Earth, actually?
+"
+i = 1
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "
+Ooh, so close.
+"
+
+[option1]
+v = "option1"
+s = "A day on Venus is a whopping 5,832 Earth hours,[#5677#]
+or 243 Earth days."
+
+[option2]
+v = "option2"
+s = "No, but the great thing is you only need 30 seconds to get there, according to the Leto brothers."
+
+[option3]
+v = "option3"
+s = "Dude, workdays here are too long as they are."
+
+[outro]
+v = "outro"
+s = "
+But then it would take 1,215 Earth days until the weekend,[#3611#]
+so you win some, you lose some.
+"
