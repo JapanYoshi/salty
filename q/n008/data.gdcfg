@@ -1,0 +1,84 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "The Snap, Crackle, and Pop Foundation"
+v = "title"
+s = "
+“The Snap, Crackle, and Pop Foundation”.
+"
+
+[intro]
+v = ""
+
+[question]
+t = "Suppose the immortal Dr. Bright from the SCP Foundation actually emitted light.[#4505#] Which of these bullet points would you [b]not[/b] expect to be added to the lengthy list of “The Things Dr. Bright Is No Longer Allowed to Do at the Foundation”?"
+v = "question"
+s = "
+Suppose the immortal Dr. Bright from the SCP Foundation actually emitted light.[#4505#] Which of these bullet points would you [i]not[/i] expect to be added to the lengthy list of[#8359#] “The Things Dr. Bright Is No Longer Allowed to Do at the Foundation”?
+"
+
+[options]
+t = [
+  "Dr. Bright may not emit over 800 [b]stellaris[/b] per second.",
+  "Dr. Bright may not exceed 500 [b]lumens[/b].",
+  "Dr. Bright may not average over 140 [b]candela[/b].",
+  "Dr. Bright may not cast over 400 [b]lux[/b] on any surface."
+]
+v = "options"
+s = "
+“Dr. Bright may not emit over 800 stellaris per second.”,[#3442#]
+“Dr. Bright may not exceed 500 lumens.”,[#5857#]
+“Dr. Bright may not average over 140 candela.”,[#8806#]
+or “Dr. Bright may not cast over 400 lux on any surface.”?
+"
+i = 0
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "option0"
+s = "
+Lumens, candela, and lux are all units used to measure light.[#3332#]
+Stellaris is a video game.
+"
+
+[option1]
+v = "option1"
+s = "
+Well, [i]your[/i] head isn’t enlightened.
+"
+
+[option2]
+v = "random"
+
+[option3]
+v = "random"
+
+[outro]
+v = "outro"
+s = "
+I mean, I would add one of those admonishments myself,[#2856#]
+but the list says, and I quote:[#4899#]
+“No more additions are allowed”.[#7465#]
+Cowards.
+"
