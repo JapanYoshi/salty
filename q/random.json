@@ -153,25 +153,25 @@
   , {"v": "round2_tute_05", "s": "Point values are double in Round 2, because [i]of course.[/i] Let’s get going."}
   ]
   , "lifesaver2" : [
-    {"v": "lifesaver2_00", "s": ""}
-  , {"v": "lifesaver2_01", "s": ""}
-  , {"v": "lifesaver2_02", "s": ""}
-  , {"v": "lifesaver2_03", "s": ""}
-  , {"v": "lifesaver2_04", "s": ""}
-  , {"v": "lifesaver2_05", "s": ""}
-  , {"v": "lifesaver2_06", "s": ""}
-  , {"v": "lifesaver2_07", "s": ""}
+    {"v": "lifesaver2_00", "s": "Don’t forget: you still have Lifesavers! Use them to your advantage."}
+  , {"v": "lifesaver2_01", "s": "C’mon, give those Lifesavers some lovin’!"}
+  , {"v": "lifesaver2_02", "s": "Those Lifesavers aren’t gonna be here forever! Use them!"}
+  , {"v": "lifesaver2_03", "s": "There’s a pretty clueless person in here, and that’s me, wondering why you’re not using the Lifesavers!"}
+  , {"v": "lifesaver2_04", "s": "Remember, if your score’s underwater, you can use a Lifesaver to float back up, hopefully."}
+  , {"v": "lifesaver2_05", "s": "Did you forget that you had Lifesavers, or are you banking on Question 12 being the hardest?"}
+  , {"v": "lifesaver2_06", "s": "Are you gonna use those Lifesavers, or did I go through the trouble of sourcing them and inflating them for nothing?"}
+  , {"v": "lifesaver2_07", "s": "Hey, those Lifesavers aren’t for decoration! They serve a gameplay purpose."}
   ]
   , "lifesaver2_tute0" : [
-    {"v": "lifesaver2_tute0_00", "s": ""}
-  , {"v": "lifesaver2_tute0_01", "s": ""}
-  , {"v": "lifesaver2_tute0_02", "s": ""}
-  , {"v": "lifesaver2_tute0_03", "s": ""}
+    {"v": "lifesaver2_tute0_00", "s": "As a reminder, press a shoulder button to eliminate two options, and give yourself an easier time."}
+  , {"v": "lifesaver2_tute0_01", "s": "As a reminder, press a shoulder button to eliminate two options, and give yourself an easier time."}
+  , {"v": "lifesaver2_tute0_02", "s": "Once again, if you want to rule out a couple options from a hard question, press a shoulder button."}
+  , {"v": "lifesaver2_tute0_03", "s": "In case you forgot how it works, pressing either shoulder button will rule out two options, just for you."}
   ]
   , "lifesaver2_tute1" : [
-    {"v": "lifesaver2_tute1_00", "s": ""}
-  , {"v": "lifesaver2_tute1_01", "s": ""}
-  , {"v": "lifesaver2_tute1_02", "s": ""}
+    {"v": "lifesaver2_tute1_00", "s": "And they’ll be gone in six questions if you don’t use it."}
+  , {"v": "lifesaver2_tute1_01", "s": "Better use it quick, because if you still have it after Question 12, it’s getting confiscated."}
+  , {"v": "lifesaver2_tute1_02", "s": "But if you hold onto it for six more questions, we’ll take them away for good."}
   ]
   , "outro" : [
     {"v": "", "s": ""}
@@ -265,7 +265,18 @@
     , {"v": "q_intro_19", "s": "Next in line:"}
     ] 
   , "used_lifesaver": [
-    {"v": "wrong_00", "s": "(tbd) Now it’s time for the Lifesaver users to answer."}
+    {"v": "used_lifesaver_00", "s": "Now let’s get the Lifesaver users to answer."}
+  , {"v": "used_lifesaver_01", "s": "You used your Lifesaver on this question. Now’s your chance to answer."}
+  , {"v": "used_lifesaver_02", "s": "Enjoying the perks of your Lifesaver? Let’s see that answer."}
+  , {"v": "used_lifesaver_03", "s": "Since Lifesavers were deployed just now, we have a couple of late answers here."}
+  , {"v": "used_lifesaver_04", "s": "That should help you make up your mind. Courtesy of the Lifesavers."}
+  , {"v": "used_lifesaver_05", "s": "Thank goodness for Lifesavers, amirite? Now let’s see those fingers pressing."}
+  , {"v": "used_lifesaver_06", "s": "You’re welcome for your Lifesaver. So, what do you think is the right answer?"}
+  , {"v": "used_lifesaver_07", "s": "That should make it easier for you. Which one is it?"}
+  , {"v": "used_lifesaver_08", "s": "Out of these two left, which is right, Lifesaver user?"}
+  , {"v": "used_lifesaver_09", "s": "Hope [i]that[/i] Lifesaver was worth it. Answer now."}
+  , {"v": "used_lifesaver_10", "s": "Now you have two options. Which is bang-on and which is bogus?"}
+  , {"v": "used_lifesaver_11", "s": "Are we gonna cut the red wire or the blue wire, over?"}
   ]
   , "reveal": [
     {"v": "reveal_00", "s": "Let’s see who got it."}
@@ -351,6 +362,7 @@
   , {"v": "wrong_22", "s": "Careful. Your dumb is showing."}
   , {"v": "wrong_23", "s": "Thaaat’s embarrassing. For you."}
   , {"v": "wrong_24", "s": "I thought so at first, but then I knew better."}
+  , {"v": "wrong_42", "s": "[sound of crickets]"}
   , {"v": "wrong_25", "s": "[#1445#]Wow, even the crickets are speechless."}
   , {"v": "wrong_26", "s": "[#1440#]Y’know, I can’t even make fun of that."}
   , {"v": "wrong_27", "s": "[sips][#1440#][swallows][#2438#]Aaaah.[#3442#][coughs][#4005#][#4621#]No."}
@@ -368,7 +380,6 @@
   , {"v": "wrong_39", "s": "So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."}
   , {"v": "wrong_40", "s": "That’s gotta be the correct answer for some other question."}
   , {"v": "wrong_41", "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][chuckles] This is dumb."}
-  , {"v": "wrong_42", "s": "[sound of crickets]"}
   ]
   , "gib_early": [
     {"v": "gib_early_00", "s": "Hey, did your finger slip onto the buzzer?"}
