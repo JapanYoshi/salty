@@ -1,0 +1,73 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "Who [i]Doesn’t[/i] Want to Be a Millionaire?"
+v = "title"
+s = "“Who [i]Doesn’t[/i] Want to Be a Millionaire?”."
+
+[intro]
+v = ""
+ 
+[question]
+t = "Which one of these contestants in [i]Who Wants to Be a Millionaire?[/i] will become a millionaire?"
+v = "question"
+s = "
+Which one of these contestants in [i]Who Wants to Be a Millionaire?[/i] will become a millionaire?
+"
+
+[options]
+t = [
+  "the one who wins $2.2M and gets taxed 59%",
+  "the one who wins $1.8M and gets taxed 48%",
+  "the one who wins $1.5M and gets taxed 31%",
+  "the one who wins $1.1M and gets taxed 22%"
+]
+v = "options"
+s = "
+The one who wins 2.2 million dollars and gets taxed 59 percent,[#3651#]
+The one who wins 1.8 million dollars and gets taxed 48 percent,[#6298#]
+The one who wins 1.5 million dollars and gets taxed 31 percent,[#8481#]
+or the one who wins 1.1 million dollars and gets taxed 22 percent?
+"
+i = 2
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "random"
+
+[option1]
+v = "random"
+
+[option2]
+v = "option2"
+s = "31% of 1.5 million dollars is just under half a million,[#4255#]leaving the contestant with 1 million 35 thousand dollars."
+
+[option3]
+v = "random"
+
+[outro]
+v = "outro"
+s = "
+Taxes, man, how do they work?!
+"
