@@ -5,6 +5,7 @@ var first_page = preload("res://Episodes.tscn")
 var signup = preload("res://signup.tscn")
 onready var tween = $Tween
 onready var click_mask = $ClickMask
+var question_pack_is_downloaded = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,8 +48,9 @@ func change_scene_to(n):
 	move_child(current_page, 1)
 	click_mask.hide()
 
-func load_episode(episode_name):
+func load_episode(ep):
 	change_scene_to(signup.instance())
+	async_load_question_pack(ep)
 
 func start_game():
 	S.play_track(0, false, false)
@@ -60,3 +62,22 @@ func start_game():
 	tween.start()
 	yield(tween, "tween_all_completed")
 	get_tree().change_scene("res://Episode.tscn")
+
+func async_load_question_pack(ep):
+	var url = "https://haitouch.ga/me/salty/%s.zip" % Loader.episodes[ep].question_pack
+	# Create an HTTP request node and connect its completion signal.
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.connect("request_completed", self, "_http_request_completed")
+	# Perform the HTTP request. The URL below returns a PNG image as of writing.
+	var error = http_request.request(url)
+	if error != OK:
+		push_error("An error occurred while making the HTTP request.")
+
+# Called when the HTTP request is completed.
+func _http_request_completed(result, response_code, headers, body):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		printerr("HTTP request did not succeed.")
+	# not sure what to do when loaded...
+	breakpoint
+#	ProjectSettings.load_resource_pack()

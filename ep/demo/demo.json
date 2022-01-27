@@ -1,6 +1,7 @@
 {
   "episode_name": "Demo",
-  "episode_desc": "Here’s a little taste of what’s to come with [i]Salty Trivia with Candy Barre[/i]. Sample one of each question type.",
+  "episode_desc": "Here’s a little taste of what’s to come with [i]Salty Trivia with Candy Barre[/i]. Sample one of each question type, except the other type of Grand Finale.",
+  "question_pack": "ep_demo",
   "audio": {
     "welcome": {
       "v": "default"
