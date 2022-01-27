@@ -1,0 +1,81 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "Time Fries"
+v = "title"
+s = "
+“Time Fries”.
+"
+
+[intro]
+v = ""
+
+[question]
+t = "Five Guys Burgers and Fries was founded in the US in 1986. [#3949#]Adjusting for population growth in the US since then, [#6596#]how many Guys Burgers and Fries is that in 2021, to the nearest tenth of a guy?"
+v = "question"
+s = "
+Five Guys Burgers and Fries was founded in the US in 1986.[#3949#]
+Adjusting for population growth in the US since then,[#6596#]
+how many Guys Burgers and Fries is that in 2021, to the nearest tenth of a guy?
+"
+
+[options]
+t = [
+  "5.3 Guys Burgers and Fries",
+  "6.9 Guys Burgers and Fries",
+  "9.1 Guys Burgers and Fries",
+  "11.7 Guys Burgers and Fries"
+]
+v = "options"
+s = "
+5.3 Guys Burgers and Fries,[#1660#]
+6.9 Guys Burgers and Fries,[#3622#]
+9.1 Guys Burgers and Fries,[#5248#]
+or 11.7 Guys Burgers and Fries?
+"
+i = 1
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "random"
+
+[option1]
+v = "option1"
+s = "
+The US had a population of about 240 million in 1986,[#4005#]
+which went up to about 330 million in 2021.[#7361#]
+That’s a ratio of 5 to almost 7.
+"
+
+[option2]
+v = "random"
+
+[option3]
+v = "random"
+
+[outro]
+v = "outro"
+s = "
+Be careful eating too many burgers, or it’ll give you an extra guy’s worth of fat.
+"
