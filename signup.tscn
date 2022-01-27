@@ -705,15 +705,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -480.0
-margin_top = -48.0
-margin_right = 480.0
-margin_bottom = 48.0
-rect_pivot_offset = Vector2( 480, 48 )
+margin_left = -512.0
+margin_top = -72.0
+margin_right = 512.0
+margin_bottom = 72.0
+rect_pivot_offset = Vector2( 512, 72 )
 
 [node name="ProgressBar" type="ProgressBar" parent="LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
 custom_styles/fg = SubResource( 10 )
 custom_styles/bg = SubResource( 11 )
 percent_visible = false
@@ -724,7 +728,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -48.0
+margin_bottom = -72.0
 custom_fonts/font = ExtResource( 9 )
 text = "Loading question pack online..."
 align = 1
@@ -736,7 +740,7 @@ __meta__ = {
 [node name="Progress" type="Label" parent="LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 48.0
+margin_top = 72.0
 custom_fonts/font = ExtResource( 11 )
 text = "Loaded 00000.0KiB of 00000.0KiB (000.00%)"
 align = 1
