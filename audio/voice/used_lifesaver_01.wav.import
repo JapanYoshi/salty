@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/used_lifesaver_01.wav-97b45e5a7a2d801a1f50cb07adb2c3ff.sample"
+
+[deps]
+
+source_file="res://audio/voice/used_lifesaver_01.wav"
+dest_files=[ "res://.import/used_lifesaver_01.wav-97b45e5a7a2d801a1f50cb07adb2c3ff.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
