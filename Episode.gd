@@ -339,6 +339,7 @@ func play_intro():
 		load_next_question()
 
 func play_intro_2():
+	q_box.hud.reset_all_playerboxes()
 	var lifesaver_left = false
 	for p in R.players:
 		if p.has_lifesaver:

@@ -551,7 +551,7 @@ func change_stage(next_stage):
 					'title': data.title.t,
 				})
 		if question_type in ["N", "C", "T"]:
-			question_queue = Loader.parse_time_markers(data.question.t)
+			question_queue = Loader.parse_time_markers(data.question.t, true)
 			question.bbcode_text = ""
 			question.visible_characters = 0
 			for el in question_queue:
@@ -597,7 +597,7 @@ func change_stage(next_stage):
 	# normal intro
 	elif stage == "title" and next_stage == "intro":
 		stage = "intro"
-		if data.has("intro"):
+		if data.has("intro") and data.intro.v != "":
 			S.play_voice("intro")
 		else:
 			change_stage("question")
@@ -877,6 +877,14 @@ func change_stage(next_stage):
 			S.unload_music(k)
 		for b in option_boxes:
 			b.reset()
+		question_number += 1
+		print("Question is successfully finished!")
+		if $Vignette.tween.is_active():
+			print("DEBUG PRINT WAIT FOR VIGNETTE")
+			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
+			yield($Vignette, "tween_finished")
+			if question_number != 5:
+				show_loading_logo()
 		print("DEBUG PRINT UNLOAD BG")
 		if question_type == "T" or question_type == "G":
 			if is_instance_valid(bgs.G):
@@ -893,14 +901,6 @@ func change_stage(next_stage):
 		elif question_type == "C":
 			if is_instance_valid(bgs.C):
 				bgs.C.queue_free()
-		question_number += 1
-		print("Question is successfully finished!")
-		if $Vignette.tween.is_active():
-			print("DEBUG PRINT WAIT FOR VIGNETTE")
-			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
-			yield($Vignette, "tween_finished")
-			if question_number != 5:
-				show_loading_logo()
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
 		# just finished revealing lifesaver decoys
@@ -1208,8 +1208,8 @@ func reveal_next_option():
 				# Found one!
 				reveal_option(choice)
 				return
-		if responses[choice] == -1:
-			generic = choice
+			elif responses[choice] == -1:
+				generic = choice
 	# okay, the rest are all generic answers
 	# see if nobody answered
 	if revealed_count == 0 and len(answers[0])+len(answers[1])+len(answers[2])+len(answers[3]) == 0:
@@ -1259,7 +1259,7 @@ func advance_question():
 		)
 		question_tween.start()
 		if next.duration > 0:
-			question_timer.start(next.duration / 1000)
+			question_timer.start(next.duration / 1000.0)
 
 func _on_anim_finished(anim_name):
 	if anim_name == "title_exit":

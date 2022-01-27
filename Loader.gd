@@ -213,7 +213,7 @@ func load_question(id, first_question: bool):
 		if key == "sort_options":
 			for i in range(0, 7):
 				S.preload_voice("sort_option%d" % i, id + ("/sort_option%d" % i), true, data[key].s[i])
-		elif data.has(key):
+		elif data.has(key) and data[key]["v"] != "":
 			if data[key]["v"] != "random":
 				# not random
 				if not data[key]["v"].begins_with("_"):
@@ -267,18 +267,20 @@ func load_question(id, first_question: bool):
 			if key in ["intro"] or (
 				data.type == "S" and data.has_both == false and key in ["sort_both", "sort_if_both", "sort_press_up"]
 			):
-				# Sorta Kinda without "both" option, skip these lines
+				# in case this key was previously loaded, unload it
+				S.unload_voice(key)
 				pass
 			else:
 				printerr("Missing voice for " + key)
 				breakpoint
 	return data
 
-func parse_time_markers(contents = ""):
+func parse_time_markers(contents = "", exclude_formatting = false):
 	var queue = []
 	var texts = []
 	var indices = [0]
 	var timings = [0]
+	var skipped_chars = 0
 	for result in r_separator.search_all(contents):
 		var timing = int(result.strings[0])
 		indices.append(result.get_start())
@@ -289,11 +291,20 @@ func parse_time_markers(contents = ""):
 	if len(indices) > 1:
 		for i in range(0, len(timings) - 1):
 			texts.append(contents.substr(indices[i*2], indices[i*2+1] - indices[i*2]))
+			if exclude_formatting:
+				var copy = texts[i]
+				copy = copy.replace("[b]", "")
+				copy = copy.replace("[/b]", "")
+				copy = copy.replace("[i]", "")
+				copy = copy.replace("[/i]", "")
+				copy = copy.replace("[code]", "")
+				copy = copy.replace("[/code]", "")
+				skipped_chars = len(texts[i]) - len(copy)
 			if timings[i+1] > timings[i]:
 				# normal one
 				queue.append({
 					"text": texts[i],
-					"chars": indices[i*2+1] - indices[i*2],
+					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
 					"duration": timings[i+1] - timings[i]
 				})
 			elif texts[i] == "":
@@ -303,7 +314,7 @@ func parse_time_markers(contents = ""):
 				# after final timing marker
 				queue.append({
 					"text": texts[i],
-					"chars": indices[i*2+1] - indices[i*2],
+					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
 					"duration": -1
 				})
 	else:
