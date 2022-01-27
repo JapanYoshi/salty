@@ -1,15 +1,16 @@
 extends Control
 onready var ep_scroller = $ScrollContainer/VBoxContainer
-var eps = {"RQ": {
-	id = "RQ",
-	filename = "random",
-	name = "choose random questions",
-	desc = "Randomly choose 13 questions to create your very own special episode of Salty Trivia. Let’s hope there are no repeats.",
-	locked = true
-}}
+var eps = {}
+#var eps = {"RQ": {
+#	id = "RQ",
+#	filename = "random",
+#	name = "choose random questions",
+#	desc = "Randomly choose 13 questions to create your very own special episode of Salty Trivia. Let’s hope there are no repeats.",
+#	locked = true
+#}}
 var selected_now = ""
-var first = "RQ"
-var last = "RQ"
+var first = ""
+var last = ""
 var disable_controls = false
 
 # Called when the node enters the scene tree for the first time.
@@ -25,6 +26,8 @@ func _ready():
 			desc = Loader.episodes[e].episode_desc
 		}
 		eps[ep.id] = ep
+		if first == "":
+			first = ep.id
 		last = ep.id
 		var new_box = ep_box.duplicate()
 		new_box.name = ep.id
@@ -32,7 +35,12 @@ func _ready():
 		new_box.get_node("VBox/Split/Title").set_text(ep.name)
 		ep_scroller.add_child(new_box)
 		ep_scroller.move_child($ScrollContainer/VBoxContainer/BottomSpacer, ep_scroller.get_child_count()-1)
-	ep_box.grab_focus()
+	if eps.has("RQ"):
+		first = "RQ"
+		ep_box.grab_focus()
+	else:
+		ep_box.queue_free()
+		ep_scroller.get_child(0).grab_focus()
 	focus_shifted(first)
 	print(eps)
 
