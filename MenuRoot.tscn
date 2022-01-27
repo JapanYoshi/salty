@@ -34,4 +34,6 @@ __meta__ = {
 
 [node name="BackButton" parent="." instance=ExtResource( 4 )]
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="back_pressed" from="BackButton" to="." method="back"]

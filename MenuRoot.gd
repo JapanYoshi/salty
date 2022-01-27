@@ -6,6 +6,7 @@ var signup = preload("res://signup.tscn")
 onready var tween = $Tween
 onready var click_mask = $ClickMask
 var question_pack_is_downloaded = false
+var waiting_for_game_start = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,20 +54,30 @@ func load_episode(ep):
 	async_load_question_pack(ep)
 
 func start_game():
+	if !question_pack_is_downloaded:
+		waiting_for_game_start = true
+		_update_loading_progress()
+		current_page.get_node("MouseMask").color = Color(0, 0, 0, 0.5)
+		current_page.get_node("LoadingPanel").show()
+		return
+	current_page.update_loading_progress(http_request.get_body_size(), http_request.get_body_size())
 	S.play_track(0, false, false)
 	S.play_track(1, false, false)
 	S.play_track(2, false, false)
 	self.rect_pivot_offset = Vector2(640,360)
 	tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	tween.interpolate_property(self, "rect_scale", Vector2.ONE, Vector2.ONE * 1.1, 0.5)
+	tween.interpolate_property(self, "rect_scale", Vector2.ONE, Vector2.ONE * 1.1, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	tween.interpolate_property(current_page.get_node("LoadingPanel"), "rect_scale", Vector2.ONE, Vector2.ONE * 1.25, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	yield(tween, "tween_all_completed")
 	get_tree().change_scene("res://Episode.tscn")
 
+onready var http_request = $HTTPRequest
+
 func async_load_question_pack(ep):
-	var url = "https://haitouch.ga/me/salty/%s.zip" % Loader.episodes[ep].question_pack
+	var url = "http://haitouch.ga/me/salty/%s.zip" % Loader.episodes[ep].question_pack
 	# Create an HTTP request node and connect its completion signal.
-	var http_request = HTTPRequest.new()
+	http_request.download_file = "user://question_pack.zip"
 	add_child(http_request)
 	http_request.connect("request_completed", self, "_http_request_completed")
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
@@ -74,10 +85,28 @@ func async_load_question_pack(ep):
 	if error != OK:
 		push_error("An error occurred while making the HTTP request.")
 
+# show player how much data is loaded
+func _update_loading_progress():
+	var partial = http_request.get_downloaded_bytes()
+	var total = http_request.get_body_size()
+	current_page.update_loading_progress(partial, total)
+	if !question_pack_is_downloaded:
+		yield(get_tree().create_timer(0.25), "timeout")
+		call_deferred("_update_loading_progress")
+
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		printerr("HTTP request did not succeed.")
+		return
 	# not sure what to do when loaded...
-	breakpoint
-#	ProjectSettings.load_resource_pack()
+	# check file existence
+	var file = File.new()
+	if file.file_exists("user://question_pack.zip"):
+		ProjectSettings.load_resource_pack("user://question_pack.zip")
+		question_pack_is_downloaded = true
+		if waiting_for_game_start == true:
+			start_game()
+	else:
+		printerr("File isn't downloaded.")
+		return

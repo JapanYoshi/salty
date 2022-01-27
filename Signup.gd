@@ -16,6 +16,7 @@ enum SIGNUP {
 func _ready():
 	R.rng.randomize()
 	C.connect("gp_button", self, "_gp_button")
+	$LoadingPanel.hide()
 	$MouseMask.hide()
 	players_list = []; signup_now = []; signup_queue = []
 	p_count = 0
@@ -338,3 +339,10 @@ func give_player_nick(id):
 				'playerIndex': p.player_number,
 				'isVip': p.player_number == 0
 			});
+
+func update_loading_progress(partial, total):
+	$LoadingPanel/ProgressBar.max_value = total
+	$LoadingPanel/ProgressBar.value = partial
+	$LoadingPanel/Progress.set_text(
+		"Loaded %.1fKiB of %.1fKiB (%06.2f%%)" % [partial / 1024.0, total / 1024.0, 100.0 * partial / total]
+	)
