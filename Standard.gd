@@ -877,7 +877,6 @@ func change_stage(next_stage):
 			S.unload_music(k)
 		for b in option_boxes:
 			b.reset()
-		question_number += 1
 		print("Question is successfully finished!")
 		if $Vignette.tween.is_active():
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
@@ -901,6 +900,7 @@ func change_stage(next_stage):
 		elif question_type == "C":
 			if is_instance_valid(bgs.C):
 				bgs.C.queue_free()
+		question_number += 1
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
 		# just finished revealing lifesaver decoys
