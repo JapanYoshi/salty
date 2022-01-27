@@ -340,7 +340,17 @@ func give_player_nick(id):
 				'isVip': p.player_number == 0
 			});
 
-func update_loading_progress(partial, total):
+func update_loading_progress(partial, total, eta):
+	var time_text = "Finished!"
+	if eta >= 60*1000:
+		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
+	elif eta >= 1000:
+		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
+	elif eta > 0:
+		time_text = "Almost there..."
+	$LoadingPanel/Label.set_text(
+		"Downloading question pack. %s" % time_text
+	)
 	$LoadingPanel/ProgressBar.max_value = total
 	$LoadingPanel/ProgressBar.value = partial
 	$LoadingPanel/Progress.set_text(

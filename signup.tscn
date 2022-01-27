@@ -701,7 +701,6 @@ __meta__ = {
 }
 
 [node name="LoadingPanel" type="Panel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -730,13 +729,16 @@ custom_fonts/font = ExtResource( 9 )
 text = "Loading question pack online..."
 align = 1
 valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Progress" type="Label" parent="LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 48.0
 custom_fonts/font = ExtResource( 11 )
-text = "0 bytes loaded"
+text = "Loaded 00000.0KiB of 00000.0KiB (000.00%)"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
