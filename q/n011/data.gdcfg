@@ -1,0 +1,79 @@
+[root]
+type = "N"
+
+[pretitle]
+v = "random"
+
+[title]
+t = "’Cause This Is Griller!"
+v = "title"
+s = "
+♫ ’Cause This Is Griller! ♫
+"
+
+[intro]
+v = ""
+
+[question]
+t = "What is the official full 1994 name of the George Foreman Grill?"
+v = "question"
+s = "
+What is the official full 1994 name of the George Foreman Grill?
+"
+
+[options]
+t = [
+  "George Foreman Hinged Home Grill",
+  "George Foreman Serrated Tabletop Iron",
+  "George Foreman Non-Stick Panini Toaster",
+  "George Foreman Lean Mean Fat-Reducing Grilling Machine"
+]
+v = "options"
+s = "
+George Foreman Hinged Home Grill,[#1753#]
+George Foreman Serrated Tabletop Iron,[#3866#]
+George Foreman Non-Stick Panini Toaster,[#5886#]
+or George Foreman Lean Mean Fat-Reducing Grilling Machine?
+"
+i = 3
+
+[used_lifesaver]
+v = "random"
+
+[reveal]
+v = "random"
+
+[reveal_crickets]
+v = "random"
+
+[reveal_jinx]
+v = "random"
+
+[reveal_split]
+v = "random"
+
+[reveal_correct]
+v = "random"
+
+[option0]
+v = "random"
+
+[option1]
+v = "random"
+
+[option2]
+v = "random"
+
+[option3]
+v = "option3"
+s = "Why would I make up something [i]that[/i] ridiculous?!"
+
+[outro]
+v = "outro"
+s = "
+I would write a joke for the end of this question,[#2020#]
+but that name is more than enough of a joke.[#4882#]
+I mean...[#5939#]
+“George Foreman Lean Mean Fat-Reducing Grilling Machine”.[#10106#][#10850#]
+I can’t even get through it without breaking character.
+"
