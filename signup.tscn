@@ -742,7 +742,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 72.0
 custom_fonts/font = ExtResource( 11 )
-text = "Loaded 00000.0KiB of 00000.0KiB (000.00%)"
+text = "ETA display is not supported on HTML5."
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

@@ -33,7 +33,7 @@ func _ready():
 
 func load_random_voice_lines():
 	var file = File.new()
-	if file.open(question_path + "/random.json", File.READ) == OK:
+	if file.open("res://random_voicelines.json", File.READ) == OK:
 		var json = JSON.parse(file.get_as_text())
 		if json.error == OK:
 			random_dict = json.result
@@ -118,6 +118,7 @@ func load_question(id, first_question: bool):
 	else:
 		printerr("Couldn't load question ID: " + id)
 		R.crash("Question data for ID '" + id + "' is missing.")
+		return
 	### Expected structure:
 	# "v" is voice file name,
 	# "t" is text (for title, question, and options),
@@ -141,6 +142,7 @@ func load_question(id, first_question: bool):
 	var keys = [];
 	if not(data.has("type")):
 		R.crash("Question data is missing the key 'type'.")
+		return
 	match data.type:
 		"N":
 			keys = [

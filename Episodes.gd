@@ -20,7 +20,7 @@ func _ready():
 	ep_box.name = "RQ"
 	for e in Loader.episodes.keys():
 		var ep = {
-			id = "%d" % len(eps),
+			id = "%d" % (len(eps) + 1),
 			filename = e,
 			name = Loader.episodes[e].episode_name,
 			desc = Loader.episodes[e].episode_desc
@@ -40,7 +40,7 @@ func _ready():
 		ep_box.grab_focus()
 	else:
 		ep_box.queue_free()
-		ep_scroller.get_child(0).grab_focus()
+		ep_scroller.get_node(first).grab_focus()
 	focus_shifted(first)
 	print(eps)
 

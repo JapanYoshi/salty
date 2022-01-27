@@ -7,6 +7,7 @@ onready var tween = $Tween
 onready var click_mask = $ClickMask
 var question_pack_is_downloaded = false
 var waiting_for_game_start = false
+const QPACK_NAME = "user://question_pack.pck"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,31 +76,36 @@ func start_game():
 onready var http_request = $HTTPRequest
 
 func async_load_question_pack(ep):
-	var url = "http://haitouch.ga/me/salty/%s.zip" % Loader.episodes[ep].question_pack
+	print("async_load_question_pack()")
+	var url = "http://haitouch.ga/me/salty/%s.pck" % Loader.episodes[ep].question_pack
 	# Create an HTTP request node and connect its completion signal.
-	http_request.download_file = "user://question_pack.zip"
-	add_child(http_request)
+	http_request.download_file = QPACK_NAME
+	http_request.download_chunk_size = 262144
 	http_request.connect("request_completed", self, "_http_request_completed")
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
 	var error = http_request.request(url)
-	_check_loading_started()
 	if error != OK:
 		push_error("An error occurred while making the HTTP request.")
+		return
+	else:
+		_check_loading_started()
 
-var time_start = 0
-var load_start = 0
+var time_start = -1
+var load_start = -1
 func _check_loading_started():
 	if http_request.get_body_size() > 0:
-		load_start = http_request.get_downloaded_bytes()
 		time_start = OS.get_ticks_msec()
+		load_start = http_request.get_downloaded_bytes()
 	else:
-		yield(get_tree().create_timer(0.01), "timeout")
+		yield(get_tree().create_timer(0.1), "timeout")
 		call_deferred("_check_loading_started")
 
 # show player how much data is loaded
 func _update_loading_progress():
-	if time_start == 0:
+	while http_request.get_body_size() <= 0:
+		print("Reported body size is %d. Querying again." % http_request.get_body_size())
 		_check_loading_started()
+		yield(get_tree().create_timer(0.1), "timeout")
 	var partial = http_request.get_downloaded_bytes()
 	var total = http_request.get_body_size()
 	var time = OS.get_ticks_msec()
@@ -111,25 +117,36 @@ func _update_loading_progress():
 		(total - load_start) / # total size
 		(partial - load_start) # partial size
 	) - (time - time_start)  # subtract elapsed time from total
-	prints("ETA CALCULATION: ", load_start, partial, total, time_start, time, eta)
-	current_page.update_loading_progress(partial, total, eta)
+	prints("ETA CALCULATION", "start bytes:", load_start, "loaded bytes:", partial, "total bytes:", total, "start time:", time_start, "time now:", time, "calculated eta:", eta)
+	current_page.update_loading_progress(partial, total, int(eta))
 	if !question_pack_is_downloaded:
 		yield(get_tree().create_timer(0.25), "timeout")
 		call_deferred("_update_loading_progress")
 
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body):
+	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
 	if result != HTTPRequest.RESULT_SUCCESS:
 		printerr("HTTP request did not succeed.")
 		return
+	elif response_code == 404:
+		R.crash("Tried to load the resource pack, but response code was 404 Not Found.")
 	# not sure what to do when loaded...
 	# check file existence
 	var file = File.new()
-	if file.file_exists("user://question_pack.zip"):
-		ProjectSettings.load_resource_pack("user://question_pack.zip")
+	if file.file_exists(QPACK_NAME):
+		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path(QPACK_NAME), true)
+		if !success:
+			R.crash("Could not load resource pack.")
+		for i in range(13):
+			var qid = Loader.episodes[R.pass_between.episode_name].question_id[i]
+			print(qid)
+#			if !file.file_exists("res://q/%s/data.gdcfg" % qid):
+#				R.crash("Loaded resource pack, but question file is missing: question index %d, question ID %s." % [i, qid])
+#				return
 		question_pack_is_downloaded = true
 		if waiting_for_game_start == true:
 			start_game()
 	else:
-		printerr("File isn't downloaded.")
+		R.crash("Resource pack is not downloaded.")
 		return

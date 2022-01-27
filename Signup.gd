@@ -340,7 +340,7 @@ func give_player_nick(id):
 				'isVip': p.player_number == 0
 			});
 
-func update_loading_progress(partial, total, eta):
+func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Finished!"
 	if eta >= 60*1000:
 		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
