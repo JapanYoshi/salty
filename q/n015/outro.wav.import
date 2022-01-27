@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/outro.wav-2fae13cf3c5e47ae29c5c0821e5f93f4.sample"
+
+[deps]
+
+source_file="res://q/n015/outro.wav"
+dest_files=[ "res://.import/outro.wav-2fae13cf3c5e47ae29c5c0821e5f93f4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
