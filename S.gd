@@ -84,10 +84,7 @@ func preload_sfx(name):
 func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
 	var file = File.new()
 	var filepath = (questions_path if question_specific else voice_path) + filename + ".wav"
-	var voice = null
-	if file.file_exists(filepath):
-		print(filepath + " exists. Loading.")
-		voice = load(filepath)
+	var voice = load(filepath) # try loading, and if it doesn't load, fallback
 	if voice == null and file.file_exists(filepath + ".import"):
 		print(filepath + ".import exists. Loading.")
 		# find out what the actual data is called.
@@ -96,9 +93,11 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		file.open(filepath + ".import", File.READ)
 		var text = file.get_as_text()
 		file.close()
-		var start = text.find('path="res://') + 6
-		var end = text.find('.sample', start) + 7
-		voice = load(text.substr(start, end))
+		var start = text.find('path="res://.import/') + 6
+		var end = text.find('.sample"', start) + 7
+		var redir_path = text.substr(start, end - start)
+		print("Redirect to: ", redir_path)
+		voice = load(redir_path)
 	if voice == null:
 		printerr("Voice line could not load! File path: " + filepath)
 		voice = load("res://audio/_.wav")

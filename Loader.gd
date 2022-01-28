@@ -125,22 +125,36 @@ func load_episode(id):
 
 func load_question(id, first_question: bool):
 	var file = ConfigFile.new()
-	var err = file.load(question_path + "/" + id + "/data.gdcfg")
-	#var result = JSON.parse(file.get_as_text())
-	var data = {}
-	if err == OK:
-		for section in file.get_sections():
-			if section == "root":
-				for section_key in file.get_section_keys(section):
-					data[section_key] = file.get_value(section, section_key)
-			else:
-				data[section] = {}
-				for section_key in file.get_section_keys(section):
-					data[section][section_key] = file.get_value(section, section_key)
-	else:
+	var names = ["_question.gdcfg", "_question.tscn", "data.gdcfg"]
+	var err = ERR_FILE_NOT_FOUND
+	for n in names:
+		print("Trying to load the following file... " + question_path + "/" + id + "/" + n)
+		err = file.load(question_path + "/" + id + "/" + n)
+		if err == ERR_FILE_NOT_FOUND:
+			print("Didn't find " + n)
+			continue
+		elif err == ERR_PARSE_ERROR:
+			print("Found it, but it could not be parsed")
+			var textfile = File.new()
+			textfile.open(question_path + "/" + id + "/" + n, File.READ)
+			print(textfile.get_as_text())
+		else:
+			print("OK")
+			break
+	if err != OK:
 		printerr("Couldn't load question ID: " + id)
 		R.crash("Question data for ID '" + id + "' is missing.")
 		return
+	var data = {}
+	for section in file.get_sections():
+		if section == "root":
+			for section_key in file.get_section_keys(section):
+				data[section_key] = file.get_value(section, section_key)
+		else:
+			data[section] = {}
+			for section_key in file.get_section_keys(section):
+				data[section][section_key] = file.get_value(section, section_key)
+	pass
 	### Expected structure:
 	# "v" is voice file name,
 	# "t" is text (for title, question, and options),

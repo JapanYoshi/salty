@@ -8,7 +8,6 @@ onready var click_mask = $ClickMask
 var question_pack_is_downloaded = false
 var waiting_for_game_start = false
 var cancel_loading = false
-const QPACK_NAME = "user://question_pack.pck"
 
 signal next_question_please
 
@@ -60,6 +59,9 @@ var load_start = -1
 const RAND_PREFIX = "RNG_"
 
 func load_episode(ep):
+	var LOG_FILE = File.new()
+	LOG_FILE.open("u-ser://LOG.txt", File.WRITE)
+	LOG_FILE.close()
 	change_scene_to(signup.instance())
 	cancel_loading = false
 	# get question list
@@ -154,7 +156,7 @@ func async_load_question(q):
 	print("async_load_question(%s)" % q)
 	var url = "https://haitouch.ga/me/salty/%s.pck" % q
 	# Create an HTTP request node and connect its completion signal.
-	http_request.download_file = QPACK_NAME
+	http_request.download_file = "user://%s.pck" % q
 	http_request.download_chunk_size = 262144
 	http_request.connect("request_completed", self, "_http_request_completed", [q])
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
@@ -188,13 +190,35 @@ func _http_request_completed(result, response_code, headers, body, q):
 		return
 	# not sure what to do when loaded...
 	# check file existence
+	var LOG_FILE = File.new()
+	LOG_FILE.open("user://LOG.txt", File.READ_WRITE)
+	LOG_FILE.seek_end()
 	var file = File.new()
-	if file.file_exists(QPACK_NAME):
-		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path(QPACK_NAME), true)
+	if file.file_exists("user://%s.pck" % q):
+		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path("user://%s.pck" % q), true)
 		if !success:
 			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
+		# check this file
 		if !file.file_exists("res://q/%s/title.wav.import" % q):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q)
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
+		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
+		else:
+			file.open("res://q/%s/_question.gdcfg" % q, File.READ)
+			LOG_FILE.store_line("# New question loaded:\n" + file.get_as_text())
+			file.close()
+		# check last file
+		q = R.pass_between.episode_data.question_id[0]
+		if !file.file_exists("res://q/%s/title.wav.import" % q):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
+		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
+		else:
+			file.open("res://q/%s/_question.gdcfg" % q, File.READ)
+			LOG_FILE.store_line("# First question content is now:\n" + file.get_as_text())
+			file.close()
+		LOG_FILE.close()
+		file.close() # just in case
 		emit_signal("next_question_please")
 	else:
 		R.crash("Resource pack is not downloaded.")
