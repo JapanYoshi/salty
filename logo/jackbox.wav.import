@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jackbox.wav-0bd547050b4bfe246ac66276f011c6eb.sample"
+
+[deps]
+
+source_file="res://logo/jackbox.wav"
+dest_files=[ "res://.import/jackbox.wav-0bd547050b4bfe246ac66276f011c6eb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
