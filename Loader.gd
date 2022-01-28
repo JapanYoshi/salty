@@ -124,24 +124,30 @@ func load_episode(id):
 	return data
 
 func load_question(id, first_question: bool):
-	var file = ConfigFile.new()
-	# I updated the file extension to be .tres instead of .gdcfg
-	# for easier subsetting by Godot export.
-	var q_path = question_path + "/" + id + "/_question.tres"
-	if !file.exists(q_path):
-		q_path = question_path + "/" + id + "/data.gdcfg"
-	var err = file.load()
-	#var result = JSON.parse(file.get_as_text())
+	var c_file = ConfigFile.new()
 	var data = {}
+	# I renamed this file
+	var q_path = question_path + "/" + id + "/_question.gdcfg"
+	# testing
+	var file = File.new()
+	file.open(q_path, File.READ)
+	print("FILE.GET_AS_TEXT() START:")
+	print(file.get_as_text())
+	# end testing
+	var err = c_file.load(q_path)
+	if err != OK:
+		q_path = question_path + "/" + id + "/data.gdcfg"
+		err = c_file.load(q_path)
+	#var result = JSON.parse(file.get_as_text())
 	if err == OK:
-		for section in file.get_sections():
+		for section in c_file.get_sections():
 			if section == "root":
-				for section_key in file.get_section_keys(section):
-					data[section_key] = file.get_value(section, section_key)
+				for section_key in c_file.get_section_keys(section):
+					data[section_key] = c_file.get_value(section, section_key)
 			else:
 				data[section] = {}
-				for section_key in file.get_section_keys(section):
-					data[section][section_key] = file.get_value(section, section_key)
+				for section_key in c_file.get_section_keys(section):
+					data[section][section_key] = c_file.get_value(section, section_key)
 	else:
 		printerr("Couldn't load question ID: " + id)
 		R.crash("Question data for ID '" + id + "' is missing.")
