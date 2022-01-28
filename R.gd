@@ -112,6 +112,8 @@ func format_currency(score = 0.0, no_sign = false, min_digits = 0):
 
 func crash(reason):
 	Ws.close_room()
+	S.stop_voice()
+	S.play_music("", 0)
 	get_tree().change_scene('res://Error.tscn')
 	call_deferred(
 		"_deferred_crash", reason
@@ -119,6 +121,7 @@ func crash(reason):
 
 func _deferred_crash(reason):
 	get_tree().get_root().get_node('Error').set_reason(reason)
+	S.play_sfx("naughty")
 
 func _set_visual_quality(quality):
 	cfg.graphics_quality = quality
