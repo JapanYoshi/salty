@@ -32,7 +32,6 @@ func _ready():
 		# we're debugging
 		R.pass_between.episode_name = "demo"
 		question_number = 0
-		episode_data = Loader.load_episode(R.pass_between.episode_name)
 		load_next_question()
 		return
 #	elif R.pass_between.episode_name == "demo":
@@ -42,8 +41,8 @@ func _ready():
 #		episode_data = Loader.load_episode(R.pass_between.episode_name)
 #		load_next_question()
 #		return
+	episode_data = R.pass_between.episode_data
 	$Cutscenes/Round2.scale = Vector2(0, 1)
-	episode_data = Loader.load_episode(R.pass_between.episode_name)
 	call_deferred("play_intro")
 
 func enable_skip():
@@ -178,10 +177,13 @@ func play_intro():
 			return
 		for key in voice_lines:
 			# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
-			if episode_data.audio.has(key) == false:
-				R.crash("Episode data is missing audio key: " + key + ".")
-				return
-			if episode_data.audio[key].v == "default":
+			#if episode_data.audio.has(key) == false:
+			#	R.crash("Episode data is missing audio key: " + key + ".")
+			#	return
+			#if episode_data.audio[key].v == "default":
+			if episode_data.audio.has(key) == false or episode_data.audio[key].v == "default":
+				if episode_data.audio.has(key) == false:
+					print("WARNING: Episode data has no key for audio: " + key + ". Treating as default.")
 				var candidates = Loader.random_dict.audio_episode[key]
 				var index = 0
 				if len(candidates) == 0:

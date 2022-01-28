@@ -7,7 +7,10 @@ onready var tween = $Tween
 onready var click_mask = $ClickMask
 var question_pack_is_downloaded = false
 var waiting_for_game_start = false
+var cancel_loading = false
 const QPACK_NAME = "user://question_pack.pck"
+
+signal next_question_please
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +34,7 @@ func back():
 		yield(get_tree().create_timer(0.5), "timeout")
 		get_tree().change_scene("res://Title.tscn")
 	else:
+		cancel_loading = true
 		change_scene_to(first_page.instance())
 
 func change_scene_to(n):
@@ -50,18 +54,89 @@ func change_scene_to(n):
 	move_child(current_page, 1)
 	click_mask.hide()
 
+const QUESTION_COUNT = 13
+var time_start = -1
+var load_start = -1
+const RAND_PREFIX = "RNG_"
+
 func load_episode(ep):
 	change_scene_to(signup.instance())
-	async_load_question_pack(ep)
+	cancel_loading = false
+	# get question list
+	R.pass_between.episode_data = Loader.episodes[ep]
+	var q_id = R.pass_between.episode_data.question_id
+	var randoms = 0
+	var question_types = {
+		"n": 0, "s": 0, "c": 0, "t": 0, "g": 0, "l": 0, "r": 0
+	}
+	if q_id[QUESTION_COUNT-1] == "":
+		# randomize final question
+		var which_finale = "lr"[R.rng.randi_range(0, 1)]
+		question_types[which_finale] += 1
+		q_id[QUESTION_COUNT-1] = Loader.random_questions_of_type(which_finale, 1)[0]
+	
+	for i in range(QUESTION_COUNT - 1):
+		if q_id[i].begins_with(RAND_PREFIX):
+			randoms += 1
+			q_id[i] = q_id[i].trim_prefix(RAND_PREFIX)
+		else:
+			question_types[q_id[i][0]] += 1
+	
+	if randoms > 0:
+		var search_order = range(0, QUESTION_COUNT-1)
+		search_order.shuffle()
+		# * exactly 1 of the following: thousand question question, gibberish
+		if question_types["t"] == 0 and question_types["g"] == 0:
+			var which_special = "t" if (R.rng.randi_range(0, 7) == 0) else "g"
+			for i in range(len(search_order)):
+				var q = search_order[i]
+				if which_special in q_id[q]:
+					q_id[q] = Loader.random_questions_of_type(which_special, 1)[0]
+					question_types[which_special] += 1
+					search_order.remove(i)
+					break
+		# * exactly 1 sorta kinda question per game
+		if question_types["s"] == 0:
+			for i in range(len(search_order)):
+				var q = search_order[i]
+				if "s" in q_id[q]:
+					q_id[q] = Loader.random_questions_of_type("s", 1)[0]
+					search_order.remove(i)
+					break
+		# * exactly 1 candy trivia question per game
+		if question_types["c"] == 0:
+			for i in range(len(search_order)):
+				var q = search_order[i]
+				if "c" in q_id[q]:
+					q_id[q] = Loader.random_questions_of_type("c", 1)[0]
+					search_order.remove(i)
+					break
+		# * rest are all Shorties
+		var shorties = Loader.random_questions_of_type("n", len(search_order))
+		for i in range(len(search_order)):
+			var q = search_order[i]
+			q_id[q] = shorties[i]
+		print(q_id)
+		R.pass_between.episode_data.question_id = q_id
+	time_start = OS.get_ticks_msec()
+	load_start = 0
+	question_pack_is_downloaded = false
+	for q in range(QUESTION_COUNT):
+		async_load_question(q_id[q])
+		yield(self, "next_question_please")
+		if cancel_loading:
+			return
+		_update_loading_progress(q+1)
+	question_pack_is_downloaded = true
+	if waiting_for_game_start:
+		start_game()
 
 func start_game():
 	if !question_pack_is_downloaded:
 		waiting_for_game_start = true
-		_update_loading_progress()
 		current_page.get_node("MouseMask").color = Color(0, 0, 0, 0.5)
 		current_page.get_node("LoadingPanel").show()
 		return
-	current_page.update_loading_progress(http_request.get_body_size(), http_request.get_body_size(), 0)
 	S.play_track(0, false, false)
 	S.play_track(1, false, false)
 	S.play_track(2, false, false)
@@ -75,78 +150,49 @@ func start_game():
 
 onready var http_request = $HTTPRequest
 
-func async_load_question_pack(ep):
-	print("async_load_question_pack()")
-	var url = "https://haitouch.ga/me/salty/%s.pck" % Loader.episodes[ep].question_pack # TODO: replace with question list
+func async_load_question(q):
+	print("async_load_question(%s)" % q)
+	var url = "https://haitouch.ga/me/salty/%s.pck" % q
 	# Create an HTTP request node and connect its completion signal.
 	http_request.download_file = QPACK_NAME
 	http_request.download_chunk_size = 262144
-	http_request.connect("request_completed", self, "_http_request_completed")
+	http_request.connect("request_completed", self, "_http_request_completed", [q], CONNECT_ONESHOT)
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
 	var error = http_request.request(url)
 	if error != OK:
 		push_error("An error occurred while making the HTTP request.")
 		return
-	else:
-		_check_loading_started()
-
-var time_start = -1
-var load_start = -1
-func _check_loading_started():
-	if http_request.get_body_size() > 0:
-		time_start = OS.get_ticks_msec()
-		load_start = http_request.get_downloaded_bytes()
-	else:
-		yield(get_tree().create_timer(0.1), "timeout")
-		call_deferred("_check_loading_started")
 
 # show player how much data is loaded
-func _update_loading_progress():
-	while http_request.get_body_size() <= 0:
-		print("Reported body size is %d. Querying again." % http_request.get_body_size())
-		_check_loading_started()
-		yield(get_tree().create_timer(0.1), "timeout")
-	var partial = http_request.get_downloaded_bytes()
-	var total = http_request.get_body_size()
+func _update_loading_progress(partial):
 	var time = OS.get_ticks_msec()
 	# total time / total size == partial time / partial size.
 	# move total size to right hand side and get
 	# total time == partial time * total size / partial size..
-	var eta = (
+	var eta = -1 if partial == 0 else (
 		1.0 * (time - time_start) * # partial time
-		(total - load_start) / # total size
+		(QUESTION_COUNT - load_start) / # total size
 		(partial - load_start) # partial size
 	) - (time - time_start)  # subtract elapsed time from total
-	prints("ETA CALCULATION", "start bytes:", load_start, "loaded bytes:", partial, "total bytes:", total, "start time:", time_start, "time now:", time, "calculated eta:", eta)
-	current_page.update_loading_progress(partial, total, int(eta))
-	if !question_pack_is_downloaded:
-		yield(get_tree().create_timer(0.25), "timeout")
-		call_deferred("_update_loading_progress")
+	current_page.update_loading_progress(partial, QUESTION_COUNT, int(eta))
 
 # Called when the HTTP request is completed.
-func _http_request_completed(result, response_code, headers, body):
+func _http_request_completed(result, response_code, headers, body, q):
 	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
 	if result != HTTPRequest.RESULT_SUCCESS:
-		R.crash("The HTTP request did not succeed. Error code: %d" % result)
+		R.crash("The HTTP request for question ID %s did not succeed. Error code: %d" % [q, result])
 		return
 	elif response_code >= 400:
-		R.crash("Tried to load the resource pack, but response code was: %d" % response_code)
+		R.crash("Tried to load question ID %s, but response code was: %d" % [q, response_code])
+		return
 	# not sure what to do when loaded...
 	# check file existence
 	var file = File.new()
 	if file.file_exists(QPACK_NAME):
 		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path(QPACK_NAME), true)
 		if !success:
-			R.crash("Could not load resource pack.")
-		for i in range(13):
-			var qid = Loader.episodes[R.pass_between.episode_name].question_id[i]
-			print(qid)
-#			if !file.file_exists("res://q/%s/data.gdcfg" % qid):
-#				R.crash("Loaded resource pack, but question file is missing: question index %d, question ID %s." % [i, qid])
-#				return
-		question_pack_is_downloaded = true
-		if waiting_for_game_start == true:
-			start_game()
+			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
+		emit_signal("next_question_please")
 	else:
 		R.crash("Resource pack is not downloaded.")
 		return

@@ -6,6 +6,7 @@ const episode_path = "res://ep"
 var episodes = {}
 
 const question_path = "res://q"
+var random_questions = {}
 
 var random_dict = {}
 
@@ -25,6 +26,7 @@ func _ready():
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
 	load_random_voice_lines()
+	load_random_questions()
 	load_episodes_list()
 	load_high_scores()
 	### Testing
@@ -37,6 +39,26 @@ func load_random_voice_lines():
 		var json = JSON.parse(file.get_as_text())
 		if json.error == OK:
 			random_dict = json.result
+
+func load_random_questions():
+	var file = File.new()
+	if file.open("res://random_questions.json", File.READ) == OK:
+		var json = JSON.parse(file.get_as_text())
+		if json.error == OK:
+			random_questions = json.result
+
+func random_questions_of_type(type, count):
+	var questions = []
+	var pool = random_questions[type]
+	if count == 1:
+		return [pool[R.rng.randi_range(0, len(pool) - 1)]]
+	else:
+		var indices = range(len(pool) - 1)
+		for i in range(count):
+			var index = R.rng.randi_range(0, len(indices) - 1)
+			questions.push_back(pool[indices[index]])
+			indices.remove(index)
+		return questions
 
 func load_episodes_list():
 	# new option with list file

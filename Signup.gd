@@ -344,18 +344,20 @@ func give_player_nick(id):
 			});
 
 func update_loading_progress(partial: int, total: int, eta: int):
-	var time_text = "Finished!"
+	var time_text = "Time estimate unknown..."
 	if eta >= 60*1000:
 		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
 	elif eta >= 1000:
 		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
 	elif eta > 0:
 		time_text = "Almost there..."
+	elif eta == 0:
+		time_text = "Finished!"
 	$LoadingPanel/Label.set_text(
 		"Downloading question pack. %s" % time_text
 	)
 	$LoadingPanel/ProgressBar.max_value = total
 	$LoadingPanel/ProgressBar.value = partial
 	$LoadingPanel/Progress.set_text(
-		"Loaded %.1fKiB of %.1fKiB (%06.2f%%)" % [partial / 1024.0, total / 1024.0, 100.0 * partial / total]
+		"Loaded %d of %d questions (%05.1f%%)" % [partial, total, 100.0 * partial / total]
 	)
