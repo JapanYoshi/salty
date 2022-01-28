@@ -68,6 +68,7 @@ func highlight():
 	$Anim.play("Highlight")
 
 func incorrect(loss = 5):
+	$Anim.stop(false)
 	$Tween.interpolate_property(
 		self, "score", score, score - loss, 0.7, Tween.TRANS_QUAD
 	)
@@ -75,6 +76,7 @@ func incorrect(loss = 5):
 	$Anim.play("Wrong", 0.05)
 
 func correct(gain = 5):
+	$Anim.stop(false)
 	$Tween.interpolate_property(
 		self, "score", score, score + gain, 0.7, Tween.TRANS_QUAD
 	)

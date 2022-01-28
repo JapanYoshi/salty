@@ -128,6 +128,9 @@ func reset_state():
 	$DW.hide()
 	$SP.hide()
 	$NA.hide()
+	_sp_init()
+
+func _sp_init():
 	# reset Spiral keyboard
 	sp_set_page(0)
 	sp_index = 0
@@ -374,7 +377,8 @@ func sp_set_page(new_page: int):
 					Tween.EASE_OUT
 				)
 	else:
-		sfx_move()
+		if $SP.visible:
+			sfx_move()
 		for i in range(8):
 			var difmod = abs(posmod(i - (new_page - 1), 8) - 4)
 			#print(difmod)
@@ -568,8 +572,7 @@ func start_keyboard(
 		1:
 			$DW.show()
 		2:
-			dw_page = 5
-			sp_index = 4
+			_sp_init()
 			$SP.show()
 			pass
 		3:

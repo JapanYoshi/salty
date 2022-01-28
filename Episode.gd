@@ -579,3 +579,6 @@ func _on_BackButton_back_pressed():
 	Ws.close_room()
 	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
+
+func _on_credits_link_clicked(meta):
+	OS.shell_open(meta)

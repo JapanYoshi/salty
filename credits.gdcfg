@@ -6,10 +6,6 @@ b = ["presented by hai!touch Studios"]
 h = "Creative Director"
 b = ["Haley Walker"]
 
-[engineer]
-h = "Lead Engineer"
-b = ["Haley Walker"]
-
 [game]
 h = "Game Programmer"
 b = ["Haley Walker"]
@@ -18,6 +14,10 @@ b = ["Haley Walker"]
 h = "Web Controller Programmer"
 b = ["Haley Walker"]
 
+[engineer]
+h = "Programming advisor"
+b = ["TheDarkSid3r"]
+
 [sound_design]
 h = "Sound Design"
 b = ["Akira Sora"]
@@ -25,15 +25,21 @@ b = ["Akira Sora"]
 [voices]
 h = "Voice Actors"
 b = [
-    "Haley Walker · [i]Candy Barre[/i]",
+"[url=https://www.castingcall.club/projects/you-don-t-know-jack-fangame-salty-trivia-with-candy-barre]We’re searching for voice talents![/url]",
+"Haley Walker · [i]Candy Barre[/i]",
 "??? · [i]Daisy Chaine[/i]",
 "??? · [i]Miles Stone[/i]",
-"??? · [i]unnamed bandmate[/i]"
+"??? · [i]unnamed bandmate[/i]",
+"??? · [i]Trailer narrator A[/i]",
+"??? · [i]Trailer narrator B[/i]",
+"??? · [i]Sit-com roommate[/i]",
+"??? · [i]2000s Game show host[/i]"
 ]
 
 [writers]
 h = "Writers"
 b = [
+"[url=https://discord.gg/95JWgy9gue]We’re looking for writers![/url]",
 "Haley Walker"
 ]
 
@@ -69,5 +75,6 @@ h = "Special Thanks"
 b = [
 "Jackbox Games · [i]owner and publisher of You Don’t Know Jack[/i]",
 "Harry Gottlieb · [i]original creator of You Don’t Know Jack, founder of Jackbox Games, and voice of Nate Shapiro[/i]",
+"Laffy Taffy · [i]for not suing me for making fun of the jokes on their wrappers[/i]",
 "you · [i]Thanks for playing![/i]"
 ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://images/touchprism-bottom.png" type="Texture" id=1]
 [ext_resource path="res://Noise.gd" type="Script" id=2]
@@ -122,6 +122,30 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Title:rect_size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1152, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Value:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 16, -36 ) ]
 }
 
 [sub_resource type="Animation" id=19]
@@ -361,6 +385,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0.9, 0.9 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Title:rect_position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ 12.0, -308.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Value:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ 13.0, -308.0 ]
+}
 
 [sub_resource type="Animation" id=9]
 resource_name = "question_shrink"
@@ -505,6 +553,118 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
 "values": [ Vector2( 64, 232 ), Vector2( -800, 232 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Title:rect_size")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1152, 156 ), Vector2( 1920, 65 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Value:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 0.5 ),
+"update": 0,
+"values": [ Vector2( 16, -36 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Value:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 0.4 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "title_reenter"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Title:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Title:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 128, -36 ), Vector2( 128, 12 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Title:rect_size")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1920, 65 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Value:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 16, -36 ), Vector2( 16, 13 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Value:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -1140,6 +1300,7 @@ anims/question_exit = SubResource( 12 )
 anims/question_shrink = SubResource( 9 )
 anims/title_enter = SubResource( 3 )
 anims/title_exit = SubResource( 4 )
+anims/title_reenter = SubResource( 24 )
 anims/touchprism_enter = SubResource( 22 )
 anims/touchprism_leave = SubResource( 23 )
 
@@ -1179,7 +1340,7 @@ __meta__ = {
 [node name="Candy" type="Node2D" parent="Qbox"]
 visible = false
 position = Vector2( 376, 720 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="Bg" type="TextureRect" parent="Qbox/Candy"]
 margin_left = 27.0
@@ -1221,6 +1382,7 @@ margin_left = 1300.0
 margin_top = 256.0
 margin_right = 2452.0
 margin_bottom = 487.0
+rect_scale = Vector2( 0.9, 0.9 )
 mouse_filter = 2
 theme = ExtResource( 4 )
 bbcode_enabled = true
@@ -1302,7 +1464,7 @@ margin_top = -640.0
 margin_right = 640.0
 margin_bottom = 640.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.128571, 0.128571, 0.128571, 1 )
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1315,7 +1477,7 @@ margin_top = 512.0
 margin_right = 1216.0
 margin_bottom = 668.0
 rect_min_size = Vector2( 1152, 0 )
-rect_scale = Vector2( 0.25, 0.25 )
+rect_scale = Vector2( 0.5, 0.5 )
 mouse_filter = 2
 size_flags_horizontal = 0
 theme = ExtResource( 5 )
@@ -1323,6 +1485,24 @@ bbcode_enabled = true
 bbcode_text = "To [code]sleep(1);[/code] Perchance to Dream"
 meta_underlined = false
 text = "To sleep(1); Perchance to Dream"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="RichTextLabel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 16.0
+margin_top = -36.0
+margin_right = 176.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 160, 64 )
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+size_flags_horizontal = 0
+theme = ExtResource( 5 )
+meta_underlined = false
 fit_content_height = true
 scroll_active = false
 __meta__ = {

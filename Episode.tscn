@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=11]
 [ext_resource path="res://TypingHandler.tscn" type="PackedScene" id=12]
 [ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=13]
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=14]
 [ext_resource path="res://KeyBox.stylebox" type="StyleBox" id=15]
 [ext_resource path="res://fonts/gibberish_big_font.tres" type="DynamicFont" id=16]
 [ext_resource path="res://KeyBox_Pressed.stylebox" type="StyleBox" id=17]
@@ -215,6 +216,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 1.0, 0.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cutscenes/Lifesavers:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=18]
 resource_name = "final_standings"
@@ -359,6 +372,42 @@ tracks/11/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscenes/CreditBox:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscenes/CreditBox:rect_scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscenes/Logo:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "intro"
@@ -474,7 +523,7 @@ tracks/8/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Cutscenes/Leaderboard:rect_position:y")
+tracks/9/path = NodePath("Cutscenes/Round2:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -483,10 +532,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 730.0 ]
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Cutscenes/Round2:modulate")
+tracks/10/path = NodePath("Cutscenes/Circle:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -495,7 +544,31 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscenes/Lifesavers:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.667, 0.667 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscenes/Leaderboard:rect_position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 268, 730 ) ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -688,6 +761,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 640.0, 640.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cutscenes/Lifesavers:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -1205,7 +1290,6 @@ __meta__ = {
 [node name="Round2" type="Sprite" parent="Cutscenes"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 640, 360 )
-scale = Vector2( 1e-05, 1 )
 texture = ExtResource( 29 )
 
 [node name="Label" type="Label" parent="Cutscenes/Round2"]
@@ -1228,7 +1312,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Lifesavers" type="Sprite" parent="Cutscenes"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 640, 400 )
+position = Vector2( 640, 320 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 9 )
 
@@ -1393,7 +1477,6 @@ __meta__ = {
 }
 
 [node name="Final" type="ColorRect" parent="Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -1534,7 +1617,6 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0
@@ -1625,12 +1707,34 @@ scroll_active = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 36.0
+margin_top = -10.0
+margin_bottom = 48.0
 grow_vertical = 0
 custom_fonts/font = ExtResource( 37 )
 text = "visit our site at HAITOUCH.GA"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Cutscenes/CreditBox"]
+margin_left = -23.0
+margin_top = -131.0
+margin_right = 881.0
+margin_bottom = 49.0
+rect_rotation = -2.69042
+rect_scale = Vector2( 0.667, 0.667 )
+theme = ExtResource( 14 )
+bbcode_enabled = true
+bbcode_text = "If you made it this far without quitting, you probably liked this game. Thank you!
+[b]Do you want to help out?[/b] We’re looking for [b]voices[/b] and [b]writers![/b] Go to [url=https://www.castingcall.club/projects/you-don-t-know-jack-fangame-salty-trivia-with-candy-barre]Casting Call Club[/url] or our official Discord server."
+text = "If you made it this far without quitting, you probably liked this game. Thank you!
+Do you want to help out? We’re looking for voices and writers! Go to Casting Call Club or our official Discord server."
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Shutter" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -1847,6 +1951,8 @@ margin_left = -222.0
 margin_right = -6.0
 
 [connection signal="animation_finished" from="Cutscenes/AnimationPlayer" to="Cutscenes" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/RichTextLabel" to="." method="_on_credits_link_clicked"]
+[connection signal="meta_clicked" from="Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
 [connection signal="gui_input" from="SkipButton" to="." method="_on_SkipButton_gui_input"]
 [connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button2" to="Pause" method="quit"]

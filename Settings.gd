@@ -83,7 +83,7 @@ Animated shaders:
 				d = """Skip [i]most[/i] cutscenes and tutorials, and only play the questions.
 Exceptions:
 • Candy Trivia joke
-• Sorta Kinda explanation
+• Sorta Kinda explanation (skippable)
 • Sorta Kinda outro (when it shows you the top accuracy)
 """
 			},

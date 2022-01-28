@@ -23,6 +23,8 @@ var question_number = 0
 var question_type = "N"
 var S_question_number = 0
 
+var theme_normal = preload("res://ThemeOption.theme")
+var theme_candy = preload("res://ThemeCandyOption.tres")
 const musics = {
 	N = [],
 	C = ["candy_intro", "candy_base", "candy_extra", "candy_extra2"],
@@ -448,7 +450,10 @@ func change_stage(next_stage):
 				hud.enable_lifesaver(true)
 				$QNum.set_text("%d" % (question_number + 1))
 				$QNum.show()
+				$Options.set_theme(theme_normal)
 				point_value = 10 * (1 if question_number < 6 else 2)
+				$Value.set_text(R.format_currency(point_value, true))
+				$Value.show()
 			"S":
 				$BG/ColorRect.set_process(false)
 				$BG/ColorRect.hide()
@@ -477,6 +482,8 @@ func change_stage(next_stage):
 					'b': data.sort_b_short.t
 				})
 				point_value = 3 * (1 if question_number < 6 else 2)
+				$Value.set_text(R.format_currency(point_value, true) + "×7")
+				$Value.show()
 			"C":
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#a4576d")
@@ -488,8 +495,11 @@ func change_stage(next_stage):
 					candy_setup.set_text(data.setup.t)
 				if data.has("punchline"):
 					candy_punchline.set_text(data.punchline.t)
+				$Options.set_theme(theme_candy)
 				hud.enable_lifesaver(true)
 				point_value = 15 * (1 if question_number < 6 else 2)
+				$Value.set_text(R.format_currency(point_value, true))
+				$Value.show()
 			"G":
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#196892")
@@ -514,6 +524,7 @@ func change_stage(next_stage):
 				send_scene("gib", {
 					"question": data.question.t
 				})
+				$Value.hide()
 			"T":
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#695933")
@@ -523,7 +534,9 @@ func change_stage(next_stage):
 				bgs.G.init_thousand()
 				bgs.G.connect('checkpoint', self, "T_checkpoint")
 				bgs.G.show()
+				$Options.set_theme(theme_normal)
 				hud.enable_lifesaver(false)
+				$Value.hide()
 			"R":
 				hud.enable_lifesaver(false)
 				accuracy = [
@@ -764,8 +777,11 @@ func change_stage(next_stage):
 		stage = "gib_question"
 		ep.set_pause_penalty(true)
 		set_buzz_in(true)
-		S.seek_multitrack(0)
-		S.play_track(1, 1)
+		if R.cfg.cutscenes:
+			S.seek_multitrack(0)
+			S.play_track(1, 1)
+		else:
+			S.play_multitrack("gibberish_base", 1, "gibberish_extra", 1)
 		S.play_sfx("question_show")
 		S.play_voice("question")
 		bgs.G.countdown()
@@ -866,7 +882,7 @@ func change_stage(next_stage):
 		send_scene('endQuestion')
 		revert_scene('')
 		S.play_sfx("question_leave")
-		if question_type in ["N", "C", "T"]:
+		if question_type in ["N", "C", "T", "S"]:
 			anim.play("question_exit")
 		$Vignette.close()
 		if question_number != 5:
@@ -1264,6 +1280,17 @@ func advance_question():
 func _on_anim_finished(anim_name):
 	if anim_name == "title_exit":
 		match question_type:
+			"N", "S", "C":
+				anim.play("title_reenter")
+			"G":
+				change_stage("intro_G")
+			"T":
+				change_stage("intro_T")
+			_:
+				printerr("Unrecognized question type: " + question_type)
+				change_stage("intro")
+	elif anim_name == "title_reenter":
+		match question_type:
 			"N":
 				$Qbox/Candy.hide()
 				change_stage("intro")
@@ -1272,13 +1299,6 @@ func _on_anim_finished(anim_name):
 			"C":
 				$Qbox/Candy.show()
 				change_stage("intro_C")
-			"G":
-				change_stage("intro_G")
-			"T":
-				change_stage("intro_T")
-			_:
-				printerr("Unrecognized question type: " + question_type)
-				change_stage("intro")
 	elif anim_name == "finale_enter":
 		if question_type == "R":
 			change_stage("intro_R")
@@ -1450,6 +1470,9 @@ func S_show_answer():
 
 func S_answer_shown():
 	S_show_question()
+
+func _on_TextTick_checkpoint():
+	printerr("DEPRECATED")
 
 func G_checkpoint(id: int):
 	match id:

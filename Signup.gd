@@ -246,6 +246,7 @@ func signup_ended(name, keyboard_type):
 					icon_name = "gp_right"
 		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
 			icon_name = "kb"
+			keyboard_type = 0
 			match signup_now[SIGNUP.DEVICE_INDEX]:
 				0:
 					default_name = "Keeb WASD"
@@ -257,9 +258,11 @@ func signup_ended(name, keyboard_type):
 					default_name = "Numpad"
 		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.TOUCHSCREEN:
 			icon_name = "touch"
+			keyboard_type = 0
 			default_name = "Touchscreen"
 		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.REMOTE:
 			icon_name = "online"
+			keyboard_type = 3
 			default_name = "Remote %d" % (len(players_list) + 1)
 			C.add_controller(C.DEVICES.REMOTE, signup_now[1])
 		else:

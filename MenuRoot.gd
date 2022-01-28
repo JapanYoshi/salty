@@ -77,7 +77,7 @@ onready var http_request = $HTTPRequest
 
 func async_load_question_pack(ep):
 	print("async_load_question_pack()")
-	var url = "http://haitouch.ga/me/salty/%s.pck" % Loader.episodes[ep].question_pack
+	var url = "https://haitouch.ga/me/salty/%s.pck" % Loader.episodes[ep].question_pack # TODO: replace with question list
 	# Create an HTTP request node and connect its completion signal.
 	http_request.download_file = QPACK_NAME
 	http_request.download_chunk_size = 262144
@@ -127,10 +127,10 @@ func _update_loading_progress():
 func _http_request_completed(result, response_code, headers, body):
 	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
 	if result != HTTPRequest.RESULT_SUCCESS:
-		printerr("HTTP request did not succeed.")
+		R.crash("The HTTP request did not succeed. Error code: %d" % result)
 		return
-	elif response_code == 404:
-		R.crash("Tried to load the resource pack, but response code was 404 Not Found.")
+	elif response_code >= 400:
+		R.crash("Tried to load the resource pack, but response code was: %d" % response_code)
 	# not sure what to do when loaded...
 	# check file existence
 	var file = File.new()

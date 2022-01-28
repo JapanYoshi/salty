@@ -14,6 +14,8 @@ var answers = []
 func _ready():
 	screen.bg_elem = self
 	anim.play("logo"); anim.stop()
+	if !R.cfg.cutscenes:
+		tutorial = false
 
 var t = 0
 var shader_speed = 1/16.0

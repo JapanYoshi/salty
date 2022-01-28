@@ -36,6 +36,7 @@ func start_setup_gp(player_number: int, device_index: int, side: int):
 	$Panel/Confirm.show()
 	$Panel/Instructions2.hide()
 	$Panel/Number.set_text("%d" % (device_index + 1) + ("L" if side == 1 else "R" if side == 2 else ""))
+	$Panel/List.show()
 	$Panel/List.modulate.a = 1.0
 	$Panel/Instructions.set_text("Choose your keyboard.")
 	$Panel/List/Button2.grab_focus()

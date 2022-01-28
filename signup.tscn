@@ -418,9 +418,9 @@ __meta__ = {
 
 [node name="Instructions2" type="Label" parent="SignupModal/Panel"]
 anchor_right = 1.0
-margin_left = 336.0
+margin_left = 360.0
 margin_top = 590.0
-margin_right = 316.0
+margin_right = 340.0
 margin_bottom = 654.0
 rect_scale = Vector2( 0.6, 0.6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -742,7 +742,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 72.0
 custom_fonts/font = ExtResource( 11 )
-text = "ETA display is not supported on HTML5."
+text = "Sorry, remaining time estimate is not supported on HTML5."
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

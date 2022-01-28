@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://selection_rim.tres" type="StyleBox" id=1]
 [ext_resource path="res://Option.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=6]
@@ -198,9 +197,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1440.0
+margin_left = 128.0
 margin_top = 256.0
-margin_right = 2464.0
+margin_right = 1152.0
 margin_bottom = 320.001
 rect_pivot_offset = Vector2( 512, 32 )
 __meta__ = {
@@ -215,7 +214,6 @@ margin_right = 1017.0
 margin_bottom = 57.001
 rect_pivot_offset = Vector2( 512, 32 )
 mouse_filter = 2
-custom_styles/panel = ExtResource( 1 )
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Option"]
 margin_left = 7.0
@@ -225,9 +223,12 @@ margin_bottom = 57.001
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="Option/HSplitContainer"]
+margin_top = 1.0
 margin_right = 48.0
-margin_bottom = 50.001
+margin_bottom = 49.0
 rect_min_size = Vector2( 48, 48 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "↑"
 
 [node name="Content" type="RichTextLabel" parent="Option/HSplitContainer"]
