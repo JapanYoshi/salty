@@ -14,6 +14,7 @@ enum SIGNUP {
 }
 
 func _ready():
+	update_loading_progress(0, 13, -1)
 	R.rng.randomize()
 	C.connect("gp_button", self, "_gp_button")
 	$LoadingPanel.hide()
@@ -359,5 +360,8 @@ func update_loading_progress(partial: int, total: int, eta: int):
 	$LoadingPanel/ProgressBar.max_value = total
 	$LoadingPanel/ProgressBar.value = partial
 	$LoadingPanel/Progress.set_text(
-		"Loaded %d of %d questions (%05.1f%%)" % [partial, total, 100.0 * partial / total]
+		"%d of %d questions (%05.1f%%)" % [partial, total, 100.0 * partial / total]
+	)
+	$LoadingProgress.set_text(
+		"Downloaded %d of %d questions" % [partial, total]
 	)
