@@ -131,13 +131,13 @@ func load_question(id, first_question: bool):
 	# testing
 	var file = File.new()
 	file.open(q_path, File.READ)
-	print("FILE.GET_AS_TEXT() START:")
+	print("Q_PATH IS " + q_path + ", FILE.GET_AS_TEXT() START:")
 	print(file.get_as_text())
 	# end testing
 	var err = c_file.load(q_path)
-	if err != OK:
-		q_path = question_path + "/" + id + "/data.gdcfg"
-		err = c_file.load(q_path)
+#	if err != OK:
+#		q_path = question_path + "/" + id + "/data.gdcfg"
+#		err = c_file.load(q_path)
 	#var result = JSON.parse(file.get_as_text())
 	if err == OK:
 		for section in c_file.get_sections():

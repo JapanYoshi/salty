@@ -194,7 +194,12 @@ func _http_request_completed(result, response_code, headers, body, q):
 		if !success:
 			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
 		if !file.file_exists("res://q/%s/title.wav.import" % q):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q)
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted. Cause of failure: title.wav.import is missing." % q)
+		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted. Cause of failure: _question.gdcfg is missing." % q)
+		print("Debug output of question data:")
+		file.open("res://q/%s/_question.gdcfg" % q, File.READ)
+		print(file.get_as_text())
 		emit_signal("next_question_please")
 	else:
 		R.crash("Resource pack is not downloaded.")
