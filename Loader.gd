@@ -125,12 +125,7 @@ func load_episode(id):
 
 func load_question(id, first_question: bool):
 	var file = ConfigFile.new()
-	# I updated the file extension to be .tres instead of .gdcfg
-	# for easier subsetting by Godot export.
-	var q_path = question_path + "/" + id + "/_question.tres"
-	if !file.exists(q_path):
-		q_path = question_path + "/" + id + "/data.gdcfg"
-	var err = file.load()
+	var err = file.load(question_path + "/" + id + "/data.gdcfg")
 	#var result = JSON.parse(file.get_as_text())
 	var data = {}
 	if err == OK:
