@@ -63,7 +63,7 @@ func load_episode(ep):
 	change_scene_to(signup.instance())
 	cancel_loading = false
 	# get question list
-	R.pass_between.episode_data = Loader.episodes[ep]
+	R.pass_between.episode_data = Loader.episodes[ep].duplicate(true)
 	var q_id = R.pass_between.episode_data.question_id
 	var randoms = 0
 	var question_types = {
@@ -156,7 +156,7 @@ func async_load_question(q):
 	# Create an HTTP request node and connect its completion signal.
 	http_request.download_file = QPACK_NAME
 	http_request.download_chunk_size = 262144
-	http_request.connect("request_completed", self, "_http_request_completed", [q], CONNECT_ONESHOT)
+	http_request.connect("request_completed", self, "_http_request_completed", [q])
 	# Perform the HTTP request. The URL below returns a PNG image as of writing.
 	var error = http_request.request(url)
 	if error != OK:
@@ -179,6 +179,7 @@ func _update_loading_progress(partial):
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body, q):
 	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
+	http_request.disconnect("request_completed", self, "_http_request_completed")
 	if result != HTTPRequest.RESULT_SUCCESS:
 		R.crash("The HTTP request for question ID %s did not succeed. Error code: %d" % [q, result])
 		return
@@ -192,6 +193,8 @@ func _http_request_completed(result, response_code, headers, body, q):
 		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path(QPACK_NAME), true)
 		if !success:
 			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
+		if !file.file_exists("res://q/%s/title.wav.import" % q):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q)
 		emit_signal("next_question_please")
 	else:
 		R.crash("Resource pack is not downloaded.")
