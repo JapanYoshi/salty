@@ -69,6 +69,7 @@ func highlight():
 
 func incorrect(loss = 5):
 	$Anim.stop(false)
+	$Tween.stop_all()
 	$Tween.interpolate_property(
 		self, "score", score, score - loss, 0.7, Tween.TRANS_QUAD
 	)
@@ -77,6 +78,7 @@ func incorrect(loss = 5):
 
 func correct(gain = 5):
 	$Anim.stop(false)
+	$Tween.stop_all()
 	$Tween.interpolate_property(
 		self, "score", score, score + gain, 0.7, Tween.TRANS_QUAD
 	)
