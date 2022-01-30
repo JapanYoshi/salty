@@ -34,13 +34,13 @@ func _ready():
 		question_number = 0
 		load_next_question()
 		return
-#	elif R.pass_between.episode_name == "demo":
-#		# still debug for now
-#		DEBUG = true
-#		question_number = 12
-#		episode_data = Loader.load_episode(R.pass_between.episode_name)
-#		load_next_question()
-#		return
+	elif R.pass_between.episode_name == "demo":
+		# still debug for now
+		DEBUG = true
+		question_number = 6
+		episode_data = Loader.load_episode(R.pass_between.episode_name)
+		load_next_question()
+		return
 	episode_data = R.pass_between.episode_data
 	$Cutscenes/Round2.scale = Vector2(0, 1)
 	call_deferred("play_intro")
@@ -361,11 +361,7 @@ func play_intro_2():
 			"lifesaver2_tute1"
 		])
 	for key in voice_lines:
-		# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
-		if episode_data.audio.has(key) == false:
-			R.crash("Episode data is missing audio key: " + key + ".")
-			return
-		if episode_data.audio[key].v == "default":
+		if episode_data.audio.has(key) == false or episode_data.audio[key].v == "default":
 			var candidates = Loader.random_dict.audio_episode[key]
 			var index = 0
 			if len(candidates) == 0:
@@ -426,10 +422,13 @@ func end_intro():
 	load_next_question()
 
 func play_intermission():
-	if episode_data.audio.has("intermission") == false:
-		R.crash("Episode data is missing audio key: intermission.")
-		return
-	if episode_data.audio["intermission"].v == "default":
+	# make this optional
+#	if episode_data.audio.has("intermission") == false:
+#		R.crash("Episode data is missing audio key: intermission.")
+#		return
+#	if episode_data.audio["intermission"].v == "default":
+
+	if episode_data.audio.has("intermission") == false or episode_data.audio["intermission"] == "default":
 		var candidates = Loader.random_dict.audio_episode["intermission"]
 		var index = 0
 		if len(candidates) == 0:
@@ -458,15 +457,9 @@ func play_intermission():
 func load_next_question():
 	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
 	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
-		# DEBUG: Skip Round 2 because we don't have enough questions or Round 2 cutscene lines yet.
-		# TODO: record extra questions and Round 2 Lifesaver lines
-		if DEBUG:
-			question_number = 12;
-			load_question(episode_data.question_id[question_number])
-		else:
-			q_box.set_process(false)
-			c_box.set_process(true)
-			play_intermission()
+		q_box.set_process(false)
+		c_box.set_process(true)
+		play_intermission()
 		#load_question(episode_data.question_id[question_number])
 	elif question_number == 13:
 		q_box.set_process(false)
@@ -523,10 +516,7 @@ func play_outro():
 	]
 	for key in voice_lines:
 		# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
-		if episode_data.audio.has(key) == false:
-			R.crash("Episode data is missing audio key: " + key + ".")
-			return
-		if episode_data.audio[key].v == "default":
+		if episode_data.audio.has(key) == false or episode_data.audio[key].v == "default":
 			var candidates = Loader.random_dict.audio_episode[key]
 			var index = 0
 			if len(candidates) == 0:
