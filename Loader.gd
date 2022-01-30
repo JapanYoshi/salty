@@ -8,6 +8,9 @@ var episodes = {}
 const question_path = "res://q"
 var random_questions = {}
 
+const q_cache_path = "user://"
+var cached_questions = []
+
 var random_dict = {}
 
 var rng = RandomNumberGenerator.new()
@@ -25,6 +28,7 @@ var r_separator = RegEx.new()
 func _ready():
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
+	load_question_cache()
 	load_random_voice_lines()
 	load_random_questions()
 	load_episodes_list()
@@ -32,6 +36,38 @@ func _ready():
 	### Testing
 #	load_question("n001")
 	### End testing
+
+func load_question_cache():
+	var file = File.new()
+	if file.open(q_cache_path + "q_list.csv", File.READ) == OK:
+		cached_questions = file.get_csv_line()
+
+func is_question_cached(id):
+	if id in cached_questions:
+		return true
+	else:
+#		var file = File.new()
+#		if file.file_exists(q_cache_path + "%s.pck" % id):
+#			cached_questions.push_back(id)
+#			return true
+#		else:
+			return false
+
+func append_question_cache(id):
+	cached_questions.push_back(id)
+	save_question_cache()
+
+func clear_question_cache():
+	for id in cached_questions:
+		var dir = Directory.new()
+		dir.remove(q_cache_path + "%s.pck" % id)
+	cached_questions.resize(0)
+	save_question_cache()
+
+func save_question_cache():
+	var file = File.new()
+	if file.open(q_cache_path + "q_list.csv", File.WRITE) == OK:
+		file.store_csv_line(cached_questions)
 
 func load_random_voice_lines():
 	var file = File.new()

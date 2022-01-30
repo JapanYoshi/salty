@@ -99,7 +99,7 @@ func _on_Option_pressed():
 			disable_controls = true
 			S.play_sfx("menu_confirm")
 			release_focus()
-			get_parent().load_episode(eps[selected_now].filename)
+			get_parent().choose_episode(eps[selected_now].filename)
 	else:
 		focus_shifted(get_focus_owner().name)
 
