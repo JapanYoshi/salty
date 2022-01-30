@@ -1,5 +1,5 @@
 extends Control
-
+var title: PackedScene = preload("res://Title.tscn")
 # Animated logo for hai!touch Studios.
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "haitouch":
 		$AnimationPlayer.play("jackbox")
 	else:
-		get_tree().change_scene("res://Title.tscn")
+		get_tree().change_scene_to(title)
 
 # Called after a short delay after the scene is loaded.
 func _on_Timer_timeout():
