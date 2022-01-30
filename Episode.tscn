@@ -408,6 +408,54 @@ tracks/14/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Cutscenes/Logo:scale")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Cutscenes/Circle:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Cutscenes/Circle:radius")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.5 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Cutscenes/Circle:color")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.211765, 0.360784, 0.270588, 1 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "intro"
@@ -569,6 +617,18 @@ tracks/12/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 268, 730 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscenes/Circle:color")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.211765, 0.360784, 0.270588, 1 ) ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -1013,7 +1073,7 @@ shader_param/canvas_size = Vector2( 1280, 720 )
 shader_param/scale = 3.0
 shader_param/p_time = 0.0
 shader_param/blend = 1.0
-shader_param/radius = 0.0
+shader_param/radius = 1.5
 
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0, 1, 0, 1 )
@@ -1275,21 +1335,24 @@ anims/round2_reverse = SubResource( 16 )
 [node name="Tween" type="Tween" parent="Cutscenes"]
 
 [node name="Circle" type="ColorRect" parent="Cutscenes"]
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -1.0
 margin_bottom = -1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.211765, 0.360784, 0.270588, 1 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+radius = 1.5
 
 [node name="Round2" type="Sprite" parent="Cutscenes"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 640, 360 )
+scale = Vector2( 1e-05, 1 )
 texture = ExtResource( 29 )
 
 [node name="Label" type="Label" parent="Cutscenes/Round2"]
@@ -1311,7 +1374,6 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="Lifesavers" type="Sprite" parent="Cutscenes"]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 640, 320 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 9 )
@@ -1377,6 +1439,7 @@ margin_left = 268.0
 margin_top = 730.0
 margin_right = -252.0
 margin_bottom = 666.001
+rect_scale = Vector2( 0.6, 0.6 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1513,7 +1576,7 @@ anchor_bottom = 0.5
 margin_left = -850.713
 margin_top = 204.0
 margin_right = 835.287
-margin_bottom = 687.008
+margin_bottom = 687.01
 rect_min_size = Vector2( 1600, 120 )
 rect_scale = Vector2( 0.4, 0.4 )
 rect_pivot_offset = Vector2( 852.714, 220.612 )
@@ -1632,7 +1695,6 @@ __meta__ = {
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="Cutscenes/CreditBox"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
@@ -1946,9 +2008,6 @@ __meta__ = {
 }
 
 [node name="BackButton" parent="." instance=ExtResource( 38 )]
-visible = false
-margin_left = -222.0
-margin_right = -6.0
 
 [connection signal="animation_finished" from="Cutscenes/AnimationPlayer" to="Cutscenes" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/RichTextLabel" to="." method="_on_credits_link_clicked"]
