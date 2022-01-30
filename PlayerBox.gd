@@ -47,10 +47,10 @@ func _process(delta):
 
 func reset_anim(no_tweening: bool = false):
 	var DUR = 0.25; var TRANS = Tween.TRANS_QUAD; var EASE = Tween.EASE_IN_OUT
+	$Tween.stop_all()
 	if no_tweening:
 		$Anim.play("Reset")
 	else:
-		$Tween.stop_all()
 		$Tween.interpolate_property(self, "rect_rotation", self.rect_rotation, 0, DUR, TRANS, EASE)
 		$Tween.interpolate_property(self, "rect_pivot_offset", self.rect_pivot_offset, Vector2(192, 32), DUR, TRANS, EASE)
 		$Tween.interpolate_property(self, "self_modulate", self.self_modulate, Color.white, DUR, TRANS, EASE)
@@ -68,22 +68,22 @@ func highlight():
 	$Anim.play("Highlight")
 
 func incorrect(loss = 5):
-	$Anim.stop(false)
 	$Tween.stop_all()
+	$Anim.stop(false)
+	$Anim.play("Wrong", 0.05)
 	$Tween.interpolate_property(
 		self, "score", score, score - loss, 0.7, Tween.TRANS_QUAD
 	)
 	$Tween.start()
-	$Anim.play("Wrong", 0.05)
 
 func correct(gain = 5):
-	$Anim.stop(false)
 	$Tween.stop_all()
+	$Anim.stop(false)
+	$Anim.play("Right", 0.05)
 	$Tween.interpolate_property(
 		self, "score", score, score + gain, 0.7, Tween.TRANS_QUAD
 	)
 	$Tween.start()
-	$Anim.play("Right", 0.05)
 
 func set_score():
 	$Score.set_text(R.format_currency(score))

@@ -548,7 +548,7 @@ func change_stage(next_stage):
 				hud.show_finale_box(1)
 				hud.show_accuracy(accuracy)
 				send_scene("rush", {
-					'title': data.title
+					'title': data.title.t
 				})
 			"L":
 				hud.enable_lifesaver(false)
