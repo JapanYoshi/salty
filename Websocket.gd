@@ -174,14 +174,17 @@ func scene(scene_name, extra_data = {}):
 func open_room():
 	# check until we find a room code that is available
 	server_reply_content = 'occupied'
+	# test server-side banned room codes
 	while server_reply_content != 'free':
 		# generate a room code
 		generate_room_code()
+		print("WS: Trying room code %s..." % room_code)
 		# is this room code taken?
 		send('queryRoom', {
 			'roomCode': room_code
 		})
 		yield(self, 'server_reply')
+	print("WS: Room code %s is available." % room_code)
 	while server_reply_content == 'free':
 		send('hostRoom', {
 			'roomCode': room_code,
@@ -222,150 +225,11 @@ func generate_room_code():
 		for i in range(4):
 			buf[i] = rng.randi_range(65, 90)
 		code = buf.get_string_from_ascii()
-		# banned room codes. lots of them are based on pokemon nickname censors
-		# ref: https://bulbapedia.bulbagarden.net/wiki/List_of_censored_words_in_Generation_V
-		if code in [
-			"ANAL",
-			"ARSE",
-			"ARSH", # German "Arsch"
-			"ASSS",
-			"ASSY",
-			"BICH",
-			"BITE", # French
-			"BSTD",
-			"BTCH",
-			"CAZI", # Italian "cazzi"
-			"CAZO", # Italian "cazzo"
-			"CAZZ", # Italian "cazzo/-i"
-			"CCUM",
-			"CHNK",
-			"CLIT",
-			"COCC",
-			"COCK",
-			"COCU", # French
-			"COKC",
-			"COKK",
-			"CONO", # Spanish "coño"
-			"COON",
-			"CUCK",
-			"CULE", # French "cul"
-			"CULO", # Spanish
-			"CUUL", # French "cul"
-			"CUMM",
-			"CUMS",
-			"CUNT",
-			"CUUM",
-			"DAMN",
-			"DICC",
-			"DICK",
-			"DICS",
-			"DICX",
-			"DIKC",
-			"DIKK",
-			"DIKS",
-			"DIKX",
-			"DIXX",
-			"DKHD", # "dickhead"
-			"DYKE",
-			"FAAG",
-			"FAGG",
-			"FAGS",
-			"FFAG",
-			"FICA", # Italian
-			"FICK", # German
-			"FIGA", # Italian
-			"FOTZ", # German
-			"FCUK",
-			"FUCC",
-			"FUCK",
-			"FUCT",
-			"FUCX",
-			"FUKC",
-			"FUKK",
-			"FUKT",
-			"FUKX",
-			"FUXX",
-			"GIMP",
-			"GYPS",
-			"HEIL",
-			"HTLR",
-			"HOES",
-			"HOMO",
-			"HORE",
-			"JODA", # Spanish
-			"JODE", # Spanish
-			"JAPS",
-			"JEWS",
-			"JIPS",
-			"JIZZ",
-			"KACK", # German
-			"KIKE",
-			"KUNT",
-			"MERD", # French
-			"MRCA", # Spanish
-			"MRCN", # Spanish
-			"MRDE", # French
-			"NAZI",
-			"NCUL", # French
-			"NEGR", # German
-			"NIGG",
-			"NIGR",
-			"NUTE", # German
-			"NUTT", # German
-			"PAKI",
-			"PCHA", # Spanish
-			"PEDE", # French
-			"PEDO",
-			"PHUC",
-			"PHUK",
-			"PINE", # French
-			"PISS",
-			"PLLA", # Spanish
-			"PNIS",
-			"POOP",
-			"PORN",
-			"PUTA", # Spanish
-			"PUTE", # French
-			"PUTN", # French
-			"PUTO", # Spanish
-			"RAEP",
-			"RAPE",
-			"SECS",
-			"SECX",
-			"SEKS",
-			"SEKX",
-			"SEXX",
-			"SHAT",
-			"SHIT",
-			"SHIZ",
-			"SHYT",
-			"SIMP", # banned word on twitch apparently
-			"SLAG",
-			"SPAS",
-			"SPAZ",
-			"SPRM",
-			"TARD",
-			"TITS",
-			"TROA", # Italian
-			"TROI", # Italian
-			"TWAT",
-			"VAGG",
-			"VIOL", # French
-			"WANK",
-			"WHOR",
-		]:
-			continue
-		# reject any room code with KKK in it
-		for substr in [
-			"ASS",
-			"KKK",
-		]:
-			if substr in code:
-				continue
 		room_code = code
 		return code
 
 func _on_Timer_timeout():
 	if connected:
+		print("WS: Heartbeat")
 		send('heartbeat')
 		$Timer.start()
