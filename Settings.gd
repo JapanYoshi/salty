@@ -193,3 +193,8 @@ func _on_SaveButton_pressed():
 
 func _on_option_mouse_entered(extra_arg_0):
 	_change_focus(extra_arg_0)
+
+
+func clear_question_cache():
+	Loader.clear_question_cache()
+	S.play_sfx("menu_confirm")

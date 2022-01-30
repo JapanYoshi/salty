@@ -338,7 +338,6 @@ margin_bottom = 34.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Graphics quality"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer/VBox/HSplit"]
 margin_left = 504.0
@@ -348,7 +347,6 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "smart fridge"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -393,7 +391,6 @@ margin_bottom = 34.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Room openness"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
 margin_left = 504.0
@@ -403,7 +400,6 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "open room"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -449,7 +445,6 @@ margin_bottom = 49.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Subtitles"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit"]
 margin_left = 504.0
@@ -459,7 +454,6 @@ margin_bottom = 45.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "on"
 clip_text = true
 
 [node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer2/VBox/HSplit"]
@@ -494,7 +488,6 @@ margin_bottom = 49.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Music"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
 margin_left = 504.0
@@ -504,7 +497,6 @@ margin_bottom = 45.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "on"
 clip_text = true
 
 [node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
@@ -538,7 +530,6 @@ margin_bottom = 49.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Cutscenes/Tutorials"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
 margin_left = 504.0
@@ -548,7 +539,6 @@ margin_bottom = 45.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "on"
 clip_text = true
 
 [node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
@@ -582,7 +572,6 @@ margin_bottom = 49.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
-text = "Detect awesomeness"
 
 [node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
 margin_left = 504.0
@@ -592,7 +581,6 @@ margin_bottom = 45.0
 rect_min_size = Vector2( 140, 0 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "on"
 clip_text = true
 
 [node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
@@ -625,7 +613,6 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 376.0
 margin_bottom = 64.0
-text = "Episode Name"
 
 [node name="Desc" type="RichTextLabel" parent="Details"]
 margin_left = 8.0
@@ -634,8 +621,6 @@ margin_right = 376.0
 margin_bottom = 328.0
 theme = ExtResource( 17 )
 bbcode_enabled = true
-bbcode_text = "Episode description. \\[b]bold[/b]"
-text = "Episode description. \\bold"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -680,6 +665,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -16.0
+margin_bottom = -16.0
+grow_vertical = 0
+text = "Clear question cache"
+
 [connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer" to="." method="_on_option_mouse_entered" binds= [ 0 ]]
 [connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 0 ]]
 [connection signal="value_changed" from="Scroll/VBoxContainer/PanelContainer/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
@@ -701,3 +695,4 @@ __meta__ = {
 [connection signal="back_pressed" from="BackButton" to="." method="_on_BackButton_back_pressed"]
 [connection signal="back_pressed" from="SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="SaveButton/Panel" to="SaveButton" method="_on_Panel_pressed"]
+[connection signal="pressed" from="Button" to="." method="clear_question_cache"]
