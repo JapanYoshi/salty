@@ -83,6 +83,7 @@ var accuracy = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 
 var can_buzz_in = false
 var can_skip = false
+var waiting_for_timer = false
 
 var ans_regex = RegEx.new()
 var cuss_level = 0
@@ -432,7 +433,7 @@ func change_stage(next_stage):
 	if next_stage == "init":
 		stage = "init"
 		print("CHANGE STAGE TO INIT")
-		S.play_sfx("blank")
+		S.play_sfx("time_up")
 		can_buzz_in = false
 		question_type = data.type
 		title.bbcode_text = data.title.t
@@ -714,7 +715,7 @@ func change_stage(next_stage):
 			S.play_track(0, true)
 			S.play_track(1, true)
 			S.play_track(2, true)
-		timer.start_timer()
+		timer.start_timer(true)
 	elif stage == "options" or stage == "countdown" and next_stage == "reveal":
 		stage = "reveal"
 		if !len(used_lifesaver) or len(answered_wrong):
@@ -778,13 +779,12 @@ func change_stage(next_stage):
 		ep.set_pause_penalty(true)
 		set_buzz_in(true)
 		if R.cfg.cutscenes:
-			S.seek_multitrack(0)
+			#S.seek_multitrack(0)
 			S.play_track(1, 1)
 		else:
 			S.play_multitrack("gibberish_base", 1, "gibberish_extra", 1)
 		S.play_sfx("question_show")
 		S.play_voice("question")
-		bgs.G.countdown()
 		bgs.G.gib_question()
 		bgs.G.connect("checkpoint", self, "G_checkpoint")
 	elif stage == "gib_question" and next_stage == "gib_answer":
@@ -1041,8 +1041,12 @@ func _on_voice_end(voice_id):
 				"sort_press_up":
 					change_stage("sorta_questions")
 		"sorta_questions":
+			if waiting_for_timer:
+				timer.start_timer(true)
+			waiting_for_timer = false
 			S._set_music_vol(0, 1.0, false)
-		
+		"sorta_answers":
+			waiting_for_timer = false
 		"gib_setup":
 			match voice_id:
 				"gib_tute0":
@@ -1063,7 +1067,10 @@ func _on_voice_end(voice_id):
 		"gib_genre":
 			change_stage("gib_question")
 		"gib_question":
-			if voice_id == "reveal":
+			if voice_id == "gib_question":
+				bgs.G.countdown()
+				return
+			elif voice_id == "reveal":
 				change_stage("gib_answer")
 				return
 			elif voice_id == "gib_wrong":
@@ -1362,6 +1369,7 @@ func S_show_question():
 	can_skip = false
 	var i = S_question_number
 	if i == 7:
+		stage = "sort_end"
 		hud.reset_all_playerboxes(true)
 		#S._stop_music("sort_base"); S._stop_music("sort_extra")
 		S.play_music("sort_end", 0.65)
@@ -1412,6 +1420,7 @@ func S_show_question():
 		hud.punish_players(losers, 0)
 		hud.reset_playerboxes(breakevens)
 	else:
+		stage = "sorta_questions"
 		reset_answers()
 		ep.set_pause_penalty(true)
 		# DEBUG: let players randomly answer
@@ -1425,10 +1434,8 @@ func S_show_question():
 		S.play_track(0, 0.8)
 		S.play_track(1, 1)
 		bgs.S.show_question(data.sort_options.t[i])
-		S.play_voice("sort_option%d" % i)
 		timer.initialize(5)
 		timer.show_timer()
-		timer.start_timer()
 		hud.reset_all_playerboxes()
 		if i != 0:
 			revert_scene('sortQuestion')
@@ -1436,8 +1443,11 @@ func S_show_question():
 			"question": data.sort_options.t[i]
 		})
 		set_buzz_in(true)
+		waiting_for_timer = true
+		S.play_voice("sort_option%d" % i)
 
 func S_show_answer():
+	stage = "sorta_answers"
 	timer.stop_timer()
 	timer.hide_timer()
 	ep.set_pause_penalty(false)
@@ -1469,6 +1479,7 @@ func S_show_answer():
 	S_question_number += 1
 
 func S_answer_shown():
+	S.stop_voice()
 	S_show_question()
 
 func _on_TextTick_checkpoint():

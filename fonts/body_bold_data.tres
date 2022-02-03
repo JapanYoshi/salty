@@ -1,4 +1,4 @@
 [gd_resource type="DynamicFontData" format=2]
 
 [resource]
-font_path = "res://fonts/BarlowSemiCondensed-ExtraBold.ttf"
+font_path = "res://fonts/barlow-bold-r.ttf"

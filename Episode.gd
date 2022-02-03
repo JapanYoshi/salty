@@ -428,7 +428,7 @@ func play_intermission():
 #		return
 #	if episode_data.audio["intermission"].v == "default":
 
-	if episode_data.audio.has("intermission") == false or episode_data.audio["intermission"] == "default":
+	if episode_data.audio.has("intermission") == false or episode_data.audio["intermission"].v == "default":
 		var candidates = Loader.random_dict.audio_episode["intermission"]
 		var index = 0
 		if len(candidates) == 0:
@@ -511,24 +511,22 @@ func play_outro():
 	c_box.set_radius(0)
 	intermission_played = false
 	S.preload_music("drum_roll")
-	var voice_lines = [
-		"outro_game", "outro_slam"
-	]
-	for key in voice_lines:
-		# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
-		if episode_data.audio.has(key) == false or episode_data.audio[key].v == "default":
-			var candidates = Loader.random_dict.audio_episode[key]
-			var index = 0
-			if len(candidates) == 0:
-				printerr("No candidate lines for key: ", key)
-				breakpoint
-				# fallback
-				S.preload_ep_voice(key, "wrong_00", false, "LINE ID %s NOT FOUND" % key)
-			elif len(candidates) > 1:
-				index = R.rng.randi_range(0, len(candidates) - 1)
-			S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
-		else:
-			S.preload_ep_voice(key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s)
+	# use the same index for both lines
+	if episode_data.audio.has("outro_game") == false or episode_data.audio["outro_game"].v == "default":
+		var candidates = Loader.random_dict.audio_episode["outro_game"]
+		var candidates_slam = Loader.random_dict.audio_episode["outro_slam"]
+		var index = 0
+		if len(candidates) == 0:
+			R.crash("No candidate lines for key: " + "outro_game")
+		elif len(candidates_slam) == 0:
+			R.crash("No candidate lines for key: " + "outro_slam")
+		elif len(candidates) > 1:
+			index = R.rng.randi_range(0, len(candidates) - 1)
+		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
+		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
+	else:
+		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
+		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
 	
 	c_box.show_final_leaderboard();
 	S.play_music("drum_roll", true)

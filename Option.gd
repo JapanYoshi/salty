@@ -8,7 +8,7 @@ onready var textbox = $Option/HSplitContainer/Content
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	button.set_text(["↑", "←", "→", "↓"][index])
+	button.set_text(char(0x3358 + 1 + 2 * index - 3 * int(index == 3)))
 	anim.play("wrong_silent", -1, 1000)
 	pass # Replace with function body.
 

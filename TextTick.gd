@@ -23,13 +23,21 @@ func _ready():
 	pass
 
 func countdown():
-	anim.play("countdown")
+	if mode == "T":
+		anim.play("countdown")
+	else:
+		anim.play("countdown_gib")
 
 func countdown_pause(paused: bool = true):
 	if paused:
 		anim.stop(false) # stop without seeking back to 0s
 	else:
-		anim.play() # continue current animation
+		if anim.current_animation == "countdown":
+			anim.play() # continue current animation
+		elif anim.current_animation == "countdown_gib":
+			anim.play() # continue current animation
+		else:
+			countdown()
 
 func init_thousand():
 	mode = "T"; count = 0; max_value = 1000 * 10; value = max_value;

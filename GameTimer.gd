@@ -2,6 +2,7 @@ extends Node2D
 
 signal time_up
 
+const INACTIVE_COLOR = Color(0.7, 0.7, 0.7, 1)
 onready var tens = $tens
 onready var ones = $ones
 onready var anim = $AnimationPlayer
@@ -18,8 +19,9 @@ func set_text(time):
 	tens.set_text("%d" % (time / 10))
 	ones.set_text("%d" % (time % 10))
 
-func tick_time():
-	time_left -= 1
+func tick_time(change_value: bool = true):
+	if change_value:
+		time_left -= 1
 	set_text(time_left)
 	anim.play("tick_tens" if (time_left % 10) == 9 else "tick")
 	if time_left == 0:
@@ -33,14 +35,22 @@ func tick_time():
 		timer.start(1)
 		return
 
-func start_timer():
+func start_timer(tick_immediately: bool = false):
 	print("TIMER START")
-	timer.start(1)
+	self.modulate = Color.white
+	if tick_immediately:
+		timer.stop()
+		tick_time(false)
+	else:
+		timer.start(1)
 
 func stop_timer():
+	self.modulate = INACTIVE_COLOR
 	timer.stop()
+	time_left = 0
 
 func show_timer():
+	self.modulate = INACTIVE_COLOR
 	anim.play("show")
 	shown = true
 

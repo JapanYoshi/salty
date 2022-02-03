@@ -885,7 +885,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ "Press ↖ or ↗ to activate" ]
+"values": [ "Press ㍘ or ㍚ to activate" ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -1390,8 +1390,8 @@ margin_bottom = -56.0
 mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
-bbcode_text = "Press ↖ or ↗ to activate"
-text = "Press ↖ or ↗ to activate"
+bbcode_text = "Press ㍘ or ㍚ to activate"
+text = "Press ㍘ or ㍚ to activate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1439,7 +1439,6 @@ margin_left = 268.0
 margin_top = 730.0
 margin_right = -252.0
 margin_bottom = 666.001
-rect_scale = Vector2( 0.6, 0.6 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1695,6 +1694,7 @@ __meta__ = {
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="Cutscenes/CreditBox"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
@@ -1705,7 +1705,7 @@ __meta__ = {
 
 [node name="V" type="VBoxContainer" parent="Cutscenes/CreditBox/CreditScroller"]
 margin_right = 552.0
-margin_bottom = 699.0
+margin_bottom = 669.0
 size_flags_horizontal = 3
 custom_constants/separation = 8
 
@@ -1716,7 +1716,7 @@ size_flags_horizontal = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
 margin_top = 8.0
 margin_right = 552.0
-margin_bottom = 699.0
+margin_bottom = 669.0
 bbcode_enabled = true
 bbcode_text = "[b]Salty Trivia with Candy Barre[/b]
 presented by hai!touch Studios
@@ -1856,7 +1856,7 @@ margin_right = 320.0
 margin_bottom = 80.0
 mouse_filter = 0
 custom_fonts/font = ExtResource( 11 )
-text = "→ — Skip"
+text = "㍝ — Skip"
 align = 1
 valign = 1
 __meta__ = {
@@ -2008,6 +2008,9 @@ __meta__ = {
 }
 
 [node name="BackButton" parent="." instance=ExtResource( 38 )]
+visible = false
+margin_left = -222.0
+margin_right = -6.0
 
 [connection signal="animation_finished" from="Cutscenes/AnimationPlayer" to="Cutscenes" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/RichTextLabel" to="." method="_on_credits_link_clicked"]

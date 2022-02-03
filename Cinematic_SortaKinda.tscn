@@ -1726,7 +1726,7 @@ anchor_bottom = 1.0
 margin_top = -4.0
 margin_bottom = -4.0
 custom_fonts/font = ExtResource( 17 )
-text = "←"
+text = "㍛"
 align = 1
 valign = 1
 
@@ -1744,7 +1744,7 @@ anchor_bottom = 1.0
 margin_top = -4.0
 margin_bottom = -4.0
 custom_fonts/font = ExtResource( 17 )
-text = "→"
+text = "㍝"
 align = 1
 valign = 1
 
@@ -1762,7 +1762,7 @@ anchor_bottom = 1.0
 margin_top = -4.0
 margin_bottom = -4.0
 custom_fonts/font = ExtResource( 17 )
-text = "↑"
+text = "㍙"
 align = 1
 valign = 1
 

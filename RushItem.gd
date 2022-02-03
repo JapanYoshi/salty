@@ -7,7 +7,7 @@ func _ready():
 	anim.play("hide", -1, 10000)
 	idx = get_index()
 	$Btn/Label.set_text(
-		"↖↑↗←↓→"[idx]
+		char(0x3358 + idx)
 	)
 
 func set_option(bbcode):

@@ -173,11 +173,29 @@
   , {"v": "lifesaver2_tute1_01", "s": "Better use it quick, because if you still have it after Question 12, it’s getting confiscated."}
   , {"v": "lifesaver2_tute1_02", "s": "But if you hold onto it for six more questions, we’ll take them away for good."}
   ]
-  , "outro" : [
-    {"v": "", "s": ""}
+  , "outro_game" : [
+    {"v": "outro_game_00", "s": "And that's the game! Thank you for stopping by for Salty Trivia with Candy Barre.[#3741#]"}
+  , {"v": "outro_game_01", "s": "There we have it![#954#]You should take the time to congratulate yourself with a pat in the back or something.[#4149#]"}
+  , {"v": "outro_game_02", "s": "Game, set, and match! I do hope you enjoyed Salty Trivia with Candy Barre.[#4434#]"}
+  , {"v": "outro_game_03", "s": "That's all for this game! Thanks a lot for participating in Salty Trivia with Candy Barre.[#4141#]"}
+  , {"v": "outro_game_04", "s": "Well look at that, you made it through this episode without any OSHA violations![#4324#]"}
+  , {"v": "outro_game_05", "s": "Let's applaud the winner of this round of Salty Trivia with Candy Barre![#4291#]"}
+  , {"v": "outro_game_06", "s": "And that concludes this game of Salty Trivia with Candy Barre![#3525#]"}
+  , {"v": "outro_game_07", "s": "Good job on winning Salty Trivia with Candy Barre, trivia champ![#3800#]But if you think this victory makes you a cool person,[#6816#][#7600#]well..."}
+  , {"v": "outro_game_08", "s": "Congrats! By winning Salty Trivia with Candy Barre,[#2788#]you have proven that your mind is full of inconsequential minutiae.[#0615#]"}
+  , {"v": "outro_game_09", "s": "That’s all for this game! Champion, hope you’re proud of yourself.[#3064#]"}
   ]
   , "outro_slam" : [
-    {"v": "", "s": ""}
+    {"v": "outro_slam_00", "s": "Now get out."}
+  , {"v": "outro_slam_01", "s": "’Cause I’m not gonna touch you. Back off."}
+  , {"v": "outro_slam_02", "s": "I did, at least a bit."}
+  , {"v": "outro_slam_03", "s": "What, you want a cookie or something?"}
+  , {"v": "outro_slam_04", "s": "Now give me back the hardhats and leave."}
+  , {"v": "outro_slam_05", "s": "Your head is full of useless knowledge, big whoop."}
+  , {"v": "outro_slam_06", "s": "There’s no post-credits scene."}
+  , {"v": "outro_slam_07", "s": "[slam] You’re misguided."}
+  , {"v": "outro_slam_08", "s": "Yay. /s"}
+  , {"v": "outro_slam_09", "s": "’Cause I’m not."}
   ]
   , "cuss_a0": [
     {"v": "cuss_a0", "s": "ROBOT VOICE: Congratulations! You have unlocked the “fuck you” easter egg.[#4362#]Please take a look at your score to receive your prize."}
@@ -362,7 +380,6 @@
   , {"v": "wrong_22", "s": "Careful. Your dumb is showing."}
   , {"v": "wrong_23", "s": "Thaaat’s embarrassing. For you."}
   , {"v": "wrong_24", "s": "I thought so at first, but then I knew better."}
-  , {"v": "wrong_42", "s": "[sound of crickets]"}
   , {"v": "wrong_25", "s": "[#1445#]Wow, even the crickets are speechless."}
   , {"v": "wrong_26", "s": "[#1440#]Y’know, I can’t even make fun of that."}
   , {"v": "wrong_27", "s": "[sips][#1440#][swallows][#2438#]Aaaah.[#3442#][coughs][#4005#][#4621#]No."}
@@ -380,6 +397,8 @@
   , {"v": "wrong_39", "s": "So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."}
   , {"v": "wrong_40", "s": "That’s gotta be the correct answer for some other question."}
   , {"v": "wrong_41", "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][chuckles] This is dumb."}
+  , {"v": "wrong_42", "s": "[sound of crickets]"}
+  , {"v": "wrong_43", "s": "[laugh track]"}
   ]
   , "gib_early": [
     {"v": "gib_early_00", "s": "Hey, did your finger slip onto the buzzer?"}

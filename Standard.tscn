@@ -669,7 +669,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=22]
 resource_name = "touchprism_enter"
-length = 1.2
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Node2D/Center:scale")
 tracks/0/interp = 1
@@ -677,7 +677,7 @@ tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
@@ -689,7 +689,7 @@ tracks/1/loop_wrap = false
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
+"times": PoolRealArray( 0.1, 0.4 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
@@ -701,7 +701,7 @@ tracks/2/loop_wrap = false
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.2, 0.5 ),
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ 102.5, 75.0 ]
@@ -713,7 +713,7 @@ tracks/3/loop_wrap = false
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 2, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0.847059, 0, 0, 1 ) ]
@@ -725,7 +725,7 @@ tracks/4/loop_wrap = false
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.2, 0.5 ),
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ 102.5, 95.0 ]
@@ -737,7 +737,7 @@ tracks/5/loop_wrap = false
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 2, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 1, 0.980392, 0, 1 ) ]
@@ -749,7 +749,7 @@ tracks/6/loop_wrap = false
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.2, 0.5 ),
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ 102.5, 115.0 ]
@@ -761,7 +761,7 @@ tracks/7/loop_wrap = false
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 2, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0, 1, 0.141176, 1 ) ]
@@ -773,7 +773,7 @@ tracks/8/loop_wrap = false
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.8 ),
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 2, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0, 0.662745, 1, 1 ) ]
@@ -785,7 +785,7 @@ tracks/9/loop_wrap = false
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.2, 0.5 ),
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ 102.5, 135.0 ]
@@ -797,7 +797,7 @@ tracks/10/loop_wrap = false
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -809,7 +809,7 @@ tracks/11/loop_wrap = false
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
 "values": [ -8.0, 0.0 ]
@@ -821,7 +821,7 @@ tracks/12/loop_wrap = false
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
@@ -833,7 +833,7 @@ tracks/13/loop_wrap = false
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
@@ -845,7 +845,7 @@ tracks/14/loop_wrap = false
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -865,6 +865,7 @@ tracks/15/keys = {
 
 [sub_resource type="Animation" id=23]
 resource_name = "touchprism_leave"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Node2D/Center:scale")
 tracks/0/interp = 1
@@ -872,7 +873,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 0.3 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
@@ -884,7 +885,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 0.3 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
@@ -896,7 +897,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ 75.0, 102.5 ]
@@ -908,7 +909,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ Color( 0.847059, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -920,7 +921,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ 95.0, 102.5 ]
@@ -932,7 +933,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ Color( 1, 0.980392, 0, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -944,7 +945,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ 115.0, 102.5 ]
@@ -956,7 +957,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ Color( 0, 1, 0.141176, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -968,7 +969,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ Color( 0, 0.662745, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -980,7 +981,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 2 ),
 "update": 0,
 "values": [ 135.0, 102.5 ]
@@ -992,7 +993,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -1004,7 +1005,7 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
 "values": [ 0.0, 8.0 ]
@@ -1016,7 +1017,7 @@ tracks/12/loop_wrap = true
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0.2, 0.8 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
@@ -1028,7 +1029,7 @@ tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0.2, 0.8 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
@@ -1040,7 +1041,7 @@ tracks/14/loop_wrap = true
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0.2, 0.6 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -1529,7 +1530,7 @@ custom_styles/pressed = ExtResource( 18 )
 custom_styles/focus = ExtResource( 18 )
 custom_styles/disabled = ExtResource( 18 )
 custom_styles/normal = ExtResource( 18 )
-text = "↔ — buzz in"
+text = "㍟ — buzz in"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1551,7 +1552,7 @@ custom_styles/pressed = ExtResource( 18 )
 custom_styles/focus = ExtResource( 18 )
 custom_styles/disabled = ExtResource( 18 )
 custom_styles/normal = ExtResource( 18 )
-text = "↖/↗ — Use Lifesaver"
+text = "㍘/㍚ — Use Lifesaver"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1563,7 +1564,6 @@ position = Vector2( 640, 360 )
 [node name="Ray" type="Sprite" parent="Node2D"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 1, 9 )
-scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 14 )
 offset = Vector2( -96, -80 )
 
@@ -1576,25 +1576,25 @@ offset = Vector2( 0, -24 )
 
 [node name="Ray2" type="Sprite" parent="Node2D"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = 1.78896
+rotation = 1.309
 texture = ExtResource( 14 )
 offset = Vector2( -96, -72 )
 
 [node name="Ray3" type="Sprite" parent="Node2D"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = 1.78896
+rotation = 1.65806
 texture = ExtResource( 14 )
 offset = Vector2( -96, -72 )
 
 [node name="Ray4" type="Sprite" parent="Node2D"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = 1.78896
+rotation = 2.00713
 texture = ExtResource( 14 )
 offset = Vector2( -96, -72 )
 
 [node name="Ray5" type="Sprite" parent="Node2D"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = 1.78896
+rotation = 2.35619
 texture = ExtResource( 14 )
 offset = Vector2( -96, -72 )
 

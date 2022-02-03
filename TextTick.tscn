@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://images/gib_4.png" type="Texture" id=1]
 [ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=2]
@@ -316,6 +316,169 @@ tracks/2/keys = {
 "args": [  ],
 "method": "update_price"
 }, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+}, {
+"args": [  ],
+"method": "update_price"
+} ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "countdown_gib"
+length = 40.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 40 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -10.0, 10.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 40 ),
+"transitions": PoolRealArray( 1.8, 1 ),
+"update": 0,
+"values": [ Vector2( 0.4, 0.4 ), Vector2( 0.7, 0.7 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
 "args": [  ],
 "method": "update_price"
 }, {
@@ -1918,7 +2081,7 @@ margin_top = -376.0
 margin_right = 1500.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 3000, 700 )
-rect_rotation = -10.0
+rect_rotation = 15.0
 rect_scale = Vector2( 0.2, 0.2 )
 rect_pivot_offset = Vector2( 1500, 350 )
 size_flags_horizontal = 9
@@ -1933,6 +2096,7 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/countdown = SubResource( 3 )
+anims/countdown_gib = SubResource( 24 )
 anims/entry = SubResource( 4 )
 anims/gib_logo = SubResource( 5 )
 anims/thou_logo = SubResource( 6 )

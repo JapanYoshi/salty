@@ -101,8 +101,8 @@ var config = {
 
 const keycap_text = {
 	"space": "␣",
-	"left": "⇐",
-	"right": "⇒",
+	"left": "⇽",
+	"right": "⇾",
 	"delete": "⌫",
 	"submit": "✓",
 	"num": "№"
