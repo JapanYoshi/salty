@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/outro_game_05.wav-9dd05ea8346d091238c17221c18f5299.sample"
+
+[deps]
+
+source_file="res://audio/voice/outro_game_05.wav"
+dest_files=[ "res://.import/outro_game_05.wav-9dd05ea8346d091238c17221c18f5299.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
