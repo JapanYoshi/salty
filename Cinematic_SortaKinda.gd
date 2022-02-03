@@ -78,7 +78,7 @@ func show_question(text: String):
 func skip_intro(has_both: bool):
 	$AnimationPlayer.play("skip_intro")
 	if has_both:
-		$Viewport/OptionsVP/PanelAB.rect_scale = Vector2.ONE
+		$ViewportContainer/Viewport/OptionsVP/PanelAB.rect_scale = Vector2.ONE
 
 func answer(which: int):
 	match which:
