@@ -82,36 +82,36 @@ func _input(e):
 					JOY_L:
 						if Input.is_joy_button_pressed(e.device, JOY_R):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 0)
-							gp_queue(e.device, p, 0)
+							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 0) # p == device index
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 0)
 							p_count += 1
 						elif Input.is_joy_button_pressed(e.device, JOY_L2):
 							print("SIGNUP QUEUED")
 							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 1)
-							gp_queue(e.device, p, 1)
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 1)
 							p_count += 1
 					JOY_R:
 						if Input.is_joy_button_pressed(e.device, JOY_L):
 							print("SIGNUP QUEUED")
 							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 0)
-							gp_queue(e.device, p, 0)
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 0)
 							p_count += 1
 						elif Input.is_joy_button_pressed(e.device, JOY_R2):
 							print("SIGNUP QUEUED")
 							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 2)
-							gp_queue(e.device, p, 2)
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 2)
 							p_count += 1
 					JOY_L2:
 						if Input.is_joy_button_pressed(e.device, JOY_L):
 							print("SIGNUP QUEUED")
 							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 1)
-							gp_queue(e.device, p, 1)
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 1)
 							p_count += 1
 					JOY_R2:
 						if Input.is_joy_button_pressed(e.device, JOY_R):
 							print("SIGNUP QUEUED")
 							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 2)
-							gp_queue(e.device, p, 2)
+							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 2)
 							p_count += 1
 			
 		else:
@@ -189,7 +189,7 @@ func start_signup():
 	if len(players_list) >= 8: return
 	signup_now = signup_queue.pop_front()
 	if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.GAMEPAD:
-		signup_modal.start_setup_gp(signup_now[SIGNUP.DEVICE_INDEX], signup_now[SIGNUP.PLAYER_NUMBER], signup_now[SIGNUP.SIDE])
+		signup_modal.start_setup_gp(signup_now[SIGNUP.PLAYER_NUMBER], signup_now[SIGNUP.DEVICE_INDEX], signup_now[SIGNUP.SIDE])
 		S.play_sfx("menu_signout")
 		S.play_track(0, 0)
 		S.play_track(1, 1)
@@ -299,7 +299,7 @@ func signup_ended(name, keyboard_type):
 		if len(players_list) == 0:
 			$Ready/Label2.set_text("Or press Return on the keyboard")
 			if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.GAMEPAD:
-				$Ready/Label.set_text("Press → to start!")
+				$Ready/Label.set_text("Press ㍝ to start!")
 			elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
 				$Ready/Label.set_text("Press Return to start!")
 				$Ready/Label2.set_text("")

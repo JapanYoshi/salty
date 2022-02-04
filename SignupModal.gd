@@ -1,7 +1,7 @@
 extends ColorRect
 
-var current_device = -1
-var current_player = -1
+var current_device_type = -1
+var current_device_index = -1
 var current_keyboard = 0
 var remote_nickname = ""
 enum PHASE {
@@ -17,25 +17,26 @@ var axis: Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_device = -1
-	current_player = -1
+	current_device_type = -1
+	current_device_index = -1
 	current_phase = PHASE.NONE
 	C.connect("gp_button", self, "gp_button")
 	C.connect("gp_axis", self, "gp_axis")
 	get_parent().get_node("KeyboardBox").connect("text_confirmed", self, "text_confirmed")
 	pass # Replace with function body.
 
+# device_index is according to lookup by Control Handler
 func start_setup_gp(player_number: int, device_index: int, side: int):
 	print("start_setup_gp(player_number = ", player_number, ", device_index = ", device_index, ", side = ", side, ")")
-	current_device = C.DEVICES.GAMEPAD
-	current_player = player_number
+	current_device_type = C.DEVICES.GAMEPAD
+	current_device_index = device_index
 	current_phase = PHASE.CHOOSE_KB
 	axis = Vector2.ZERO
 	$Panel/Name.hide()
 	$Panel/Type.set_animation("gp" if side == 0 else "gp_left" if side == 1 else "gp_right")
 	$Panel/Confirm.show()
 	$Panel/Instructions2.hide()
-	$Panel/Number.set_text("%d" % (device_index + 1) + ("L" if side == 1 else "R" if side == 2 else ""))
+	$Panel/Number.set_text("Gamepad %d" % (player_number + 1) + (" (Left)" if side == 1 else " (Right)" if side == 2 else " (Whole)"))
 	$Panel/List.show()
 	$Panel/List.modulate.a = 1.0
 	$Panel/Instructions.set_text("Choose your keyboard.")
@@ -43,8 +44,8 @@ func start_setup_gp(player_number: int, device_index: int, side: int):
 	$AnimationPlayer.play("choose_keyboard")
 
 func start_setup_kb(player_number: int, device_index: int):
-	current_device = C.DEVICES.KEYBOARD
-	current_player = player_number
+	current_device_type = C.DEVICES.KEYBOARD
+	current_device_index = player_number
 	current_phase = PHASE.NAME_ENTRY
 	$Panel/Name.hide()
 	$Panel/Type.set_animation("kb")
@@ -57,8 +58,8 @@ func start_setup_kb(player_number: int, device_index: int):
 	name_entry(0)
 
 func start_setup_touch(player_number: int):
-	current_device = C.DEVICES.TOUCHSCREEN
-	current_player = player_number
+	current_device_type = C.DEVICES.TOUCHSCREEN
+	current_device_index = player_number
 	current_phase = PHASE.NAME_ENTRY
 	$Panel/Name.hide()
 	$Panel/Type.set_animation("touch")
@@ -71,7 +72,7 @@ func start_setup_touch(player_number: int):
 	name_entry(0)
 
 func start_setup_remote(player_name: String):
-	current_device = C.DEVICES.REMOTE
+	current_device_type = C.DEVICES.REMOTE
 	current_phase = PHASE.NAME_ENTRY
 	remote_nickname = player_name
 	$Panel/Name.show()
@@ -105,14 +106,14 @@ func press_left():
 		neighbor.grab_focus()
 
 func done(text):
-	current_device = -1
-	current_player = -1
+	current_device_type = -1
+	current_device_index = -1
 	current_phase = PHASE.NONE
 	$AnimationPlayer.play("done")
 	get_parent().signup_ended(text, current_keyboard)
 
 func gp_button(who, what, pressed):
-	if who != current_player: return
+	if who != current_device_index: return
 	#print(who, what, pressed)
 	if current_phase == PHASE.CHOOSE_KB:
 		if what == 5:
@@ -128,14 +129,14 @@ func name_entry(type):
 	$Panel/Confirm.hide()
 	$Panel/Instructions.set_text("Enter your name")
 	get_parent().get_node("KeyboardBox").start_keyboard(
-		type, current_player,
+		type, current_device_index,
 		12 # name length limit.
 	)
 	current_phase = PHASE.NAME_ENTRY
 
 func gp_axis(who, what, value):
-	if who != current_player: return
-	#print(who, what, value)
+	if who != current_device_index: return
+	prints(who, what, value)
 	if current_phase == PHASE.CHOOSE_KB:
 		if what == 0:
 			#print(value)
@@ -150,16 +151,18 @@ func gp_axis(who, what, value):
 			axis.y = value
 
 func text_confirmed(text):
-	print("Player %d's name is %s!" % [current_player + 1, text])
+	print("Player %d's name is %s!" % [current_device_index + 1, text])
 	done(text)
 
 func _input(event):
-	if current_device != -1 and current_device != C.DEVICES.KEYBOARD and (
+	if current_device_type != -1 and current_device_type != C.DEVICES.KEYBOARD and (
 		event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or
 		event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right") or
 		event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel")
 	):
-		accept_event()
+		accept_event() # prevent default UI actions
+		C._input(event) # and let the control handler parse the event instead
+		pass
 
 func _on_Button_pressed():
 	current_keyboard = 1

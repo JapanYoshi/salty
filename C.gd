@@ -18,6 +18,7 @@ signal gp_disconnect
 # By default, indices 0-3 will be occupied by the keyboard,
 # and index 4 will be occupied by the "touchscreen" player.
 var ctrl = []
+var ignore_axis = [0, 0, 0, 0]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,17 +43,36 @@ func _input(event):
 			device, event.device,
 			event.physical_scancode if event is InputEventKey else event.button_index
 		)
+		print("Lookup result:", which.player, ", ", which.button, ", ", event.pressed)
 		if which.player != -1:
 			print("Player %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
 			if get_tree().paused:
 				emit_signal("gp_button_paused", which.player, which.button, event.pressed)
 			else:
-				emit_signal("gp_button", which.player, which.button, event.pressed)
+				if which.button >= JOY_DPAD_UP:
+					# set time to ignore until
+					ignore_axis[which.player] = OS.get_ticks_usec() + 1_000_000 # in microseconds
+					emit_signal(
+						"gp_axis", which.player,
+						int(which.button < JOY_DPAD_LEFT),
+						float(
+							int(event.pressed) * (
+								2 * (which.button % 2) - 1
+							)
+						)
+					)
+				else:
+					emit_signal("gp_button", which.player, which.button, event.pressed)
 	elif event is InputEventJoypadMotion:
+		if abs(event.axis_value) < 0.1:
+			event.axis_value = 0.0
 		var which = lookup_axis(event.device, event.axis)
 		if which.player != -1:
 			#print("Player %d, axis %d, value %f" % [which.player, which.axis, event.axis_value])
-			if get_tree().paused:
+			# if the D-pad has been used recently, ignore axis events
+			if OS.get_ticks_usec() < ignore_axis[which.player]:
+				return
+			elif get_tree().paused:
 				emit_signal("gp_axis_paused", which.player, which.button, event.axis_value)
 			else:
 				emit_signal("gp_axis", which.player, which.axis, event.axis_value)
@@ -70,17 +90,32 @@ func _on_input_changed(device: int, connected: bool):
 		remove_controller(DEVICES.GAMEPAD, device)
 
 func remove_controller(device_type, device):
-	for i in range(len(ctrl) - 1, -1, -1):
+	for i in range(len(ctrl) - 1, 4, -1):
 		var c = ctrl[i]
 		if c.device_type == device_type and c.device == device:
 			ctrl.remove(i)
+			ignore_axis.remove(i)
+
+func remove_controllers_by_index(indices):
+	for index in indices:
+		if index <= 4:
+			printerr("Cannot remove keyboard or pointer controllers!")
+			return
+		if index >= len(ctrl):
+			printerr("Controller to remove is out of range!")
+			return
+		ctrl[index] = null
+	for i in range(len(ctrl) - 1, 4, -1):
+		if ctrl[i] == null:
+			ctrl.remove(i)
+			ignore_axis.remove(i)
 
 # return the new player number.
 func add_controller(device_type, device, side = 0):
-	for c in ctrl:
-		if c.device_type == device_type and c.device == device and c.side == side:
+	for i in range(len(ctrl)):
+		if ctrl[i].device_type == device_type and ctrl[i].device == device and ctrl[i].side == side:
 			print("controller already registered")
-			return
+			return i
 	var c = {
 		device_type = device_type,
 		device = device,
@@ -116,6 +151,7 @@ func add_controller(device_type, device, side = 0):
 		c.axes = []
 		c.device_name = device # contains the network ID
 	ctrl.append(c)
+	ignore_axis.append(0)
 	return len(ctrl) - 1
 
 # Use for system keys as well.
