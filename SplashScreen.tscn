@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://logo/LogoContainer.gd" type="Script" id=1]
 [ext_resource path="res://logo/hand0.png" type="Texture" id=2]
@@ -9,10 +9,12 @@
 [ext_resource path="res://images/jackbox.png" type="Texture" id=7]
 [ext_resource path="res://logo/jackbox.wav" type="AudioStream" id=8]
 [ext_resource path="res://logo/rating.png" type="Texture" id=9]
+[ext_resource path="res://logo/rating_us.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "haitouch"
 length = 3.5
+step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("FrontHand:rect_rotation")
 tracks/0/interp = 1
@@ -384,6 +386,11 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RatingPic" type="Sprite" parent="Rating"]
+position = Vector2( 643, 344 )
+scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 10 )
 
 [node name="CoverRect" type="ColorRect" parent="."]
 anchor_right = 1.0
