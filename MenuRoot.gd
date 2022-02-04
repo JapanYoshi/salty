@@ -34,6 +34,18 @@ func back():
 		get_tree().change_scene("res://Title.tscn")
 	else:
 		cancel_loading = true
+		# free the added controller slots, so that we can reuse them next time
+		var indices = []
+		for p in current_page.players_list:
+			if p.device == C.DEVICES.GAMEPAD:
+				indices.push_back(p.device_index)
+		for p in current_page.signup_queue:
+			if p[0] == C.DEVICES.GAMEPAD:
+				indices.push_back(p[1])
+		if current_page.signup_now[0] == C.DEVICES.GAMEPAD:
+			indices.push_back(current_page.signup_now[1])
+		if len(indices) > 0:
+			C.remove_controllers_by_index(indices)
 		change_scene_to(first_page.instance())
 
 func change_scene_to(n):
@@ -145,15 +157,18 @@ func start_game():
 		current_page.get_node("MouseMask").color = Color(0, 0, 0, 0.5)
 		current_page.get_node("LoadingPanel").show()
 		return
-	S.play_track(0, false, false)
-	S.play_track(1, false, false)
-	S.play_track(2, false, false)
+	S.play_track(0, 0.1)
+	S.play_track(1, 0.1)
+	S.play_track(2, 0.1)
 	self.rect_pivot_offset = Vector2(640,360)
 	tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.interpolate_property(self, "rect_scale", Vector2.ONE, Vector2.ONE * 1.1, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.interpolate_property(current_page.get_node("LoadingPanel"), "rect_scale", Vector2.ONE, Vector2.ONE * 1.25, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	yield(tween, "tween_all_completed")
+	S.play_track(0, 0)
+	S.play_track(1, 0)
+	S.play_track(2, 0)
 	get_tree().change_scene("res://Episode.tscn")
 
 onready var http_request = $HTTPRequest

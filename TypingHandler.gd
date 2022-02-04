@@ -314,7 +314,10 @@ func _axis_tilted(which_player, which_axis, axis_value):
 		axis.y = axis_value
 	else:
 		axis.x = axis_value
-	$DW/KbBase/KbStick.position = (Vector2.ONE + axis) * 128.0
+	if which_keyboard == 1:
+		$DW/KbBase/KbStick.position = (Vector2.ONE + axis.clamped(1.0)) * 128.0
+	else:
+		$SP/KbBase/KbStick.position = (Vector2.ONE + axis.clamped(1.0)) * 128.0
 	var axis_magn = axis.length()
 	if axis_magn < stick_deadzone:
 #		print("Center")
@@ -643,3 +646,4 @@ func _input(event):
 	):
 		if which_keyboard != -1 and C.ctrl[which_player].device_type != C.DEVICES.KEYBOARD:
 			accept_event()
+			C._input(event) # let the controller handler parse it

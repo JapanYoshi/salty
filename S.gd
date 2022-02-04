@@ -40,7 +40,7 @@ func _ready():
 		preload_sfx(k)
 	for k in [
 		"answer_now", "answer_now_2", "answer_now_3", "answer_now_4", "answer_now_5",
-		"main_theme", "new_theme",
+		"load_loop", "main_theme", "new_theme",
 		"options",
 		"outro",
 		"placeholder",
@@ -168,6 +168,7 @@ func _set_music_vol(track: int, vol: float, dont_tween = true):
 			music_dict[tracks[track]].set_volume_db(voldb)
 		else:
 			var vol_old = music_dict[tracks[track]].volume_db
+			tweens[track].stop_all()
 			if vol_old != voldb:
 				print("Interpolating track " + str(track) + " from " + str(music_dict[tracks[track]].volume_db) + " to " + str(voldb))
 				tweens[track].interpolate_property(

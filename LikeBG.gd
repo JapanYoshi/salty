@@ -37,28 +37,29 @@ func play_intro():
 	tween.start()
 	anim.play("logo")
 
-func _input(event):
-	if event.is_action_pressed("signup2"):
-		play_intro()
-	elif event.is_action_pressed("signup0"):
-		screen.enter_question("ahcru.,ksrc ch uah sr hr hrac. rs")
-		screen.enter_options(["aaeat hua ,.n", "scra u,chru.chs", "cua,hr rah,u crur ssar ", "sah, cru.hcsrua .ksarcha rca, "])
-	elif event.is_action_pressed("signup0b"):
-		screen.ready_reveal()
-	elif event.is_action_pressed("signup1"):
-		var bit = R.rng.randi_range(0, 15)
-		reveal([bool(bit & 8), bool(bit & 4), bool(bit & 2), bool(bit & 1)])
-	elif event.is_action_pressed("signup1b"):
-		var q_text = "%d" % R.rng.randi_range(0, 99999)
-		while R.rng.randi() & 255 < 192:
-			q_text += " %d" % R.rng.randi_range(0, 99999)
-		show_question(
-			q_text,
-			["%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999)],
-			1
-		)
-	elif event.is_action_pressed("signup2b"):
-		end_question()
+# DEBUG INPUTS
+#func _input(event):
+#	if event.is_action_pressed("signup2"):
+#		play_intro()
+#	elif event.is_action_pressed("signup0"):
+#		screen.enter_question("ahcru.,ksrc ch uah sr hr hrac. rs")
+#		screen.enter_options(["aaeat hua ,.n", "scra u,chru.chs", "cua,hr rah,u crur ssar ", "sah, cru.hcsrua .ksarcha rca, "])
+#	elif event.is_action_pressed("signup0b"):
+#		screen.ready_reveal()
+#	elif event.is_action_pressed("signup1"):
+#		var bit = R.rng.randi_range(0, 15)
+#		reveal([bool(bit & 8), bool(bit & 4), bool(bit & 2), bool(bit & 1)])
+#	elif event.is_action_pressed("signup1b"):
+#		var q_text = "%d" % R.rng.randi_range(0, 99999)
+#		while R.rng.randi() & 255 < 192:
+#			q_text += " %d" % R.rng.randi_range(0, 99999)
+#		show_question(
+#			q_text,
+#			["%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999),"%4d" % R.rng.randi_range(0, 9999)],
+#			1
+#		)
+#	elif event.is_action_pressed("signup2b"):
+#		end_question()
 
 func show_question(question: String, options: Array, q_num):
 	abort = false

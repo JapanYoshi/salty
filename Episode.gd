@@ -337,7 +337,6 @@ func play_intro():
 			S.unload_voice(k)
 		end_intro()
 	else:
-		q_box.show_loading_logo()
 		load_next_question()
 
 func play_intro_2():
@@ -413,12 +412,13 @@ func play_intro_2():
 func end_intro():
 	S.play_track(0, 0.0, false)
 	S.play_sfx("question_leave")
+	disable_skip()
 	hud.slide_playerbar(false)
 	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
 	c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
-	disable_skip()
-	S.play_music("", false)
+	q_box.set_process(true)
+#	q_box.show_loading_logo()
 	load_next_question()
 
 func play_intermission():
@@ -470,7 +470,6 @@ func load_next_question():
 		load_question(episode_data.question_id[question_number])
 
 func load_question(q_name):
-	q_box.set_process(true)
 	c_box.set_process(false)
 	q_box.question_number = question_number
 	q_box.data = Loader.load_question(q_name, question_number == 0)

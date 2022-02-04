@@ -427,13 +427,14 @@ func reset_answers():
 func show_loading_logo():
 	print("show loading logo")
 	anim.play("touchprism_enter", -1, 1.0)
+	S.play_music("load_loop", 0)
+	S.play_track(0, 0.6)
 
 # Advance to the next stage of the question!
 func change_stage(next_stage):
 	if next_stage == "init":
 		stage = "init"
 		print("CHANGE STAGE TO INIT")
-		S.play_sfx("time_up")
 		can_buzz_in = false
 		question_type = data.type
 		title.bbcode_text = data.title.t
@@ -592,6 +593,7 @@ func change_stage(next_stage):
 			})
 		if anim.is_playing():
 			yield(anim, "animation_finished")
+		S.play_track(0, 0.0)
 		anim.play("touchprism_leave")
 		yield(anim, "animation_finished")
 		if question_type in ["R", "L"]:
@@ -873,7 +875,9 @@ func change_stage(next_stage):
 	elif next_stage == "outro":
 		stage = "outro"
 		S.play_music("outro", true)
-		yield(get_tree().create_timer(2.0), "timeout")
+		yield(get_tree().create_timer(1.5), "timeout")
+		S.play_track(0, 0.5)
+		yield(get_tree().create_timer(0.5), "timeout")
 		S.play_voice("outro")
 	elif stage == "outro" and next_stage == "end":
 		stage = "end"
@@ -1067,7 +1071,7 @@ func _on_voice_end(voice_id):
 		"gib_genre":
 			change_stage("gib_question")
 		"gib_question":
-			if voice_id == "gib_question":
+			if voice_id == "question":
 				bgs.G.countdown()
 				return
 			elif voice_id == "reveal":

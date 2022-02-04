@@ -8,7 +8,7 @@ var value: float = 1000.0
 signal intro_ended
 signal checkpoint(checkpoint)
 
-onready var dollars = $Label
+onready var dollars = $PriceBox/Label
 onready var anim = $AnimationPlayer
 onready var gib_anim = $GibTute/AnimationPlayer
 onready var thou_anim = $ThouTute/AnimationPlayer
@@ -41,7 +41,7 @@ func countdown_pause(paused: bool = true):
 
 func init_thousand():
 	mode = "T"; count = 0; max_value = 1000 * 10; value = max_value;
-	dollars.hide()
+	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(64/255.0, 36/255.0, 4/255.0, 126/255.0))
 	thou_anim.play("reset")
@@ -59,7 +59,7 @@ func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
 	# max_value = (2 if is_round2 else 1) * 50 # apply round 2 bonus
 	max_value = 100 # ignore round 2 bonus
 	value = max_value;
-	dollars.hide()
+	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(4/255.0, 16/255.0, 64/255.0, 126/255.0))
 	$GibQ.set_text(question)
@@ -100,6 +100,17 @@ func show_price():
 
 func update_price():
 	count = round(anim.current_animation_position * 2) # tick twice every second
+	var dollar_tween = $PriceBox/Tween
+	dollar_tween.stop_all()
+	dollar_tween.interpolate_property(
+		dollars, "rect_scale", Vector2(1.1, 0.8), Vector2.ONE,
+		0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT
+	)
+	dollar_tween.interpolate_property(
+		dollars, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0.6),
+		0.25, Tween.TRANS_QUAD, Tween.EASE_OUT
+	)
+	dollar_tween.start()
 	value = 0
 	if mode == "T":
 		if count <= 100:

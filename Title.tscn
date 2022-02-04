@@ -102,7 +102,7 @@ margin_top = 320.0
 margin_right = 608.0
 margin_bottom = 411.0
 custom_fonts/font = ExtResource( 4 )
-text = "v0.alpha-2: Fancy splash screen!"
+text = "v0.alpha-3: Fully Randomized!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

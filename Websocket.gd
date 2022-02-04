@@ -204,7 +204,7 @@ func open_room():
 		emit_signal("room_opened")
 
 func close_room():
-	send('closeRoom', {})
+	send('closeRoom', {roomCode = room_code})
 	room_code = ""
 	players = []
 
