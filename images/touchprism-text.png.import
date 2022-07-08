@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/touchprism-bottom.png-6669719cd6a7538cef5d12bffbfd4d63.stex"
+path="res://.import/touchprism-text.png-c407aa1bd7152a7c1ed86083c51ed111.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/touchprism-bottom.png"
-dest_files=[ "res://.import/touchprism-bottom.png-6669719cd6a7538cef5d12bffbfd4d63.stex" ]
+source_file="res://images/touchprism-text.png"
+dest_files=[ "res://.import/touchprism-text.png-c407aa1bd7152a7c1ed86083c51ed111.stex" ]
 
 [params]
 

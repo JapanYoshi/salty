@@ -1,6 +1,6 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=50 format=2]
 
-[ext_resource path="res://images/touchprism-bottom.png" type="Texture" id=1]
+[ext_resource path="res://images/thumbnails.png" type="Texture" id=1]
 [ext_resource path="res://Noise.gd" type="Script" id=2]
 [ext_resource path="res://Thousand.gdshader" type="Shader" id=3]
 [ext_resource path="res://ThemeQuestion.theme" type="Theme" id=4]
@@ -13,7 +13,7 @@
 [ext_resource path="res://Vignette.gd" type="Script" id=11]
 [ext_resource path="res://ThemeOption.theme" type="Theme" id=12]
 [ext_resource path="res://audio/sfx/rimshot.ogg" type="AudioStream" id=13]
-[ext_resource path="res://images/touchprism-ray.png" type="Texture" id=14]
+[ext_resource path="res://images/touchprism-rays-bottom.png" type="Texture" id=14]
 [ext_resource path="res://fonts/candy_joke.tres" type="DynamicFont" id=15]
 [ext_resource path="res://images/candy_blank.png" type="Texture" id=16]
 [ext_resource path="res://images/touchprism-center.png" type="Texture" id=17]
@@ -21,6 +21,8 @@
 [ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=19]
 [ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=20]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=21]
+[ext_resource path="res://images/touchprism-text.png" type="Texture" id=22]
+[ext_resource path="res://images/touchprism-rays-top.png" type="Texture" id=23]
 
 [sub_resource type="ShaderMaterial" id=18]
 shader = ExtResource( 3 )
@@ -112,7 +114,7 @@ tracks/5/keys = {
 "values": [ 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Node2D:visible")
+tracks/6/path = NodePath("Loading:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -669,382 +671,237 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=22]
 resource_name = "touchprism_enter"
-length = 0.6
+length = 1.25
 tracks/0/type = "value"
-tracks/0/path = NodePath("Node2D/Center:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.3, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Node2D/Ray:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.4 ),
-"transitions": PoolRealArray( 0.3, 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Node2D/Ray2:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
-"transitions": PoolRealArray( 2, 1 ),
-"update": 0,
-"values": [ 102.5, 75.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Node2D/Ray2:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 2, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0.847059, 0, 0, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Node2D/Ray3:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = false
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
-"transitions": PoolRealArray( 2, 1 ),
-"update": 0,
-"values": [ 102.5, 95.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Node2D/Ray3:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = false
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 2, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 1, 0.980392, 0, 1 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Node2D/Ray4:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
-"transitions": PoolRealArray( 2, 1 ),
-"update": 0,
-"values": [ 102.5, 115.0 ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("Node2D/Ray4:modulate")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 2, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0, 1, 0.141176, 1 ) ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("Node2D/Ray5:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 2, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.52549 ), Color( 0, 0.662745, 1, 1 ) ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("Node2D/Ray5:rotation_degrees")
-tracks/9/interp = 1
-tracks/9/loop_wrap = false
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
-"transitions": PoolRealArray( 2, 1 ),
-"update": 0,
-"values": [ 102.5, 135.0 ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("Node2D/Ray:modulate")
-tracks/10/interp = 1
-tracks/10/loop_wrap = false
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("Node2D/Center:rotation_degrees")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ -8.0, 0.0 ]
-}
-tracks/12/type = "value"
-tracks/12/path = NodePath("Node2D/Touchprism-bottom:scale")
-tracks/12/interp = 1
-tracks/12/loop_wrap = false
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.3, 1 ),
-"update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
-}
-tracks/13/type = "value"
-tracks/13/path = NodePath("Node2D/Touchprism-bottom:modulate:a")
-tracks/13/interp = 1
-tracks/13/loop_wrap = false
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.3, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/14/type = "value"
-tracks/14/path = NodePath("Node2D/Center:modulate")
-tracks/14/interp = 1
-tracks/14/loop_wrap = false
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 0.3, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/15/type = "value"
-tracks/15/path = NodePath("Node2D:visible")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-
-[sub_resource type="Animation" id=23]
-resource_name = "touchprism_leave"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath("Node2D/Center:scale")
+tracks/0/path = NodePath("Loading/Thumbnails:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 0.3 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0.5, 0.5 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Node2D/Ray:scale")
+tracks/1/path = NodePath("Loading/Thumbnails:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 0.3 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+"values": [ Vector2( 192, 128 ), Vector2( 192, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Node2D/Ray2:rotation_degrees")
+tracks/2/path = NodePath("Loading/Thumbnails:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ 75.0, 102.5 ]
+"values": [ -200.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Node2D/Ray2:modulate")
+tracks/3/path = NodePath("Loading/Touchprism:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ Color( 0.847059, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Vector2( -360, 128 ), Vector2( -360, 0 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Node2D/Ray3:rotation_degrees")
+tracks/4/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 0.25, 1 ),
 "update": 0,
-"values": [ 95.0, 102.5 ]
+"values": [ 45.0, 45.0, 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Node2D/Ray3:modulate")
+tracks/5/path = NodePath("Loading/Touchprism/Touchprism-rays-top:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 0.25, 1 ),
 "update": 0,
-"values": [ Color( 1, 0.980392, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ -45.0, -45.0, 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Node2D/Ray4:rotation_degrees")
+tracks/6/path = NodePath("Loading/Touchprism/Touchprism-center:modulate:a")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.25, 1 ),
 "update": 0,
-"values": [ 115.0, 102.5 ]
+"values": [ 0.0, 1.0 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Node2D/Ray4:modulate")
+tracks/7/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 0.25, 1 ),
 "update": 0,
-"values": [ Color( 0, 1, 0.141176, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Node2D/Ray5:modulate")
+tracks/8/path = NodePath("Loading/Touchprism/Touchprism-rays-top:modulate:a")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 0.25, 1 ),
 "update": 0,
-"values": [ Color( 0, 0.662745, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Node2D/Ray5:rotation_degrees")
+tracks/9/path = NodePath("Loading/Touchprism/Touchprism-text:modulate:a")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 2 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ 135.0, 102.5 ]
+"values": [ 0.0, 1.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Node2D/Ray:modulate")
+tracks/10/path = NodePath("Loading/Thumbnails:modulate:a")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( -2.5, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0, 1.0 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("Node2D/Center:rotation_degrees")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
+
+[sub_resource type="Animation" id=23]
+resource_name = "touchprism_leave"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Loading/Touchprism:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2.5, 1 ),
+"update": 0,
+"values": [ Vector2( -360, 0 ), Vector2( -360, 128 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Loading/Thumbnails:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2.5, 1 ),
+"update": 0,
+"values": [ Vector2( 192, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Loading/Thumbnails:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Loading/Thumbnails:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.9 ),
+"transitions": PoolRealArray( 1, 2, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Loading/Touchprism/Touchprism-text:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 0.5 ),
-"update": 0,
-"values": [ 0.0, 8.0 ]
-}
-tracks/12/type = "value"
-tracks/12/path = NodePath("Node2D/Touchprism-bottom:scale")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
-}
-tracks/13/type = "value"
-tracks/13/path = NodePath("Node2D/Touchprism-bottom:modulate:a")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 0.3, 1 ),
+"transitions": PoolRealArray( -2.5, -2.5 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
 }
-tracks/14/type = "value"
-tracks/14/path = NodePath("Node2D/Center:modulate")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
+tracks/5/type = "value"
+tracks/5/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
 "times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 2, 1 ),
+"transitions": PoolRealArray( -2.5, -2.5 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 1.0, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Loading/Touchprism/Touchprism-center:modulate:a")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2.5, -2.5 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Loading/Touchprism/Touchprism-rays-top:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( -2.5, -2.5 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
 }
 
 [sub_resource type="Theme" id=13]
@@ -1238,6 +1095,152 @@ void fragment() {
 shader = SubResource( 10 )
 shader_param/radius = 0.0
 shader_param/smoothing = 0.0
+
+[sub_resource type="Animation" id=25]
+resource_name = "idle"
+length = 2.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Thumbnails:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( -2.5, -2.5, -2.5 ),
+"update": 0,
+"values": [ Vector2( 0, -8 ), Vector2( 0, 8 ), Vector2( 0, -8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Touchprism/Touchprism-center:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -240.0, -120.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Thumbnails:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Panel:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( -2.5, -2.5, -2.5 ),
+"update": 0,
+"values": [ -368.0, -352.0, -368.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Panel:rect_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "straighten"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Thumbnails:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ -3.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Thumbnails:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Touchprism/Touchprism-center:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Panel:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -360.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Panel:rect_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ -3.0, 0.0 ]
+}
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 1, 1, 1, 0.458824 )
+border_width_left = 64
+border_width_top = 64
+border_width_right = 64
+border_width_bottom = 64
+border_color = Color( 1, 1, 1, 0 )
+border_blend = true
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 32.0
+expand_margin_right = 32.0
+expand_margin_top = 32.0
+expand_margin_bottom = 32.0
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -1557,52 +1560,64 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Loading" type="Control" parent="."]
 visible = false
-position = Vector2( 640, 360 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Ray" type="Sprite" parent="Node2D"]
+[node name="LoadingLoopAnim" type="AnimationPlayer" parent="Loading"]
+root_node = NodePath("../Thumbnails")
+anims/idle = SubResource( 25 )
+anims/straighten = SubResource( 26 )
+
+[node name="Touchprism" type="Node2D" parent="Loading"]
+position = Vector2( -360, 128 )
+scale = Vector2( 0.667, 0.667 )
+
+[node name="Touchprism-text" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 1, 9 )
+texture = ExtResource( 22 )
+offset = Vector2( 0, 192 )
+
+[node name="Touchprism-rays-bottom" type="Sprite" parent="Loading/Touchprism"]
+modulate = Color( 1, 1, 1, 0 )
 texture = ExtResource( 14 )
-offset = Vector2( -96, -80 )
+centered = false
+offset = Vector2( -256, -256 )
 
-[node name="Center" type="Sprite" parent="Node2D"]
+[node name="Touchprism-center" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = -0.139626
-scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 17 )
-offset = Vector2( 0, -24 )
 
-[node name="Ray2" type="Sprite" parent="Node2D"]
+[node name="Touchprism-rays-top" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
-rotation = 1.309
-texture = ExtResource( 14 )
-offset = Vector2( -96, -72 )
+texture = ExtResource( 23 )
+centered = false
+offset = Vector2( 0, -256 )
 
-[node name="Ray3" type="Sprite" parent="Node2D"]
-modulate = Color( 1, 1, 1, 0 )
-rotation = 1.65806
-texture = ExtResource( 14 )
-offset = Vector2( -96, -72 )
+[node name="Thumbnails" type="Node2D" parent="Loading"]
 
-[node name="Ray4" type="Sprite" parent="Node2D"]
-modulate = Color( 1, 1, 1, 0 )
-rotation = 2.00713
-texture = ExtResource( 14 )
-offset = Vector2( -96, -72 )
+[node name="Panel" type="Panel" parent="Loading/Thumbnails"]
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+rect_pivot_offset = Vector2( 640, 360 )
+custom_styles/panel = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Ray5" type="Sprite" parent="Node2D"]
-modulate = Color( 1, 1, 1, 0 )
-rotation = 2.35619
-texture = ExtResource( 14 )
-offset = Vector2( -96, -72 )
-
-[node name="Touchprism-bottom" type="Sprite" parent="Node2D"]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 128 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Thumbnails" type="Sprite" parent="Loading/Thumbnails"]
 texture = ExtResource( 1 )
+hframes = 4
+vframes = 4
+frame = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_anim_finished"]
 [connection signal="timeout" from="Qbox/QuestionRevealTimer" to="." method="_on_QuestionRevealTimer_timeout"]

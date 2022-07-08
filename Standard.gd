@@ -44,6 +44,7 @@ var hud: Node
 var kb: Node
 
 onready var anim = $AnimationPlayer
+onready var loadanim = $Loading/LoadingLoopAnim
 onready var title = $Title
 onready var question = $Qbox/Question
 onready var candy_setup = $Qbox/Candy/Bg/setup
@@ -424,9 +425,15 @@ func reset_answers():
 
 # Called during the unloading of the previous question (unloading used backgrounds)
 # and during the ending of the round intro
-func show_loading_logo():
+func show_loading_logo(thumb_id: int = -1):
 	print("show loading logo")
+	if thumb_id == -1:
+		thumb_id = question_number + 1
+
+	$Loading/Thumbnails/Thumbnails.frame = thumb_id
+	loadanim.play("idle", 0, 1.0)
 	anim.play("touchprism_enter", -1, 1.0)
+	$Loading.show()
 	S.play_music("load_loop", 0)
 	S.play_track(0, 0.6)
 
@@ -594,8 +601,10 @@ func change_stage(next_stage):
 		if anim.is_playing():
 			yield(anim, "animation_finished")
 		S.play_track(0, 0.0)
+		loadanim.play("straighten", 0.4, 1.0)
 		anim.play("touchprism_leave")
 		yield(anim, "animation_finished")
+		$Loading.hide()
 		if question_type in ["R", "L"]:
 			$Vignette.color = Color.black
 			anim.play("finale_enter")
@@ -902,8 +911,8 @@ func change_stage(next_stage):
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
 			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
 			yield($Vignette, "tween_finished")
-			if question_number != 5:
-				show_loading_logo()
+#			if question_number != 5:
+#				show_loading_logo()
 		print("DEBUG PRINT UNLOAD BG")
 		if question_type == "T" or question_type == "G":
 			if is_instance_valid(bgs.G):

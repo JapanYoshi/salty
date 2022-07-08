@@ -340,6 +340,9 @@ func play_intro():
 		load_next_question()
 
 func play_intro_2():
+	q_box.show_loading_logo(15)
+	yield(q_box.anim, "animation_finished")
+	
 	q_box.hud.reset_all_playerboxes()
 	var lifesaver_left = false
 	for p in R.players:
@@ -380,6 +383,11 @@ func play_intro_2():
 		false,
 		Loader.random_dict.audio_question.skip[skip_index].s
 	)
+	
+	q_box.anim.play("touchprism_leave")
+	yield(q_box.anim, "animation_finished")
+	q_box.set_process(false)
+	
 	S.play_music("new_theme", true)
 	c_box.play_intro(); yield(c_box, "animation_finished")
 	S.play_track(0, 0.4)
@@ -417,11 +425,13 @@ func end_intro():
 	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
 	c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
-	q_box.set_process(true)
 #	q_box.show_loading_logo()
+	q_box.set_process(true)
 	load_next_question()
 
 func play_intermission():
+	q_box.show_loading_logo(14)
+	yield(q_box.anim, "animation_finished")
 	# make this optional
 #	if episode_data.audio.has("intermission") == false:
 #		R.crash("Episode data is missing audio key: intermission.")
@@ -441,6 +451,12 @@ func play_intermission():
 		S.preload_ep_voice("intermission", candidates[index].v, false, candidates[index].s)
 	else:
 		S.preload_ep_voice("intermission", episode_data.audio["intermission"].v, R.pass_between.episode_name, episode_data.audio["intermission"].s)
+	
+	c_box.set_process(true)
+	q_box.anim.play("touchprism_leave")
+	yield(q_box.anim, "animation_finished")
+	q_box.set_process(false)
+	
 	S.play_sfx("leaderboard_show")
 	c_box.show_leaderboard()
 	S.play_music("main_theme", 1)
@@ -451,14 +467,13 @@ func play_intermission():
 	c_box.hide_leaderboard()
 	c_box.close_bg()
 	S.play_track(0, 0)
-	yield(get_tree().create_timer(1.5), "timeout")
+	yield(get_tree().create_timer(0.5), "timeout")
+	intermission_played = true
 	play_intro_2()
 
 func load_next_question():
 	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
 	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
-		q_box.set_process(false)
-		c_box.set_process(true)
 		play_intermission()
 		#load_question(episode_data.question_id[question_number])
 	elif question_number == 13:
@@ -474,6 +489,8 @@ func load_question(q_name):
 	q_box.question_number = question_number
 	q_box.data = Loader.load_question(q_name, question_number == 0)
 	question_number += 1
+	q_box.call_deferred("show_loading_logo")
+	yield(get_tree().create_timer(0.1), "timeout")
 	q_box.call_deferred("change_stage", "init")
 
 func too_many_pauses():
