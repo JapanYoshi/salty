@@ -296,6 +296,7 @@ tracks/8/keys = {
 }
 
 [node name="Logo" type="Node2D"]
+visible = false
 position = Vector2( 306, 180 )
 scale = Vector2( 0.333, 0.333 )
 script = ExtResource( 1 )

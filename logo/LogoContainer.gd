@@ -14,7 +14,7 @@ func _set_rating_image():
 	locale = locale.split("_")
 	print(locale)
 	match locale[1]:
-		"US":
+		"US", "CA":
 			ratingImage.texture = load("res://logo/rating_us.png")
 			return
 		"AU":
@@ -64,6 +64,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func skip():
 	var anim_name = $AnimationPlayer.current_animation
 	if anim_name == "":
+		S.play_sfx("key_press")
 		$AnimationPlayer.play("haitouch")
 	else:
 		$AnimationPlayer.seek(100,true)
