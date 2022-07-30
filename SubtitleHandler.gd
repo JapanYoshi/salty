@@ -31,20 +31,23 @@ func show_queued():
 		clear_contents()
 		return
 	var next = queue.pop_front()
-	show_subtitle(next.text, next.duration / 1000.0)
+	show_subtitle(next.text, next.time)
 
-# Duration of 0 clears the contents.
-# Negative duration disables the timer,
+# Time of 0 clears the contents.
+# Negative time disables the timer,
 # displaying the subtitle until interrupted by a different subtitle.
-func show_subtitle(contents = "", duration = 0.0):
+func show_subtitle(contents = "", time = 0):
 	if !R.cfg.subtitles: return
-	if duration == 0.0:
+	if time == 0:
 		clear_contents()
 	else:
 		tbox.clear()
 		tbox.append_bbcode("[center]" + contents.strip_edges() + "[/center]")
-		if duration > 0.0:
-			timer.start(duration)
+		if time >= 0:
+			var duration: float = (time / 1000.0) - S.get_voice_time()
+			print("SUBTITLE Duration:", duration)
+			if duration > 0.0:
+				timer.start(duration)
 
 func _on_Timer_timeout():
 	show_queued()

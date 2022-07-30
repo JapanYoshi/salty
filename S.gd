@@ -22,7 +22,7 @@ var sub_node: Node
 
 var music_dict = {}
 var sfx_dict = {}
-var voice_list = []
+var voice_list = {}
 
 var tracks = ["", "", ""]
 var last_voice = ""
@@ -102,17 +102,19 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		printerr("Voice line could not load! File path: " + filepath)
 		voice = load("res://audio/_.wav")
 	# avoid duplicate keys
-	for e in voice_list:
-		if e[0] == key:
-			e[1].set_stream(voice)
-			e[2] = subtitle_string
-			return
+	if voice_list.has(key):
+		voice_list[key].player.set_stream(voice)
+		voice_list[key].subtitle = subtitle_string
+		return
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
 	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
-	voice_list.append([key, player, subtitle_string])
+	voice_list[key] = {
+		player = player,
+		subtitle = subtitle_string
+	}
 	return
 
 func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
@@ -129,32 +131,34 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 	player.bus = "VOX"
 	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
-	voice_list.append([key, player, subtitle_string])
+	voice_list[key] = {
+		player = player,
+		subtitle = subtitle_string
+	}
 
 func unload_voice(key):
-	for i in len(voice_list):
-		if voice_list[i][0] == key:
-			voice_list[i][1].queue_free()
-			voice_list.remove(i)
-			return
+	if voice_list.has(key):
+		voice_list[key].player.queue_free()
+		voice_list.erase(key)
+		return
 
 func cycle_voices(keys):
 	var items = []
 	for key in keys:
-		for v in voice_list:
-			if v[0] == key:
-				items.push_back(v)
-				break
-	var temp = items[0]
+		if voice_list.has(key):
+			items.push_back(voice_list[key])
+			break
+	var temp_stream = items[0].player.stream
+	var temp_subtitle = items[0].subtitle
 	for i in range(len(items)):
 		# exchange streams
-		items[i][1].stream = items[(i + 1) % len(items)][1].stream
+		items[i].player.stream = items[(i + 1) % len(items)].player.stream
 		# exchange subtitles
-		items[i][2]        = items[(i + 1) % len(items)][2]
+		items[i].subtitle = items[(i + 1) % len(items)].subtitle
 	# exchange streams
-	items[-1][1].stream = temp[1].stream
+	items[-1].player.stream = temp_stream
 	# exchange subtitles
-	items[-1][2] = temp[2]
+	items[-1].subtitle = temp_subtitle
 
 func _stop_music(name):
 	if name in music_dict.keys():
@@ -189,10 +193,14 @@ func _play_music(name):
 	else:
 		printerr("Music ", name, " not found")
 
-func play_music(name, active):
-	play_multitrack(name, active)
+func play_music(name, volume):
+	play_multitrack(name, volume)
 
-func play_multitrack(name0, active_0, name1 = "", active_1 = false, name2 = "", active_2 = false):
+func play_multitrack(
+	name0: String, volume_0: float,
+	name1: String = "", volume_1: float = 0.0,
+	name2: String = "", volume_2: float = 0.0
+):
 	if tracks[0] in music_dict.keys():
 		_stop_music(tracks[0])
 	if tracks[1] in music_dict.keys():
@@ -204,13 +212,13 @@ func play_multitrack(name0, active_0, name1 = "", active_1 = false, name2 = "", 
 	tracks[1] = name1
 	tracks[2] = name2
 	if name0 != "":
-		_set_music_vol(0, float(active_0))
+		_set_music_vol(0, volume_0)
 		_play_music(name0)
 	if name1 != "":
-		_set_music_vol(1, float(active_1))
+		_set_music_vol(1, volume_1)
 		_play_music(name1)
 	if name2 != "":
-		_set_music_vol(2, float(active_2))
+		_set_music_vol(2, volume_2)
 		_play_music(name2)
 
 func seek_multitrack(time):
@@ -242,32 +250,39 @@ func play_sfx(name, speed = 1.0):
 func play_voice(id):
 	if last_voice != "":
 		stop_voice(last_voice)
-	var voice_line: Array = []
-	for e in voice_list:
-		if e[0] == id:
-			voice_line = e
-			#voice_list.erase(e)
-			break
-	if len(voice_line) == 0:
+	var voice_line: Dictionary = {}
+	if voice_list.has(id):
+		voice_line = voice_list[id]
+		#voice_list.erase(e)
+	if voice_line.empty():
 		printerr("Could not find voice line with ID: " + id)
 		return
 	if is_instance_valid(sub_node):
-		sub_node.queue_subtitles(voice_line[2])
-	last_voice = voice_line[0]
-	voice_line[1].call_deferred("play")
-	_log("Played voice ", voice_line[0], voice_line[1].get_playback_position())
+		sub_node.queue_subtitles(voice_line.subtitle)
+	last_voice = id
+	voice_line.player.call_deferred("play")
+	_log("Played voice ", id, voice_line.player.get_playback_position())
 
+# Stop the currently playing voice.
+# Optionally supply the voice line that should be playing right now.
 func stop_voice(should_be_playing = ""):
 	if should_be_playing == "":
 		should_be_playing = last_voice
-	for e in voice_list:
-		if e[0] == should_be_playing:
-			_log("Stopped voice ", e[0], e[1].get_playback_position())
-			e[1].stop()
-			last_voice = ""
-			sub_node.clear()
-			return
+	if voice_list.has(should_be_playing):
+		_log("Stopped voice ", should_be_playing, voice_list[should_be_playing].player.get_playback_position())
+		voice_list[should_be_playing].player.stop()
+		last_voice = ""
+		sub_node.clear()
+		return
 	printerr("Could not stop voice ", last_voice, " because I couldn't find it")
+
+func get_voice_time() -> float:
+	if !voice_list.has(last_voice):
+		printerr("last_voice is", last_voice, "but there is no such voice in voice_list.")
+		# The ID of the last voice line is not found.
+		# This shouldn't happen, but I'll account for this. 
+		return 0.0
+	return voice_list[last_voice].player.get_playback_position()
 
 func _on_voice_end(voice_id):
 	if is_instance_valid(sub_node):
