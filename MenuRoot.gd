@@ -79,7 +79,7 @@ const RAND_PREFIX = "RNG_"
 
 func load_episode(ep):
 	var LOG_FILE = File.new()
-	LOG_FILE.open("u-ser://LOG.txt", File.WRITE)
+	LOG_FILE.open("user://LOG.txt", File.WRITE)
 	LOG_FILE.close()
 	cancel_loading = false
 	# get question list
@@ -87,7 +87,7 @@ func load_episode(ep):
 	var q_id = R.pass_between.episode_data.question_id
 	var randoms = 0
 	var question_types = {
-		"n": 0, "s": 0, "c": 0, "t": 0, "g": 0, "l": 0, "r": 0
+		"n": 0, "s": 0, "c": 0, "t": 0, "g": 0, "o": 0, "l": 0, "r": 0
 	}
 	if q_id[QUESTION_COUNT-1] == "":
 		# randomize final question
@@ -129,6 +129,14 @@ func load_episode(ep):
 				var q = search_order[i]
 				if "c" in q_id[q]:
 					q_id[q] = Loader.random_questions_of_type("c", 1)[0]
+					search_order.remove(i)
+					break
+		# * some chance for Old Man
+		if question_types["o"] == 0 and randi() % 128 < 12:
+			for i in range(len(search_order)):
+				var q = search_order[i]
+				if "o" in q_id[q]:
+					q_id[q] = Loader.random_questions_of_type("o", 1)[0]
 					search_order.remove(i)
 					break
 		# * rest are all Shorties
