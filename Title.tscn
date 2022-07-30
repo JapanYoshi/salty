@@ -102,7 +102,7 @@ margin_top = 320.0
 margin_right = 608.0
 margin_bottom = 411.0
 custom_fonts/font = ExtResource( 4 )
-text = "v0.alpha-3: Fully Randomized!"
+text = "v0.beta-1 Development Build"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -179,7 +179,7 @@ There are 3 different input methods:
 • [b]Player 4:[/b] 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-[b]Phone:[/b] Additional players can connect via a Web browser. Go to [url]https://haitouch.herokuapp.com[/url] to test it out. (Typing an answer is not yet supported, as of 2022 Jan 6.)"
+[b]Phone:[/b] Additional players can connect via a Web browser. Go to [url]https://haitouch.herokuapp.com[/url] to test it out."
 text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
 Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
 
@@ -203,7 +203,7 @@ Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are 
 • Player 4: 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-Phone: Additional players can connect via a Web browser. Go to https://haitouch.herokuapp.com to test it out. (Typing an answer is not yet supported, as of 2022 Jan 6.)"
+Phone: Additional players can connect via a Web browser. Go to https://haitouch.herokuapp.com to test it out."
 fit_content_height = true
 
 [node name="Close" type="Button" parent="About"]
