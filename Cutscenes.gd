@@ -205,3 +205,12 @@ func set_radius(value):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	emit_signal("animation_finished")
+
+func show_techdiff():
+	$TechDiff.show()
+	logo.hide_logo()
+	anim.play("intro", 0.0, 0.01, false)
+	anim.stop() # resets playback position to 0
+
+func hide_techdiff():
+	$TechDiff.hide()
