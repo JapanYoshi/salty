@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rage_intro.ogg-69b1632d7ce5d450c1dbd86cf5b51d1e.oggstr"
+
+[deps]
+
+source_file="res://audio/music/rage_intro.ogg"
+dest_files=[ "res://.import/rage_intro.ogg-69b1632d7ce5d450c1dbd86cf5b51d1e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

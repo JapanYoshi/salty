@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rage_answer_now.ogg-c17339d910d1325c2414f6a354f79a79.oggstr"
+
+[deps]
+
+source_file="res://audio/music/rage_answer_now.ogg"
+dest_files=[ "res://.import/rage_answer_now.ogg-c17339d910d1325c2414f6a354f79a79.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
