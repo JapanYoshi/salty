@@ -24,6 +24,7 @@ func _ready():
 	$BackButton.hide()
 	$Cutscenes/Circle.color = Color.black
 	$Cutscenes/Circle.modulate = Color.white
+	$Cutscenes/TechDiff.hide()
 	$Cutscenes/Final.hide()
 	q_box.connect("question_done", self, "load_next_question")
 	q_box.hud = hud
@@ -91,14 +92,14 @@ func _give_default_names(count, size):
 	return chosen_names
 
 func play_intro():
-	# in case players turn off lifesavers
+	# in case I let players turn off Lifesavers in the future
 	var lifesaver_left = false
 	for p in R.players:
 		if p.has_lifesaver:
 			lifesaver_left = true
 			break
 	skipped = false
-	# if anyone's name_type is 2, their name was censored.
+	# If anyone's name_type is 2, their name was censored.
 	var names_used = []
 	var default_players = []
 	var censored_players = []
@@ -126,9 +127,18 @@ func play_intro():
 			});
 	# censored names will be given later
 	# will be used later if cutscenes are on.
+	var show_tech_diff: bool = false
 	var voice_lines = [
 		"welcome"
 	]
+	if episode_data.has("welcome_before") and episode_data.welcome_before != "default":
+		show_tech_diff = true
+		voice_lines.append_array(
+			[
+				"welcome_before",
+				"welcome_standby"
+			]
+		)
 	var player_voice
 	var global_voice_lines = []
 	if R.cfg.cutscenes:
@@ -215,8 +225,21 @@ func play_intro():
 			false,
 			Loader.random_dict.audio_question.skip[skip_index].s
 		)
-		yield(get_tree().create_timer(0.25), "timeout")
-		S.play_music("new_theme", true)
+		yield(get_tree().create_timer(0.5), "timeout")
+		# fake intro
+		if show_tech_diff:
+			S.play_music("new_theme", 1.0)
+			c_box.play_intro(); yield(c_box, "animation_finished")
+			S.play_track(0, 0.4)
+			S.play_voice("welcome_before"); yield(S, "voice_end")
+			# tech diff
+			S.play_music("", 0.4) # stop music without tweening
+			c_box.show_techdiff()
+			S.play_voice("welcome_standby"); yield(S, "voice_end")
+			c_box.hide_techdiff()
+		
+		# real intro
+		S.play_music("new_theme", 1.0)
 		c_box.play_intro(); yield(c_box, "animation_finished")
 		S.play_track(0, 0.4)
 		S.play_voice("welcome"); yield(S, "voice_end")
