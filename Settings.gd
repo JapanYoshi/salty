@@ -125,6 +125,9 @@ func _ready():
 		change_desc(true)
 	focus_index = 0
 	vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider").grab_focus()
+	for i in range(len(settings_dict)):
+		var headline_text = settings_dict[i].t
+		vbox.get_child(1 + i).get_node("VBox/HSplit/Label").set_text(headline_text)
 	setup_done = true
 
 func _input(event):
