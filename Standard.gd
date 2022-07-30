@@ -26,13 +26,14 @@ var S_question_number = 0
 var theme_normal = preload("res://ThemeOption.theme")
 var theme_candy = preload("res://ThemeCandyOption.tres")
 const musics = {
-	N = [],
-	C = ["candy_intro", "candy_base", "candy_extra", "candy_extra2"],
-	S = ["sort_intro", "sort_base", "sort_extra", "sort_end"],
-	G = ["gibberish_intro", "gibberish_base", "gibberish_extra", "gibberish_end"],
-	T = ["thousand_intro", "thousand_loop", "tick_loop"],
-	L = ["like_loop_base", "like_loop_ingame", "like_outro"],
-	R = [
+	"N": [],
+	"O": ["rage_intro", "rage_loop", "rage_answer_now", "rage_outro"],
+	"C": ["candy_intro", "candy_base", "candy_extra", "candy_extra2"],
+	"S": ["sort_intro", "sort_base", "sort_extra", "sort_outro"],
+	"G": ["gibberish_intro", "gibberish_base", "gibberish_extra", "gibberish_end"],
+	"T": ["thousand_intro", "thousand_loop", "tick_loop"],
+	"L": ["like_loop_base", "like_loop_ingame", "like_outro"],
+	"R": [
 		"rush_intro",
 		"rush_phase_1", "rush_phase_2", "rush_phase_3",
 		"rush_phase_4", "rush_phase_5", "rush_phase_6"
@@ -123,7 +124,7 @@ func set_buzz_in(enabled):
 		if question_type in ["G"]:
 			$TouchButton.show()
 		# lifesaver button
-		elif question_type in ["N", "C"]:
+		elif question_type in ["N", "C", "O"]:
 			$LSButton.show()
 	else:
 		send_scene('disableBuzzIn')
@@ -134,7 +135,7 @@ func set_buzz_in(enabled):
 		if question_type in ["G"]:
 			$TouchButton.hide()
 		# lifesaver button
-		elif question_type in ["N", "C"]:
+		elif question_type in ["N", "C", "O"]:
 			$LSButton.hide()
 
 func enable_skip():
@@ -187,7 +188,7 @@ func _gp_button(input_player, button, pressed):
 		return
 	if can_buzz_in:
 		match question_type:
-			"N", "C":
+			"N", "C", "O":
 				if not pressed: return
 				if no_answer.find(player) != -1:
 					var option = [-2, 0, -2, 1, 3, 2, -1][button]
@@ -363,6 +364,7 @@ func answer_submitted(text):
 		S.play_track(0, 0.0)
 		print("fuck you right back, player")
 		if cuss_level == 0:
+			# TODO: Host-specific cuss lines
 			cuss_level = 1
 			# preload lines
 			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_b1", "cuss_c0"]:
@@ -509,6 +511,17 @@ func change_stage(next_stage):
 				point_value = 15 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
+			"O":
+				$BG/ColorRect.show()
+				$BG/ColorRect.color = Color("#4a2229")
+				bgs.O = load("res://Cinematic_Rage.tscn").instance()
+				$BG.add_child(bgs.O)
+				#bgs.O.init() # no init function here
+				bgs.O.show()
+				hud.enable_lifesaver(true)
+				point_value = 15 * (1 if question_number < 6 else 2)
+				$Value.set_text(R.format_currency(point_value, true))
+				$Value.show()
 			"G":
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#196892")
@@ -572,7 +585,7 @@ func change_stage(next_stage):
 				send_scene("like", {
 					'title': data.title.t,
 				})
-		if question_type in ["N", "C", "T"]:
+		if question_type in ["N", "C", "O", "T"]:
 			question_queue = Loader.parse_time_markers(data.question.t, true)
 			question.bbcode_text = ""
 			question.visible_characters = 0
@@ -594,6 +607,8 @@ func change_stage(next_stage):
 			send_scene(
 				"thousand" if question_type == "T" else
 				"candy" if question_type == "C" else
+				# TODO: Implement Rage question type on controller
+#				"normal" if question_type == "O" else
 				"normal", {
 				"question": question.bbcode_text,
 				"options": data.options.t
@@ -631,6 +646,14 @@ func change_stage(next_stage):
 		stage = "intro"
 		bgs.C.connect("intro_ended", self, "intro_C_ended", [], CONNECT_ONESHOT)
 		bgs.C.intro()
+	# rage intro
+	elif stage == "title" and next_stage == "preintro_O":
+		stage = "preintro_O"
+		S.play_voice("preintro")
+	elif stage == "preintro_O" and next_stage == "intro_O":
+		stage = "intro"
+		bgs.O.connect("intro_ended", self, "intro_O_ended", [], CONNECT_ONESHOT)
+		bgs.O.intro()
 	# sorta kinda intro
 	elif stage == "title" and next_stage == "intro_S":
 		stage = "intro"
@@ -700,9 +723,14 @@ func change_stage(next_stage):
 		hud.slide_playerbar(true)
 		if question_type == "N":
 			S.play_multitrack("reading_question_base", true, "reading_question_extra", true)
+		elif question_type == "C":
+			S.play_track(0, 1.0)
+			S.play_track(1, 1.0)
+		elif question_type == "O":
+			S.play_multitrack("rage_loop", 1.0)
 		else:
-			S.play_track(0, true)
-			S.play_track(1, true)
+			# Implementing a new question type, are we?
+			breakpoint
 		S.play_sfx("question_show")
 		S.play_voice("question")
 		anim.play("question_enter")
@@ -726,6 +754,11 @@ func change_stage(next_stage):
 			S.play_track(0, true)
 			S.play_track(1, true)
 			S.play_track(2, true)
+		elif question_type == "O":
+			S.play_multitrack("rage_answer_now", 1.0)
+		else:
+			# Implementing a new question type, are we?
+			breakpoint
 		timer.start_timer(true)
 	elif stage == "options" or stage == "countdown" and next_stage == "reveal":
 		stage = "reveal"
@@ -883,7 +916,15 @@ func change_stage(next_stage):
 
 	elif next_stage == "outro":
 		stage = "outro"
-		S.play_music("outro", true)
+		if question_type == "N":
+			S.play_music("outro", 1.0)
+		elif question_type == "C":
+			S.play_music("candy_base", 1.0)
+		elif question_type == "O":
+			S.play_music("rage_outro", 1.0)
+		else:
+			# Implementing a new question type, are we?
+			breakpoint
 		yield(get_tree().create_timer(1.5), "timeout")
 		S.play_track(0, 0.5)
 		yield(get_tree().create_timer(0.5), "timeout")
@@ -962,8 +1003,11 @@ func _on_voice_end(voice_id):
 				$Vignette.open()
 				anim.play("title_exit")
 				#stage("intro") # This happens when the animation stops playing
+		"preintro_O":
+			# so far, only Old Man has preintro line
+			change_stage("intro_O")
 		"intro":
-			# is there a candy joke?
+			# is this a Candy Trivia, and if so, is there a candy joke?
 			if question_type == "C" and data.has("setup"):
 				stage = "candy_setup"
 				anim.play("candy_enter")
@@ -986,18 +1030,21 @@ func _on_voice_end(voice_id):
 			stage = "intro"
 			change_stage("question")
 		"sorta_setup":
+			var last_line_name: String = "sort_lifesaver" if R.get_lifesavers_remaining() == 0 else "sort_no_lifesaver"
 # possible scenarios:
 # if no "Both":
 # sort_category -> sort_explain ->
 # sort_a -> sort_b ->
 # sort_a_short -> sort_press_left ->
-# sort_b_short -> sort_press_right -> (start question)
+# sort_b_short -> sort_press_right ->
+# sort—lifesaver -> (start question)
 # if with "Both":
 # sort_category -> sort_explain ->
 # sort_a -> sort_b -> sort_both ->
 # sort_a_short -> sort_press_left ->
 # sort_b_short -> sort_press_right ->
-# sort_press_up -> (start question)
+# sort_press_up ->
+# sort_lifesaver -> (start question)
 			match voice_id:
 				"sort_category":
 					S.play_voice("sort_explain")
@@ -1050,8 +1097,11 @@ func _on_voice_end(voice_id):
 						S.play_voice("sort_press_up")
 						S.play_sfx("sort_button", 1.5)
 					else:
-						change_stage("sorta_questions")
+						
+						S.play_voice("sort_lifesaver")
 				"sort_press_up":
+					S.play_voice("sort_lifesaver")
+				"sort_lifesaver":
 					change_stage("sorta_questions")
 		"sorta_questions":
 			if waiting_for_timer:
@@ -1294,13 +1344,13 @@ func advance_question():
 			0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
 		)
 		question_tween.start()
-		if next.duration > 0:
-			question_timer.start(next.duration / 1000.0)
+		if next.time > 0:
+			question_timer.start((next.time / 1000.0) - S.get_voice_time())
 
 func _on_anim_finished(anim_name):
 	if anim_name == "title_exit":
 		match question_type:
-			"N", "S", "C":
+			"N", "S", "C", "O":
 				anim.play("title_reenter")
 			"G":
 				change_stage("intro_G")
@@ -1314,7 +1364,11 @@ func _on_anim_finished(anim_name):
 			"N":
 				$Qbox/Candy.hide()
 				change_stage("intro")
+			"O":
+				$Qbox/Candy.hide()
+				change_stage("preintro_O")
 			"S":
+				$Qbox/Candy.hide()
 				change_stage("intro_S")
 			"C":
 				$Qbox/Candy.show()
@@ -1355,6 +1409,11 @@ func intro_C_ended():
 	else:
 		change_stage("question")
 
+func intro_O_ended():
+	# question
+	S.play_multitrack("rage_loop", 0.5)
+	S.play_voice("intro")
+
 # Sorta Kinda intro ended.
 func intro_S_ended():
 	stage = "sorta_setup"
@@ -1385,7 +1444,7 @@ func S_show_question():
 		stage = "sort_end"
 		hud.reset_all_playerboxes(true)
 		#S._stop_music("sort_base"); S._stop_music("sort_extra")
-		S.play_music("sort_end", 0.65)
+		S.play_music("sort_outro", 0.65)
 		hud.show_accuracy(accuracy)
 		revert_scene('sortQuestion')
 		var winners = []

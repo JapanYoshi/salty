@@ -161,6 +161,8 @@ func load_episode(id):
 
 func load_question(id, first_question: bool):
 	var file = ConfigFile.new()
+	# I changed the name of the file during Alpha development.
+	# Support the older file names too.
 	var names = ["_question.gdcfg", "_question.tscn", "data.gdcfg"]
 	var err = ERR_FILE_NOT_FOUND
 	for n in names:
@@ -235,12 +237,21 @@ func load_question(id, first_question: bool):
 				"reveal", "reveal_crickets", "reveal_jinx",
 				"reveal_split", "reveal_correct", "outro"
 			]
+		"O":
+			keys = [
+				"pretitle", "title", "preintro", "intro",
+				"question",
+				"options", "option0", "option1", "option2", "option3",
+				"used_lifesaver",
+				"reveal", "reveal_crickets", "reveal_jinx",
+				"reveal_split", "reveal_correct", "outro"
+			]
 		"S":
 			keys = [
 				"pretitle", "title", "sort_segue",
 				"sort_category", "sort_explain",
 				"sort_a", "sort_b", "sort_both", "sort_a_short", "sort_press_left",
-				"sort_b_short", "sort_press_right", "sort_press_up",
+				"sort_b_short", "sort_press_right", "sort_press_up", "sort_lifesaver",
 				"sort_options", "sort_perfect", "sort_good", "sort_ok", "sort_bad",
 				"outro", "skip"
 			]
@@ -314,7 +325,7 @@ func load_question(id, first_question: bool):
 				"skip", "buzz_in",
 				# Sorta Kinda
 				"sort_segue", "sort_both", "sort_press_left", "sort_press_right",
-				"sort_press_up",
+				"sort_press_up", "sort_lifesaver",
 				# All Outta Salt
 				#"gib_segue",
 				"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
@@ -338,7 +349,11 @@ func load_question(id, first_question: bool):
 				load_random_voice_line(key, pool)
 		else:
 			# is optional?
-			if key in ["intro"] or (
+			if key in [
+				"intro",
+				# used in Rage Against the Time with Ozzy
+				"preintro"
+			] or (
 				data.type == "S" and data.has_both == false and key in ["sort_both", "sort_if_both", "sort_press_up"]
 			):
 				# in case this key was previously loaded, unload it
@@ -349,6 +364,30 @@ func load_question(id, first_question: bool):
 				breakpoint
 	return data
 
+# Parses the time markers in the subtitle files.
+# Timing is encoded in milliseconds since the start of the audio file, in this format: [#9999#]
+# RETURNS:
+# An Array of Dictionaries, structured as follows:
+# {
+#   "text": String
+#     The text from the previous timing marker to this timing marker, excluding the timing markers.
+#   "chars": int
+#     The number of characters from the previous timing marker to this timing marker,
+#     excluding the timing markers, and formatting tags if the argument
+#     "exclude_formatting" is true.
+#   "time": int
+#     The time to switch to the next text at, in milliseconds from the start of the clip.
+#     -1 means "show until the end of the audio file". 
+# }
+# ARGUMENTS:
+# contents
+# # The source string to decode.
+# exclude_formatting
+# # Whether or not to ignore BBcode tags in the character count.
+# # Set to "true" if parsing time markers for question text
+# # (revealing characters by visible character count),
+# # and set to "false" if parsing time markers for subtitle text
+# # (revealing characters by substringing).
 func parse_time_markers(contents = "", exclude_formatting = false):
 	var queue = []
 	var texts = []
@@ -379,7 +418,8 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 				queue.append({
 					"text": texts[i],
 					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
-					"duration": timings[i+1] - timings[i]
+#					"duration": timings[i+1] - timings[i]
+					"time": timings[i+1]
 				})
 			elif texts[i] == "":
 				# final one can be empty
@@ -389,7 +429,8 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 				queue.append({
 					"text": texts[i],
 					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
-					"duration": -1
+#					"duration": -1
+					"time": -1
 				})
 	else:
 		# no timing markers
@@ -397,7 +438,8 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 		queue.append({
 			"text": contents,
 			"chars": len(contents),
-			"duration": -1.0
+#			"duration": -1
+			"time": -1
 		})
 	return queue
 
