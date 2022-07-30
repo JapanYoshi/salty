@@ -149,6 +149,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [ Vector2( 16, -36 ) ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Loading/Thumbnails:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=19]
 resource_name = "candy_bruh"
@@ -1261,7 +1273,6 @@ __meta__ = {
 material = SubResource( 18 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.411765, 0.34902, 0.2, 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1468,7 +1479,7 @@ margin_top = -640.0
 margin_right = 640.0
 margin_bottom = 640.0
 mouse_filter = 2
-color = Color( 0.128571, 0.128571, 0.128571, 1 )
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1586,27 +1597,33 @@ offset = Vector2( 0, 192 )
 
 [node name="Touchprism-rays-bottom" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
+rotation = 0.785398
 texture = ExtResource( 14 )
 centered = false
 offset = Vector2( -256, -256 )
 
 [node name="Touchprism-center" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
+rotation = -4.18879
 texture = ExtResource( 17 )
 
 [node name="Touchprism-rays-top" type="Sprite" parent="Loading/Touchprism"]
 modulate = Color( 1, 1, 1, 0 )
+rotation = -0.785398
 texture = ExtResource( 23 )
 centered = false
 offset = Vector2( 0, -256 )
 
 [node name="Thumbnails" type="Node2D" parent="Loading"]
+modulate = Color( 1, 1, 1, 0 )
+rotation = -3.49066
 
 [node name="Panel" type="Panel" parent="Loading/Thumbnails"]
 margin_left = -640.0
-margin_top = -360.0
+margin_top = -368.0
 margin_right = 640.0
-margin_bottom = 360.0
+margin_bottom = 352.0
+rect_rotation = 2.0
 rect_pivot_offset = Vector2( 640, 360 )
 custom_styles/panel = SubResource( 27 )
 __meta__ = {
@@ -1614,6 +1631,8 @@ __meta__ = {
 }
 
 [node name="Thumbnails" type="Sprite" parent="Loading/Thumbnails"]
+position = Vector2( 0, -8 )
+rotation = 0.0349066
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
