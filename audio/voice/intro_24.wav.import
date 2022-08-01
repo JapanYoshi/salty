@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/intro_24.wav-6e6b13e73b3d1064b117597e723e2160.sample"
+
+[deps]
+
+source_file="res://audio/voice/intro_24.wav"
+dest_files=[ "res://.import/intro_24.wav-6e6b13e73b3d1064b117597e723e2160.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

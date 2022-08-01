@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sort_segue_00.wav-dd91a8dc3e971bc59e3ef7089c9f1cb1.sample"
+
+[deps]
+
+source_file="res://audio/voice/sort_segue_00.wav"
+dest_files=[ "res://.import/sort_segue_00.wav-dd91a8dc3e971bc59e3ef7089c9f1cb1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/intro_38.wav-a105b20ec54c2aae3eb642ede351b3b0.sample"
+
+[deps]
+
+source_file="res://audio/voice/intro_38.wav"
+dest_files=[ "res://.import/intro_38.wav-a105b20ec54c2aae3eb642ede351b3b0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

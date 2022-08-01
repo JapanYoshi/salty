@@ -1,35 +1,122 @@
 {
   "audio_episode": {
     "welcome" : [
-      {"v": "intro_00", "s": "Welcome to Salty Trivia with Candy Barre, where the only thing sweet is victory."}
-    , {"v": "intro_01", "s": "Welcome to Salty Trivia with Candy Barre, where if you google my questions, you’re a bad sport and a loser."}
-    , {"v": "intro_02", "s": "Welcome to Salty Trivia with Candy Barre, where you must endure pun after another. [rimshot]"}
-    , {"v": "intro_03", "s": "Welcome to Salty Trivia with Candy Barre, where the questions are ridiculous, but the answers are serious."}
-    , {"v": "intro_04", "s": "Welcome to Salty Trivia with Candy Barre, and Hell hath no fury like this game."}
-    , {"v": "intro_05", "s": "Welcome to Salty Trivia with Candy Barre, the trivia show with no artificial flavoring. All my sass is real."}
-    , {"v": "intro_06", "s": "Welcome to Salty Trivia with Candy Barre, where, of all the flavors in the world, I choose to be salty."}
-    , {"v": "intro_07", "s": "Welcome to Salty Trivia with Candy Barre. I hope you’re smarter AND funnier than a fifth-grader."}
-    , {"v": "intro_08", "s": "Welcome to Salty Trivia with Candy Barre. I woke up like this."}
-    , {"v": "intro_09", "s": "Welcome to Salty Trivia with Candy Barre, where my sass is real, but my laughs are fake. [obviously fake laugh:] Hahahaha."}
+      {"v": "intro_00", "s": "This is Salty Trivia, the quiz show where you must endure pun after another."}
+    , {"v": "intro_01", "s": "Welcome to Salty Trivia. I’m Candy Barre, the Dr. Phil of this show."}
+    , {"v": "intro_02", "s": "I’m Candy Barre, and you’re about to watch the fifth best damn quiz show you’ve ever seen."}
+    , {"v": "intro_03", "s": "I’m your host, Candy Barre. Hell hath no fury like this quiz show."}
+    , {"v": "intro_04", "s": "If you like putting ranch dressing on filet mignon, you’re gonna love Salty Trivia."}
+    , {"v": "intro_05", "s": "This is Salty Trivia, the quiz show without artificial flavoring—[#3822#]all my sass is real."}
+    , {"v": "intro_06", "s": "Hey, I’m Candy Barre, and my attitude was recently excavated from the Dead Sea."}
+    , {"v": "intro_07", "s": "Welcome to the quiz show where no holds are barred and no Barres are held.[#4685#]I’m Candy Barre.[#6293#]I am very touch-starved. That’s the joke."}
+    , {"v": "intro_08", "s": "This week on Salty Trivia, we’re raising awareness of Comic Sans abuse.[#4084#]Come on, guys."}
+    , {"v": "intro_09", "s": "Welcome to Salty Trivia! Feel free to tweet about this with #SaltyTriviaGame.[#5433#]Or #ThisGameSucks, your choice."}
+    , {"v": "intro_10", "s": "This is Salty Trivia, the quiz show about as orthodox as a Protestant priest."}
+    , {"v": "intro_11", "s": "Welcome to Salty Trivia, the quiz show for nerds who think they’re cool, but usually aren’t."}
+    , {"v": "intro_12", "s": "Welcome to Salty Trivia, the only quiz show[#2206#][almost 4 seconds of silence][#6037#]Let’s get going."}
+    , {"v": "intro_13", "s": "Hi, I’m Candy Barre, and when I’m not practising sick guitar shreds for my band Sinner Wish Mesclun,[#4905#]I’m hosting Salty Trivia."}
+    , {"v": "intro_14", "s": "This is Salty Trivia with Candy Barre,[#2114#]the quiz show where I ask you simple questions[#4233#]in overcomplicated, hopefully funny ways."}
+    , {"v": "intro_15", "s": "I’m Candy Barre, and this is Salty Trivia.[#2333#]Before you ask, yes, I already ate a Snickers. It’s just who I am."}
+    , {"v": "intro_16", "s": "This is Salty Trivia. I’m already bored, so get with it."}
+    , {"v": "intro_17", "s": "Welcome to Salty Trivia with Candy Barre, the quiz show that defenestrates formalities."}
+    , {"v": "intro_18", "s": "This is Salty Trivia. I hope you’re smarter AND funnier than a fifth grader."}
+    , {"v": "intro_19", "s": "Welcome to Salty Trivia, the quiz show where all genders are equally attackable."}
+    , {"v": "intro_20", "s": "I’m Candy Barre, and if you want to be a millionaire, go play “Who Wants to Be a Millionaire”.[#4137#]This game’s not that."}
+    , {"v": "intro_21", "s": "I’m your host Candy Barre. The safe word is “psychophysicotherapeutics”.[#4458#]Let’s see how much pain you can endure."}
+    , {"v": "intro_22", "s": "Welcome to Salty Trivia. My friends call me Candy, but you can call me Miss Urushimakka."}
+    , {"v": "intro_23", "s": "Welcome! I’m your host Candy Barre, and I woke up like this.[#4209#]Disheveled."}
+    , {"v": "intro_24", "s": "This is Salty Trivia. And I’m in disbelief that I got all dressed up fancy for this."}
+    , {"v": "intro_25", "s": "[i][calming, Bob Ross voice][/i] I’m so glad you could join me today, but don’t make any happy little accidents now!"}
+    , {"v": "intro_26", "s": "I’m your host, Candy Barre, and if I were a tree, I’d be mahogany.[#3984#]What, you thought I’d say sassafras?"}
+    , {"v": "intro_27", "s": "This is Salty Trivia. I’m your host, and I’m not actually behind the screen.[#5229#][i][ominously][/i] I’m right behind you."}
+    , {"v": "intro_28", "s": "Welcome to Salty Trivia, where my sass is real but my laughs are fake.[#4017#][i][obviously fake laugh][/i] Hahahahaha."}
+    , {"v": "intro_29", "s": "This is Salty Trivia with Candy Barre,[#2000#]where we have 100% less fart sound effects than our competitors.[#6017#][fart sound effect][#7585#][i][slightly disappointedly][/i] 98.3%."}
+    , {"v": "intro_30", "s": "Welcome to Salty Trivia with Candy Barre, the game we wish Kahoot wishes it were."}
+    , {"v": "intro_31", "s": "You’re about to play Salty Trivia, the game that everybody can play,[#3571#]unless you’re Ramón Acosta from Miami, Florida.[#5874#]F**k off, Ramón! Pay me!"}
+    , {"v": "intro_32", "s": "[i][fake British accent][/i] Good afternoon and welcome to Salty Trivia, the game show that simply everyone.[#4743#]]Let’s meet our contestants."}
+    , {"v": "intro_33", "s": "I’m your host Candy Barre, and this is the show where you work to win me money.[#4120#][i](beat)[/i] It isn’t?[#6167#]...Why am I here?"}
+    , {"v": "intro_34", "s": "[i](dogs barking loudly)[/i] Welcome to Salty Trivia. I brought three small dogs to watch. Do you mind?"}
+    , {"v": "intro_35", "s": "Hey, I’m Candy Barre, and what you’re seeing is a figment of your imagination.[#3794#]You’ve been in a coma for the last several months.[#6240#]Nah, just joshing with you."}
+    , {"v": "intro_36", "s": "I’m Candy Barre, and this is the show where you answer my questions[#3558#]and I silently judge your intelligence or lack thereof."}
+    , {"v": "intro_37", "s": "I’m Candy Barre. Now, you don’t mind if I loudly crunch on tortilla chips while I host this game, do you?[#5036#]You do?[#6088#]Crap."}
+    , {"v": "intro_38", "s": "I’m your host Candy Barre, and learning Fortnite characters’ names is the last thing I’m gonna do.[#6011#]On my to-do list today before I sleep."}
+    , {"v": "intro_39", "s": "I’m Candy Barre, and I’m just gonna tell you beforehand that this will be televised nationally,[#4493#]so don’t say anything overly crude, like “f**k nugget”.[#7436#]Oh, whoops."}
+    , {"v": "intro_40", "s": "This is Salty Trivia with Candy Barre. I’m your host, Candy Barre. It’s in the name, dummy."}
+    , {"v": "intro_41", "s": "Hey, I’m Candy Barre, and I’ve been banned from every Guitar Hero convention in Seattle and Miami.[#5274#]Trust me, you don’t want to hear the full story."}
+    , {"v": "intro_42", "s": "Welcome to Salty Trivia,[#1528#]where the questions are ridiculous like American gun control laws,[#4797#]but the answers are serious like the consequences of said gun control laws."}
     ]
   , "player_1" : [
       {"v": "p1_00", "s": "You’re a lone wolf, I see. Or just alone."}
-    , {"v": "p1_01", "s": "Playing by yourself? That’s fine, but next time, could you bring a friend who’s more interesting and easy to joke about?"}
-    , {"v": "p1_02", "s": "There’s nothing wrong with playing with yourself. Sometimes, it’s more satisfying doing whatever you want in the privacy of your own room."}
+    , {"v": "p1_01", "s": "One lonely player? I sure hope you’re just trying out the game before inviting others to play with you."}
+    , {"v": "p1_02", "s": "Playing by yourself? That’s fine, but next time, could you bring a friend who’s more interesting and easy to joke about?"}
+    , {"v": "p1_03", "s": "Playing with yourself, I see. Enjoy the satisfaction of doing whatever you want in the privacy of your own room!"}
+    , {"v": "p1_04", "s": "I hope you can handle 8 victims’ worth of sass!"}
+    , {"v": "p1_05", "s": "[i][angrily][/i]Wait, we set this whole game up only for one person?![#3732#][i][dismissively][/i] Whatever, I’m getting paid per episode."}
+    , {"v": "p1_06", "s": "Did your friends not want to play with you, or do you have no friends?"}
+    , {"v": "p1_07", "s": "My fortune cookie this morning said “It’s better to be unhappy alone than unhappy with someone”. So if you feel unhappy here, tough luck, you’re stuck with me for this whole game."}
+    , {"v": "p1_08", "s": "Only one contestant? I can’t focus all my sarcastic mirth onto just one person!"}
+    , {"v": "p1_09", "s": "I understand. The world is scary because other people are better than you."}
+    , {"v": "p1_10", "s": "[i][in sultry voice][/i] Okay, just you and me. I hope you have scented candles.[#4134#]No? A bouquet?[#6802#]A bottle of wine?[#8478#]A box of chocolates? ...[#10706#][i](sigh)[/i] Romance is dead."}
+    , {"v": "p1_11", "s": "I bet you’re in the perfect target demographic for a Switch Lite."}
+    , {"v": "p1_12", "s": "I know it’s just you and me, and we’re both mammals, but [i]please do not[/i] reenact the Discovery Channel here."}
+    , {"v": "p1_13", "s": "One, player?! You know you can use phones as controllers, right?! What’s the hold-up?!"}
+    , {"v": "p1_14", "s": "I feel bad for you. I really do."}
+    , {"v": "p1_15", "s": "What do you want? Computer players? Ew."}
+    , {"v": "p1_16", "s": "Flying solo? Alright, Jason Derulo, however you want it."}
+    , {"v": "p1_17", "s": "Wow, this is either gonna be a very boring episode with only one contestant,[#4588#]or a very legendary episode with a lone trivia master."}
+    , {"v": "p1_18", "s": "Okay, so,[#1306#]we’re trying out some voice recognition software.[#3788#]Can you just say “OK, Trivia” out loud into your device?[#6867#][i](Try it out now!)[/i][#8737#]We don’t have voice recognition software. But hey, nobody’s around to make fun of you."}
+    , {"v": "p1_19", "s": "Just you and me? Great, nobody else to talk over me."}
   ]
   , "player_2" : [
       {"v": "p2_00", "s": "You two seem like you’re here to finally decide who’s better, mano a mano. I like that."}
-    , {"v": "p2_01", "s": "Two of a kind, peas in a pod, birds of a feather. Oh, sorry, I was thinking of Thing One and Thing Two. Sorry to get sidetracked."}
+    , {"v": "p2_01", "s": "Two of a kind, peas in a pod, birds of a feather.[#3479#]Oh, sorry, I was thinking of the Olsen Twins. Sorry to get sidetracked."}
+    , {"v": "p2_02", "s": "If you’re looking for some couples bonding time,[#1963#]you’ve come to the exact opposite of the right place."}
+    , {"v": "p2_03", "s": "Two contestants. Let me know if you’re still friends after the show’s done."}
+    , {"v": "p2_04", "s": "Y’know, my grandma always said, “It takes two to make a quarrel”. And that’s so true![#4904#]If I play my cards right, you two will go home hating each other."}
+    , {"v": "p2_05", "s": "So which one of you evils is the lesser one?"}
+    , {"v": "p2_06", "s": "Whichever one of you wins gets to make every decision for the rest of the day. Capisci?"}
+    , {"v": "p2_07", "s": "Hey, Player 2, did Player 1 drag you into this?[#3439#]Feel free to upstage that sucker."}
+    , {"v": "p2_08", "s": "I think I can already tell who’s the Mario and who’s the Luigi, but hey,[#3834#]feel free to duke it out in this game."}
+    , {"v": "p2_09", "s": "Remember, you two, no hitting above the belt.[#2569#]Or at all. Trivia is a no-contact sport."}
+    , {"v": "p2_10", "s": "Two players, huh? Couldn’t get the third player for Quiplash, I see."}
+    , {"v": "p2_11", "s": "Just one thing to ask of you two:[#2173#]Please don’t Freaky Friday on me during this game, because I won’t notice."}
+    , {"v": "p2_12", "s": "Two players.[#1124#]Who’s the one who says “we’re not so different, you and I”,[#4162#]and who’s the one who tearfully shouts “no, we’re nothing alike”?"}
+    , {"v": "p2_13", "s": "I’m not sure which would be sadder: if you had nobody else to invite, or if you invited other people and they all bailed."}
   ]
   , "player_3" : [
-      {"v": "p3_00", "s": "Three contestants? Hm, I wonder who’s the least liked."}
-    , {"v": "p3_01", "s": "What, couldn’t you get a fourth player, or does your keyboard not have a numpad?"}
-    , {"v": "p3_02", "s": "Ooh, this harkens back to the days of hosting my local church trivia night. Only three people came most of the time, and I’m a satanist now."}
+      {"v": "p3_00", "s": "Three contestants? I wonder who’s the least liked!"}
+    , {"v": "p3_02", "s": "What, couldn’t you get a fourth player? I like the number 4."}
+    , {"v": "p3_03", "s": "Ooh, this harkens back to the days of hosting my local church trivia night.[#3923#]Only three people came most of the time, and I’m a satanist now."}
+    , {"v": "p3_04", "s": "Well well well. If you think this is gonna be anything like that irreverent trivia show from the 90s with 3 contestants...[#6366#]You’re probably right."}
+    , {"v": "p3_05", "s": "They say that three is a crowd. I still wouldn’t surf on you though. You look weak."}
+    , {"v": "p3_06", "s": "I’ll call you breakfast, lunch, and dinner. Three squares of the day."}
+    , {"v": "p3_07", "s": "You know, every 3-player game ends up with 2 players ganging up on the third.[#4240#]Player 2, I saw that wink. Don’t worry, I’m sure Player 1 won’t suspect a thing."}
+    , {"v": "p3_08", "s": "Alright, a Triforce of players! Who’s power, who’s wisdom, and who’s courage?{#4584#]I’m pretty sure wisdom has the advantage here, unless they’re too weak and cowardly to answer."}
+    , {"v": "p3_09", "s": "So who’s the good, who’s the bad, and who’s the ugly? Actually, never mind that last one; I think I know who the ugly is."}
+    , {"v": "p3_10", "s": "A lot of good things come in threes. But so do quiz show contestants. Ugh."}
+    , {"v": "p3_11", "s": "I’m gonna call you Curly, Larry, and Moe. ...Get it? It’s the Three Stooges.[#4951#]What do you mean, what does “stooge” mean?! Kids these days, I swear."}
+    , {"v": "p3_12", "s": "Seems like we have a triumvirate playing here.[#2325#]Hey, Marcus and Pompey, could you make sure nobody tries to stab Julius until the game is over? Thanks."}
+    , {"v": "p3_13", "s": "Hey! I’m a big fan. You guys are my favorite contestants this minute!"}
+    , {"v": "p3_14", "s": "If you three were on the Titanic, only one of you would statistically survive. Fun fact, right?"}
+    , {"v": "p3_15", "s": "Now everyone, look to your left, and now look to your right.[#3800#]If you saw one person in either direction, that means you’re sitting in the middle."}
+    , {"v": "p3_16", "s": "Keep in mind that any game smaller than 4[#2062#]will automatically have 18% gratuity subtracted from your winnings."}
   ]
   , "player_4" : [
       {"v": "p4_00", "s": "Thanks to all of you for coming in on such short notice. I invited 13 other people, but only you said yes."}
     , {"v": "p4_01", "s": "Quite a party going on here, huh? Must be getting a bit less exciting, considering you whipped this game out."}
-    , {"v": "p4_02", "s": "This is the greatest number of people who have ever played a video game on PC, at the same time, on one keyboard! Except in 12 Orbits."}
+    , {"v": "p4_02", "s": "Let me give you some nice little nicknames.[#2329#]Weird-nose, stupid-hair, boring-shirt...[#6294#]and I’m out of ideas."}
+    , {"v": "p4_03", "s": "I’ve found that, 95% of the time, Player 1 is the most hated contestant.[#4617#]Do with that information whatever you will."}
+    , {"v": "p4_04", "s": "So many contestants! So many things to make fun about them![#3806#]I’m so paralyzed with all these options."}
+    , {"v": "p4_05", "s": "If I had a dollar every time I met any of you again,[#2700#]I’d probably want to come to terms with the money I already have."}
+    , {"v": "p4_06", "s": "[i][sentimentally][/i] Think about it. All of you are sharing this same experience.[#5114#]All your lives intersected right here, in this beautiful moment.[#10539#][i](sniffle)[/i] I’m crying tears of joy, people."}
+    , {"v": "p4_07", "s": "Hey Player 1, you better not get beaten by any of your clueless friends right here."}
+    , {"v": "p4_08", "s": "Alright, it’s a free-for-all! Remember, no hitting below the belt,[#2845#]everybody stop when someone goes limp or unconscious,[#5178#]and if you’re here for the first time, you HAVE to fight."}
+    , {"v": "p4_09", "s": "Did none of you have a copy of Smash Brothers? Or did you not have enough controllers for it?"}
+    , {"v": "p4_10", "s": "Oh nice, so many players! This will make the ad-break limbo competition a lot more fun.[#4749#]I bet Player 3 is a beast at limbo."}
+    , {"v": "p4_11", "s": "What a friendly group! All people who are happy to be here and ready to play.[#4370#]Except one of you. Don’t worry, that guy, I won’t tell the others."}
+    , {"v": "p4_12", "s": "Wow, this is way more people than Player 4’s future marriage invitees.[#4489#]Just kidding, Player 4, you won’t get married on my watch."}
+    , {"v": "p4_13", "s": "Did everyone put one dollar into the hat before the game starts?[#3173#]Because the only thing more fun than a casual game is mild gambling."}
+    , {"v": "p4_14", "s": "Everyone, remember, there’s no I in “team”,[#3077#]but there are two I’s in “competition”, which is what we’re doing here."}
   ]
   , "player_callout_0": [
     {"v": "player_callout_0", "s": "Player 1,"}
@@ -101,25 +188,25 @@
     {"v": "give_multiple_names_00", "s": "Oh, that’s much better. Let’s start the show."}
   ]
   , "all_names_censored": [
-    {"v": "all_names_censored_00", "s": "You guys, I’m not just gonna sit here and watch you pull this $#!%.[#2879#]So you know what? I’m gonna take away everyone’s names and chances for a positive score.[#7465#]Because $@#* you, that’s why."}
+    {"v": "all_names_censored_00", "s": "You guys, I’m not just gonna sit here and watch you pull this sh**.[#2879#]So you know what? I’m gonna take away everyone’s names and chances for a positive score.[#7465#]Because f**k you, that’s why."}
   ]
   , "lifesaver": [
-      {"v": "lifesaver_00", "s": "You get a Lifesaver! You get a Lifesaver! Everybody gets a Lifesaver!"}
-    , {"v": "lifesaver_01", "s": "Everybody in the splash zone, have a Lifesaver."}
-    , {"v": "lifesaver_02", "s": "But enough of that! Here’s a Lifesaver!"}
-    , {"v": "lifesaver_03", "s": "There are no life jackets on this flight; only Lifesavers."}
-    , {"v": "lifesaver_04", "s": "I just ate all the donuts, but I do have another torus-shaped thing for you."}
-    , {"v": "lifesaver_05", "s": "Here’s a Lifesaver. THINK FAST!"}
-    , {"v": "lifesaver_06", "s": "Having trouble staying afloat? Float back up with a Lifesaver!"}
-    , {"v": "lifesaver_07", "s": "Is it getting tropical in here, or is it just these Lifesavers?"}
-    , {"v": "lifesaver_08", "s": "You know what costs less than five cents? These complementary Lifesavers!"}
-    , {"v": "lifesaver_09", "s": "Have a Lifesaver! No, don’t put that in your mouth!"}
-    , {"v": "lifesaver_10", "s": "Oh buoy, it’s a Lifesaver!"}
-    , {"v": "lifesaver_11", "s": "Before we dive into Question 1, take a Lifesaver."}
+    {"v": "lifesaver_00", "s": "You get a Lifesaver! You get a Lifesaver! Everybody gets a Lifesaver!"}
+  , {"v": "lifesaver_01", "s": "Everybody in the splash zone, have a Lifesaver."}
+  , {"v": "lifesaver_02", "s": "But enough of that! Here’s a Lifesaver!"}
+  , {"v": "lifesaver_03", "s": "There are no life jackets on this flight; only Lifesavers."}
+  , {"v": "lifesaver_04", "s": "I just ate all the donuts, but I do have another torus-shaped thing for you."}
+  , {"v": "lifesaver_05", "s": "Here’s a Lifesaver. THINK FAST!"}
+  , {"v": "lifesaver_06", "s": "Having trouble staying afloat? Float back up with a Lifesaver!"}
+  , {"v": "lifesaver_07", "s": "Is it getting tropical in here, or is it just these Lifesavers?"}
+  , {"v": "lifesaver_08", "s": "You know what costs less than five cents? These complementary Lifesavers!"}
+  , {"v": "lifesaver_09", "s": "Have a Lifesaver! No, don’t put that in your mouth!"}
+  , {"v": "lifesaver_10", "s": "Oh buoy, it’s a Lifesaver!"}
+  , {"v": "lifesaver_11", "s": "Before we dive into Question 1, take a Lifesaver."}
   ]
   , "lifesaver_tute0": [
     {"v": "lifesaver_tute0_00", "s": "If you’re unsure of the answer, press a shoulder button to eliminate two choices."}
-    , {"v": "lifesaver_tute0_01", "s": "The Lifesaver will let you answer later, after two of the options are gone."}
+  , {"v": "lifesaver_tute0_01", "s": "The Lifesaver will let you answer later, after two of the options are gone."}
   ]
   , "lifesaver_tute1": [
     {"v": "lifesaver_tute1_00", "s": "If there are other players who didn’t use a Lifesaver, you get to pick an option out of 2, after they pick an option out of 4!"}
@@ -198,22 +285,76 @@
   , {"v": "outro_slam_09", "s": "’Cause I’m not."}
   ]
   , "cuss_a0": [
-    {"v": "cuss_a0", "s": "ROBOT VOICE: Congratulations! You have unlocked the “fuck you” easter egg.[#4362#]Please take a look at your score to receive your prize."}
+    {"v": "cuss_a0", "s": "[b]Robot voice:[/b] Congratulations! You have unlocked the “fuck you” easter egg.[#4362#]Please take a look at your score to receive your prize."}
   ]
   , "cuss_a1": [
-    {"v": "cuss_a1", "s": "ROBOT VOICE: Please note that it is discouraged for someone else to continue doing the same thing.[#4509#]You will be penalized further as a warning."}
+    {"v": "cuss_a1", "s": "[b]Robot voice:[/b] Please note that it is discouraged for someone else to continue doing the same thing.[#4509#]You will be penalized further as a warning."}
   ]
   , "cuss_a2": [
-    {"v": "cuss_a2", "s": "ROBOT VOICE: It is advisable that we get back to the question."}
+    {"v": "cuss_a2", "s": "[b]Robot voice:[/b] It is advisable that we get back to the question."}
   ]
   , "cuss_b0": [
-    {"v": "cuss_b0", "s": "ROBOT VOICE: Congratulations for revealing the second layer of the “fuck you” easter egg![#4557#]Please take a look at your score to receive your prize."}
+    {"v": "cuss_b0", "s": "[b]Robot voice:[/b] Congratulations for revealing the second layer of the “fuck you” easter egg![#4557#]Please take a look at your score to receive your prize."}
   ]
   , "cuss_b1": [
-    {"v": "cuss_b1", "s": "ROBOT VOICE: There is no prize, because typing in “fuck you” is no longer original.[#4851#]Please get back to the question."}
+    {"v": "cuss_b1", "s": "[b]Robot voice:[/b] There is no prize, because typing in “fuck you” is no longer original.[#4851#]Please get back to the question."}
   ]
   , "cuss_c0": [
-    {"v": "cuss_c0", "s": "ROBOT VOICE: Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
+    {"v": "cuss_c0", "s": "[b]Robot voice:[/b] Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
+  ]
+  , "cuss_a0_daisy": [
+    {"v": "cuss_a0", "s": ""}
+  ]
+  , "cuss_a1_daisy": [
+    {"v": "cuss_a1", "s": ""}
+  ]
+  , "cuss_a2_daisy": [
+    {"v": "cuss_a2", "s": ""}
+  ]
+  , "cuss_b0_daisy": [
+    {"v": "cuss_b0", "s": ""}
+  ]
+  , "cuss_b1_daisy": [
+    {"v": "cuss_b1", "s": ""}
+  ]
+  , "cuss_c0_daisy": [
+    {"v": "cuss_c0", "s": ""}
+  ]
+  , "cuss_a0_miles": [
+    {"v": "cuss_a0", "s": ""}
+  ]
+  , "cuss_a1_miles": [
+    {"v": "cuss_a1", "s": ""}
+  ]
+  , "cuss_a2_miles": [
+    {"v": "cuss_a2", "s": ""}
+  ]
+  , "cuss_b0_miles": [
+    {"v": "cuss_b0", "s": ""}
+  ]
+  , "cuss_b1_miles": [
+    {"v": "cuss_b1", "s": ""}
+  ]
+  , "cuss_c0_miles": [
+    {"v": "cuss_c0", "s": ""}
+  ]
+  , "cuss_a0_ozzy": [
+    {"v": "cuss_a0", "s": ""}
+  ]
+  , "cuss_a1_ozzy": [
+    {"v": "cuss_a1", "s": ""}
+  ]
+  , "cuss_a2_ozzy": [
+    {"v": "cuss_a2", "s": ""}
+  ]
+  , "cuss_b0_ozzy": [
+    {"v": "cuss_b0", "s": ""}
+  ]
+  , "cuss_b1_ozzy": [
+    {"v": "cuss_b1", "s": ""}
+  ]
+  , "cuss_c0_ozzy": [
+    {"v": "cuss_c0", "s": ""}
   ]
   , "too_many_pauses": [
     {"v": "too_many_pauses_00", "s": "Oh, did Dr. Google give you that answer you were looking for?[#3408#]Either way, that answer’s useless now that you’re disqualified. Bye."}
@@ -225,11 +366,11 @@
   ]
 }
 , "audio_question" : {
-      "skip" : [
+    "skip" : [
       {"v": "skip_00", "s": "Oh, am I getting in the way? Excuuuse me."}
     , {"v": "skip_01", "s": "So much to do, so little time, right?"}
     , {"v": "skip_02", "s": "Yeah, making sure you know, just in case."}
-    , {"v": "skip_03", "s": "No time to waste, let’s go! (clap)"}
+    , {"v": "skip_03", "s": "No time to waste, let’s go! [i](clap)[/i]"}
     , {"v": "skip_04", "s": "Let’s start then, pro player."}
     , {"v": "skip_05", "s": "Alright, down the fast lane you go."}
     , {"v": "skip_06", "s": "No need to explain. Let’s begin."}
@@ -340,7 +481,7 @@
   , {"v": "reveal_crickets_05", "s": "Hello? Anyone there? I’m about to reveal the right answer!"}
   , {"v": "reveal_crickets_06", "s": "Did you just ignore me?"}
   , {"v": "reveal_crickets_07", "s": "No answer. Just like my Sweet Sixteen invitations."}
-  , {"v": "reveal_crickets_08", "s": "You still do exist, right??"}
+  , {"v": "reveal_crickets_08", "s": "You still do exist, right?"}
   ]
   , "reveal_correct": [
     {"v": "reveal_correct_00", "s": "Disappointingly..."}
@@ -353,6 +494,11 @@
   , {"v": "reveal_correct_07", "s": "Really? Nobody picked this?"}
   , {"v": "reveal_correct_08", "s": "I thought it was pretty simple, but..."}
   , {"v": "reveal_correct_09", "s": "Oof, this has gotta hurt."}
+  , {"v": "reveal_correct_10", "s": "Let’s call it a learning moment."}
+  , {"v": "reveal_correct_11", "s": "In case you’re wondering..."}
+  , {"v": "reveal_correct_12", "s": "Here’s what you didn’t know."}
+  , {"v": "reveal_correct_13", "s": "You’re really making me work for my salary, aren’t ya?"}
+  , {"v": "reveal_correct_14", "s": "Whyyy didn’t you think of this?"}
   ]
   , "option": [
     {"v": "wrong_00", "s": "Congratulations! You’re wrong!"}
@@ -380,25 +526,25 @@
   , {"v": "wrong_22", "s": "Careful. Your dumb is showing."}
   , {"v": "wrong_23", "s": "Thaaat’s embarrassing. For you."}
   , {"v": "wrong_24", "s": "I thought so at first, but then I knew better."}
-  , {"v": "wrong_25", "s": "[#1445#]Wow, even the crickets are speechless."}
-  , {"v": "wrong_26", "s": "[#1440#]Y’know, I can’t even make fun of that."}
-  , {"v": "wrong_27", "s": "[sips][#1440#][swallows][#2438#]Aaaah.[#3442#][coughs][#4005#][#4621#]No."}
+  , {"v": "wrong_25", "s": "[i](beat)[/i][#1445#]Wow, even the crickets are speechless."}
+  , {"v": "wrong_26", "s": "[i](beat)[/i][#1440#]Y’know, I can’t even make fun of that."}
+  , {"v": "wrong_27", "s": "[i](sips)[/i][#1440#][i](swallows)[/i][#2438#]Aaaah.[#3442#][i](coughs)[/i][#4005#][#4621#]No."}
   , {"v": "wrong_28", "s": "What do you want, a cookie?"}
   , {"v": "wrong_29", "s": "Really? You picked [i]that?![/i]"}
-  , {"v": "wrong_30", "s": "Look at me. Look right at me.[#2432#]Wait, shit, you can’t."}
+  , {"v": "wrong_30", "s": "Look at me. Look right at me.[#2432#]Wait, sh**, you can’t."}
   , {"v": "wrong_31", "s": "I sure hope you didn’t pick that answer sober."}
   , {"v": "wrong_32", "s": "Ooo, that’s gotta hurt."}
-  , {"v": "wrong_33", "s": "[laughs][#1863#][#2682#]You serious?"}
+  , {"v": "wrong_33", "s": "[i](laughs)[/i][#1863#][i](beat)[/i][#2682#]You serious?"}
   , {"v": "wrong_34", "s": "Please do better next time."}
-  , {"v": "wrong_35", "s": "[in British accent]\nOh! You’ve been Wangernumbed!"}
+  , {"v": "wrong_35", "s": "[i][in British accent][/i] Oh! You’ve been Wangernumbed!"}
   , {"v": "wrong_36", "s": "Don’t quit your day job."}
   , {"v": "wrong_37", "s": "If you’re good at it, don’t do it for free.[#1869#]If you’re bad at it, it’s probably trivia."}
   , {"v": "wrong_38", "s": "Hindsight really is 20/20, isn’t it?"}
   , {"v": "wrong_39", "s": "So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."}
   , {"v": "wrong_40", "s": "That’s gotta be the correct answer for some other question."}
-  , {"v": "wrong_41", "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][chuckles] This is dumb."}
-  , {"v": "wrong_42", "s": "[sound of crickets]"}
-  , {"v": "wrong_43", "s": "[laugh track]"}
+  , {"v": "wrong_41", "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][i](chuckles)[/i] This is dumb."}
+  , {"v": "wrong_42", "s": "[i](sound of crickets)[/i]"}
+  , {"v": "wrong_43", "s": "[i](laugh track) (applause)[/i]"}
   ]
   , "gib_early": [
     {"v": "gib_early_00", "s": "Hey, did your finger slip onto the buzzer?"}
@@ -424,7 +570,13 @@
   , {"v": "gib_blank_02", "s": "Uh, did your keyboard break, or did you genuinely have no idea?"}
   ]
   , "sort_segue": [
-    {"v": "sort_segue", "s": "And it’s a Sorta Kinda!"}
+    {"v": "sort_segue_00", "s": "And it’s a Sorta Kinda!"}
+  , {"v": "sort_segue_01", "s": "And it’s a Sorta Kinda!"}
+  , {"v": "sort_segue_02", "s": "And this one’s a Sorta Kinda!"}
+  , {"v": "sort_segue_03", "s": "That means it’s sortin’ time!"}
+  , {"v": "sort_segue_04", "s": "Get [i]definitely[/i] ready for this Sorta Kinda!"}
+  , {"v": "sort_segue_05", "s": "Ready for instant decision-making? You’ll need it for this!"}
+  , {"v": "sort_segue_06", "s": "Strap on for a Sorta Kinda!"}
   ]
   , "sort_category_names": [
     {"v": "sort_category_names", "s": "I’m going to list seven names."}
@@ -434,19 +586,42 @@
   ]
   , "sort_explain": [
     {"v": "sort_explain_00", "s": "And for each of them, I need you to tell me if it’s:"}
-  , {"v": "sort_explain_01", "s": "And for each of them, you gotta tell me if it’s:"}
+  , {"v": "sort_explain_01", "s": "And for each of them, I need you to tell me if it’s:"}
+  , {"v": "sort_explain_02", "s": "For each of them, you gotta tell me if it’s:"}
+  , {"v": "sort_explain_03", "s": "And I wanna hear whether each of them is:"}
   ]
   , "sort_both": [
-    {"v": "sort_both", "s": "Or both! If it’s..."}
+    {"v": "sort_both_00", "s": "Or both! If it’s..."}
+  , {"v": "sort_both_01", "s": "Or both! If it’s..."}
+  , {"v": "sort_both_02", "s": "Or both! If it’s..."}
   ]
   , "sort_press_left": [
-    {"v": "sort_press_left", "s": "Press [i]Left[/i]. And if it’s..."}
+    {"v": "sort_press_left_00", "s": "Press [i]Left[/i]. If it’s..."}
+  , {"v": "sort_press_left_01", "s": "Press [i]Left[/i]. If it’s..."}
+  , {"v": "sort_press_left_02", "s": "Press [i]Left[/i]. If it’s..."}
+  , {"v": "sort_press_left_03", "s": "Press [i]Left[/i]. If it’s..."}
   ]
   , "sort_press_right": [
-    {"v": "sort_press_right", "s": "Press [i]Right[/i]."}
+    {"v": "sort_press_right_00", "s": "Press [i]Right[/i]."}
+  , {"v": "sort_press_right_01", "s": "Press [i]Right[/i]."}
+  , {"v": "sort_press_right_02", "s": "Press [i]Right[/i]."}
+  , {"v": "sort_press_right_03", "s": "Press [i]Right[/i]."}
   ]
   , "sort_press_up": [
-    {"v": "sort_press_up", "s": "And as usual, press [i]Up[/i] if it’s both."}
+    {"v": "sort_press_up_00", "s": "And as usual, press [i]Up[/i] if it’s both."}
+  , {"v": "sort_press_up_01", "s": "If it’s both of them, you gotta press [i]Up.[/i]"}
+  , {"v": "sort_press_up_02", "s": "But if both of them are right, press [i]Up.[/i]"}
+  ]
+  , "sort_lifesaver": [
+    {"v": "sort_lifesaver_00", "s": "Oh, and you won’t have enough time to use a Lifesaver here. Let’s go."}
+  , {"v": "sort_lifesaver_01", "s": "Oh, and you won’t have enough time to use a Lifesaver here. Let’s go."}
+  , {"v": "sort_lifesaver_02", "s": "Also, don’t even bother trying to use a Lifesaver on this one. Let’s rock."}
+  , {"v": "sort_lifesaver_03", "s": "Remember that there’s no Lifesaving on a Sorta Kinda. Here we go!"}
+  , {"v": "sort_lifesaver_04", "s": "One last rule: You can’t use a Lifesaver. Let’s sort."}
+  ]
+  , "sort_no_lifesaver": [
+    {"v": "sort_no_lifesaver_00", "s": "With that sorted, let’s begin."}
+  , {"v": "sort_no_lifesaver_01", "s": "You ready? Let’s dive in."}
   ]
   , "gib_tute0": [
     {"v": "gib_tute0", "s": "I’m gonna give you a silly phrase, whose syllables rhyme with another, more popular phrase.[#4518#]Buzz in and type the answer as soon as you know what it is."}
@@ -570,6 +745,12 @@
   ]
   , "rush_skip" : [
     {"v": "skip_00", "s": "Oh, am I getting in the way? Excuuuse me."}
+  , {"v": "rush_skip_01", "s": "Well, if you insist. Here’s the topic."}
+  , {"v": "rush_skip_02", "s": "Oh, by all means. Just remember this."}
+  , {"v": "rush_skip_03", "s": "Ah, you’ve been here before, I take it. Here’s the topic."}
+  , {"v": "rush_skip_04", "s": "A little jumpy, are we? I’ll give you the topic."}
+  , {"v": "rush_skip_05", "s": "Well then, just don’t blame me if you get confused."}
+  , {"v": "rush_skip_06", "s": "No need for guidance, I see. Here’s your topic."}
   ]
   , "buzz_in": [
     {"v": "buzz_in_00", "s": "Alright, hit me!"}
