@@ -916,7 +916,7 @@ func change_stage(next_stage):
 
 	elif next_stage == "outro":
 		stage = "outro"
-		if question_type == "N":
+		if question_type == "N" or question_type == "T":
 			S.play_music("outro", 1.0)
 		elif question_type == "C":
 			S.play_music("candy_base", 1.0)
@@ -936,7 +936,8 @@ func change_stage(next_stage):
 		send_scene('endQuestion')
 		revert_scene('')
 		S.play_sfx("question_leave")
-		if question_type in ["N", "C", "T", "S"]:
+		# Doesn't every question type do this?
+		if question_type in ["N", "C", "O", "T", "S", "G"]:
 			anim.play("question_exit")
 		$Vignette.close()
 		if question_number != 5:
@@ -970,6 +971,9 @@ func change_stage(next_stage):
 		elif question_type == "C":
 			if is_instance_valid(bgs.C):
 				bgs.C.queue_free()
+		elif question_type == "O":
+			if is_instance_valid(bgs.O):
+				bgs.O.queue_free()
 		question_number += 1
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
@@ -1030,7 +1034,7 @@ func _on_voice_end(voice_id):
 			stage = "intro"
 			change_stage("question")
 		"sorta_setup":
-			var last_line_name: String = "sort_lifesaver" if R.get_lifesavers_remaining() == 0 else "sort_no_lifesaver"
+			var last_line_name: String = "sort_lifesaver" if R.get_lifesaver_count() == 0 else "sort_no_lifesaver"
 # possible scenarios:
 # if no "Both":
 # sort_category -> sort_explain ->
@@ -1349,9 +1353,11 @@ func advance_question():
 
 func _on_anim_finished(anim_name):
 	if anim_name == "title_exit":
+		anim.play("title_reenter")
 		match question_type:
 			"N", "S", "C", "O":
-				anim.play("title_reenter")
+				pass
+				#anim.play("title_reenter")
 			"G":
 				change_stage("intro_G")
 			"T":
@@ -1364,15 +1370,15 @@ func _on_anim_finished(anim_name):
 			"N":
 				$Qbox/Candy.hide()
 				change_stage("intro")
-			"O":
-				$Qbox/Candy.hide()
-				change_stage("preintro_O")
 			"S":
 				$Qbox/Candy.hide()
 				change_stage("intro_S")
 			"C":
 				$Qbox/Candy.show()
 				change_stage("intro_C")
+			"O":
+				$Qbox/Candy.hide()
+				change_stage("preintro_O")
 	elif anim_name == "finale_enter":
 		if question_type == "R":
 			change_stage("intro_R")
