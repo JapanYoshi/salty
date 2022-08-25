@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wrong_30_RAW.wav-41bfb41eb5afbadb32ed748c21d2ae38.sample"
+
+[deps]
+
+source_file="res://audio/voice/wrong_30_RAW.wav"
+dest_files=[ "res://.import/wrong_30_RAW.wav-41bfb41eb5afbadb32ed748c21d2ae38.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

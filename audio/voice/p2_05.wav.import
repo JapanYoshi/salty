@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/p2_05.wav-7b70fbfaf2993e2f6874e23e4d350ebb.sample"
+
+[deps]
+
+source_file="res://audio/voice/p2_05.wav"
+dest_files=[ "res://.import/p2_05.wav-7b70fbfaf2993e2f6874e23e4d350ebb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
