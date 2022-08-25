@@ -42,7 +42,7 @@ func back():
 		for p in current_page.signup_queue:
 			if p[0] == C.DEVICES.GAMEPAD:
 				indices.push_back(p[1])
-		if current_page.signup_now[0] == C.DEVICES.GAMEPAD:
+		if len(current_page.signup_now) > 0 and current_page.signup_now[0] == C.DEVICES.GAMEPAD:
 			indices.push_back(current_page.signup_now[1])
 		if len(indices) > 0:
 			C.remove_controllers_by_index(indices)
