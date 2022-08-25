@@ -189,7 +189,9 @@ func open_room():
 		send('hostRoom', {
 			'roomCode': room_code,
 			'gameName': "Salty Trivia with Candy Barre",
-			'controller': 'controller_salty.html'
+			'controller': 'controller_salty.html',
+			'maxPlayers': 8,
+			'maxAudience': 100
 		})
 		yield(self, 'server_reply')
 		if server_reply_content == 'room made':
