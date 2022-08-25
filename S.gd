@@ -250,6 +250,8 @@ func play_sfx(name, speed = 1.0):
 func play_voice(id):
 	if last_voice != "":
 		stop_voice(last_voice)
+	# retrieve the voice line "struct" and put it here.
+	# we'll use the 'id', 'subtitle', and 'player' properties
 	var voice_line: Dictionary = {}
 	if voice_list.has(id):
 		voice_line = voice_list[id]
@@ -260,7 +262,11 @@ func play_voice(id):
 	if is_instance_valid(sub_node):
 		sub_node.queue_subtitles(voice_line.subtitle)
 	last_voice = id
-	voice_line.player.call_deferred("play")
+	# call_deferred causes a frame-perfect double audio glitch.
+	# if you stop the audio on the exact frame you start playing a voice,
+	# this tries to stop an audio player that's already stopped
+#	voice_line.player.call_deferred("play")
+	voice_line.player.play()
 	_log("Played voice ", id, voice_line.player.get_playback_position())
 
 # Stop the currently playing voice.
