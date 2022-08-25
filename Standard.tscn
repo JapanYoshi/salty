@@ -409,7 +409,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
-"values": [ 12.0, -308.0 ]
+"values": [ 12.0, -64.0 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Value:rect_position:y")
@@ -421,7 +421,19 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
-"values": [ 13.0, -308.0 ]
+"values": [ 40.0, -36.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Title:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -438,7 +450,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.05 ),
 "transitions": PoolRealArray( 0.3, -2 ),
 "update": 0,
-"values": [ Vector2( 64, 256 ), Vector2( 64, 64 ) ]
+"values": [ Vector2( 64, 256 ), Vector2( 64, 72 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Qbox/Question:rect_scale")
@@ -528,6 +540,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 64, 512 ), Vector2( 64, 232 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Title:rect_size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1148, 128 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "title_exit"
@@ -569,36 +593,24 @@ tracks/2/keys = {
 "values": [ Vector2( 64, 232 ), Vector2( -800, 232 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Title:rect_size")
-tracks/3/interp = 0
+tracks/3/path = NodePath("Value:rect_position")
+tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 1152, 156 ), Vector2( 1920, 65 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Value:rect_position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 0.5 ),
 "update": 0,
 "values": [ Vector2( 16, -36 ) ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("Value:modulate:a")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/path = NodePath("Value:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 0.4 ),
 "update": 0,
@@ -608,6 +620,7 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=24]
 resource_name = "title_reenter"
 length = 0.1
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Title:rect_scale")
 tracks/0/interp = 1
@@ -642,7 +655,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 128, -36 ), Vector2( 128, 12 ) ]
+"values": [ Vector2( 16, -64 ), Vector2( 16, 12 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Title:rect_size")
@@ -654,7 +667,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 1920, 65 ) ]
+"values": [ Vector2( 1600, 64 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Value:rect_position")
@@ -666,7 +679,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 16, -36 ), Vector2( 16, 13 ) ]
+"values": [ Vector2( 16, -36 ), Vector2( 16, 40 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Value:modulate:a")
@@ -826,10 +839,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( -2.5, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.9 ),
+"transitions": PoolRealArray( -2.5, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -360, 0 ), Vector2( -360, 128 ) ]
+"values": [ Vector2( -360, 0 ), Vector2( -360, 128 ), Vector2( -360, 128 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Loading/Thumbnails:position")
@@ -838,10 +851,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( -2.5, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.9, 1 ),
+"transitions": PoolRealArray( -2.5, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 192, 0 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 192, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 192, 128 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Loading/Thumbnails:scale")
@@ -850,10 +863,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( -2.5, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.9, 1 ),
+"transitions": PoolRealArray( -2.5, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Loading/Thumbnails:modulate:a")
@@ -874,10 +887,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( -2.5, -2.5 ),
+"times": PoolRealArray( 0, 0.2, 0.9 ),
+"transitions": PoolRealArray( -2.5, -2.5, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 1.0, 0.0, 0.0 ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:modulate:a")
@@ -886,10 +899,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( -2.5, -2.5 ),
+"times": PoolRealArray( 0, 0.2, 0.9 ),
+"transitions": PoolRealArray( -2.5, -2.5, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 1.0, 0.0, 0.0 ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Loading/Touchprism/Touchprism-center:modulate:a")
@@ -898,10 +911,10 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( -2.5, -2.5 ),
+"times": PoolRealArray( 0, 0.2, 0.9 ),
+"transitions": PoolRealArray( -2.5, -2.5, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 1.0, 0.0, 0.0 ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Loading/Touchprism/Touchprism-rays-top:modulate:a")
@@ -910,10 +923,10 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( -2.5, -2.5 ),
+"times": PoolRealArray( 0, 0.2, 0.9 ),
+"transitions": PoolRealArray( -2.5, -2.5, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 1.0, 0.0, 0.0 ]
 }
 
 [sub_resource type="Theme" id=13]
@@ -1330,18 +1343,18 @@ __meta__ = {
 }
 
 [node name="Option" parent="Options" instance=ExtResource( 6 )]
-position = Vector2( 32, 16 )
+position = Vector2( 32, 26 )
 
 [node name="Option2" parent="Options" instance=ExtResource( 6 )]
-position = Vector2( 0, 88 )
+position = Vector2( 0, 98 )
 index = 1
 
 [node name="Option3" parent="Options" instance=ExtResource( 6 )]
-position = Vector2( 64, 160 )
+position = Vector2( 64, 170 )
 index = 2
 
 [node name="Option4" parent="Options" instance=ExtResource( 6 )]
-position = Vector2( 32, 232 )
+position = Vector2( 32, 242 )
 index = 3
 
 [node name="Qbox" type="Control" parent="."]
@@ -1415,9 +1428,8 @@ one_shot = true
 [node name="QuestionRevealTween" type="Tween" parent="Qbox"]
 
 [node name="Timer" type="Node2D" parent="Qbox"]
-position = Vector2( 1208, 56 )
-rotation = -0.349066
-scale = Vector2( 1e-05, 1e-05 )
+position = Vector2( 1184, 97 )
+scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_group_": true
@@ -1479,7 +1491,7 @@ margin_top = -640.0
 margin_right = 640.0
 margin_bottom = 640.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.0285714, 0.0285714, 0.0285714, 1 )
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1491,23 +1503,21 @@ margin_left = 64.0
 margin_top = 512.0
 margin_right = 1216.0
 margin_bottom = 668.0
-rect_min_size = Vector2( 1152, 0 )
+rect_min_size = Vector2( 1148, 0 )
 rect_scale = Vector2( 0.5, 0.5 )
 mouse_filter = 2
 size_flags_horizontal = 0
 theme = ExtResource( 5 )
 bbcode_enabled = true
-bbcode_text = "To [code]sleep(1);[/code] Perchance to Dream"
+bbcode_text = "To [code]sleep(1);[/code] Perchance to Dream htoe hutsnae hutnoeh untaeo hutneao huntaoe uheoanu haneot"
 meta_underlined = false
-text = "To sleep(1); Perchance to Dream"
-fit_content_height = true
+text = "To sleep(1); Perchance to Dream htoe hutsnae hutnoeh untaeo hutneao huntaoe uheoanu haneot"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Value" type="RichTextLabel" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 16.0
 margin_top = -36.0
 margin_right = 176.0
@@ -1518,6 +1528,7 @@ mouse_filter = 2
 size_flags_horizontal = 0
 theme = ExtResource( 5 )
 meta_underlined = false
+text = "$500×7"
 fit_content_height = true
 scroll_active = false
 __meta__ = {
@@ -1616,7 +1627,9 @@ offset = Vector2( 0, -256 )
 
 [node name="Thumbnails" type="Node2D" parent="Loading"]
 modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 192, 128 )
 rotation = -3.49066
+scale = Vector2( 1e-05, 1e-05 )
 
 [node name="Panel" type="Panel" parent="Loading/Thumbnails"]
 margin_left = -640.0
