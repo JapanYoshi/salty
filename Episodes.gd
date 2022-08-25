@@ -6,7 +6,7 @@ var eps = {}
 #	filename = "random",
 #	name = "choose random questions",
 #	desc = "Randomly choose 13 questions to create your very own special episode of Salty Trivia. Let’s hope there are no repeats.",
-#	locked = true
+#	locked = false
 #}}
 var selected_now = ""
 var first = ""
@@ -17,10 +17,10 @@ var disable_controls = false
 func _ready():
 	ep_scroller.get_parent().get_v_scrollbar().rect_min_size.x = 32
 	var ep_box = ep_scroller.get_node("Option")
-	ep_box.name = "RQ"
+	ep_box.name = "Template"
 	for e in Loader.episodes.keys():
 		var ep = {
-			id = "%d" % (len(eps) + 1),
+			id = "RQ" if len(eps) == 0 else "E%d" % (len(eps)),
 			filename = e,
 			name = Loader.episodes[e].episode_name,
 			desc = Loader.episodes[e].episode_desc
@@ -35,12 +35,12 @@ func _ready():
 		new_box.get_node("VBox/Split/Title").set_text(ep.name)
 		ep_scroller.add_child(new_box)
 		ep_scroller.move_child($ScrollContainer/VBoxContainer/BottomSpacer, ep_scroller.get_child_count()-1)
-	if eps.has("RQ"):
-		first = "RQ"
-		ep_box.grab_focus()
-	else:
-		ep_box.queue_free()
-		ep_scroller.get_node(first).grab_focus()
+#	if eps.has("RQ"):
+#		first = "RQ"
+#		ep_box.grab_focus()
+#	else:
+	ep_scroller.get_node(first).grab_focus()
+	ep_box.queue_free()
 	focus_shifted(first)
 	print(eps)
 
