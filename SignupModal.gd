@@ -1,8 +1,9 @@
 extends ColorRect
 
-var current_device_type = -1
-var current_device_index = -1
-var current_keyboard = 0
+var current_device_type: int = -1
+var current_device_index: int = -1
+var current_keyboard: int = 0
+var player_number: int = -1
 var remote_nickname = ""
 enum PHASE {
 	NONE,
@@ -20,16 +21,17 @@ func _ready():
 	current_device_type = -1
 	current_device_index = -1
 	current_phase = PHASE.NONE
+	player_number = -1
 	C.connect("gp_button", self, "gp_button")
 	C.connect("gp_axis", self, "gp_axis")
 	get_parent().get_node("KeyboardBox").connect("text_confirmed", self, "text_confirmed")
 	pass # Replace with function body.
 
-# device_index is according to lookup by Control Handler
-func start_setup_gp(player_number: int, device_index: int, side: int):
-	print("start_setup_gp(player_number = ", player_number, ", device_index = ", device_index, ", side = ", side, ")")
+func start_setup_gp(device_number: int, input_slot_number: int, player_number: int, side: int):
+	print("start_setup_gp(device_number = ", device_number, ", input_slot_number = ", input_slot_number, ", player_number = ", player_number, ", side = ", side, ")")
+	self.player_number = player_number
 	current_device_type = C.DEVICES.GAMEPAD
-	current_device_index = device_index
+	current_device_index = input_slot_number # [input overhaul]
 	current_phase = PHASE.CHOOSE_KB
 	axis = Vector2.ZERO
 	$Panel/Name.hide()
@@ -44,8 +46,9 @@ func start_setup_gp(player_number: int, device_index: int, side: int):
 	$AnimationPlayer.play("choose_keyboard")
 
 func start_setup_kb(player_number: int, device_index: int):
+	self.player_number = player_number
 	current_device_type = C.DEVICES.KEYBOARD
-	current_device_index = player_number
+	current_device_index = device_index
 	current_phase = PHASE.NAME_ENTRY
 	$Panel/Name.hide()
 	$Panel/Type.set_animation("kb")
@@ -57,9 +60,11 @@ func start_setup_kb(player_number: int, device_index: int):
 	$AnimationPlayer.play("choose_keyboard")
 	name_entry(0)
 
+# only one touchscreen player, device index is ignored
 func start_setup_touch(player_number: int):
+	self.player_number = player_number
 	current_device_type = C.DEVICES.TOUCHSCREEN
-	current_device_index = player_number
+	current_device_index = -1
 	current_phase = PHASE.NAME_ENTRY
 	$Panel/Name.hide()
 	$Panel/Type.set_animation("touch")
@@ -71,6 +76,7 @@ func start_setup_touch(player_number: int):
 	$AnimationPlayer.play("choose_keyboard")
 	name_entry(0)
 
+# remotes are identified by unique identifier; device index is ignored
 func start_setup_remote(player_name: String):
 	current_device_type = C.DEVICES.REMOTE
 	current_phase = PHASE.NAME_ENTRY
@@ -106,6 +112,7 @@ func press_left():
 		neighbor.grab_focus()
 
 func done(text):
+	player_number = -1
 	current_device_type = -1
 	current_device_index = -1
 	current_phase = PHASE.NONE
@@ -129,7 +136,7 @@ func name_entry(type):
 	$Panel/Confirm.hide()
 	$Panel/Instructions.set_text("Enter your name")
 	get_parent().get_node("KeyboardBox").start_keyboard(
-		type, current_device_index,
+		type, player_number, current_device_index,
 		12 # name length limit.
 	)
 	current_phase = PHASE.NAME_ENTRY
@@ -151,7 +158,7 @@ func gp_axis(who, what, value):
 			axis.y = value
 
 func text_confirmed(text):
-	print("Player %d's name is %s!" % [current_device_index + 1, text])
+	print("Player %d on Device %d has name %s!" % [player_number, current_device_index + 1, text])
 	done(text)
 
 func _input(event):

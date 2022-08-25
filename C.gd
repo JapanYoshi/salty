@@ -45,7 +45,7 @@ func _input(event):
 		)
 		print("Lookup result:", which.player, ", ", which.button, ", ", event.pressed)
 		if which.player != -1:
-			print("Player %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
+			print("Device %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
 			if get_tree().paused:
 				emit_signal("gp_button_paused", which.player, which.button, event.pressed)
 			else:

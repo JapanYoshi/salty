@@ -54,6 +54,8 @@ var axis: Vector2 = Vector2.ZERO
 var which_keyboard: int = -1
 # Player number (starts at 0).
 var which_player: int = -1
+# Input slot to expect.
+var which_input: int = -1
 
 var config = {
 	dw_neutral = ["left", "delete", "right", "space"],
@@ -121,6 +123,7 @@ func submit():
 
 func reset_state():
 	which_player = -1
+	which_input = -1
 	which_keyboard = -1
 	num = false
 	tbox.set_text("")
@@ -254,11 +257,11 @@ func kb_move(margin: int):
 		$KB/Grid.get_child(kb_focus_y * 10 + kb_focus_x).grab_focus()
 	sfx_move()
 
-func _button_pressed(which_player, which_button, pressed):
-	if self.which_player != which_player or pressed or $Anim.is_playing():
+func _button_pressed(device, which_button, pressed):
+	if which_input != device or pressed or $Anim.is_playing():
 		return
-	if C.ctrl[which_player].device_type == C.DEVICES.KEYBOARD:
-		return
+#	if C.ctrl[device].device_type == C.DEVICES.KEYBOARD:
+#		return
 	if which_keyboard == 0:
 		if which_button == 0:
 			_key_pressed("space")
@@ -272,12 +275,14 @@ func _button_pressed(which_player, which_button, pressed):
 			)
 	elif which_keyboard == 1:
 		which_button = {
+			-1: -1,
 			0: 4,
 			1: 1,
 			2: 5,
 			3: 0,
 			4: 3,
-			5: 2
+			5: 2,
+			6: 6,
 		}[which_button]
 		if which_button < 4:
 			# Face buttons 0~3 in order of L U R D
@@ -307,8 +312,8 @@ func _button_pressed(which_player, which_button, pressed):
 			_:
 				_key_pressed(config.sp_main[sp_index])
 
-func _axis_tilted(which_player, which_axis, axis_value):
-	if self.which_player != which_player:
+func _axis_tilted(which_input, which_axis, axis_value):
+	if self.which_input != which_input:
 		return
 	if which_axis == 1:
 		axis.y = axis_value
@@ -553,13 +558,14 @@ func _ready():
 	#start_keyboard(1, 0)
 
 func start_keyboard(
-	which_keyboard: int = 0, which_player: int = 0,
-	character_limit: int = 0, player_number_to_show = -1
+	which_keyboard: int = 0, which_player: int = 0, which_input: int = 0,
+	character_limit: int = 0
 ):
 	self.which_keyboard = which_keyboard
 	self.which_player = which_player
-	if player_number_to_show != -1:
-		$PlayerNumber.set_text("%d" % (player_number_to_show + 1))
+	self.which_input = which_input
+	if which_player != -1:
+		$PlayerNumber.set_text("%d" % (which_player + 1))
 		$PlayerNumber.show()
 	else:
 		$PlayerNumber.hide()
@@ -568,7 +574,7 @@ func start_keyboard(
 		0:
 			$KB.show()
 			# hide shortcut labels if not gamepad player
-			if which_player <= 4:
+			if which_input <= 4:
 				$KB/Label.hide(); $KB/Label2.hide(); $KB/Label3.hide()
 			else:
 				$KB/Label.show(); $KB/Label2.show(); $KB/Label3.show()
@@ -623,7 +629,7 @@ func _on_TextBox_text_changed(new_text):
 	tbox.caret_position = p
 
 func remote_typing(new_text, from, finalize):
-	if (from != C.ctrl[which_player].device_name):
+	if (from != C.ctrl[which_input].device_name):
 		return
 	tbox.text = new_text.to_upper()
 	var result = text_filter.search(tbox.text)
@@ -639,11 +645,17 @@ func remote_typing(new_text, from, finalize):
 		submit()
 
 func _input(event):
-	if (
+	if which_keyboard != -1 and (
 		event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or
 		event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right") or
 		event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel")
 	):
-		if which_keyboard != -1 and C.ctrl[which_player].device_type != C.DEVICES.KEYBOARD:
+		if C.ctrl[which_input].device_type != C.DEVICES.KEYBOARD:
 			accept_event()
 			C._input(event) # let the controller handler parse it
+		elif event is InputEventKey and (
+			event.physical_scancode == KEY_ENTER or
+			event.physical_scancode == KEY_KP_ENTER
+		) and C.ctrl[which_input].device_type != C.DEVICES.KEYBOARD:
+			accept_event()
+			submit()

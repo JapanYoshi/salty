@@ -1,17 +1,11 @@
 extends Control
 
 var p_count = 0 # number of players
-var players_list = []
-var signup_now = []
-var signup_queue = []
+var players_list: Array = []
+var signup_now: Dictionary
+var signup_queue: Array = []
 onready var signup_modal = $SignupModal
 var signup_box = preload("res://SignupBox.tscn")
-enum SIGNUP {
-	DEVICE_TYPE,
-	DEVICE_INDEX,
-	PLAYER_NUMBER,
-	SIDE
-}
 
 func _ready():
 	update_loading_progress(0, 13, -1)
@@ -19,7 +13,7 @@ func _ready():
 	C.connect("gp_button", self, "_gp_button")
 	$LoadingPanel.hide()
 	$MouseMask.hide()
-	players_list = []; signup_now = []; signup_queue = []
+	players_list = []; signup_now = {}; signup_queue = []
 	p_count = 0
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	$Instructions/SignupOnline/RoomCode2.set_text("")
@@ -74,7 +68,7 @@ func _input(e):
 	if len(signup_now): return
 	if e is InputEventJoypadButton:
 		var lookup = C.lookup_button(C.DEVICES.GAMEPAD, e.device, e.button_index)
-		#print(lookup)
+		print(lookup)
 		if e.button_index in [JOY_L, JOY_R, JOY_L2, JOY_R2]:
 			if lookup.player == -1:
 				# no match
@@ -82,38 +76,26 @@ func _input(e):
 					JOY_L:
 						if Input.is_joy_button_pressed(e.device, JOY_R):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 0) # p == device index
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 0)
-							p_count += 1
+							gp_queue(e.device, 0)
+							
 						elif Input.is_joy_button_pressed(e.device, JOY_L2):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 1)
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 1)
-							p_count += 1
+							gp_queue(e.device, 1)
 					JOY_R:
 						if Input.is_joy_button_pressed(e.device, JOY_L):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 0)
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 0)
-							p_count += 1
+							gp_queue(e.device, 0)
 						elif Input.is_joy_button_pressed(e.device, JOY_R2):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 2)
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 2)
-							p_count += 1
+							gp_queue(e.device, 2)
 					JOY_L2:
 						if Input.is_joy_button_pressed(e.device, JOY_L):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 1)
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 1)
-							p_count += 1
+							gp_queue(e.device, 1)
 					JOY_R2:
 						if Input.is_joy_button_pressed(e.device, JOY_R):
 							print("SIGNUP QUEUED")
-							var p = C.add_controller(C.DEVICES.GAMEPAD, e.device, 2)
-							gp_queue(e.device, p if lookup.player == -1 else lookup.player, 2)
-							p_count += 1
-			
+							gp_queue(e.device, 2)
 		else:
 			# check if anyone's signing up
 			if e.pressed and lookup.button == 5 and (
@@ -151,57 +133,93 @@ func _input(e):
 				if len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0:
 					start_game()
 
-func gp_queue(player_number, device_index, side):
-	print("gp_queue(player_number = ", player_number, ", device_index = ", device_index, ", side = ", side, ")")
-	signup_queue.append([C.DEVICES.GAMEPAD, device_index, player_number, side])
+func gp_queue(device_number: int, side: int):
+	print("SIGNUP QUEUED")
+	var input_slot_number = C.add_controller(C.DEVICES.GAMEPAD, device_number, side)
+	signup_queue.append(
+		{
+			"type": C.DEVICES.GAMEPAD,
+			"device_number": device_number,
+			"input_slot_number": input_slot_number,
+			"player_number": p_count,
+			"side": side
+		}
+	)
+	p_count += 1
+	# check if the room is not full (8 players signed up + signing up + queued)
 	check_full()
 
 func kb_queue(player_number):
 	# check if the player's currently signing up
 	if len(signup_now) > 0 and\
-	signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
+	signup_now.type == C.DEVICES.KEYBOARD:
 		return
 	# check if the player's already signed up
 	for p in players_list:
 		if p.device == C.DEVICES.KEYBOARD and p.device_index == player_number:
 			return
-	signup_queue.append([C.DEVICES.KEYBOARD, player_number, p_count, 0])
+	signup_queue.append({
+		"type": C.DEVICES.KEYBOARD,
+		"device_number": player_number,
+		"input_slot_number": player_number,
+		"player_number": p_count,
+		"side": 0
+	})
 	p_count += 1
 	accept_event()
 	check_full()
 
 func remote_queue(data):
-	signup_queue.append([C.DEVICES.REMOTE, data.name, data.nick, 0])
+	signup_queue.append({
+		"type": C.DEVICES.REMOTE,
+		"player_number": p_count,
+		"remote_device_name": data.name,
+		"nick": data.nick
+	})
 	check_full()
 
 func check_full():
 	if len(players_list) + len(signup_now) + len(signup_queue) == 8:
-		Ws.send_to_room('editRoom', {
-			"status": "FULL"
-		});
+	#	Ws.send_to_room('editRoom', {
+	#		"status": "FULL"
+	#	});
 		$TouchButton.hide()
 
 func _process(delta):
-	if signup_now == [] and len(signup_queue) > 0:
+	if (
+		len(signup_now) == 0 # checking if the dictionary is empty
+	and
+		len(signup_queue) > 0
+	):
 		start_signup()
 
 func start_signup():
 	if len(players_list) >= 8: return
 	signup_now = signup_queue.pop_front()
-	if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.GAMEPAD:
-		signup_modal.start_setup_gp(signup_now[SIGNUP.PLAYER_NUMBER], signup_now[SIGNUP.DEVICE_INDEX], signup_now[SIGNUP.SIDE])
+	if signup_now.type == C.DEVICES.GAMEPAD:
+		signup_modal.start_setup_gp(
+			signup_now.device_number,
+			signup_now.input_slot_number,
+			signup_now.player_number,
+			signup_now.side
+		)
 		S.play_sfx("menu_signout")
 		S.play_track(0, 0)
 		S.play_track(1, 1)
 		S.play_track(2, 0)
-	elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
-		signup_modal.start_setup_kb(signup_now[SIGNUP.PLAYER_NUMBER], signup_now[SIGNUP.DEVICE_INDEX])
+	elif signup_now.type == C.DEVICES.KEYBOARD:
+		signup_modal.start_setup_kb(
+			signup_now.player_number,
+			signup_now.input_slot_number
+		)
 		S.play_sfx("menu_signout")
 		S.play_track(0, 0)
 		S.play_track(1, 1)
 		S.play_track(2, 0)
-	elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.TOUCHSCREEN:
-		signup_modal.start_setup_touch(signup_now[SIGNUP.PLAYER_NUMBER])
+	elif signup_now.type == C.DEVICES.TOUCHSCREEN:
+		signup_modal.start_setup_touch(
+			signup_now.player_number
+		)
 		S.play_sfx("menu_signout")
 		S.play_track(0, 0)
 		S.play_track(1, 1)
@@ -210,9 +228,13 @@ func start_signup():
 	else:
 		# online
 		if R.cfg.room_openness == 2:
-			signup_ended(signup_now[2], 0)
+			signup_ended(
+				signup_now.nick, 0
+			)
 		elif R.cfg.room_openness == 1:
-			signup_modal.start_setup_remote(signup_now[SIGNUP.PLAYER_NUMBER])
+			signup_modal.start_setup_remote(
+				signup_now.nick
+			)
 			S.play_sfx("menu_signout")
 			S.play_track(0, 0)
 			S.play_track(1, 1)
@@ -224,7 +246,7 @@ func signup_ended(name, keyboard_type):
 	# check if player is remote and got rejected
 	if keyboard_type == -1:
 		S.play_sfx("menu_fail")
-		Ws.kick_player(signup_now[SIGNUP.DEVICE_INDEX])
+		Ws.kick_player(signup_now.remote_device_name)
 	# end check
 	else:
 		var box = signup_box.instance()
@@ -234,21 +256,21 @@ func signup_ended(name, keyboard_type):
 		var name_type = 0
 		var default_name = ""
 		# find icon to use
-		if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.GAMEPAD:
-			match signup_now[SIGNUP.SIDE]:
+		if signup_now.type == C.DEVICES.GAMEPAD:
+			match signup_now.side:
 				0:
-					default_name = "Gamepad %d" % (signup_now[SIGNUP.DEVICE_INDEX] - 4)
+					default_name = "Gamepad %d" % (signup_now.device_number + 1)
 					icon_name = "gp"
 				1:
-					default_name = "Shared L %d" % (signup_now[SIGNUP.DEVICE_INDEX] - 4)
+					default_name = "Shared L %d" % (signup_now.device_number + 1)
 					icon_name = "gp_left"
 				2:
-					default_name = "Shared R %d" % (signup_now[SIGNUP.DEVICE_INDEX] - 4)
+					default_name = "Shared R %d" % (signup_now.device_number + 1)
 					icon_name = "gp_right"
-		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
+		elif signup_now.type == C.DEVICES.KEYBOARD:
 			icon_name = "kb"
 			keyboard_type = 0
-			match signup_now[SIGNUP.DEVICE_INDEX]:
+			match signup_now.input_slot_number:
 				0:
 					default_name = "Keeb WASD"
 				1:
@@ -257,11 +279,11 @@ func signup_ended(name, keyboard_type):
 					default_name = "Keeb IJKL"
 				3:
 					default_name = "Numpad"
-		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.TOUCHSCREEN:
+		elif signup_now.type == C.DEVICES.TOUCHSCREEN:
 			icon_name = "touch"
 			keyboard_type = 0
 			default_name = "Touchscreen"
-		elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.REMOTE:
+		elif signup_now.type == C.DEVICES.REMOTE:
 			icon_name = "online"
 			keyboard_type = 3
 			default_name = "Remote %d" % (len(players_list) + 1)
@@ -279,33 +301,33 @@ func signup_ended(name, keyboard_type):
 			if null != matched:
 				name_type = 2
 		box.setup(name, len(players_list), icon_name)
-		var player_device_index = signup_now[SIGNUP.DEVICE_INDEX]
-		if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.REMOTE:
-			player_device_index = C.lookup_button(C.DEVICES.REMOTE, signup_now[SIGNUP.DEVICE_INDEX], 0).player;
+		var player_device_index = signup_now.device_number # [input revamp]
+		if signup_now.type == C.DEVICES.REMOTE:
+			player_device_index = C.lookup_button(C.DEVICES.REMOTE, signup_now.remote_device_name, 0).player;
 			keyboard_type = 3
 		var player = {
 			name = name,
 			name_type = name_type,
 			score = 0,
-			device = signup_now[SIGNUP.DEVICE_TYPE],
+			device = signup_now.type,
 			device_index = player_device_index,
-			device_name = signup_now[SIGNUP.DEVICE_INDEX] if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.REMOTE else "",
+			device_name = signup_now.remote_device_name if signup_now.type == C.DEVICES.REMOTE else "N/A",
 			has_lifesaver = true,
 			player_number = len(players_list),
-			side = signup_now[SIGNUP.SIDE],
+			side = signup_now.side,
 			keyboard = keyboard_type
 		}
 		print("Appending new player: ", player)
 		if len(players_list) == 0:
 			$Ready/Label2.set_text("Or press Return on the keyboard")
-			if signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.GAMEPAD:
+			if signup_now.type == C.DEVICES.GAMEPAD:
 				$Ready/Label.set_text("Press ㍝ to start!")
-			elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.KEYBOARD:
+			elif signup_now.type == C.DEVICES.KEYBOARD:
 				$Ready/Label.set_text("Press Return to start!")
 				$Ready/Label2.set_text("")
-			elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.TOUCHSCREEN:
+			elif signup_now.type == C.DEVICES.TOUCHSCREEN:
 				$Ready/Label.set_text("Tap here to start!")
-			elif signup_now[SIGNUP.DEVICE_TYPE] == C.DEVICES.REMOTE:
+			elif signup_now.type == C.DEVICES.REMOTE:
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
 		players_list.append(player)
@@ -314,7 +336,7 @@ func signup_ended(name, keyboard_type):
 	S.play_track(1, 0.0)
 	S.play_track(2, 1.0 if len(players_list) else 0.0)
 	yield(get_tree().create_timer(1.0), "timeout")
-	signup_now = []
+	signup_now = {}
 
 func start_game():
 	# disconnect this signal before exiting the RIGHT way
