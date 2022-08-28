@@ -70,18 +70,29 @@ var responses = [
 	0, 0, 0, 0
 ]
 const RESPONSE_USED = -15
-# a total of 6 buckets, the last two reserved for Sugar Rush
+# a total of 6 buckets, the last two reserved for Sugar Rush.
+# stores the integer IDs of players who chose the answer.
 var answers = [
-	[0, 1, 2, 3], [1, 2, 3, 4], [2, 3, 4], [3, 4], [4], []
+	[], [], [], [], [], []
 ]
+# players who have not answered.
+# audience players won't be put in here.
 var no_answer = []
+var no_answer_audience = []
+# players who used a lifesaver.
+# audience members won't get one.
 var used_lifesaver = []
+# players who answered wrong.
+# player IDs are moved from answers to answered_wrong as the correct answer gets revealed.
 var answered_wrong = []
+# the index of the correct answer (0 - 3 for normal questions).
 var correct_answer = 0
 var last_revealed_answer = 0
 var revealed_count = 0
-# used to track Sorta Kinda performance.
-var accuracy = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
+# used to track Sorta Kinda, Sugar Rush, and Like/Leave performance.
+# could have more elements if audience members participate.
+var accuracy: PoolByteArray = PoolByteArray()
+var accuracy_audience: PoolByteArray = PoolByteArray()
 
 var can_buzz_in = false
 var can_skip = false
@@ -101,6 +112,7 @@ func _ready():
 	Ws.connect('player_requested_nick', self, "_on_player_requested_nick")
 	Ws.connect('synced_button', self, "_on_synced_button")
 
+# process waiting for the sugar rush phase to start at a measure boundary
 var last_pos
 var measure = (16.0) / (15.0 * 4.0)
 func _process(delta):
@@ -179,24 +191,36 @@ func skip():
 			change_stage("like_clue")
 
 func _gp_button(input_player, button, pressed):
-	var player = -1
-	for i in range(len(R.players)):
-		if R.players[i].device_index == input_player:
-			player = i
-			break
+	# Is this an audience member or an actual player?
+	var player: int = input_player
+	var is_audience: bool = input_player >= len(C.ctrl)
+	if !is_audience:
+		for i in range(len(R.players)):
+			if R.players[i].device_index == input_player:
+				player = i
+				break
+	else:
+		player += len(R.players) - len(C.ctrl)
 	if player == -1 or button == -1:
 		return
 	if can_buzz_in:
 		match question_type:
 			"N", "C", "O":
 				if not pressed: return
-				if no_answer.find(player) != -1:
+				if (
+					no_answer_audience.find(player)
+					if is_audience else
+					no_answer.find(player)
+				) != -1:
 					var option = [-2, 0, -2, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
 						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
-						no_answer.erase(player)
-						player_buzz_in(player)
+						if is_audience:
+							no_answer_audience.erase(player)
+						else:
+							no_answer.erase(player)
+							player_buzz_in(player)
 					elif option == -2 and R.players[player].has_lifesaver:
 						print("Player %d used the Lifesaver!")
 						R.players[player].has_lifesaver = false
@@ -211,19 +235,28 @@ func _gp_button(input_player, button, pressed):
 				return
 			"S":
 				if not pressed: return
-				if no_answer.find(player) != -1:
+				if (
+					no_answer_audience.find(player)
+					if is_audience else
+					no_answer.find(player)
+				) != -1:
 					var option = [-1, (2 if data.has_both else -1), -1, 0, -1, 1, -1][button]
 					if option != -1:
 						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
 						# TODO: check if everyone's answered
-						no_answer.erase(player)
-						player_buzz_in(player)
-						print("Players who haven't answered: ", no_answer)
-						if len(no_answer) == 0:
-							change_stage("reveal")
+						if is_audience:
+							no_answer_audience.erase(player)
+						else:
+							player_buzz_in(player)
+							no_answer.erase(player)
+							print("Players who haven't answered: ", no_answer)
+							if len(no_answer) == 0:
+								change_stage("reveal")
 				return
 			"G":
+				# audience will not be able to buzz in
+				# but instead have to respond directly
 				if not pressed: return
 				if len(answers[0]): return # use this for "currently answering"
 				if no_answer.find(player) != -1:
@@ -242,20 +275,32 @@ func _gp_button(input_player, button, pressed):
 							Ws.send('message', {'action': 'gibYourTurn'}, R.players[player].device_name)
 						S.play_voice("buzz_in")
 			"T":
+				# If audience buzzes in, they will be added to evaluation queue
 				if not pressed: return
-				if no_answer.find(player) != -1:
+				if (
+					no_answer_audience.find(player)
+					if is_audience else
+					no_answer.find(player)
+				) != -1:
 					var option = [-1, 0, -1, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
-						set_buzz_in(false)
-						player_buzz_in(player)
-						answers[option].append(player)
-						no_answer.erase(player)
-						print("Player %d chose option %d" % [player, option])
-						S.stop_voice()
-						bgs.G.countdown_pause(true)
-						S.play_track(0, 0); S.play_track(1, 0)
-						yield(get_tree().create_timer(0.5), "timeout")
-						reveal_option(option)
+						if is_audience:
+							answers[option].append(player)
+							no_answer_audience.erase(player)
+							print("Audience member %d chose option %d" % [player, option])
+							# Don't reveal the option until a player gets it right
+						else:
+							# player
+							set_buzz_in(false)
+							player_buzz_in(player)
+							answers[option].append(player)
+							no_answer.erase(player)
+							print("Player %d chose option %d" % [player, option])
+							S.stop_voice()
+							bgs.G.countdown_pause(true)
+							S.play_track(0, 0); S.play_track(1, 0)
+							yield(get_tree().create_timer(0.5), "timeout")
+							reveal_option(option)
 					else:
 						pass
 			"R":
@@ -267,7 +312,7 @@ func _gp_button(input_player, button, pressed):
 			_:
 				printerr("Unimplemented input.")
 	elif can_skip:
-		if button == 5:
+		if button == 5 and !is_audience:
 			match question_type:
 				"S":
 					bgs.S.skip_intro(data.has_both)
@@ -290,11 +335,16 @@ func _gp_button(input_player, button, pressed):
 func _on_synced_button(input_player, button, new_state):
 	if !can_buzz_in: return
 	if question_type in ["R", "L"]:
-		var player = -1
-		for i in range(len(R.players)):
-			if R.players[i].device_index == input_player:
-				player = i
-				break
+		# Is this an audience member or an actual player?
+		var player: int = input_player
+		var is_audience: bool = input_player >= len(C.ctrl)
+		if !is_audience:
+			for i in range(len(R.players)):
+				if R.players[i].device_index == input_player:
+					player = i
+					break
+		else:
+			player += len(R.players) - len(C.ctrl)
 		if question_type == "R":
 			R_synced_button(player, button, new_state)
 		else:
@@ -337,8 +387,15 @@ func activate_keyboard(player):
 	timer.show_timer()
 	timer.start_timer()
 	kb.connect("text_confirmed", self, "answer_submitted")
+#func start_keyboard(
+#	which_keyboard: int = 0, which_player: int = 0, which_input: int = 0,
+#	character_limit: int = 0
+#):
 	kb.start_keyboard(
-		R.players[player].keyboard, R.players[player].device_index, 64, player
+		R.players[player].keyboard,
+		player,
+		R.players[player].device_index,
+		64
 	)
 	answers[0].append(player)
 
@@ -422,8 +479,16 @@ func player_buzz_in(player):
 func reset_answers():
 	answers = [[], [], [], [], [], []]
 	no_answer = []
+	no_answer_audience = []
 	for i in range(len(R.players)):
 		no_answer.append(i)
+	for i in range(len(R.audience)):
+		no_answer_audience.append(i + len(R.players))
+
+func reset_accuracy():
+	accuracy = R.blank_bytes(len(R.players) * 2)
+	if len(R.audience) > 0:
+		accuracy_audience = R.blank_bytes(len(R.audience) * 2)
 
 # Called during the unloading of the previous question (unloading used backgrounds)
 # and during the ending of the round intro
@@ -470,9 +535,7 @@ func change_stage(next_stage):
 				$BG/ColorRect.hide()
 				bgs.S = load("res://Cinematic_SortaKinda.tscn").instance()
 				$BG.add_child(bgs.S)
-				accuracy = [
-					[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]
-				]
+				reset_accuracy()
 				bgs.S.set_process(true)
 				bgs.S.init()
 				bgs.S.set_options(
@@ -936,8 +999,8 @@ func change_stage(next_stage):
 		send_scene('endQuestion')
 		revert_scene('')
 		S.play_sfx("question_leave")
-		# Doesn't every question type do this?
-		if question_type in ["N", "C", "O", "T", "S", "G"]:
+		# everything except sorta kinda, which doesn't have the question paragraph
+		if question_type in ["N", "C", "O", "T", "G"]:
 			anim.play("question_exit")
 		$Vignette.close()
 		if question_number != 5:
@@ -1453,6 +1516,7 @@ func S_show_question():
 		S.play_music("sort_outro", 0.65)
 		hud.show_accuracy(accuracy)
 		revert_scene('sortQuestion')
+		# find best accuracy of players
 		var winners = []
 		var losers = []
 		var breakevens = []
@@ -1460,26 +1524,49 @@ func S_show_question():
 		var max_acc_index = []
 		var max_acc_players = []
 		for p in range(len(R.players)):
-			if max_acc < accuracy[p][0]:
-				max_acc = accuracy[p][0]
+			# find player(s) with max accuracy
+			if max_acc < accuracy[p * 2]:
+				max_acc = accuracy[p * 2]
 				max_acc_index = [p]
 				max_acc_players = [R.players[p].name]
-			elif max_acc == accuracy[p][0]:
+			elif max_acc == accuracy[p * 2]:
 				max_acc_index.append(p)
 				max_acc_players.append(R.players[p].name)
-			if accuracy[p][0] * 2 > accuracy[p][1]:
+			# find out who gained money, lost money, and broke even
+			if accuracy[p * 2] * 2 > accuracy[p * 2 + 1]:
 				winners.append(p)
-			elif accuracy[p][0] * 2 < accuracy[p][1]:
+			elif accuracy[p * 2] * 2 < accuracy[p * 2 + 1]:
 				losers.append(p)
 			else:
 				breakevens.append(p)
+			# show remote players their own score
 			if p in ep.remote_players:
 				Ws.send('message', {
 					'action': 'changeScene',
 					'sceneName': 'sortAcc',
-					'numerator': accuracy[p][0],
-					'denominator': accuracy[p][1],
+					'numerator': accuracy_audience[p * 2],
+					'denominator': accuracy_audience[p * 2 + 1],
 				}, R.players[p].device_name)
+		# find accuracy of audience
+		var audience_correct: int = 0
+		var audience_answered: int = 0
+		for p in range(len(R.audience)):
+			audience_correct += accuracy_audience[p * 2]
+			audience_answered += accuracy_audience[p * 2 + 1]
+			# show remote players their own score
+			Ws.send('message', {
+				'action': 'changeScene',
+				'sceneName': 'sortAcc',
+				'numerator': accuracy_audience[p * 2],
+				'denominator': accuracy_audience[p * 2 + 1],
+			}, R.audience[p].device_name)
+		var audience_accuracy_percentage: float = NAN
+		if audience_answered > 0:
+			audience_accuracy_percentage = (
+				float(100 * audience_correct) / float(audience_answered)
+			)
+		hud.show_audience_accuracy(audience_accuracy_percentage)
+		
 		bgs.S.outro(max_acc, max_acc_players)
 		if max_acc == 7:
 			S.play_voice("sort_perfect")
@@ -1494,6 +1581,7 @@ func S_show_question():
 		# the time it takes until the drop in the ending music
 		yield(get_tree().create_timer(5.3), "timeout")
 		hud.hide_accuracy()
+		hud.hide_audience_accuracy()
 		hud.reward_players(winners, 0)
 		hud.punish_players(losers, 0)
 		hud.reset_playerboxes(breakevens)
@@ -1517,6 +1605,7 @@ func S_show_question():
 		hud.reset_all_playerboxes()
 		if i != 0:
 			revert_scene('sortQuestion')
+			hud.hide_audience_accuracy()
 		send_scene('sortQuestion', {
 			"question": data.sort_options.t[i]
 		})
@@ -1542,18 +1631,35 @@ func S_show_answer():
 	else:
 		breakpoint
 	# grade answers
+	var audience_correct: int = 0; var audience_answered: int = 0
 	for j in range(3 if data.has_both else 2):
 		if data.sort_options.a[i] == j:
 			hud.reward_players(answers[j], point_value)
 			for p in answers[j]:
-				accuracy[p][0] += 1
-				accuracy[p][1] += 1
+				if p < len(R.players):
+					accuracy[p * 2] += 1
+					accuracy[p * 2 + 1] += 1
+				else:
+					audience_correct += 1; audience_answered += 1
+					accuracy_audience[(p - len(R.players)) * 2] += 1
+					accuracy_audience[(p - len(R.players)) * 2 + 1] += 1
 		else:
 			hud.punish_players(answers[j], point_value)
 			for p in answers[j]:
-				#accuracy[p][0] += 1 # Don't, they got it wrong.
-				accuracy[p][1] += 1
-	# todo: sound effects
+				if p < len(R.players):
+					#accuracy[p][0] += 1 # Don't, they got it wrong.
+					accuracy[p * 2 + 1] += 1
+				else:
+					audience_answered += 1
+					accuracy_audience[(p - len(R.players)) * 2 + 1] += 1
+	print(accuracy)
+	print(accuracy_audience)
+	if len(accuracy_audience):
+		# gdscript errors on 0.0/0.0 so I manually produce NAN
+		if audience_answered:
+			hud.show_accuracy_audience(float(100 * audience_correct) / float(audience_answered))
+		else:
+			hud.show_accuracy_audience(NAN)
 	S_question_number += 1
 
 func S_answer_shown():
@@ -1615,7 +1721,7 @@ func R_show_question():
 		hud.slide_playerbar(false)
 		# maximum 180 points for final round
 		for i in range(len(R.players)):
-			var gain = 180 * (accuracy[i][0] - (accuracy[i][1] / 2)) / accuracy[i][1]
+			var gain = 180 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		bgs.R.queue_free()
 		emit_signal("question_done")
@@ -1657,8 +1763,8 @@ func R_show_answers():
 		)
 		for j in range(len(R.players)):
 			if answers[i].has(j) == bool(solutions[i]):
-				accuracy[j][0] += 1
-			accuracy[j][1] += 1
+				accuracy[j * 2] += 1
+			accuracy[j * 2 + 1] += 1
 		hud.show_accuracy(accuracy)
 		hud.confirm_finale_answer(i, bool(solutions[i]))
 		yield(get_tree().create_timer(0.35), "timeout")
@@ -1672,7 +1778,7 @@ func L_show_question():
 	if S_question_number == 5:
 		# maximum 180 points for final round
 		for i in range(len(R.players)):
-			var gain = 180 * (accuracy[i][0] - (accuracy[i][1] / 2)) / accuracy[i][1]
+			var gain = 180 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		S.play_music("like_outro", 0.75)
 		bgs.L.end_question()
@@ -1714,8 +1820,8 @@ func L_show_answers():
 	for i in range(4):
 		for j in range(len(R.players)):
 			if answers[i].has(j) == bool(section.a[i]):
-				accuracy[j][0] += 1
-			accuracy[j][1] += 1
+				accuracy[j * 2] += 1
+			accuracy[j * 2 + 1] += 1
 	S.play_voice("answer%d" % S_question_number)
 	yield(S, "voice_end")
 	S_question_number += 1
