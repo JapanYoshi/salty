@@ -1,5 +1,8 @@
 extends Control
 
+onready var player_bar = $PlayerBar
+onready var player_bar_default_y: float = 624.0
+var player_bar_slide_distance: float = 116.0
 onready var player_boxes = [
 	$PlayerBar/PlayerHBox/PlayerBox,
 	$PlayerBar/PlayerHBox/PlayerBox2,
@@ -10,6 +13,7 @@ onready var player_boxes = [
 	$PlayerBar/PlayerHBox/PlayerBox7,
 	$PlayerBar/PlayerHBox/PlayerBox8,
 ]
+onready var rc_box = $RoomCode
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -78,14 +82,18 @@ func _ready():
 			player_boxes[i].initialize(R.players[i])
 		else:
 			player_boxes[i].hide()
-	rect_position.y = 240
-	pass # Replace with function body.
+	player_bar.rect_position.y = player_bar_default_y + player_bar_slide_distance
+	# If we (potentially) have an audience, connect the signal from Root.
+	if R.cfg.audience:
+		rc_box.show_room_code(Ws.room_code)
+		R.connect("change_audience_count", rc_box, "show_count")
+		rc_box.show_count(len(R.audience_keys))
 
 func slide_playerbar(slide_in: bool):
 	$Tween.interpolate_property(
-		self, "rect_position:y",
-		240 if slide_in else 0,
-		0 if slide_in else 240,
+		player_bar, "rect_position:y",
+		player_bar_default_y + player_bar_slide_distance if slide_in else player_bar_default_y,
+		player_bar_default_y if slide_in else player_bar_default_y + player_bar_slide_distance,
 		0.2, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
 	)
 	$Tween.start()
@@ -104,13 +112,19 @@ func highlight_players(players: Array):
 
 func punish_players(players: Array, point_value):
 	for i in players:
-		player_boxes[i].incorrect(point_value)
-		R.players[i].score -= point_value
+		if i < len(R.players):
+			player_boxes[i].incorrect(point_value)
+			R.players[i].score -= point_value
+		else:
+			R.audience[i - len(R.players)].score -= point_value
 
 func reward_players(players: Array, point_value):
 	for i in players:
-		player_boxes[i].correct(point_value)
-		R.players[i].score += point_value
+		if i < len(R.players):
+			player_boxes[i].correct(point_value)
+			R.players[i].score += point_value
+		else:
+			R.audience[i - len(R.players)].score += point_value
 
 func give_lifesaver():
 	for i in range(8):
@@ -127,13 +141,19 @@ func players_used_lifesaver(players):
 	for i in players:
 		player_boxes[i].use_lifesaver()
 
-func show_accuracy(data: Array):
-	for i in range(len(data)):
-		player_boxes[i].show_accuracy(data[i][0], data[i][1])
+func show_accuracy(data: PoolByteArray):
+	for i in range(len(data) / 2):
+		player_boxes[i].show_accuracy(data[i * 2], data[i * 2 + 1])
 
 func hide_accuracy():
 	for i in range(8):
 		player_boxes[i].set_score()
+
+func show_accuracy_audience(percentage: float):
+	rc_box.show_accuracy(percentage)
+
+func hide_accuracy_audience():
+	rc_box.hide_accuracy()
 
 func show_finale_box(type):
 	for i in range(8):

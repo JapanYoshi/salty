@@ -1,7 +1,111 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://PlayerBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=2]
 [ext_resource path="res://HUD.gd" type="Script" id=3]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=5]
+[ext_resource path="res://RoomCodeUI.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "AccuracyOff"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Count:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 0.5, 2 ),
+"update": 0,
+"values": [ Vector2( 0.5, 1e-05 ), Vector2( 0.6, 0 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Accuracy:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 2, 0.333333 ),
+"update": 0,
+"values": [ Vector2( 0.667, 0.667 ), Vector2( 0.6, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "AccuracyOn"
+length = 0.3
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/path = NodePath("Count:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.6, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Accuracy:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 0.333333, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 1e-05 ), Vector2( 0.6, 0 ), Vector2( 0.667, 0.667 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "AudienceShow"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Count:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ 1040.0, 888.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Count:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Accuracy:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 1e-05 ) ]
+}
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -75,3 +179,84 @@ number = 6
 margin_left = 1116.0
 margin_right = 1270.0
 number = 7
+
+[node name="RoomCode" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Upper" type="RichTextLabel" parent="RoomCode"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -375.0
+margin_top = 8.0
+margin_right = 355.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 320, 0 )
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+size_flags_horizontal = 0
+custom_fonts/bold_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+meta_underlined = false
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomCode"]
+anims/AccuracyOff = SubResource( 1 )
+anims/AccuracyOn = SubResource( 2 )
+anims/AudienceShow = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[node name="Count" type="RichTextLabel" parent="RoomCode"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -240.0
+margin_top = 23.0
+margin_right = 144.0
+margin_bottom = 87.0
+rect_min_size = Vector2( 384, 64 )
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 384, 24 )
+mouse_filter = 2
+size_flags_horizontal = 0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[right][b]000[/b] in audience[/right]"
+meta_underlined = false
+text = "000 in audience"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="RichTextLabel" parent="RoomCode"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -370.0
+margin_top = 25.0
+margin_right = -8.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 160, 64 )
+rect_scale = Vector2( 0.5, 1e-05 )
+rect_pivot_offset = Vector2( 362, 24 )
+mouse_filter = 2
+size_flags_horizontal = 0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[right]Audience score: [b]000%[/b][/right]"
+meta_underlined = false
+text = "Audience score: 000%"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
