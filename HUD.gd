@@ -115,16 +115,42 @@ func punish_players(players: Array, point_value):
 		if i < len(R.players):
 			player_boxes[i].incorrect(point_value)
 			R.players[i].score -= point_value
+			if R.players[i].type == C.DEVICES.REMOTE:
+				Ws.send(
+					"score", {
+						"value": R.players[i].score,
+						"formatted": R.format_currency(R.players[i].score, true)
+					}, R.players[i].device_name
+				)
 		else:
 			R.audience[i - len(R.players)].score -= point_value
+			Ws.send(
+				"score", {
+					"value": R.audience[i - len(R.players)].score,
+					"formatted": R.format_currency(R.audience[i - len(R.players)].score, true)
+				}, R.audience[i - len(R.players)].device_name
+			)
 
 func reward_players(players: Array, point_value):
 	for i in players:
 		if i < len(R.players):
 			player_boxes[i].correct(point_value)
 			R.players[i].score += point_value
+			if R.players[i].type == C.DEVICES.REMOTE:
+				Ws.send(
+					"score", {
+						"value": R.players[i].score,
+						"formatted": R.format_currency(R.players[i].score, true)
+					}, R.players[i].device_name
+				)
 		else:
 			R.audience[i - len(R.players)].score += point_value
+			Ws.send(
+				"score", {
+					"value": R.audience[i - len(R.players)].score,
+					"formatted": R.format_currency(R.audience[i - len(R.players)].score, true)
+				}, R.audience[i - len(R.players)].device_name
+			)
 
 func give_lifesaver():
 	for i in range(8):
