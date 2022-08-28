@@ -43,9 +43,9 @@ func _input(event):
 			device, event.device,
 			event.physical_scancode if event is InputEventKey else event.button_index
 		)
-		print("Lookup result:", which.player, ", ", which.button, ", ", event.pressed)
+		#print("Lookup result:", which.player, ", ", which.button, ", ", event.pressed)
 		if which.player != -1:
-			print("Device %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
+			#print("Device %d, button %d, pressed %s" % [which.player, which.button, str(event.pressed)])
 			if get_tree().paused:
 				emit_signal("gp_button_paused", which.player, which.button, event.pressed)
 			else:
@@ -78,7 +78,7 @@ func _input(event):
 				emit_signal("gp_axis", which.player, which.axis, event.axis_value)
 
 func inject_button(player: int, button: int, pressed: bool):
-	print("Player %d, button %d, pressed %s" % [player, button, str(pressed)])
+	#print("Player %d, button %d, pressed %s" % [player, button, str(pressed)])
 	# remote or touchscreen can't leave pause menu
 	emit_signal("gp_button", player, button, pressed)
 
