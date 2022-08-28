@@ -198,7 +198,7 @@ func audience_join(data):
 	if R.cfg.audience:
 		# accept
 		var player = {
-			name = data.nick,
+			name = ("AUDIENCE %d" % (len(audience_keys) + 1)) if data.nick == "" else data.nick,
 			score = 0,
 			device_name = data.name,
 			player_number = cfg.room_size + len(audience),
