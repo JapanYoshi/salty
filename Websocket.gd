@@ -118,13 +118,19 @@ func _on_data():
 			match data.action:
 				'buttonPress':
 					print("WS: Player {from} pressed button {which} with this intent: {reason}".format(data))
-					var lookup = C.lookup_button(C.DEVICES.REMOTE, data.from, data.which)
-					# player: int, button: int, pressed: bool
-					# if the aux is there, fire the signal for that purpose
+					# Audience member?
+					var audience_i: int = R.audience_keys.find(data.from)
+					var controller_i: int = audience_i + len(C.ctrl)
+					if audience_i == -1:
+						# Player
+						var lookup = C.lookup_button(C.DEVICES.REMOTE, data.from, data.which)
+						controller_i = lookup.player
+						# player: int, button: int, pressed: bool
+						# if the aux is there, fire the signal for that purpose
 					if false == data.has("aux"):
-						C.inject_button(lookup.player, data.which, true)
+						C.inject_button(controller_i, data.which, true)
 					else:
-						emit_signal("synced_button", lookup.player, data.which, data.aux)
+						emit_signal("synced_button", controller_i, data.which, data.aux)
 				'updateText':
 					emit_signal("remote_typing", data.message, data.from, bool(data.finalize))
 				'requestNick':
@@ -190,8 +196,10 @@ func open_room():
 			'roomCode': room_code,
 			'gameName': "Salty Trivia with Candy Barre",
 			'controller': 'controller_salty.html',
-			'maxPlayers': 8,
-			'maxAudience': 100
+			# R.cfg.room_size stores 1 less than actual max player count
+			'maxPlayers': 1 + R.cfg.room_size,
+			# R.cfg.audience is boolean
+			'maxAudience': 100 if R.cfg.audience else 0
 		})
 		yield(self, 'server_reply')
 		if server_reply_content == 'room made':
