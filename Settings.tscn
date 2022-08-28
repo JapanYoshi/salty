@@ -361,7 +361,7 @@ margin_bottom = 86.0
 [node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/GraphicsQuality/VBox/HBoxContainer"]
 margin_right = 712.0
 margin_bottom = 48.0
-focus_neighbour_top = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
+focus_neighbour_bottom = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
 size_flags_horizontal = 3
 max_value = 2.0
 value = 2.0
@@ -414,7 +414,8 @@ margin_bottom = 86.0
 [node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/RoomSize/VBox/HBoxContainer"]
 margin_right = 712.0
 margin_bottom = 48.0
-focus_neighbour_top = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
+focus_neighbour_top = NodePath("../../../../GraphicsQuality/VBox/HBoxContainer/HSlider")
+focus_neighbour_bottom = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
 size_flags_horizontal = 3
 max_value = 7.0
 value = 7.0
@@ -467,7 +468,8 @@ margin_bottom = 86.0
 [node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/RoomOpenness/VBox/HBoxContainer"]
 margin_right = 712.0
 margin_bottom = 48.0
-focus_neighbour_bottom = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
+focus_neighbour_top = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
+focus_neighbour_bottom = NodePath("../../../../Audience/VBox/HSplit/SBox")
 size_flags_horizontal = 3
 max_value = 2.0
 value = 2.0
@@ -514,7 +516,8 @@ clip_text = true
 margin_left = 648.0
 margin_right = 712.0
 margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
+focus_neighbour_top = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
+focus_neighbour_bottom = NodePath("../../../../PanelContainer6/VBox/HSplit/SBox")
 pressed = true
 align = 2
 
@@ -557,7 +560,8 @@ clip_text = true
 margin_left = 648.0
 margin_right = 712.0
 margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
+focus_neighbour_top = NodePath("../../../../Audience/VBox/HSplit/SBox")
+focus_neighbour_bottom = NodePath("../../../../PanelContainer3/VBox/HSplit/SBox")
 pressed = true
 align = 2
 
