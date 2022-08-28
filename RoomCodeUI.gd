@@ -31,12 +31,12 @@ func show_accuracy(acc: float):
 		n_accuracy.bbcode_text = (
 			acc_template % (
 				"100%" if acc == 100 else (
-					"%4f" % acc
+					"%4.1f%%" % acc
 				)
 			)
 		)
 	else:
-		n_accuracy.bbcode_text = "no audience answers"
+		n_accuracy.bbcode_text = "[right]no audience answers[/right]"
 	if !showing_accuracy:
 		anim.play("AccuracyOn")
 		showing_accuracy = true
