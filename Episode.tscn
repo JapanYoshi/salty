@@ -1897,7 +1897,6 @@ __meta__ = {
 
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
-visible = false
 material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1991,9 +1990,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_fonts/font = ExtResource( 11 )
 text = "You have paused 0 time(s) this game."
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pause/NinePatchRect"]
 anchor_top = 1.0
@@ -2003,9 +1999,6 @@ margin_left = 64.0
 margin_top = -232.0
 margin_right = -64.0
 margin_bottom = -56.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button2" type="Button" parent="Pause/NinePatchRect/HBoxContainer"]
 margin_right = 318.0
@@ -2016,7 +2009,7 @@ custom_styles/hover = ExtResource( 18 )
 custom_styles/pressed = ExtResource( 17 )
 custom_styles/focus = ExtResource( 18 )
 custom_styles/normal = ExtResource( 15 )
-text = "↓ Exit"
+text = "㍜ Exit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2031,7 +2024,7 @@ custom_styles/hover = ExtResource( 18 )
 custom_styles/pressed = ExtResource( 17 )
 custom_styles/focus = ExtResource( 18 )
 custom_styles/normal = ExtResource( 15 )
-text = "→ Resume"
+text = "㍝ Resume"
 __meta__ = {
 "_edit_use_anchors_": false
 }
