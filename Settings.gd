@@ -24,6 +24,51 @@ Animated shaders:
 			}
 		]
 	},{
+		k = "room_size",
+		t = "Room size",
+		o = [
+			{
+				v = 0,
+				t = "1 player",
+				d = "Who needs that pesky competition when you can play with yourself, amirite?"
+			},
+			{
+				v = 1,
+				t = "1 - 2 players",
+				d = "A romantic round of Salty Trivia with your loved one. Or a balls-to-the-wall one-on-one duel."
+			},
+			{
+				v = 2,
+				t = "1 - 3 players",
+				d = "A classic three-way. One player slot for each of your two friends!"
+			},
+			{
+				v = 3,
+				t = "1 - 4 players",
+				d = "You think any more than 4 players is overkill, really."
+			},
+			{
+				v = 4,
+				t = "1 - 5 players",
+				d = "Shake your body if you’re feeling like a fi-i-ive-player game."
+			},
+			{
+				v = 5,
+				t = "1 - 6 players",
+				d = "A perfect number of players! (mathematically speaking, 6 is a “perfect number”)"
+			},
+			{
+				v = 6,
+				t = "1 - 7 players",
+				d = "6 out of 7 people are satisfied with a 7-player game. Screw that other 1 person."
+			},
+			{
+				v = 7,
+				t = "1 - 8 players",
+				d = "“I’m playing the whole game; I’m gonna use the whole game.”"
+			}
+		]
+	},{
 		k = "room_openness",
 		t = "Room openness",
 		o = [
@@ -35,12 +80,27 @@ Animated shaders:
 			{
 				v = 1,
 				t = "vetted",
-				d = "Players on their phones must be allowed in one by one."
+				d = "Players on their phones must be allowed in one by one. (This doesn’t apply to audience members, by the way.)"
 			},
 			{
 				v = 2,
 				t = "open room",
 				d = "Players on their phones are automatically let in."
+			}
+		]
+	},{
+		k = "audience",
+		t = "Audience",
+		o = [
+			{
+				v = false,
+				t = "off",
+				d = "If people want to play along, you want them to keep score on a piece of paper or something."
+			},
+			{
+				v = true,
+				t = "on",
+				d = "Let people use their phones as controllers to play along, even without a proper spot as a contestant."
 			}
 		]
 	},{
