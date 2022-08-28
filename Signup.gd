@@ -182,6 +182,8 @@ func remote_queue(data):
 			"remote_device_name": data.name,
 			"name": data.nick
 		})
+		p_count += 1
+		accept_event()
 		check_full()
 	else:
 		R.audience_join(data)
@@ -210,7 +212,8 @@ func _process(delta):
 		start_signup()
 
 func start_signup():
-	if len(players_list) > R.cfg.room_size: return
+	if len(players_list) > R.cfg.room_size:
+		return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
 		signup_modal.start_setup_gp(
@@ -365,7 +368,17 @@ func start_game():
 	get_parent().start_game()
 
 func _on_TouchButton_pressed():
-	signup_queue.append([C.DEVICES.TOUCHSCREEN, 4, len(signup_queue), 0])
+	signup_queue.append(
+		{
+			"type": C.DEVICES.TOUCHSCREEN,
+			"device_number": 4,
+			"input_slot_number": 4,
+			"player_number": p_count,
+			"side": 0
+		}
+	)
+	p_count += 1
+	check_full()
 
 func _on_Ready_gui_input(event):
 	if players_list[0].device == C.DEVICES.TOUCHSCREEN:
