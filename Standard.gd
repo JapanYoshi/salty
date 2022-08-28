@@ -75,6 +75,9 @@ const RESPONSE_USED = -15
 var answers = [
 	[], [], [], [], [], []
 ]
+var answers_audience = [
+	[], [], [], [], [], []
+]
 # players who have not answered.
 # audience players won't be put in here.
 var no_answer = []
@@ -85,6 +88,7 @@ var used_lifesaver = []
 # players who answered wrong.
 # player IDs are moved from answers to answered_wrong as the correct answer gets revealed.
 var answered_wrong = []
+var answered_wrong_audience = []
 # the index of the correct answer (0 - 3 for normal questions).
 var correct_answer = 0
 var last_revealed_answer = 0
@@ -214,12 +218,15 @@ func _gp_button(input_player, button, pressed):
 				) != -1:
 					var option = [-2, 0, -2, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
-						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
 						if is_audience:
 							no_answer_audience.erase(player)
+							answers_audience[option].append(player)
+							print("AUDI:",answers_audience,"/",no_answer_audience)
 						else:
+							answers[option].append(player)
 							no_answer.erase(player)
+							print("PLYR:",answers_audience,"/",no_answer_audience)
 							player_buzz_in(player)
 					elif option == -2 and R.players[player].has_lifesaver:
 						print("Player %d used the Lifesaver!")
@@ -285,7 +292,7 @@ func _gp_button(input_player, button, pressed):
 					var option = [-1, 0, -1, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
 						if is_audience:
-							answers[option].append(player)
+							answers_audience[option].append(player)
 							no_answer_audience.erase(player)
 							print("Audience member %d chose option %d" % [player, option])
 							# Don't reveal the option until a player gets it right
@@ -478,6 +485,7 @@ func player_buzz_in(player):
 
 func reset_answers():
 	answers = [[], [], [], [], [], []]
+	answers_audience = [[], [], [], [], [], []]
 	no_answer = []
 	no_answer_audience = []
 	for i in range(len(R.players)):
@@ -991,6 +999,7 @@ func change_stage(next_stage):
 		yield(get_tree().create_timer(1.5), "timeout")
 		S.play_track(0, 0.5)
 		yield(get_tree().create_timer(0.5), "timeout")
+		hud.hide_accuracy_audience()
 		S.play_voice("outro")
 	elif stage == "outro" and next_stage == "end":
 		stage = "end"
@@ -1270,7 +1279,20 @@ func _on_voice_end(voice_id):
 			if responses[correct_answer] == RESPONSE_USED:
 				# just revealed the right answer
 				send_scene('correctReveal', {index = correct_answer})
-				if len(answers[correct_answer]):
+				# check if anyone in the audience answered it right
+				# (and remove the audience from the correct answer count calculations)
+				var audience_correct: int = 0
+				var audience_answered: int = 0
+				if !R.audience.empty():
+					audience_correct = len(answers_audience[correct_answer])
+					audience_answered = len(R.audience) - len(no_answer_audience)
+					if audience_answered > 0:
+						hud.show_accuracy_audience(
+							float(100 * audience_correct) / float(audience_answered)
+						)
+					else:
+						hud.show_accuracy_audience(NAN)
+				if 0 < len(answers[correct_answer]) - audience_correct:
 					S.play_sfx("point_gain")
 				else:
 					S.play_sfx("option_correct")
@@ -1292,6 +1314,9 @@ func _on_voice_end(voice_id):
 				yield(get_tree().create_timer(1.0), "timeout")
 				answered_wrong.append_array(answers[last_revealed_answer])
 				answers[last_revealed_answer] = []
+				if !R.audience.empty():
+					answered_wrong_audience.append_array(answers_audience[last_revealed_answer])
+					answers_audience[last_revealed_answer] = []
 				reveal_next_option()
 		"reveal_correct":
 			reveal_option(correct_answer)
@@ -1565,7 +1590,7 @@ func S_show_question():
 			audience_accuracy_percentage = (
 				float(100 * audience_correct) / float(audience_answered)
 			)
-		hud.show_audience_accuracy(audience_accuracy_percentage)
+		hud.show_accuracy_audience(audience_accuracy_percentage)
 		
 		bgs.S.outro(max_acc, max_acc_players)
 		if max_acc == 7:
@@ -1581,7 +1606,7 @@ func S_show_question():
 		# the time it takes until the drop in the ending music
 		yield(get_tree().create_timer(5.3), "timeout")
 		hud.hide_accuracy()
-		hud.hide_audience_accuracy()
+		hud.hide_accuracy_audience()
 		hud.reward_players(winners, 0)
 		hud.punish_players(losers, 0)
 		hud.reset_playerboxes(breakevens)
@@ -1605,7 +1630,7 @@ func S_show_question():
 		hud.reset_all_playerboxes()
 		if i != 0:
 			revert_scene('sortQuestion')
-			hud.hide_audience_accuracy()
+			hud.hide_accuracy_audience()
 		send_scene('sortQuestion', {
 			"question": data.sort_options.t[i]
 		})
