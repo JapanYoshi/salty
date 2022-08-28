@@ -258,7 +258,17 @@ func kb_move(margin: int):
 	sfx_move()
 
 func _button_pressed(device, which_button, pressed):
-	if which_input != device or pressed or $Anim.is_playing():
+	if ( # wrong player
+		which_input != device
+	) or ( # if expecting input from physical keyboard, don't do this part
+		which_input < 4
+	) or ( # invalid button
+		which_button == -1
+	) or ( # only process button presses, not releases
+		!pressed
+	) or ( # don't process if the transitions are playing
+		$Anim.is_playing()
+	):
 		return
 #	if C.ctrl[device].device_type == C.DEVICES.KEYBOARD:
 #		return
