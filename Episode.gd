@@ -9,6 +9,7 @@ var intermission_played = false
 var skippable = false
 var skipped = false
 var DEBUG = false
+# make a list of players using phones-as-controllers
 var remote_players = []
 var penalize_pausing = false
 
