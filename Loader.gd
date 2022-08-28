@@ -159,6 +159,34 @@ func load_episode(id):
 		R.crash("Episode data for ID '" + id + "' is missing.")
 	return data
 
+const random_voice_line_keys = [
+	# Normal / Candy Trivia
+	"pretitle",
+	"option0", "option1", "option2", "option3",
+	"used_lifesaver",
+	"reveal", "reveal_crickets", "reveal_jinx",
+	"reveal_split", "reveal_correct",
+	# multiple special question types
+	"skip", "buzz_in",
+	# Sorta Kinda
+	"sort_segue", "sort_both", "sort_press_left", "sort_press_right",
+	"sort_press_up", "sort_lifesaver",
+	# All Outta Salt
+	#"gib_segue",
+	"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
+	"gib_early", "gib_wrong", "gib_late", "gib_blank",
+	# Thousand-Question Question
+	"thou_segue", "thou_tute0", "thou_tute1", "thou_tute2", "thou_intro",
+	# Sugar Rush
+	"rush_intro", "rush_tute0", "rush_tute1", "rush_tute2", "rush_tute3",
+	"rush_ready",
+	# Like/Leave
+	"like_intro",
+	"like_tute0", "like_tute1", "like_tute2", "like_tute3",
+	"like_title", "like_options", "like_ready",
+	"like_outro"
+];
+
 func load_question(id, first_question: bool):
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
@@ -314,33 +342,7 @@ func load_question(id, first_question: bool):
 #						S.preload_voice(key, possible_lines[index].v, false, possible_lines[index].s)
 					load_random_voice_line(key, data[key].v.substr(1))
 			# is random?
-			elif key in [
-				# Normal / Candy Trivia
-				"pretitle",
-				"option0", "option1", "option2", "option3",
-				"used_lifesaver",
-				"reveal", "reveal_crickets", "reveal_jinx",
-				"reveal_split", "reveal_correct",
-				# multiple special question types
-				"skip", "buzz_in",
-				# Sorta Kinda
-				"sort_segue", "sort_both", "sort_press_left", "sort_press_right",
-				"sort_press_up", "sort_lifesaver",
-				# All Outta Salt
-				#"gib_segue",
-				"gib_tute0", "gib_tute1", "gib_tute2", "gib_tute3", "gib_tute4",
-				"gib_early", "gib_wrong", "gib_late", "gib_blank",
-				# Thousand-Question Question
-				"thou_segue", "thou_tute0", "thou_tute1", "thou_tute2", "thou_intro",
-				# Sugar Rush
-				"rush_intro", "rush_tute0", "rush_tute1", "rush_tute2", "rush_tute3",
-				"rush_ready",
-				# Like/Leave
-				"like_intro",
-				"like_tute0", "like_tute1", "like_tute2", "like_tute3",
-				"like_title", "like_options", "like_ready",
-				"like_outro"
-			]:
+			elif key in random_voice_line_keys:
 				# some logic depending on the situation
 				var pool =\
 					"option" if key.begins_with("option") else\
@@ -359,6 +361,14 @@ func load_question(id, first_question: bool):
 				# in case this key was previously loaded, unload it
 				S.unload_voice(key)
 				pass
+			# is random?
+			elif key in random_voice_line_keys:
+				# some logic depending on the situation
+				var pool =\
+					"option" if key.begins_with("option") else\
+					"pretitle_q1" if first_question == true and key == "pretitle" else\
+					key
+				load_random_voice_line(key, pool)
 			else:
 				printerr("Missing voice for " + key)
 				breakpoint
