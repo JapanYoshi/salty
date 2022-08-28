@@ -1,6 +1,7 @@
 extends Control
 
 var p_count = 0 # number of players
+var room_full: bool = false
 var players_list: Array = []
 var signup_now: Dictionary
 var signup_queue: Array = []
@@ -36,7 +37,8 @@ func server_failed():
 func server_connected():
 	Ws.disconnect('disconnected', self, "server_failed")
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
-	$Instructions/SignupOnline/host.set_text("Visit " + Ws.websocket_url)
+	# Ws.websocket_url
+	$Instructions/SignupOnline/host.set_text("Visit haitouch.GA/TE")
 	$Instructions/SignupOnline/RoomCode2.set_text("Opening room...")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
@@ -114,8 +116,10 @@ func _input(e):
 		if e.pressed:
 			if sc == KEY_ESCAPE:
 				get_parent().back()
-			# this is a hacky workaround caused by "physical scancode" being backported from Godot 4
-			# but not "is physical key pressed". the workaround involves creating 8 input actions.
+			# This is a hacky workaround caused by the fact that
+			# "physical scancode" has been backported from Godot 4,
+			# but not "is physical key pressed".
+			# The workaround involves creating 8 individual input actions.
 			if sc == KEY_Q and Input.is_action_pressed("signup0b")\
 			or sc == KEY_E and Input.is_action_pressed("signup0"):
 				kb_queue(0)
@@ -170,20 +174,32 @@ func kb_queue(player_number):
 	check_full()
 
 func remote_queue(data):
-	signup_queue.append({
-		"type": C.DEVICES.REMOTE,
-		"player_number": p_count,
-		"remote_device_name": data.name,
-		"nick": data.nick
-	})
-	check_full()
+	if !room_full:
+		# join as player
+		signup_queue.append({
+			"type": C.DEVICES.REMOTE,
+			"player_number": p_count,
+			"remote_device_name": data.name,
+			"name": data.nick
+		})
+		check_full()
+	else:
+		R.audience_join(data)
 
 func check_full():
-	if len(players_list) + len(signup_now) + len(signup_queue) == 8:
-	#	Ws.send_to_room('editRoom', {
-	#		"status": "FULL"
-	#	});
+	# R.cfg.room_size is in range 0 - 7. Add 1 to get the actual player count.
+	var total_players: int = len(players_list) + len(signup_now) + len(signup_queue);
+	print("DEBUG Player Count Check", total_players, "/", R.cfg.room_size + 1)
+	if total_players >= R.cfg.room_size + 1:
+		# this is done server-side
+#		Ws.send_to_room('editRoom', {
+#			"status": "FULL_AUDI" if R.cfg.audience else "FULL"
+#		});
 		$TouchButton.hide()
+		room_full = true;
+	else:
+		room_full = false;
+	print("DEBUG Player Count Check room_full=", room_full)
 
 func _process(delta):
 	if (
@@ -194,7 +210,7 @@ func _process(delta):
 		start_signup()
 
 func start_signup():
-	if len(players_list) >= 8: return
+	if len(players_list) > R.cfg.room_size: return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
 		signup_modal.start_setup_gp(
@@ -344,6 +360,8 @@ func start_game():
 	print("Start the game!")
 	$MouseMask.show()
 	R.players = players_list
+	# pass on the duty of registering new audience members to Root while the game is on
+	R.listen_for_audience_join()
 	get_parent().start_game()
 
 func _on_TouchButton_pressed():
@@ -364,7 +382,11 @@ func give_player_nick(id):
 				'nick': p.name,
 				'playerIndex': p.player_number,
 				'isVip': p.player_number == 0
-			});
+			})
+			return
+	# If we can't find the browser in the player list,
+	# Check if it's an audience member.
+	R.give_audience_nick(id)
 
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."
@@ -376,6 +398,7 @@ func update_loading_progress(partial: int, total: int, eta: int):
 		time_text = "Almost there..."
 	elif eta == 0:
 		time_text = "Finished!"
+	# if the ETA is null or undefined, time_text stays as default
 	$LoadingPanel/Label.set_text(
 		"Downloading question pack. %s" % time_text
 	)
