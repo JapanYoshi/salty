@@ -1,5 +1,6 @@
 extends Node
 ### "Root", for data that every page should have.
+signal change_audience_count(audience_count)
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -7,13 +8,18 @@ extends Node
 onready var rng = RandomNumberGenerator.new()
 var pass_between = {}
 var players = []
+var audience = []
+# Store unique IDs of audience controllers for easier access.
+var audience_keys = []
 var cuss_regex = RegEx.new()
 # 0: Render at 1280x720. Disable most shader animations.
 # 1: Stretch to window size. Disable most shader animations.
 # 2: Stretch to window size. Enable all shader animations.
 var cfg = {
 	graphics_quality = 2,
+	room_size = 8,
 	room_openness = 2,
+	audience = true,
 	subtitles = true,
 	music = true,
 	cutscenes = true,
@@ -29,6 +35,16 @@ func _ready():
 		print("Could not compile cuss RegEx: error code %d" % result)
 	load_settings()
 	_set_visual_quality(cfg.graphics_quality)
+
+### Helper function
+
+# Return a 0-filled PoolByteArray of a given size.
+func blank_bytes(size: int) -> PoolByteArray:
+	var pba = PoolByteArray()
+	pba.resize(size)
+	for i in range(size):
+		pba[i] = 0
+	return pba
 
 ### Configuration
 
@@ -48,7 +64,9 @@ func load_settings():
 	# If the file didn't load, ignore it.
 	if err != OK:
 		return
-	cfg = {}
+	# Don't reset; Make sure every option is present,
+	# by starting with a copy of the default config.
+	#cfg = {}
 	# Iterate over all sections.
 	for k in config.get_section_keys("config"):
 		# Fetch the data for each section.
@@ -79,6 +97,7 @@ func set_currency(curr_name="fmt_dollars"):
 			breakpoint
 	fmt_file.close()
 
+# Helper function to convert the score into a currency-signed and comma'd string.
 func format_currency(score = 0.0, no_sign = false, min_digits = 0):
 	score *= currency_data.multiplier
 	var numText = str(int(floor(abs(score))))
@@ -162,3 +181,46 @@ func get_lifesaver_count() -> int:
 		if p.has_lifesaver:
 			ans += 1
 	return ans
+
+### Audience join (here because people might join/leave mid-game)
+
+func listen_for_audience_join():
+	if cfg.room_openness != 0 and cfg.audience:
+		Ws.connect("player_joined", self, 'audience_join')
+		Ws.connect('player_requested_nick', self, "give_audience_nick")
+
+func stop_listening_for_audience_join():
+	Ws.disconnect("player_joined", self, 'audience_join')
+	Ws.disconnect('player_requested_nick', self, "give_audience_nick")
+
+func audience_join(data):
+	# join as audience if permitted
+	if R.cfg.audience:
+		# accept
+		var player = {
+			name = data.nick,
+			score = 0,
+			device_name = data.name,
+			player_number = cfg.room_size + len(audience),
+		}
+		audience.push_back(player)
+		audience_keys.push_back(data.name)
+		update_audience_count()
+	else:
+		# reject
+		Ws.kick_player(data.name)
+
+func give_audience_nick(id):
+	var i = audience_keys.find(id)
+	if i != -1:
+		Ws.send('message', {
+			'to': id,
+			'action': 'changeNick',
+			'nick': audience[i].name,
+			'playerIndex': 8,
+			'isVip': 0
+		})
+		return
+
+func update_audience_count():
+	emit_signal("change_audience_count", len(audience_keys))
