@@ -17,7 +17,7 @@ var cuss_regex = RegEx.new()
 # 2: Stretch to window size. Enable all shader animations.
 var cfg = {
 	graphics_quality = 2,
-	room_size = 8,
+	room_size = 7,
 	room_openness = 2,
 	audience = true,
 	subtitles = true,
