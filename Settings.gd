@@ -179,7 +179,7 @@ onready var desc = $Details/Desc
 var setup_done = false
 
 func _ready():
-	S.play_music("options", 1)
+	S.play_music("main_theme", 1)
 	for i in range(len(temp_config)):
 		focus_index = i
 		change_desc(true)
