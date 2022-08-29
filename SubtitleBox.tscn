@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://SubtitleHandler.gd" type="Script" id=1]
 [ext_resource path="res://fonts/subtitle_italic.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/subtitle_normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/subtitle_bold.tres" type="DynamicFont" id=4]
 
 [node name="SubBox" type="CenterContainer"]
 anchor_left = 0.5
@@ -34,6 +35,7 @@ mouse_filter = 2
 custom_colors/default_color = Color( 1, 0.933333, 0.486275, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/italics_font = ExtResource( 2 )
+custom_fonts/bold_font = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 fit_content_height = true
