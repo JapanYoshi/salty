@@ -47,21 +47,26 @@ func _connect():
 	print("WS: Connecting to host.")
 	# Initiate connection to the given URL.
 	set_process(true)
-	if _client.get_connection_status() == NetworkedMultiplayerPeer.CONNECTION_DISCONNECTED:
-		var err = _client.connect_to_url(("ws://" if LOCAL_MODE else "wss://") + websocket_url)
-		#print(err, _client.get_connected_host())
-		if err:
-			print("WS: Unable to connect")
-			set_process(false)
-			emit_signal("disconnected")
+	var connection_attempts: int = 3
+	for i in range(connection_attempts):
+		if _client.get_connection_status() == NetworkedMultiplayerPeer.CONNECTION_DISCONNECTED:
+			var err = _client.connect_to_url(("ws://" if LOCAL_MODE else "wss://") + websocket_url)
+			print("Host connection error code: ", err, "; connected host: \"", _client.get_connected_host(), "\"")
+			if err or _client.get_connected_host() == "":
+				print("WS: Attempt ", i+1, "out of ", connection_attempts, "could not connect.")
+			else:
+				print("WS: Already connected")
+				connected = true
+				emit_signal("connected")
+				return
 		else:
 			print("WS: Already connected")
 			connected = true
 			emit_signal("connected")
-	else:
-		print("WS: Already connected")
-		connected = true
-		emit_signal("connected")
+			return
+	print("WS: Unable to connect")
+	set_process(false)
+	emit_signal("disconnected")
 
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
