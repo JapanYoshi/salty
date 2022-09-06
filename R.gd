@@ -75,7 +75,7 @@ func load_settings():
 ### currency formatting
 var currency_data = {
   "name": "dollars"
-, "multiplier": 100
+, "multiplier": 1
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]
@@ -116,11 +116,11 @@ func format_currency(score = 0.0, no_sign = false, min_digits = 0):
 	numText = numText + numText_
 	var decimal_digits = max(currency_data.decimalDigits, min_digits - digits)
 	if decimal_digits > 0:
-		numText += currency_data.decimalSymbol + ("%*.*f" % [
-			decimal_digits,
+		numText += currency_data.decimalSymbol + ("%0*.*f" % [
+			decimal_digits + 2,
 			decimal_digits,
 			abs(score) - floor(abs(score))
-		]).right(2)
+		]).right(2) # get part after the "0."
 	var sign_arr = currency_data.nega
 	if score >= 0.0:
 		if no_sign:

@@ -292,9 +292,10 @@ func _gp_button(input_player, button, pressed):
 					var option = [-1, 0, -1, 1, 3, 2, -1][button]
 					if option >= 0 and responses[option] != RESPONSE_USED:
 						if is_audience:
-							answers_audience[option].append(player)
+							answers_audience[option].append([player, bgs.G.value])
 							no_answer_audience.erase(player)
-							print("Audience member %d chose option %d" % [player, option])
+							print("Audience member %d chose option %d for %f points" % [player, option, bgs.G.value])
+							
 							# Don't reveal the option until a player gets it right
 						else:
 							# player
@@ -535,7 +536,7 @@ func change_stage(next_stage):
 				$QNum.set_text("%d" % (question_number + 1))
 				$QNum.show()
 				$Options.set_theme(theme_normal)
-				point_value = 10 * (1 if question_number < 6 else 2)
+				point_value = 1000 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"S":
@@ -563,7 +564,7 @@ func change_stage(next_stage):
 					'a': data.sort_a_short.t,
 					'b': data.sort_b_short.t
 				})
-				point_value = 3 * (1 if question_number < 6 else 2)
+				point_value = 300 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true) + "×7")
 				$Value.show()
 			"C":
@@ -579,7 +580,7 @@ func change_stage(next_stage):
 					candy_punchline.set_text(data.punchline.t)
 				$Options.set_theme(theme_candy)
 				hud.enable_lifesaver(true)
-				point_value = 15 * (1 if question_number < 6 else 2)
+				point_value = 1500 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"O":
@@ -590,7 +591,7 @@ func change_stage(next_stage):
 				#bgs.O.init() # no init function here
 				bgs.O.show()
 				hud.enable_lifesaver(true)
-				point_value = 15 * (1 if question_number < 6 else 2)
+				point_value = 1500 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"G":
@@ -1300,10 +1301,28 @@ func _on_voice_end(voice_id):
 					if i == correct_answer:
 						option_boxes[i].right()
 						hud.reward_players(answers[i], point_value)
+						# keep score of audience
+						if audience_answered > 0:
+							if question_type == "T":
+								# [[index, point value], [index, point value], ...]
+								for kv_pair in answers_audience[i]:
+									hud.reward_players([kv_pair[0]], kv_pair[1])
+							else:
+								# [indices]
+								hud.reward_players(answers_audience[i], point_value)
 					elif responses[i] != RESPONSE_USED:
 						# evacuate all unannounced wrong answers
 						option_boxes[i].leave()
 						hud.punish_players(answers[i], point_value)
+						# keep score of audience
+						if audience_answered > 0:
+							if question_type == "T":
+								# [[index, point value], [index, point value], ...]
+								for kv_pair in answers_audience[i]:
+									hud.punish_players([kv_pair[0]], kv_pair[1])
+							else:
+								# [indices]
+								hud.punish_players(answers_audience[i], point_value)
 				change_stage("outro")
 			else:
 				send_scene('wrongReveal', {index = last_revealed_answer})
@@ -1316,7 +1335,16 @@ func _on_voice_end(voice_id):
 				answers[last_revealed_answer] = []
 				if !R.audience.empty():
 					answered_wrong_audience.append_array(answers_audience[last_revealed_answer])
-					answers_audience[last_revealed_answer] = []
+					# keep score of audience
+					if len(answers_audience[last_revealed_answer]) > 0:
+						if question_type == "T":
+							# [[index, point value], [index, point value], ...]
+							for kv_pair in answers_audience[last_revealed_answer]:
+								hud.punish_players([kv_pair[0]], kv_pair[1])
+						else:
+							# [indices]
+							hud.punish_players(answers_audience[last_revealed_answer], point_value)
+						answers_audience[last_revealed_answer] = []
 				reveal_next_option()
 		"reveal_correct":
 			reveal_option(correct_answer)
