@@ -1,7 +1,7 @@
 {
   "name": "points"
 , "multiplier": 1
-, "decimalDigits": 2
+, "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]
 , "separatorSymbol": ","

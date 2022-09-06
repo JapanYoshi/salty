@@ -1,6 +1,6 @@
 {
   "name": "pounds"
-, "multiplier": 100
+, "multiplier": 1
 , "decimalDigits": 0
 , "decimalSymbol": "."
 , "separatorDigits": [3]
