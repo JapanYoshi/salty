@@ -658,7 +658,7 @@ func change_stage(next_stage):
 					'title': data.title.t,
 				})
 		if question_type in ["N", "C", "O", "T"]:
-			question_queue = Loader.parse_time_markers(data.question.t, true)
+			question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
 			question.bbcode_text = ""
 			question.visible_characters = 0
 			for el in question_queue:
@@ -808,7 +808,7 @@ func change_stage(next_stage):
 		anim.play("question_enter")
 		send_scene('showQuestion')
 		ep.set_pause_penalty(true)
-		advance_question()
+		reveal_question_text()
 	elif stage == "question" and next_stage == "options":
 		stage = "options"
 		S.play_sfx("option_show")
@@ -941,7 +941,7 @@ func change_stage(next_stage):
 		S.play_voice("question")
 		anim.play("question_enter")
 		send_scene('showQuestion')
-		advance_question()
+		reveal_question_text()
 	elif stage == "thou_question" and next_stage == "thou_options":
 		stage = "thou_options"
 		S.play_sfx("option_show")
@@ -1453,7 +1453,7 @@ func reveal_option(choice):
 	responses[choice] = RESPONSE_USED
 
 # revealing the question text gradually
-func advance_question():
+func reveal_question_text():
 	print("Question queue: ", question_queue)
 	if len(question_queue):
 		var next = question_queue.pop_front()
@@ -1502,7 +1502,7 @@ func _on_anim_finished(anim_name):
 			change_stage("intro_L")
 
 func _on_QuestionRevealTimer_timeout():
-	advance_question()
+	reveal_question_text()
 
 func _on_question_time_up():
 	# If the typing timer expires, force submit the text
