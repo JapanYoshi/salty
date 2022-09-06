@@ -116,22 +116,10 @@ func punish_players(players: Array, point_value):
 			player_boxes[i].incorrect(point_value)
 			R.players[i].score -= point_value
 			if R.players[i].device == C.DEVICES.REMOTE:
-				Ws.send(
-					"message", {
-						"action": "score",
-						"value": R.players[i].score,
-						"formatted": R.format_currency(R.players[i].score, true)
-					}, R.players[i].device_name
-				)
+				refresh_remote_score(R.players[i].device_name, R.players[i].score)
 		else:
 			R.audience[i - len(R.players)].score -= point_value
-			Ws.send(
-				"message", {
-					"action": "score",
-					"value": R.audience[i - len(R.players)].score,
-					"formatted": R.format_currency(R.audience[i - len(R.players)].score, true)
-				}, R.audience[i - len(R.players)].device_name
-			)
+			refresh_remote_score(R.audience[i - len(R.players)].device_name, R.audience[i - len(R.players)].score)
 
 func reward_players(players: Array, point_value):
 	for i in players:
@@ -139,22 +127,19 @@ func reward_players(players: Array, point_value):
 			player_boxes[i].correct(point_value)
 			R.players[i].score += point_value
 			if R.players[i].device == C.DEVICES.REMOTE:
-				Ws.send(
-					"message", {
-						"action": "score",
-						"value": R.players[i].score,
-						"formatted": R.format_currency(R.players[i].score, true)
-					}, R.players[i].device_name
-				)
+				refresh_remote_score(R.players[i].device_name, R.players[i].score)
 		else:
 			R.audience[i - len(R.players)].score += point_value
-			Ws.send(
-				"message", {
-					"action": "score",
-					"value": R.audience[i - len(R.players)].score,
-					"formatted": R.format_currency(R.audience[i - len(R.players)].score, true)
-				}, R.audience[i - len(R.players)].device_name
-			)
+			refresh_remote_score(R.audience[i - len(R.players)].device_name, R.audience[i - len(R.players)].score)
+
+func refresh_remote_score(device_name, score):
+	Ws.send(
+		"message", {
+			"action": "score",
+			"value": score,
+			"formatted": R.format_currency(score, true)
+		}, device_name
+	)
 
 func give_lifesaver():
 	for i in range(8):
