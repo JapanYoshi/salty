@@ -38,7 +38,7 @@ func _process(delta):
 func intro():
 	if R.cfg.cutscenes:
 		$AnimationPlayer.play("intro")
-		S.play_music("rage_intro", true)
+		S.play_music("rage_intro", 1.0)
 	else:
 		# shortened animation so that the logo still appears at the right time
 		$AnimationPlayer.play("intro_skip")
