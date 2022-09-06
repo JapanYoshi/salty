@@ -139,6 +139,8 @@ func set_buzz_in(enabled):
 		# buzz in button
 		if question_type in ["G"]:
 			$TouchButton.show()
+			if len(R.audience_keys):
+				Ws.connect("remote_typing", self, "_on_gib_audience_submit")
 		# lifesaver button
 		elif question_type in ["N", "C", "O"]:
 			$LSButton.show()
@@ -477,6 +479,18 @@ func answer_submitted(text):
 			"gib_late"
 		)
 		S.play_voice("gib_wrong")
+		return
+
+func _on_gib_audience_answer(message, from, finalize: bool):
+	if !finalize: return;
+	var player: int = R.audience_keys.find(from)
+	var matched = ans_regex.search(message)
+	if null != matched: # matched
+		print("audience incorrect")
+		answered_wrong_audience.push([player, bgs.G.value])
+	else:
+		print("audience correct")
+		answers_audience[0].push([player, bgs.G.value])
 		return
 
 # for cosmetic animation/sfx.
@@ -911,6 +925,12 @@ func change_stage(next_stage):
 		send_scene('gibReveal', {
 			answer = data.answer.t
 		})
+		if len(R.audience_keys):
+			Ws.disconnect("remote_typing", self, "_on_gib_audience_submit")
+			for kv_pair in answers_audience[0]:
+				hud.reward_players([kv_pair[0]], kv_pair[1])
+			for kv_pair in answered_wrong_audience:
+				hud.punish_players([kv_pair[0]], kv_pair[1])
 		yield(get_tree().create_timer(6.0), "timeout")
 		
 		stage = "outro"
