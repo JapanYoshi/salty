@@ -2,8 +2,8 @@ extends Control
 
 var mode = "T"
 var count = 0
-var max_value = 1000 * 10 # 10 points per question
-var value: float = 1000.0
+var max_value = 1000 * 1000 # 1000 dollars per question
+var value: int = 0;
 
 signal intro_ended
 signal checkpoint(checkpoint)
@@ -40,7 +40,7 @@ func countdown_pause(paused: bool = true):
 			countdown()
 
 func init_thousand():
-	mode = "T"; count = 0; max_value = 1000 * 10; value = max_value;
+	mode = "T"; count = 0; max_value = 1_000_000; value = max_value;
 	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(64/255.0, 36/255.0, 4/255.0, 126/255.0))
@@ -57,7 +57,7 @@ func init_thousand():
 func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
 	mode = "G"; count = 0;
 	# max_value = (2 if is_round2 else 1) * 50 # apply round 2 bonus
-	max_value = 100 # ignore round 2 bonus
+	max_value = 10_000 # ignore round 2 bonus
 	value = max_value;
 	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
@@ -114,9 +114,9 @@ func update_price():
 	value = 0
 	if mode == "T":
 		if count <= 100:
-			value = floor(max_value * pow(10, -count / 20.0) * 1000) / 1000
+			value = int(floor(max_value * pow(10, -count / 20.0)))
 		elif count < 120:
-			value = (120 - count) * 0.005
+			value = (120 - count) / 2
 		elif count == 120:
 			value = 0
 			anim.stop(false)
@@ -124,7 +124,7 @@ func update_price():
 		dollars.set_text(R.format_currency(value, true, 3))
 		print(str(count) + ": The question is worth " + str(value) + " points.")
 	elif mode == "G":
-		value = max_value * (80 - count) / 80.0
+		value = int(max_value * (80 - count) / 80.0)
 		if count == 20:
 			emit_signal("checkpoint", 0)
 		elif count == 40:
@@ -189,7 +189,7 @@ func gib_reveal():
 func thou_tute_set_value():
 	var l = $ThouTute/Label;
 	var a = l.get_color("font_color_shadow").a
-	var v = 0.0 if a <= 0.01 else 10.0 * pow(1000, (a * 1.5) - 0.5)
+	var v = 0.0 if a <= 0.01 else 1000.0 * pow(1000, (a * 1.5) - 0.5)
 	l.set_text(R.format_currency(v, true))
 
 func _on_TextTick_checkpoint(checkpoint):
