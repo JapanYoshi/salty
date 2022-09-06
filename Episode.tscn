@@ -1353,9 +1353,6 @@ margin_bottom = -1.0
 mouse_filter = 2
 color = Color( 0.211765, 0.360784, 0.270588, 1 )
 script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 radius = 1.5
 
 [node name="Round2" type="Sprite" parent="Cutscenes"]
@@ -1455,7 +1452,7 @@ mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
 bbcode_text = "One every 12-question game"
-text = "One every 12-question game"
+text = "12 questions, 1 Lifesaver!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
