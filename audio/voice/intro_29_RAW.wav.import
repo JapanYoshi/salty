@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/outro_slam_07.wav-61cd598e59b2a6f862f98f4d6d259097.sample"
+path="res://.import/intro_29_RAW.wav-39807d982fd2909b8059465fc46d867f.sample"
 
 [deps]
 
-source_file="res://audio/voice/outro_slam_07.wav"
-dest_files=[ "res://.import/outro_slam_07.wav-61cd598e59b2a6f862f98f4d6d259097.sample" ]
+source_file="res://audio/voice/intro_29_RAW.wav"
+dest_files=[ "res://.import/intro_29_RAW.wav-39807d982fd2909b8059465fc46d867f.sample" ]
 
 [params]
 
