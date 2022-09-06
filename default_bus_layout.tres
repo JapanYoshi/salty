@@ -6,7 +6,8 @@ gain = -3.0
 
 [sub_resource type="AudioEffectCompressor" id=1]
 resource_name = "Compressor"
-gain = -4.0
+ratio = 2.0
+gain = -2.0
 
 [sub_resource type="AudioEffectLimiter" id=3]
 resource_name = "Limiter"
@@ -35,7 +36,7 @@ bus/3/name = "VOX"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
-bus/3/volume_db = 0.00282288
+bus/3/volume_db = 0.0
 bus/3/send = "Master"
 bus/3/effect/0/effect = SubResource( 3 )
 bus/3/effect/0/enabled = false
