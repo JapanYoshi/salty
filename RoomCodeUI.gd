@@ -17,7 +17,10 @@ func _ready():
 	pass # Replace with function body.
 
 func show_room_code(room_code: String):
-	n_joinat.bbcode_text = joinat_template % room_code
+	if room_code != "":
+		n_joinat.bbcode_text = joinat_template % room_code
+	else:
+		n_joinat.bbcode_text = ""
 
 func show_count(count: int):
 	n_count.bbcode_text = count_template % count
