@@ -103,14 +103,15 @@ func load_episodes_list():
 	if err == OK:
 		episodes = {}
 		var names = file.get_as_text().split(",")
-		for file_name in names:
+		for ep_name in names:
+			ep_name = ep_name.strip_edges()
 			var ep_file = File.new()
-			ep_file.open(episode_path + "/" + file_name + "/" + file_name + ".json", File.READ)
+			ep_file.open(episode_path + "/" + ep_name + "/ep.json", File.READ)
 			var result = JSON.parse(ep_file.get_as_text())
 			if result.error == OK:
-				episodes[file_name] = result.result
+				episodes[ep_name] = result.result
 			else:
-				print("Couldn't load episode: " + file_name)
+				print("Couldn't load episode: " + ep_name)
 	# old directory-based option
 #	var dir = Directory.new()
 #	if dir.open(episode_path) == OK:

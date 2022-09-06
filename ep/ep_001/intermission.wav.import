@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/outro_slam.wav-1def549e34b3ed74f91488b5232fb879.sample"
+path="res://.import/intermission.wav-6ad1acc1ffb9f97725cd2574fdf8569a.sample"
 
 [deps]
 
-source_file="res://ep/demo/outro_slam.wav"
-dest_files=[ "res://.import/outro_slam.wav-1def549e34b3ed74f91488b5232fb879.sample" ]
+source_file="res://ep/ep_001/intermission.wav"
+dest_files=[ "res://.import/intermission.wav-6ad1acc1ffb9f97725cd2574fdf8569a.sample" ]
 
 [params]
 

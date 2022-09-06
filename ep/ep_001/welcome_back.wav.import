@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/outro_slam.wav-1def549e34b3ed74f91488b5232fb879.sample"
+path="res://.import/welcome_back.wav-35ecb75dbc113c5b94e24184f6930517.sample"
 
 [deps]
 
-source_file="res://ep/demo/outro_slam.wav"
-dest_files=[ "res://.import/outro_slam.wav-1def549e34b3ed74f91488b5232fb879.sample" ]
+source_file="res://ep/ep_001/welcome_back.wav"
+dest_files=[ "res://.import/welcome_back.wav-35ecb75dbc113c5b94e24184f6930517.sample" ]
 
 [params]
 

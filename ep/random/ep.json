@@ -1,5 +1,6 @@
 {
   "episode_name": "Random questions",
+  "episode_id": "RQ",
   "episode_desc": "All random questions! Let’s hope there are no repeats.",
   "audio": {
     "welcome": {"v": "default"},

@@ -20,10 +20,11 @@ func _ready():
 	ep_box.name = "Template"
 	for e in Loader.episodes.keys():
 		var ep = {
-			id = "RQ" if len(eps) == 0 else "E%d" % (len(eps)),
+			id = Loader.episodes[e].episode_id if "episode_id" in Loader.episodes[e] else "i%d" % len(eps),
 			filename = e,
 			name = Loader.episodes[e].episode_name,
-			desc = Loader.episodes[e].episode_desc
+			desc = Loader.episodes[e].episode_desc,
+			locked = false
 		}
 		eps[ep.id] = ep
 		if first == "":
