@@ -647,9 +647,7 @@ func change_stage(next_stage):
 				$Value.hide()
 			"R":
 				hud.enable_lifesaver(false)
-				accuracy = [
-					[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]
-				]
+				reset_accuracy()
 				S_question_number = 0
 				bgs.R = load("res://RushBG.tscn").instance()
 				$BG.add_child(bgs.R)
@@ -660,9 +658,7 @@ func change_stage(next_stage):
 				})
 			"L":
 				hud.enable_lifesaver(false)
-				accuracy = [
-					[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]
-				]
+				reset_accuracy()
 				S_question_number = 0
 				bgs.L = load("res://LikeBG.tscn").instance()
 				$BG.add_child(bgs.L)
@@ -1029,8 +1025,8 @@ func change_stage(next_stage):
 		send_scene('endQuestion')
 		revert_scene('')
 		S.play_sfx("question_leave")
-		# everything except sorta kinda, which doesn't have the question paragraph
-		if question_type in ["N", "C", "O", "T", "G"]:
+		# all the question types with question text, title, or point value
+		if question_type in ["N", "C", "O", "T", "G", "S"]:
 			anim.play("question_exit")
 		$Vignette.close()
 		if question_number != 5:
@@ -1617,8 +1613,8 @@ func S_show_question():
 				Ws.send('message', {
 					'action': 'changeScene',
 					'sceneName': 'sortAcc',
-					'numerator': accuracy_audience[p * 2],
-					'denominator': accuracy_audience[p * 2 + 1],
+					'numerator': accuracy[p * 2],
+					'denominator': accuracy[p * 2 + 1],
 				}, R.players[p].device_name)
 		# find accuracy of audience
 		var audience_correct: int = 0
