@@ -38,7 +38,7 @@ func start_setup_gp(device_number: int, input_slot_number: int, player_number: i
 	$Panel/Type.set_animation("gp" if side == 0 else "gp_left" if side == 1 else "gp_right")
 	$Panel/Confirm.show()
 	$Panel/Instructions2.hide()
-	$Panel/Number.set_text("Gamepad %d" % (player_number + 1) + (" (Left)" if side == 1 else " (Right)" if side == 2 else " (Whole)"))
+	$Panel/Number.set_text("Gamepad %d" % (device_number + 1) + (" (Left)" if side == 1 else " (Right)" if side == 2 else " (Whole)"))
 	$Panel/List.show()
 	$Panel/List.modulate.a = 1.0
 	$Panel/Instructions.set_text("Choose your keyboard.")
