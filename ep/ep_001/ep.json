@@ -3,9 +3,17 @@
   "episode_id": "E1",
   "episode_desc": "You’ve been cordially invited to play the very special first episode of [i]Salty Trivia with Candy Barre[/i]! Viewer discretion is advised.",
   "audio": {
+    "welcome_before": {
+      "v": "welcome_before",
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre, where the—[##]Hold on, what happened to the teleprompter?[##]It’s gone totally blank! Miles?![##][b]Miles:[/b]Ugh... Stand by, please!"
+    },
+    "welcome_standby": {
+      "v": "welcome_standby",
+      "s": "[b]Miles:[/b] Alright, who unplugged the teleprompter?[##][b]Daisy:[/b] It wasn't me, I swear![##][b]Candy:[/b] Come on, Daisy, whenever something bad happens in the studio, 9 times out of 10, it's your prank.[##][b]Miles:[/b] Candy, Daisy was right in front of the audio deck this whole time. I can vouch for her, for once.[##][b]Daisy:[/b] Oh, thank goodness, Miles-ey![##][b]Miles:[/b] For the umpteenth time, stop calling me that.[##][b]Candy:[/b] Oh hey, the teleprompter is back up![##][b]Miles:[/b] Good. Everyone back to battle stations and queue intro!"
+    },
     "welcome": {
       "v": "welcome",
-      "s": "Welcome to the very first episode of Salty Trivia with Candy Barre,[#4458#]where the questions are ridiculous but the answers are serious![#8011#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#12748#]Now lift your trays to the upright position and prepare for take-off.[#16231#]Or don’t, I don’t care."
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#3500]where the questions are ridiculous but the answers are serious![#6478#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#10856#]Now lift your trays to the upright position and prepare for take-off.[#14608#]Or don’t, I’m not your flight attendant."
     },
     "player_1": {
       "v": "default"
@@ -36,11 +44,11 @@
     },
     "intermission": {
       "v": "intermission",
-      "s": "We’ll be right back after these messages.[#2090#]Not from our sponsors, but these thirsty guys trying to slide into my DMs.[#5782#]I gotta go block those real quick. See ya.[#7918#]"
+      "s": "We’ll be right back after these messages.[#2090#]Not from our sponsors, but these thirsty guys trying to slide into my DMs.[#5782#]I gotta go block those real quick. See ya.[#8270#]"
     },
     "round2": {
       "v": "welcome_back",
-      "s": "Welcome back to Salty Trivia.[#1491#]Remember me? I remember the first time we met like it was only yesterday.[#6022#]Let’s carry on to Round 2!"
+      "s": "Welcome back to Salty Trivia. Remember me?[#2599#]I remember the first time we met like it was only yesterday.[#5832#]Let’s carry on to Round 2!"
     },
     "round2_tute": {
       "v": "default"
@@ -57,9 +65,9 @@
     "lifesaver2_tute2": {
       "v": "default"
     },
-    "outro": {
-      "v": "outro",
-      "s": "From the bottom of my heart,[#1920#]thank you for participating in this very first episode[#5598#]of Salty Trivia with Candy Barre.[#7395#]"
+    "outro_game": {
+      "v": "outro_game",
+      "s": "From the bottom of my heart, thank you for participating in this very first episode of Salty Trivia with Candy Barre.[#5900#]"
     },
     "outro_slam": {
       "v": "outro_slam",
@@ -67,23 +75,26 @@
     },
     "skip": {
       "v": "default"
+    },
+    "skip_round2": {
+      "v": "default"
     }
   },
   "question_id": [
-    "n001",
-    "s001",
-    "c001",
-    "s002",
-    "n003",
-    "n004",
+    "n016",
+    "n017",
+    "s003",
+    "n018",
+    "n019",
+    "c002",
 
-    "n005",
-    "g001",
-    "n006",
-    "n007",
-    "n008",
-    "n009",
+    "n020",
+    "g002",
+    "n021",
+    "n022",
+    "n023",
+    "n024",
 
-    "h001"
+    "l002"
   ]
 }
