@@ -1788,9 +1788,9 @@ func T_checkpoint(id: int):
 func R_show_question():
 	if S_question_number == 6:
 		hud.slide_playerbar(false)
-		# maximum 180 points for final round
+		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-			var gain = 180 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
+			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		bgs.R.queue_free()
 		emit_signal("question_done")
@@ -1845,9 +1845,9 @@ func R_show_answers():
 
 func L_show_question():
 	if S_question_number == 5:
-		# maximum 180 points for final round
+		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-			var gain = 180 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
+			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		S.play_music("like_outro", 0.75)
 		bgs.L.end_question()
