@@ -535,6 +535,7 @@ func change_stage(next_stage):
 		can_buzz_in = false
 		question_type = data.type
 		title.bbcode_text = data.title.t
+		question.set_text("")
 		hud.reset_all_playerboxes()
 		#hud.slide_playerbar(false)
 		reset_answers()
