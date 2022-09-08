@@ -219,13 +219,22 @@ func play_intro():
 			elif len(candidates) > 1:
 				index = R.rng.randi_range(0, len(candidates) - 1)
 			S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
-		var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
-		S.preload_voice(
-			"skip",
-			Loader.random_dict.audio_question.skip[skip_index].v,
-			false,
-			Loader.random_dict.audio_question.skip[skip_index].s
-		)
+		# non-random skip voice?
+		if episode_data.audio.has("skip") == false or episode_data.audio["skip"].v == "default":
+			var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
+			S.preload_voice(
+				"skip",
+				Loader.random_dict.audio_question.skip[skip_index].v,
+				false,
+				Loader.random_dict.audio_question.skip[skip_index].s
+			)
+		else:
+			S.preload_ep_voice(
+				"skip",
+				episode_data.audio["skip"].v,
+				R.pass_between.episode_name,
+				episode_data.audio["skip"].s
+			)
 		yield(get_tree().create_timer(0.5), "timeout")
 		# fake intro
 		if show_tech_diff:
@@ -400,13 +409,22 @@ func play_intro_2():
 			S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
 		else:
 			S.preload_ep_voice(key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s)
-	var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
-	S.preload_voice(
-		"skip",
-		Loader.random_dict.audio_question.skip[skip_index].v,
-		false,
-		Loader.random_dict.audio_question.skip[skip_index].s
-	)
+	# non-random skip voice?
+	if episode_data.audio.has("skip_round2") == false or episode_data.audio["skip_round2"].v == "default":
+		var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
+		S.preload_voice(
+			"skip",
+			Loader.random_dict.audio_question.skip[skip_index].v,
+			false,
+			Loader.random_dict.audio_question.skip[skip_index].s
+		)
+	else:
+		S.preload_ep_voice(
+			"skip",
+			episode_data.audio["skip_round2"].v,
+			R.pass_between.episode_name,
+			episode_data.audio["skip_round2"].s
+		)
 	
 	q_box.anim.play("touchprism_leave")
 	yield(q_box.anim, "animation_finished")
