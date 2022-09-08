@@ -5,6 +5,7 @@ var room_full: bool = false
 var players_list: Array = []
 var signup_now: Dictionary
 var signup_queue: Array = []
+var used_ids: Array = []
 onready var signup_modal = $SignupModal
 var signup_box = preload("res://SignupBox.tscn")
 
@@ -14,7 +15,7 @@ func _ready():
 	C.connect("gp_button", self, "_gp_button")
 	$LoadingPanel.hide()
 	$MouseMask.hide()
-	players_list = []; signup_now = {}; signup_queue = []
+	players_list = []; signup_now = {}; signup_queue = []; used_ids = [];
 	p_count = 0
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	$Instructions/SignupOnline/RoomCode2.set_text("")
@@ -139,7 +140,13 @@ func _input(e):
 
 func gp_queue(device_number: int, side: int):
 	print("SIGNUP QUEUED")
+	# check if room is full
+	if room_full: return
+	# if it already has a slot number, it just returns that
 	var input_slot_number = C.add_controller(C.DEVICES.GAMEPAD, device_number, side)
+	if input_slot_number in used_ids:
+		return
+	used_ids.append(input_slot_number)
 	signup_queue.append(
 		{
 			"type": C.DEVICES.GAMEPAD,
@@ -153,19 +160,24 @@ func gp_queue(device_number: int, side: int):
 	# check if the room is not full (8 players signed up + signing up + queued)
 	check_full()
 
-func kb_queue(player_number):
-	# check if the player's currently signing up
+func kb_queue(input_slot_number):
+	# check if someone's currently signing up on keyboard
 	if len(signup_now) > 0 and\
 	signup_now.type == C.DEVICES.KEYBOARD:
 		return
 	# check if the player's already signed up
 	for p in players_list:
-		if p.device == C.DEVICES.KEYBOARD and p.device_index == player_number:
+		if p.device == C.DEVICES.KEYBOARD and p.device_index == input_slot_number:
 			return
+	# check if room is full
+	if room_full: return
+	if input_slot_number in used_ids:
+		return
+	used_ids.append(input_slot_number)
 	signup_queue.append({
 		"type": C.DEVICES.KEYBOARD,
-		"device_number": player_number,
-		"input_slot_number": player_number,
+		"device_number": input_slot_number,
+		"input_slot_number": input_slot_number,
 		"player_number": p_count,
 		"side": 0
 	})
@@ -174,13 +186,17 @@ func kb_queue(player_number):
 	check_full()
 
 func remote_queue(data):
+	if data.name in used_ids:
+		return
+	used_ids.append(data.name)
 	if !room_full:
 		# join as player
 		signup_queue.append({
 			"type": C.DEVICES.REMOTE,
 			"player_number": p_count,
 			"remote_device_name": data.name,
-			"name": data.nick
+			"name": data.nick,
+			"side": 0
 		})
 		p_count += 1
 		accept_event()
@@ -248,11 +264,11 @@ func start_signup():
 		# online
 		if R.cfg.room_openness == 2:
 			signup_ended(
-				signup_now.nick, 0
+				signup_now.name, 0
 			)
 		elif R.cfg.room_openness == 1:
 			signup_modal.start_setup_remote(
-				signup_now.nick
+				signup_now.name
 			)
 			S.play_sfx("menu_signout")
 			S.play_track(0, 0)
@@ -305,8 +321,9 @@ func signup_ended(name, keyboard_type):
 		elif signup_now.type == C.DEVICES.REMOTE:
 			icon_name = "online"
 			keyboard_type = 3
+			var device_number = C.add_controller(C.DEVICES.REMOTE, signup_now.remote_device_name)
+			signup_now.device_number = device_number
 			default_name = "Remote %d" % (len(players_list) + 1)
-			C.add_controller(C.DEVICES.REMOTE, signup_now[1])
 		else:
 			icon_name = "retro"
 			default_name = "Player %d" % (len(players_list) + 1)
@@ -368,6 +385,10 @@ func start_game():
 	get_parent().start_game()
 
 func _on_TouchButton_pressed():
+	# touchscreen player is in slot 4
+	if 4 in used_ids:
+		return
+	used_ids.append(4)
 	signup_queue.append(
 		{
 			"type": C.DEVICES.TOUCHSCREEN,
