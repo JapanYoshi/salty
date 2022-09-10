@@ -1,11 +1,21 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://PlayerBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ThemeOption.theme" type="Theme" id=2]
 [ext_resource path="res://HUD.gd" type="Script" id=3]
 [ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=4]
-[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=5]
+[ext_resource path="res://fonts/code_data.tres" type="DynamicFontData" id=5]
 [ext_resource path="res://RoomCodeUI.gd" type="Script" id=6]
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=7]
+[ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 8 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "AccuracyOff"
@@ -196,7 +206,8 @@ rect_min_size = Vector2( 320, 0 )
 rect_scale = Vector2( 0.5, 0.5 )
 mouse_filter = 2
 size_flags_horizontal = 0
-custom_fonts/bold_font = ExtResource( 5 )
+custom_fonts/mono_font = SubResource( 5 )
+custom_fonts/bold_font = ExtResource( 7 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 meta_underlined = false
