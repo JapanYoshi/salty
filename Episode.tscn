@@ -946,7 +946,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ "One every 12-question game" ]
+"values": [ "12 questions, 1 Lifesaver" ]
 }
 
 [sub_resource type="Animation" id=3]
