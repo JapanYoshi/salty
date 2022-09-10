@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rc_letter_normal_h_00.wav-7e64ca73bf8d0d45cd43186ab974bc05.sample"
+
+[deps]
+
+source_file="res://audio/voice/rc_letter_normal_h_00.wav"
+dest_files=[ "res://.import/rc_letter_normal_h_00.wav-7e64ca73bf8d0d45cd43186ab974bc05.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=1

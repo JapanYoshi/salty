@@ -126,26 +126,26 @@ func show_final_leaderboard():
 	for p in ranking:
 		if p.device == C.DEVICES.REMOTE:
 			var comment = ""
-			if len(R.players) == 1:
-				if p.score >= 500:   # $50000 ~
-					comment = "I bet you’ve played this episode before."
-				elif p.score >= 200: # $20000 ~ $50000
+			if len(R.players) == 1: # Singleplayer comments.
+				if   p.score >= 50000:   # $50000 ~
+					comment = "Well, that’s respectable."
+				elif p.score >= 20000: # $20000 ~ $50000
 					comment = "That’s a lotta cash!";
-				elif p.score >= 100: # $10000 ~ $19999
+				elif p.score >= 10000: # $10000 ~ $19999
 					comment = "That’s nothing to sneeze at!";
-				elif p.score >=  50: #  $5000 -  $9999
+				elif p.score >=  5000: #  $5000 -  $9999
 					comment = "Not bad, but not great either.";
-				elif p.score >    0: #     $1 -  $4999
+				elif p.score >      0: #     $1 -  $4999
 					comment = "Well, better than losing money.";
-				elif p.score ==   0: # $0
+				elif p.score ==     0: # $0
 					comment = "Bruh.";
-				elif p.score >  -50: # -$4999 -     -$1
+				elif p.score >  -5000: # -$4999 -     -$1
 					comment = "So close to breaking even.";
-				elif p.score > -100: # -$9999 -  -$5000
+				elif p.score > -10000: # -$9999 -  -$5000
 					comment = "That was pretty pathetic.";
-				elif p.score > -200: #-$19999 - -$10000
+				elif p.score > -20000: #-$19999 - -$10000
 					comment = "Tough break.";
-				elif p.score > -500: #-$49999 - -$20000
+				elif p.score > -50000: #-$49999 - -$20000
 					comment = "You’re definitely doing that on purpose.";
 				else: # ~ -$20000
 					comment = "Let me guess, you swore at Candy?"
@@ -164,6 +164,47 @@ func show_final_leaderboard():
 				'resultAsText': R.format_currency(p.score),
 				'comment': comment
 			}, p.device_name);
+	for a in R.audience:
+		# Calculate how many players you beat.
+#		ranking[i].score
+#				  .placement
+#				  .tied
+		var comment: String
+		if len(ranking) > 1:
+			var players_beaten: int = 0
+			var tied: bool = false
+			for j in range(len(ranking)):
+				match sign(a.score - ranking[len(ranking) - j - 1]):
+					1.0:
+						players_beaten += 1
+					0.0:
+						tied = true
+						break
+					-1.0:
+						break
+			if players_beaten == 1:
+				comment = "You beat one single player... Better than losing to everyone."
+			elif players_beaten > 1:
+				if players_beaten == len(ranking):
+					comment = "You beat all %d players! Great work, Galaxy Brain!" % players_beaten
+				else:
+					comment = "You beat %d players! Maybe next time you can beat all of them." % players_beaten
+			else:
+				comment = "You didn’t beat any players. See, this is why you can’t play."
+		else:
+			if a.score > ranking[0].score:
+				comment = "You beat the Player! Go boast about it."
+			elif a.score == ranking[0].score:
+				comment = "Oh, come on! You tied with the Player?!"
+			else:
+				comment = "See, this is why you can’t play with the Player."
+		Ws.send('message', {
+			'action': 'changeScene',
+			'sceneName': 'finalResult',
+			'result': a.score,
+			'resultAsText': R.format_currency(a.score),
+			'comment': comment
+		}, a.device_name);
 	# actually, load the credits too while we're at it.
 	var credits = ConfigFile.new()
 	var err = credits.load("res://credits.gdcfg")

@@ -8,6 +8,8 @@ var signup_queue: Array = []
 var used_ids: Array = []
 onready var signup_modal = $SignupModal
 var signup_box = preload("res://SignupBox.tscn")
+var room_code: String = ""
+var room_code_hidden: bool = true
 
 func _ready():
 	update_loading_progress(0, 13, -1)
@@ -19,7 +21,9 @@ func _ready():
 	p_count = 0
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	$Instructions/SignupOnline/RoomCode2.set_text("")
+	$Instructions/SignupOnline/ReadAloud.set_text("")
 	$Instructions/SignupOnline/RoomCode.set_text("")
+	$Instructions/SignupOnline/ShowHide.set_text("")
 	if R.cfg.room_openness != 0:
 		$Instructions/SignupOnline/host.set_text("Connecting to server...")
 		Ws.connect('connected', self, "server_connected", [], CONNECT_ONESHOT)
@@ -47,15 +51,128 @@ func server_connected():
 
 func room_opened():
 	if Ws.room_code != "":
+		room_code = Ws.room_code
 		self.connect("tree_exited", Ws, "close_room")
 		$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 1.0)
 		$Instructions/SignupOnline/RoomCode2.set_text("and enter the room code:")
-		$Instructions/SignupOnline/RoomCode.set_text(Ws.room_code)
+		room_code_hidden = false
+		toggle_show_room_code()
+		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 		Ws.connect("player_joined", self, 'remote_queue')
 	else:
+		room_code = ""
 		$Instructions/SignupOnline.self_modulate = Color(0.5, 0.2, 0.2, 0.5)
 		$Instructions/SignupOnline/RoomCode2.set_text("Could not open room.")
 	pass
+
+func toggle_show_room_code():
+	if room_code != "":
+		if room_code_hidden:
+			$Instructions/SignupOnline/ShowHide.set_text("Space/㍙: hide room code")
+			$Instructions/SignupOnline/RoomCode.set_text(room_code)
+		else:
+			$Instructions/SignupOnline/ShowHide.set_text("Space/㍙: show room code")
+			$Instructions/SignupOnline/RoomCode.set_text("????")
+		room_code_hidden = !room_code_hidden
+
+# How many takes there are for each line/letter.
+const intro_takes: int = 5
+const hidden_takes: int = 4
+const cancel_takes: int = 3
+const letter_takes_normal: int = 3
+const letter_takes_final: int = 2
+var room_code_cancelled: bool = false
+var room_code_being_read: bool = false
+var room_code_read_count: int = 0
+var room_code_hidden_count: int = 0
+onready var rc_player = $AudioStreamPlayer
+onready var bgm_tween = $AudioStreamPlayer/Tween
+onready var bgm_bus = AudioServer.get_bus_index("BGM")
+func _set_bgm_volume(db: float):
+	AudioServer.set_bus_volume_db(bgm_bus, db)
+
+func duck_bgm_volume(enabled: bool):
+	bgm_tween.stop_all()
+	bgm_tween.interpolate_method(
+		self, "_set_bgm_volume",
+		AudioServer.get_bus_volume_db(bgm_bus),
+		-12.0 if enabled else 0.0,
+		0.35
+	)
+	bgm_tween.start()
+
+func read_room_code():
+	if room_code == "" or bgm_tween.is_active(): return
+	if room_code_being_read:
+		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
+		room_code_being_read = false
+		room_code_cancelled = true
+		rc_player.stop()
+		rc_player.stream = load(
+			"res://audio/voice/rc_cancel_%02d.wav" %\
+			posmod(room_code_read_count + room_code_hidden_count, cancel_takes)
+		)
+		rc_player.play()
+		yield(rc_player, "finished")
+		if !room_code_cancelled: return
+		duck_bgm_volume(false)
+		yield(bgm_tween, "tween_all_completed")
+		pass # cancel reading
+	else:
+		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: cancel reading aloud")
+		room_code_being_read = true
+		room_code_cancelled = false
+		duck_bgm_volume(true)
+		yield(bgm_tween, "tween_all_completed")
+		if room_code_hidden:
+			rc_player.stream = load(
+				"res://audio/voice/rc_hidden_%02d.wav" %\
+				posmod(room_code_hidden_count, hidden_takes)
+			)
+			room_code_hidden_count += 1
+			rc_player.play()
+			yield(rc_player, "finished")
+			room_code_being_read = false
+		else:
+			var line_streams = [
+				
+			]
+			for i in range(3):
+				line_streams.push_back(load(
+					"res://audio/voice/rc_letter_normal_%s_%02d.wav" % [
+						room_code[i].to_lower(),
+						posmod(room_code_read_count + i, letter_takes_normal)
+					])
+				)
+			line_streams.push_back(
+				load(
+					"res://audio/voice/rc_letter_final_%s_%02d.wav" % [
+						room_code[3].to_lower(),
+						posmod(room_code_read_count, letter_takes_final)
+					]
+				)
+			)
+			rc_player.stream = load(
+				"res://audio/voice/rc_intro_%02d.wav" % (
+					intro_takes - 1\
+					if room_code_read_count >= intro_takes\
+					else room_code_read_count
+				)
+			)
+			room_code_read_count += 1
+			rc_player.play()
+			yield(rc_player, "finished")
+			if room_code_cancelled: return
+			for stream in line_streams:
+				rc_player.stream = stream
+				rc_player.play()
+				yield(get_tree().create_timer(0.8), "timeout")
+				if room_code_cancelled: return
+		duck_bgm_volume(false)
+		yield(bgm_tween, "tween_all_completed")
+		if room_code_cancelled: return
+		room_code_being_read = false
+		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 
 # Just the remote game start thing.
 func _gp_button(player: int, button: int, pressed: bool):
@@ -101,17 +218,22 @@ func _input(e):
 							gp_queue(e.device, 2)
 		else:
 			# check if anyone's signing up
-			if e.pressed and lookup.button == 5 and (
-				len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0
+			if e.pressed and (
+				e.device == 0 and len(signup_now) == 0
 			):
-				if (
-					players_list[0].device == C.DEVICES.GAMEPAD and players_list[0].device_index == lookup.player
+				if lookup.button == 5 and (
+					len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0
 				):
-					start_game()
-			elif e.button_index == JOY_DS_B and (
-				e.device == 0
-			):
-				get_parent().back()
+					if (
+						players_list[0].device == C.DEVICES.GAMEPAD and players_list[0].device_index == lookup.player
+					):
+						start_game()
+				elif e.button_index == JOY_DS_B:
+					get_parent().back()
+				elif e.button_index == JOY_DS_X:
+					toggle_show_room_code()
+				elif e.button_index == JOY_SELECT:
+					read_room_code()
 	elif e is InputEventKey:
 		var sc = e.physical_scancode
 		if e.pressed:
@@ -137,6 +259,13 @@ func _input(e):
 				# check if anyone's signing up
 				if len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0:
 					start_game()
+			elif sc == KEY_SPACE:
+				# check if anyone's signing up
+				if len(signup_now) == 0:
+					toggle_show_room_code()
+			elif sc == KEY_SHIFT:
+				if len(signup_now) == 0:
+					read_room_code()
 
 func gp_queue(device_number: int, side: int):
 	print("SIGNUP QUEUED")

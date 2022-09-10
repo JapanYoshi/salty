@@ -176,9 +176,11 @@ border_blend = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "VOX"
+
+[node name="Tween" type="Tween" parent="AudioStreamPlayer"]
 
 [node name="Label" type="Label" parent="."]
 margin_left = 200.0
@@ -248,28 +250,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RoomCode2" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 328.0
-margin_top = 93.0
-margin_right = 824.0
-margin_bottom = 137.0
-rect_scale = Vector2( 0.75, 0.754 )
+[node name="ShowHide" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 605.0
+margin_top = 128.0
+margin_right = 979.0
+margin_bottom = 172.0
+rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 11 )
+text = "Space/㍙: hide room code"
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RoomCode" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 605.0
-margin_top = 67.0
-margin_right = 725.0
-margin_bottom = 144.0
-custom_fonts/font = ExtResource( 4 )
+[node name="ReadAloud" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 328.0
+margin_top = 128.0
+margin_right = 824.0
+margin_bottom = 172.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 11 )
+text = "Shift/Select: read room code aloud"
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RoomCode2" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 328.0
+margin_top = 78.0
+margin_right = 824.0
+margin_bottom = 122.0
+rect_scale = Vector2( 0.75, 0.754 )
+custom_fonts/font = ExtResource( 11 )
+text = "and enter the room code:"
+valign = 2
+
+[node name="RoomCode" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 605.0
+margin_top = 60.0
+margin_right = 833.0
+margin_bottom = 137.0
+custom_fonts/font = ExtResource( 4 )
+text = "WWWW"
+valign = 2
 
 [node name="Players" type="VBoxContainer" parent="."]
 anchor_left = 1.0
@@ -357,9 +381,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SignupModal"]
 root_node = NodePath("../..")

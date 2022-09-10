@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://LikeBG.gd" type="Script" id=1]
 [ext_resource path="res://LikePhone.tscn" type="PackedScene" id=2]
@@ -278,9 +278,25 @@ viewport_path = NodePath("ViewportContainer/Viewport")
 
 [sub_resource type="StyleBoxEmpty" id=14]
 
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("LB:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "logo"
 length = 2.0
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("LogoBg:rect_size:y")
 tracks/0/interp = 1
@@ -412,6 +428,18 @@ tracks/10/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("LB:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -600,6 +628,18 @@ tracks/14/keys = {
 "update": 0,
 "values": [ Vector2( 224, 0 ), Vector2( 360, 0 ) ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("LB:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "reveal"
@@ -646,9 +686,6 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -788,16 +825,13 @@ margin_right = 360.001
 margin_bottom = 360.0
 rect_pivot_offset = Vector2( 180, 360 )
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Tween" type="Tween" parent="LB"]
 
 [node name="Player" type="Control" parent="LB"]
 margin_right = 360.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 360, 90 )
+margin_bottom = 80.0
+rect_min_size = Vector2( 360, 80 )
 
 [node name="Panel" type="Panel" parent="LB/Player"]
 anchor_right = 1.0
@@ -813,21 +847,17 @@ __meta__ = {
 
 [node name="Score" type="Label" parent="LB/Player/Panel"]
 margin_left = 40.0
-margin_top = 4.0
 margin_right = 240.0
-margin_bottom = 38.0
+margin_bottom = 34.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 10 )
 text = "0 OF 0"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Name" type="Label" parent="LB/Player/Panel"]
-margin_top = 40.0
+margin_top = 32.0
 margin_right = 240.0
-margin_bottom = 72.0
+margin_bottom = 64.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 8 )
 text = "WWWWWWWWWWWW"
@@ -1018,9 +1048,13 @@ __meta__ = {
 }
 
 [node name="LogoBg" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 640, 360 )
+margin_left = 514.0
+margin_right = -510.0
+rect_rotation = -95.0
+rect_pivot_offset = Vector2( 128, 128 )
 color = Color( 0.12549, 0.372549, 0.823529, 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -1045,6 +1079,7 @@ __meta__ = {
 }
 
 [node name="Anim" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 19 )
 anims/logo = SubResource( 2 )
 anims/outro = SubResource( 5 )
 anims/reveal = SubResource( 4 )

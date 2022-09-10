@@ -358,9 +358,12 @@ func load_question(id, first_question: bool):
 				"preintro"
 			] or (
 				data.type == "S" and data.has_both == false and key in ["sort_both", "sort_if_both", "sort_press_up"]
+			) or (
+				data.type == "C" and key in ["setup", "punchline", "post_punchline"]
 			):
 				# in case this key was previously loaded, unload it
 				S.unload_voice(key)
+				data.erase(key)
 				pass
 			# is random?
 			elif key in random_voice_line_keys:

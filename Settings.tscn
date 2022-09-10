@@ -766,9 +766,6 @@ custom_styles/focus = ExtResource( 16 )
 custom_styles/disabled = ExtResource( 16 )
 custom_styles/normal = ExtResource( 16 )
 text = "Space/㍙"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button" type="Button" parent="."]
 anchor_top = 1.0

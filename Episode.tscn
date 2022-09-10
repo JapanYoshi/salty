@@ -1451,11 +1451,8 @@ margin_bottom = 84.0
 mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
-bbcode_text = "One every 12-question game"
-text = "12 questions, 1 Lifesaver!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+bbcode_text = "12 questions, 1 Lifesaver"
+text = "12 questions, 1 Lifesaver"
 
 [node name="Leaderboard" type="VBoxContainer" parent="Cutscenes"]
 anchor_right = 1.0

@@ -543,6 +543,7 @@ func change_stage(next_stage):
 		# Which mode next?
 		for k in musics[question_type]:
 			S.preload_music(k)
+		$Qbox/Candy.hide()
 		match question_type:
 			"N":
 				$BG/ColorRect.show()
@@ -590,8 +591,8 @@ func change_stage(next_stage):
 				bgs.C.init()
 				bgs.C.show()
 				if data.has("setup"):
+					$Qbox/Candy.show()
 					candy_setup.set_text(data.setup.t)
-				if data.has("punchline"):
 					candy_punchline.set_text(data.punchline.t)
 				$Options.set_theme(theme_candy)
 				hud.enable_lifesaver(true)
@@ -706,7 +707,10 @@ func change_stage(next_stage):
 		if question_type in ["R", "L"]:
 			$Vignette.color = Color.black
 			anim.play("finale_enter")
-			S.play_music("rush_intro" if question_type == "R" else "like_loop_base", 1)
+			if question_type == "R":
+				S.play_music("rush_intro", 1)
+			else:
+				S.play_music("like_loop_base", 1)
 		else:
 			call_deferred("change_stage", "pretitle")
 	elif stage == "init" and next_stage == "pretitle":
@@ -810,7 +814,7 @@ func change_stage(next_stage):
 			S.play_track(0, 1.0)
 			S.play_track(1, 1.0)
 		elif question_type == "O":
-			S.play_multitrack("rage_loop", 1.0)
+			S.play_multitrack("rage_loop", 0.5)
 		else:
 			# Implementing a new question type, are we?
 			breakpoint
@@ -1501,13 +1505,10 @@ func _on_anim_finished(anim_name):
 	elif anim_name == "title_reenter":
 		match question_type:
 			"N":
-				$Qbox/Candy.hide()
 				change_stage("intro")
 			"S":
-				$Qbox/Candy.hide()
 				change_stage("intro_S")
 			"C":
-				$Qbox/Candy.show()
 				change_stage("intro_C")
 			"O":
 				$Qbox/Candy.hide()
@@ -1788,11 +1789,15 @@ func T_checkpoint(id: int):
 
 func R_show_question():
 	if S_question_number == 6:
+		# Question is over!
 		hud.slide_playerbar(false)
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
+		for i in range(len(R.audience)):
+			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
+			R.audience[i].score += gain
 		bgs.R.queue_free()
 		emit_signal("question_done")
 	else:
@@ -1846,10 +1851,14 @@ func R_show_answers():
 
 func L_show_question():
 	if S_question_number == 5:
+		# Question end!
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
+		for i in range(len(R.audience)):
+			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
+			R.audience[i].score += gain
 		S.play_music("like_outro", 0.75)
 		bgs.L.end_question()
 		yield(get_tree().create_timer(1.0), "timeout")

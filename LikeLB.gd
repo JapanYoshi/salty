@@ -2,13 +2,15 @@ extends Control
 
 onready var player0 = $Player
 onready var tween = $Tween
-var offset_y = 90.0
-var offset_x = -offset_y * tan(deg2rad(5.0)) # Phone is rotated 5 degrees to the right.
+var offset_y: float
+var offset_x: float
 var players = []
 var scores = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	offset_y = player0.rect_size.y
+	offset_x = -offset_y * tan(deg2rad(5.0)) # Phone is rotated 5 degrees to the right.
 	players.push_back(player0)
 	for i in range(1, len(R.players)):
 		var new_player = player0.duplicate()

@@ -164,6 +164,8 @@ func crash(reason):
 	Ws.close_room()
 	S.stop_voice()
 	S.play_music("", 0)
+	audience_keys = []
+	
 	get_tree().change_scene('res://Error.tscn')
 	call_deferred(
 		"_deferred_crash", reason

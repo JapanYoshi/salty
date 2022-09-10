@@ -426,6 +426,7 @@ func play_intro_2():
 			episode_data.audio["skip_round2"].s
 		)
 	
+	q_box.loadanim.play("straighten", 0.4, 1.0)
 	q_box.anim.play("touchprism_leave")
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
@@ -495,6 +496,7 @@ func play_intermission():
 		S.preload_ep_voice("intermission", episode_data.audio["intermission"].v, R.pass_between.episode_name, episode_data.audio["intermission"].s)
 	
 	c_box.set_process(true)
+	q_box.loadanim.play("straighten", 0.4, 1.0)
 	q_box.anim.play("touchprism_leave")
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
@@ -532,7 +534,7 @@ func load_question(q_name):
 	q_box.data = Loader.load_question(q_name, question_number == 0)
 	question_number += 1
 	q_box.call_deferred("show_loading_logo")
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(q_box.anim, "animation_finished")
 	q_box.call_deferred("change_stage", "init")
 
 func too_many_pauses():
@@ -562,6 +564,7 @@ func disqualified():
 	$Shutter/AnimationPlayer.play("disqualified")
 	S.play_sfx("dq")
 	yield($Shutter/AnimationPlayer, "animation_finished")
+	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 
 func play_outro():
@@ -614,6 +617,7 @@ func _on_SkipButton_gui_input(event):
 
 func _on_BackButton_back_pressed():
 	intermission_played = false
+	Ws.close_room()
 	S.play_track(0, 0)
 	S.play_sfx("menu_back")
 	c_box.tween.interpolate_property(
@@ -624,7 +628,6 @@ func _on_BackButton_back_pressed():
 	)
 	c_box.tween.start()
 	yield(c_box.tween, "tween_all_completed")
-	Ws.close_room()
 	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 

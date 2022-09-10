@@ -254,5 +254,5 @@ func _load_question(q):
 #			file.close()
 		emit_signal("next_question_please")
 	else:
-		R.crash("Resource pack is not downloaded.")
+		R.crash("Tried to load resource pack " + q + ".pck, but it does not exist. Please try clearing your question 	cache.")
 		return
