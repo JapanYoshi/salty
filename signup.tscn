@@ -3,7 +3,7 @@
 [ext_resource path="res://images/signup_gamepad.png" type="Texture" id=1]
 [ext_resource path="res://images/signup_keyboard.png" type="Texture" id=2]
 [ext_resource path="res://images/signup_online.png" type="Texture" id=3]
-[ext_resource path="res://fonts/gibberish_big_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/display_code.tres" type="DynamicFont" id=4]
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=5]
 [ext_resource path="res://fonts/gibberish_answer_regular.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Signup.gd" type="Script" id=8]
@@ -192,19 +192,84 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Instructions" type="VBoxContainer" parent="."]
+[node name="Instructions" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
 margin_top = 72.0
-margin_right = -400.0
-custom_constants/separation = 8
+margin_right = -392.0
+
+[node name="SignupOnline" type="TextureRect" parent="Instructions"]
+margin_right = 880.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 879, 140 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="host" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 206.0
+margin_top = 5.0
+margin_right = 822.0
+margin_bottom = 49.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 11 )
+text = "Visit the website haitouch.herokuapp.com"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RoomCode2" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 206.0
+margin_top = 37.0
+margin_right = 702.0
+margin_bottom = 81.0
+rect_scale = Vector2( 0.75, 0.754 )
+custom_fonts/font = ExtResource( 11 )
+text = "and enter the room code:"
+valign = 2
+
+[node name="ShowHide" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 206.0
+margin_top = 70.0
+margin_right = 580.0
+margin_bottom = 114.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 11 )
+text = "Space/㍙: hide room code"
+valign = 2
+
+[node name="ReadAloud" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 206.0
+margin_top = 92.0
+margin_right = 702.0
+margin_bottom = 136.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 11 )
+text = "Shift/Select: read room code aloud"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RoomCode" type="Label" parent="Instructions/SignupOnline"]
+margin_left = 472.0
+margin_top = 33.0
+margin_right = 582.0
+margin_bottom = 89.0
+custom_fonts/font = ExtResource( 4 )
+text = "WWWW"
+align = 1
+valign = 1
+
 [node name="SignupGamepad" type="TextureRect" parent="Instructions"]
+margin_top = 111.0
 margin_right = 880.0
-margin_bottom = 240.0
+margin_bottom = 351.0
 rect_min_size = Vector2( 880, 240 )
 texture = ExtResource( 1 )
 expand = true
@@ -214,9 +279,9 @@ __meta__ = {
 }
 
 [node name="SignupKeyboard" type="TextureRect" parent="Instructions"]
-margin_top = 248.0
+margin_top = 359.0
 margin_right = 880.0
-margin_bottom = 488.0
+margin_bottom = 599.0
 rect_min_size = Vector2( 880, 240 )
 texture = ExtResource( 2 )
 expand = true
@@ -224,76 +289,6 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SignupOnline" type="TextureRect" parent="Instructions"]
-margin_top = 496.0
-margin_right = 880.0
-margin_bottom = 624.0
-rect_min_size = Vector2( 880, 128 )
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="host" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 328.0
-margin_top = 46.0
-margin_right = 944.0
-margin_bottom = 90.0
-rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = ExtResource( 11 )
-text = "Visit the website haitouch.herokuapp.com"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShowHide" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 605.0
-margin_top = 128.0
-margin_right = 979.0
-margin_bottom = 172.0
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 11 )
-text = "Space/㍙: hide room code"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ReadAloud" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 328.0
-margin_top = 128.0
-margin_right = 824.0
-margin_bottom = 172.0
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 11 )
-text = "Shift/Select: read room code aloud"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RoomCode2" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 328.0
-margin_top = 78.0
-margin_right = 824.0
-margin_bottom = 122.0
-rect_scale = Vector2( 0.75, 0.754 )
-custom_fonts/font = ExtResource( 11 )
-text = "and enter the room code:"
-valign = 2
-
-[node name="RoomCode" type="Label" parent="Instructions/SignupOnline"]
-margin_left = 605.0
-margin_top = 60.0
-margin_right = 833.0
-margin_bottom = 137.0
-custom_fonts/font = ExtResource( 4 )
-text = "WWWW"
-valign = 2
 
 [node name="Players" type="VBoxContainer" parent="."]
 anchor_left = 1.0
@@ -346,9 +341,6 @@ margin_right = 384.0
 margin_bottom = 82.0
 custom_fonts/font = ExtResource( 10 )
 text = "or press Return on the keyboard"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Anim" type="AnimationPlayer" parent="Ready"]
 autoplay = "Init"
@@ -381,6 +373,9 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 script = ExtResource( 20 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SignupModal"]
 root_node = NodePath("../..")
