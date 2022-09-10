@@ -46,6 +46,9 @@ func back():
 			indices.push_back(current_page.signup_now[1])
 		if len(indices) > 0:
 			C.remove_controllers_by_index(indices)
+		R.players = []
+		R.audience_keys = []
+		R.audience = []
 		change_scene_to(first_page.instance())
 
 func change_scene_to(n):
