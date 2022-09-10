@@ -1,6 +1,6 @@
 extends Control
 
-const joinat_template = "[right]join via HAITOUCH.GA/TE#[b]%s[/b][/right]"
+const joinat_template = "[right]join via [b]haitouch.ga/te#[/b][code]%s[/code][/right]"
 const count_template = "[right][b]%d[/b] in audience[/right]"
 const acc_template = "[right]Audience score: [b]%s[/b][/right]"
 
