@@ -589,6 +589,7 @@ func play_outro():
 		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
 		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
 	
+	hud.rc_box.hide()
 	c_box.show_final_leaderboard();
 	S.play_music("drum_roll", true)
 	q_box.hide()
