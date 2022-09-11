@@ -99,6 +99,9 @@ var accuracy: PoolByteArray = PoolByteArray()
 var accuracy_audience: PoolByteArray = PoolByteArray()
 
 var can_buzz_in = false
+var audience_can_buzz_in: bool = false
+# how many seconds to wait before closing the question for the audience
+const remote_buzzin_latency: float = 1.25
 var can_skip = false
 var waiting_for_timer = false
 
@@ -133,6 +136,7 @@ func set_buzz_in(enabled):
 	if enabled == can_buzz_in: return
 	can_buzz_in = enabled
 	if enabled:
+		audience_can_buzz_in = true
 		send_scene('enableBuzzIn')
 		var result = C.connect("gp_button", self, "_gp_button")
 		print("Result of Standard connecting to C.gp_button is: ", result)
@@ -155,6 +159,9 @@ func set_buzz_in(enabled):
 		# lifesaver button
 		elif question_type in ["N", "C", "O"]:
 			$LSButton.hide()
+
+func stop_remote_buzz_in():
+	audience_can_buzz_in = false
 
 func enable_skip():
 	if can_skip == true:
@@ -209,7 +216,11 @@ func _gp_button(input_player, button, pressed):
 		player += len(R.players) - len(C.ctrl)
 	if player == -1 or button == -1:
 		return
-	if can_buzz_in:
+	if (
+		!is_audience and can_buzz_in
+	) or (
+		is_audience and audience_can_buzz_in
+	):
 		match question_type:
 			"N", "C", "O":
 				if not pressed: return
@@ -343,11 +354,15 @@ func _gp_button(input_player, button, pressed):
 					skip()
 
 func _on_synced_button(input_player, button, new_state):
-	if !can_buzz_in: return
+	var is_audience: bool = input_player >= len(C.ctrl)
+	if (
+		!is_audience and !can_buzz_in
+	) or (
+		is_audience and !audience_can_buzz_in
+	): return
 	if question_type in ["R", "L"]:
 		# Is this an audience member or an actual player?
 		var player: int = input_player
-		var is_audience: bool = input_player >= len(C.ctrl)
 		if !is_audience:
 			for i in range(len(R.players)):
 				if R.players[i].device_index == input_player:
@@ -423,6 +438,7 @@ func answer_submitted(text):
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
 		print("correct")
+		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		hud.reward_players(answers[0], bgs.G.value)
 		change_stage("gib_answer")
 		return
@@ -849,12 +865,14 @@ func change_stage(next_stage):
 		stage = "reveal"
 		if !len(used_lifesaver) or len(answered_wrong):
 			ep.set_pause_penalty(false)
+		set_buzz_in(false)
+		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		S.stop_voice("options")
 		S.play_track(0, false); S.play_track(1, false); S.play_track(2, false)
-		yield(get_tree().create_timer(0.25), "timeout")
-		set_buzz_in(false)
 		timer.stop_timer()
 		timer.hide_timer()
+		yield(get_tree().create_timer(0.25), "timeout")
+		stop_remote_buzz_in()
 		# which version of the line will Candy say?
 		if not(len(answers[0]) or len(answers[1]) or len(answers[2]) or len(answers[3]) or len(used_lifesaver)):
 			# crickets: nobody answered
@@ -1390,6 +1408,7 @@ func reveal_next_option():
 			len(no_answer) == 0
 		):
 			stage = "reveal_correct"
+			get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 			S.play_voice("reveal_correct")
 		else:
 			S.play_track(0, 0.5); S.play_track(1, 1)
@@ -1688,6 +1707,7 @@ func S_show_answer():
 	timer.hide_timer()
 	ep.set_pause_penalty(false)
 	set_buzz_in(false)
+	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	var i = S_question_number
 	bgs.S.answer(data.sort_options.a[i])
 	send_scene('sortAnswer', {"index": data.sort_options.a[i]})
@@ -1763,10 +1783,11 @@ func G_checkpoint(id: int):
 			gib_clues = 3
 		3:
 			set_buzz_in(false)
+			get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 			ep.set_pause_penalty(false)
 			S.play_track(0, 0); S.play_track(1, 0)
 			S.play_sfx("time_up")
-			yield(get_tree().create_timer(0.5), "timeout")
+			yield(get_tree().create_timer(0.25), "timeout")
 			S.play_voice("reveal")
 			print("Gibberish gave up")
 			bgs.G.disconnect("checkpoint", self, "G_checkpoint")
@@ -1774,10 +1795,11 @@ func G_checkpoint(id: int):
 func T_checkpoint(id: int):
 	if id == 0:
 		set_buzz_in(false)
+		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		S.play_track(0, 0); S.play_track(1, 0)
 		S.play_sfx("time_up")
 		ep.set_pause_penalty(false)
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		print("Gibberish gave up")
 		bgs.G.disconnect("checkpoint", self, "T_checkpoint")
 		S.play_voice("reveal_correct"); yield(S, "voice_end")
@@ -1820,6 +1842,7 @@ func R_show_question():
 
 func R_show_answers():
 	set_buzz_in(false)
+	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	ep.set_pause_penalty(false)
 	bgs.R.time_up(true)
 	var solutions = data["section%d" % S_question_number].a
@@ -1885,7 +1908,9 @@ func L_show_question():
 
 func L_show_answers():
 	set_buzz_in(false)
+	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	ep.set_pause_penalty(false)
+	stop_remote_buzz_in()
 	timer.hide_timer()
 	var section = data["answer%d" % S_question_number]
 	bgs.L.reveal(section.a)
