@@ -496,7 +496,7 @@ func _on_gib_audience_answer(message, from, finalize: bool):
 # for cosmetic animation/sfx.
 func player_buzz_in(player):
 	hud.player_buzzed_in(player)
-	S.play_sfx("lock_in")
+	S.play_sfx("lock_in", pow(2.0, float(randi() % 4) / 12.0))
 
 func reset_answers():
 	answers = [[], [], [], [], [], []]
@@ -699,9 +699,7 @@ func change_stage(next_stage):
 			})
 		if anim.is_playing():
 			yield(anim, "animation_finished")
-		S.play_track(0, 0.0)
-		loadanim.play("straighten", 0.4, 1.0)
-		anim.play("touchprism_leave")
+		finish_loading_screen()
 		yield(anim, "animation_finished")
 		$Loading.hide()
 		if question_type in ["R", "L"]:
@@ -1314,7 +1312,7 @@ func _on_voice_end(voice_id):
 						)
 					else:
 						hud.show_accuracy_audience(NAN)
-				if 0 < len(answers[correct_answer]) - audience_correct:
+				if 0 < len(answers[correct_answer]):
 					S.play_sfx("point_gain")
 				else:
 					S.play_sfx("option_correct")
