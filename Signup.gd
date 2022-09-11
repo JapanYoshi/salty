@@ -104,14 +104,17 @@ func duck_bgm_volume(enabled: bool):
 func read_room_code():
 	if room_code == "" or bgm_tween.is_active(): return
 	if room_code_being_read:
+		var stream_loader = ResourceLoader.load_interactive(
+			"res://audio/voice/rc_cancel_%02d.wav" %\
+			posmod(room_code_read_count + room_code_hidden_count, cancel_takes)
+		)
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 		room_code_being_read = false
 		room_code_cancelled = true
 		rc_player.stop()
-		rc_player.stream = load(
-			"res://audio/voice/rc_cancel_%02d.wav" %\
-			posmod(room_code_read_count + room_code_hidden_count, cancel_takes)
-		)
+		while stream_loader.poll() != ERR_FILE_EOF:
+			yield(get_tree().create_timer(0.05), "timeout")
+		rc_player.stream = stream_loader.get_resource()
 		rc_player.play()
 		yield(rc_player, "finished")
 		if !room_code_cancelled: return
@@ -125,46 +128,56 @@ func read_room_code():
 		duck_bgm_volume(true)
 		yield(bgm_tween, "tween_all_completed")
 		if room_code_hidden:
-			rc_player.stream = load(
+			var stream_loader = ResourceLoader.load_interactive(
 				"res://audio/voice/rc_hidden_%02d.wav" %\
 				posmod(room_code_hidden_count, hidden_takes)
 			)
+			while stream_loader.poll() != ERR_FILE_EOF:
+				yield(get_tree().create_timer(0.05), "timeout")
+			rc_player.stream = stream_loader.get_resource()
 			room_code_hidden_count += 1
 			rc_player.play()
 			yield(rc_player, "finished")
 			room_code_being_read = false
 		else:
 			var line_streams = [
-				
+				ResourceLoader.load_interactive(
+					"res://audio/voice/rc_intro_%02d.wav" % (
+						intro_takes - 1\
+						if room_code_read_count >= intro_takes\
+						else room_code_read_count
+					)
+				)
 			]
+			yield(get_tree(), "idle_frame")
 			for i in range(3):
-				line_streams.push_back(load(
+				line_streams.push_back(
+					ResourceLoader.load_interactive(
 					"res://audio/voice/rc_letter_normal_%s_%02d.wav" % [
 						room_code[i].to_lower(),
 						posmod(room_code_read_count + i, letter_takes_normal)
 					])
 				)
+				yield(get_tree(), "idle_frame")
 			line_streams.push_back(
-				load(
+				ResourceLoader.load_interactive(
 					"res://audio/voice/rc_letter_final_%s_%02d.wav" % [
 						room_code[3].to_lower(),
 						posmod(room_code_read_count, letter_takes_final)
 					]
 				)
 			)
-			rc_player.stream = load(
-				"res://audio/voice/rc_intro_%02d.wav" % (
-					intro_takes - 1\
-					if room_code_read_count >= intro_takes\
-					else room_code_read_count
-				)
-			)
+			while line_streams[0].poll() != ERR_FILE_EOF:
+				yield(get_tree().create_timer(0.05), "timeout")
+			rc_player.stream = line_streams[0].get_resource()
 			room_code_read_count += 1
 			rc_player.play()
 			yield(rc_player, "finished")
 			if room_code_cancelled: return
-			for stream in line_streams:
-				rc_player.stream = stream
+			for i in range(1, len(line_streams)):
+				while line_streams[i].poll() != ERR_FILE_EOF:
+					yield(get_tree().create_timer(0.05), "timeout")
+				rc_player.stream = line_streams[i].get_resource()
 				rc_player.play()
 				yield(get_tree().create_timer(0.8), "timeout")
 				if room_code_cancelled: return
