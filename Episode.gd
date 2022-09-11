@@ -448,11 +448,13 @@ func play_intro_2():
 		S.play_voice("lifesaver2"); yield(S, "voice_end")
 		if skipped: return
 		hud.give_lifesaver()
-		S.play_voice("lifesaver2_tute0");
-		c_box.lifesaver_tutorial(0); yield(c_box.anim, "animation_finished")
+		c_box.lifesaver_tutorial(0)
 		c_box.lifesaver_tutorial(1)
+		#yield(c_box.anim, "animation_finished")
+		S.play_voice("lifesaver2_tute0");
 		yield(S, "voice_end")
 		if skipped: return
+		c_box.lifesaver_tutorial(3)
 		S.play_voice("lifesaver2_tute1"); yield(S, "voice_end")
 		if skipped: return
 		disable_skip()
