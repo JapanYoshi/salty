@@ -1847,7 +1847,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "points": PoolRealArray( 64, -0.5, 0, 0.1, 480, 856, -0.8, 0, 0.3, 0 ),
-"times": PoolRealArray( 0, 0.9375 )
+"times": PoolRealArray( 0, 0.75 )
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Content/Head/TextureRect:rect_scale")
@@ -1856,10 +1856,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.75, 0.78125 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
 [node name="Control" type="NinePatchRect"]
@@ -1906,8 +1906,8 @@ __meta__ = {
 
 [node name="Head" type="ColorRect" parent="LikeScreen/Content"]
 margin_right = 448.0
-margin_bottom = 850.0
-rect_min_size = Vector2( 0, 850 )
+margin_bottom = 856.0
+rect_min_size = Vector2( 0, 856 )
 color = Color( 0.12549, 0.372549, 0.823529, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="LikeScreen/Content/Head"]
@@ -1920,7 +1920,7 @@ margin_top = -64.0
 margin_right = 256.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 512, 128 )
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 256, 64 )
 texture = ExtResource( 6 )
 expand = true
@@ -1930,7 +1930,7 @@ __meta__ = {
 }
 
 [node name="Body" type="ColorRect" parent="LikeScreen/Content"]
-margin_top = 850.0
+margin_top = 856.0
 margin_right = 448.0
 margin_bottom = 856.0
 size_flags_horizontal = 3
@@ -1961,9 +1961,8 @@ anims/title = SubResource( 43 )
 [node name="CenterContainer" type="CenterContainer" parent="LikeScreen/Content/Body/VBox/Question"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 480.0
+margin_left = 8.0
 margin_top = 4.0
-margin_right = 472.0
 margin_bottom = -4.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2055,9 +2054,9 @@ fit_content_height = true
 [node name="CenterContainer2" type="CenterContainer" parent="LikeScreen/Content/Body/VBox/Question"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 488.0
+margin_left = 480.0
 margin_top = 4.0
-margin_right = 480.0
+margin_right = 472.0
 margin_bottom = -4.0
 __meta__ = {
 "_edit_use_anchors_": false

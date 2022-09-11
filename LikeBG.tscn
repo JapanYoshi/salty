@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://LikeBG.gd" type="Script" id=1]
 [ext_resource path="res://LikePhone.tscn" type="PackedScene" id=2]
@@ -278,21 +278,6 @@ viewport_path = NodePath("ViewportContainer/Viewport")
 
 [sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="Animation" id=19]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("LB:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-
 [sub_resource type="Animation" id=2]
 resource_name = "logo"
 length = 2.0
@@ -340,7 +325,7 @@ tracks/3/loop_wrap = false
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.8 ),
+"times": PoolRealArray( 0, 1.98 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0.12549, 0.372549, 0.823529, 1 ) ]
@@ -424,10 +409,10 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("LB:visible")
@@ -436,20 +421,56 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("LogoBg:rect_position:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.09 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("LogoBg:rect_size:x")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 1.09 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1280.0, 1280.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("LogoBg/Logo:rect_rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=5]
 resource_name = "outro"
 length = 5.625
-step = 0.03125
+step = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("PhoneTxr:rect_rotation")
 tracks/0/interp = 1
-tracks/0/loop_wrap = true
+tracks/0/loop_wrap = false
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
@@ -461,7 +482,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/path = NodePath("PhoneTxr:rect_pivot_offset")
 tracks/1/interp = 1
-tracks/1/loop_wrap = true
+tracks/1/loop_wrap = false
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
@@ -473,7 +494,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/path = NodePath("PhoneTxr:rect_position")
 tracks/2/interp = 1
-tracks/2/loop_wrap = true
+tracks/2/loop_wrap = false
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
@@ -485,7 +506,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("PhoneTxr:rect_scale")
 tracks/3/interp = 1
-tracks/3/loop_wrap = true
+tracks/3/loop_wrap = false
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
@@ -506,132 +527,132 @@ tracks/4/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 4 )
 } ],
-"times": PoolRealArray( 0 )
+"times": PoolRealArray( 0.07 )
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("LogoBg:rect_size")
 tracks/5/interp = 1
-tracks/5/loop_wrap = true
+tracks/5/loop_wrap = false
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"times": PoolRealArray( 0.002, 2.312, 2.313, 2.812, 2.922 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 256, 256 ), Vector2( 256, 256 ), Vector2( 512, 256 ), Vector2( 512, 256 ), Vector2( 1280, 720 ) ]
+"values": [ Vector2( 512, 360 ), Vector2( 512, 360 ), Vector2( 512, 300 ), Vector2( 512, 300 ), Vector2( 1280, 720 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("LogoBg/Logo:rect_scale")
 tracks/6/interp = 1
-tracks/6/loop_wrap = true
+tracks/6/loop_wrap = false
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.75, 0.9375, 2.3125, 2.5625, 2.8125, 3.0625 ),
-"transitions": PoolRealArray( 3, 1, 0.1, 0.1, 0.3, 1 ),
+"times": PoolRealArray( 0, 0.751, 0.9375, 2.3125, 2.5625, 2.8125, 3.0625 ),
+"transitions": PoolRealArray( 1, 3, 1, 0.1, 0.1, 0.3, 1 ),
 "update": 0,
-"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ), Vector2( 0.63, 0.63 ), Vector2( 0.56, 0.56 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.25, 0.25 ), Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ), Vector2( 0.63, 0.63 ), Vector2( 0.56, 0.56 ), Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("LogoBg:rect_position")
 tracks/7/interp = 1
-tracks/7/loop_wrap = true
+tracks/7/loop_wrap = false
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"times": PoolRealArray( 0, 2.312, 2.313, 2.812, 2.922 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 514, 232 ), Vector2( 514, 232 ), Vector2( 386, 232 ), Vector2( 386, 232 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 391, 179.3 ), Vector2( 391, 179.3 ), Vector2( 389, 209.3 ), Vector2( 389, 209.3 ), Vector2( 0, 0 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("LogoBg:rect_rotation")
 tracks/8/interp = 1
-tracks/8/loop_wrap = true
+tracks/8/loop_wrap = false
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.75, 0.9375 ),
-"transitions": PoolRealArray( 3, 1 ),
+"times": PoolRealArray( 0, 0.9375, 2.312 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ -95.0, 0.0 ]
+"values": [ 0.0, 0.0, 0.0 ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("LogoBg:rect_pivot_offset")
 tracks/9/interp = 1
-tracks/9/loop_wrap = true
+tracks/9/loop_wrap = false
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.75, 0.90625, 0.9375, 2.78125, 2.96875 ),
+"times": PoolRealArray( 0, 2.312, 2.313, 2.812, 2.922 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 128, 128 ), Vector2( 128, 128 ), Vector2( 256, 128 ), Vector2( 256, 128 ), Vector2( 640, 360 ) ]
+"values": [ Vector2( 256, 180 ), Vector2( 256, 180 ), Vector2( 256, 150 ), Vector2( 256, 150 ), Vector2( 640, 360 ) ]
 }
 tracks/10/type = "value"
 tracks/10/path = NodePath("LogoBg:modulate:a")
 tracks/10/interp = 1
-tracks/10/loop_wrap = true
+tracks/10/loop_wrap = false
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.75, 0.78125 ),
-"transitions": PoolRealArray( 1, 1e-05, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
+"values": [ 1.0 ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("LogoBg:color")
 tracks/11/interp = 1
-tracks/11/loop_wrap = true
+tracks/11/loop_wrap = false
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 3.75, 5.625 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.751, 0.752, 3.75, 5.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 0.12549, 0.372549, 0.823529, 0 ), Color( 0.12549, 0.372549, 0.823529, 0 ), Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0.12549, 0.372549, 0.823529, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 tracks/12/type = "value"
 tracks/12/path = NodePath("LogoBg/Logo:modulate")
 tracks/12/interp = 1
-tracks/12/loop_wrap = true
+tracks/12/loop_wrap = false
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
-"times": PoolRealArray( 0, 3.75, 5.625 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.75, 0.751, 3.75, 5.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 tracks/13/type = "value"
 tracks/13/path = NodePath("LB:rect_scale")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 0.78125, 0.9375 ),
-"transitions": PoolRealArray( 6, 1 ),
+"times": PoolRealArray( 0.002, 0.75, 0.9375 ),
+"transitions": PoolRealArray( 1, 6, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.6, 0.6 ) ]
+"values": [ Vector2( 0.999999, 0.999999 ), Vector2( 1, 1 ), Vector2( 0.6, 0.6 ) ]
 }
 tracks/14/type = "value"
 tracks/14/path = NodePath("LB:rect_position")
 tracks/14/interp = 1
-tracks/14/loop_wrap = true
+tracks/14/loop_wrap = false
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0.78125, 0.9375 ),
-"transitions": PoolRealArray( 6, 1 ),
+"times": PoolRealArray( 0.003, 0.75, 0.9375 ),
+"transitions": PoolRealArray( 1, 6, 1 ),
 "update": 0,
-"values": [ Vector2( 224, 0 ), Vector2( 360, 0 ) ]
+"values": [ Vector2( 224, 0 ), Vector2( 224, 0 ), Vector2( 360, 0 ) ]
 }
 tracks/15/type = "value"
 tracks/15/path = NodePath("LB:visible")
 tracks/15/interp = 1
-tracks/15/loop_wrap = true
+tracks/15/loop_wrap = false
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/keys = {
@@ -639,6 +660,18 @@ tracks/15/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("LogoBg/Logo:rect_rotation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.75, 0.939 ),
+"transitions": PoolRealArray( 1, 3, 1 ),
+"update": 0,
+"values": [ -95.0, -95.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -800,9 +833,6 @@ margin_top = -512.0
 margin_bottom = 512.0
 rect_min_size = Vector2( 512, 1024 )
 stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 512, 1024 )
@@ -821,7 +851,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_top = -360.0
-margin_right = 360.001
+margin_right = 360.002
 margin_bottom = 360.0
 rect_pivot_offset = Vector2( 180, 360 )
 script = ExtResource( 11 )
@@ -1048,17 +1078,12 @@ __meta__ = {
 }
 
 [node name="LogoBg" type="ColorRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 514.0
-margin_right = -510.0
-rect_rotation = -95.0
-rect_pivot_offset = Vector2( 128, 128 )
+rect_pivot_offset = Vector2( 256, 180 )
 color = Color( 0.12549, 0.372549, 0.823529, 1 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
+"_edit_group_": true
 }
 
 [node name="Logo" type="TextureRect" parent="LogoBg"]
@@ -1074,12 +1099,8 @@ rect_scale = Vector2( 1.2, 1.2 )
 rect_pivot_offset = Vector2( 512, 128 )
 texture = ExtResource( 3 )
 stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 19 )
 anims/logo = SubResource( 2 )
 anims/outro = SubResource( 5 )
 anims/reveal = SubResource( 4 )
