@@ -23,6 +23,7 @@ var cfg = {
 	subtitles = true,
 	music = true,
 	cutscenes = true,
+	hide_room_code = false,
 	awesomeness = true
 }
 

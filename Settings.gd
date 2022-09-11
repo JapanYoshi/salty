@@ -94,12 +94,12 @@ Animated shaders:
 		o = [
 			{
 				v = false,
-				t = "off",
+				t = "closed",
 				d = "If people want to play along, you want them to keep score on a piece of paper or something."
 			},
 			{
 				v = true,
-				t = "on",
+				t = "open",
 				d = "Let people use their phones as controllers to play along, even without a proper spot as a contestant."
 			}
 		]
@@ -109,12 +109,12 @@ Animated shaders:
 		o = [
 			{
 				v = false,
-				t = "off",
+				t = "hide",
 				d = "Don’t show subtitles on screen."
 			},
 			{
 				v = true,
-				t = "on",
+				t = "show",
 				d = "Show subtitles on screen, so that you can talk over the host without missing what she has to say."
 			}
 		]
@@ -124,12 +124,12 @@ Animated shaders:
 		o = [
 			{
 				v = false,
-				t = "off",
+				t = "mute",
 				d = "No background music, just the host’s voice and you."
 			},
 			{
 				v = true,
-				t = "on",
+				t = "play",
 				d = "Play the bangin’ soundtrack in the background as you play."
 			}
 		]
@@ -139,7 +139,7 @@ Animated shaders:
 		o = [
 			{
 				v = false,
-				t = "off",
+				t = "skip",
 				d = """Skip [i]most[/i] cutscenes and tutorials, and only play the questions.
 Exceptions:
 • Candy Trivia joke
@@ -149,8 +149,23 @@ Exceptions:
 			},
 			{
 				v = true,
-				t = "on",
+				t = "play",
 				d = "Watch all the cutscenes and tutorials for a full experience."
+			}
+		]
+	},{
+		k = "hide_room_code",
+		t = "Start with the room code...",
+		o = [
+			{
+				v = false,
+				t = "visible",
+				d = "Let everyone see the Room Code. Come join in, everyone!"
+			},
+			{
+				v = true,
+				t = "hidden",
+				d = "Hide the Room Code when you connect, and only show the Room Code when you’re ready for it. Ideal for Twitch streamers (if this game garners enough attention for Twitch streamers to stream this game in the first place)."
 			}
 		]
 	},{
