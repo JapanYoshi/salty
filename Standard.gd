@@ -1966,3 +1966,8 @@ func _send_scenes_to(id):
 	for scene in scene_history:
 		print(scene)
 		Ws.send('message', scene, id)
+
+func finish_loading_screen():
+	S.play_track(0, 0.0)
+	loadanim.play("straighten", 0.4, 1.0)
+	anim.play("touchprism_leave")
