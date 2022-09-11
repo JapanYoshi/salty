@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -949,6 +949,35 @@ tracks/1/keys = {
 "values": [ "12 questions, 1 Lifesaver" ]
 }
 
+[sub_resource type="Animation" id=30]
+resource_name = "lifesavers_tute3"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscenes/Label2:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ 1300.0, 720.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "6 more questions!" ]
+}
+
 [sub_resource type="Animation" id=3]
 resource_name = "logo_leave"
 step = 0.05
@@ -1338,6 +1367,7 @@ anims/lifesavers_logo = SubResource( 4 )
 anims/lifesavers_tute0 = SubResource( 5 )
 anims/lifesavers_tute1 = SubResource( 6 )
 anims/lifesavers_tute2 = SubResource( 7 )
+anims/lifesavers_tute3 = SubResource( 30 )
 anims/logo_leave = SubResource( 3 )
 anims/round2 = SubResource( 17 )
 anims/round2_reverse = SubResource( 16 )
@@ -1712,8 +1742,7 @@ rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( -887, -110 )
 custom_styles/panel = SubResource( 27 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
+"_edit_group_": true
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="Cutscenes/CreditBox"]
@@ -1804,18 +1833,16 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Cutscenes/CreditBox"]
-margin_left = -23.0
-margin_top = -136.0
-margin_right = 881.0
-margin_bottom = 89.0
+margin_left = -22.0
+margin_top = -106.0
+margin_right = 882.0
+margin_bottom = 74.0
 rect_rotation = -2.69042
 rect_scale = Vector2( 0.667, 0.667 )
 theme = ExtResource( 14 )
 bbcode_enabled = true
-bbcode_text = "If you made it this far without quitting, you probably liked this game. [b]Thank you![/b]
-This game is purely a work of passion, and like a “f***ing dumbass”, I have no plans for monetization, but you can always [b][url=https://ko-fi.com/itsspelledhaley]support me through Ko-fi[/url][/b] if you’re so generous."
-text = "If you made it this far without quitting, you probably liked this game. Thank you!
-This game is purely a work of passion, and like a “f***ing dumbass”, I have no plans for monetization, but you can always support me through Ko-fi if you’re so generous."
+bbcode_text = "If you made it this far without quitting, you probably liked this game. [b]Thank you![/b] This game is purely a work of passion, and I have no plans for monetization, but you can always [b][url=https://ko-fi.com/itsspelledhaley]support me through Ko-fi[/url][/b] if you’re so generous."
+text = "If you made it this far without quitting, you probably liked this game. Thank you! This game is purely a work of passion, and I have no plans for monetization, but you can always support me through Ko-fi if you’re so generous."
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
