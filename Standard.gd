@@ -361,7 +361,7 @@ func _on_synced_button(input_player, button, new_state):
 			L_synced_button(player, button, new_state)
 
 func R_synced_button(player, button, new_state):
-	if player == -1 or button == -1:
+	if player == -1 or button == -1 or button == 6: # shouldn't be pause button!
 		return
 	var old_state = answers[button].has(player)
 	# if new_state isn't -1, it's the state the option should be in at the end.
