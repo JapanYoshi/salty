@@ -55,7 +55,7 @@ func room_opened():
 		self.connect("tree_exited", Ws, "close_room")
 		$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 1.0)
 		$Instructions/SignupOnline/RoomCode2.set_text("and enter the room code:")
-		room_code_hidden = false
+		room_code_hidden = !R.cfg.hide_room_code
 		toggle_show_room_code()
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 		Ws.connect("player_joined", self, 'remote_queue')

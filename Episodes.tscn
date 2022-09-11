@@ -135,7 +135,7 @@ margin_bottom = 192.0
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Episode description. \\[b]bold[/b]"
-text = "Episode description. \\bold"
+text = "Episode description. \\[b]bold[/b]"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
