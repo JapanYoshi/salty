@@ -19,7 +19,6 @@ fallback/0 = ExtResource( 8 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "AccuracyOff"
-length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Count:rect_scale")
 tracks/0/interp = 1
@@ -27,10 +26,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0, 0.7, 0.9 ),
 "transitions": PoolRealArray( 1, 0.5, 2 ),
 "update": 0,
-"values": [ Vector2( 0.5, 1e-05 ), Vector2( 0.6, 0 ), Vector2( 0.5, 0.5 ) ]
+"values": [ Vector2( 0.6, 0 ), Vector2( 0.6, 0 ), Vector2( 0.5, 0.5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Accuracy:rect_scale")
@@ -39,10 +38,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 2, 0.333333 ),
+"times": PoolRealArray( 0, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 2, 0.333333 ),
 "update": 0,
-"values": [ Vector2( 0.667, 0.667 ), Vector2( 0.6, 0 ) ]
+"values": [ Vector2( 0.667, 0.667 ), Vector2( 0.667, 0.667 ), Vector2( 0.6, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
