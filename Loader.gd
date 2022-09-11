@@ -150,7 +150,7 @@ func load_high_scores():
 
 func load_episode(id):
 	var file = File.new()
-	var err = file.open(episode_path + "/" + id + "/" + id + ".json", File.READ)
+	var err = file.open(episode_path + "/" + id + "/ep.json", File.READ)
 	var data = {}
 	var result = JSON.parse(file.get_as_text())
 	if err == OK and result.error == OK:
