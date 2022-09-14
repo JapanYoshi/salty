@@ -109,7 +109,6 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
-	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
 	voice_list[key] = {
 		player = player,
@@ -248,7 +247,7 @@ func play_sfx(name, speed = 1.0):
 		printerr("SFX not found: ", name)
 
 func play_voice(id):
-	if last_voice != "":
+	if last_voice in voice_list and voice_list[last_voice].player.is_playing():
 		stop_voice(last_voice)
 	# retrieve the voice line "struct" and put it here.
 	# we'll use the 'id', 'subtitle', and 'player' properties
@@ -266,37 +265,44 @@ func play_voice(id):
 	# if you stop the audio on the exact frame you start playing a voice,
 	# this tries to stop an audio player that's already stopped
 #	voice_line.player.call_deferred("play")
+	voice_line.player.connect("finished", self, "_on_voice_end", [id], CONNECT_ONESHOT)
 	voice_line.player.play()
 	_log("Played voice ", id, voice_line.player.get_playback_position())
 
 # Stop the currently playing voice.
-# Optionally supply the voice line that should be playing right now.
+# DEPRECATED: supply the voice line that should be playing right now.
 func stop_voice(should_be_playing = ""):
-	if should_be_playing == "":
+	if should_be_playing != last_voice:
+		if should_be_playing != "":
+			printerr("Tried to stop ", should_be_playing, " which isn't the currently playing voice line.")
 		should_be_playing = last_voice
-	if voice_list.has(should_be_playing):
-		_log("Stopped voice ", should_be_playing, voice_list[should_be_playing].player.get_playback_position())
-		voice_list[should_be_playing].player.stop()
+	if (
+		last_voice in voice_list
+	) and voice_list[last_voice].player.is_playing():
+		sub_node.clear_contents()
+		voice_list[last_voice].player.disconnect("finished", self, "_on_voice_end")
+		voice_list[last_voice].player.stop()
+		_log("Manually stopped voice ", last_voice, voice_list[last_voice].player.get_playback_position())
 		last_voice = ""
-		sub_node.clear()
 		return
 	printerr("Could not stop voice ", last_voice, " because I couldn't find it")
 
 func get_voice_time() -> float:
 	if !voice_list.has(last_voice):
-		printerr("last_voice is", last_voice, "but there is no such voice in voice_list.")
+		print("Last_voice is ", last_voice, " which was not found.")
 		# The ID of the last voice line is not found.
 		# This shouldn't happen, but I'll account for this. 
 		return 0.0
+	print("Last_voice is ", last_voice, " whose progress is ", voice_list[last_voice].player.get_playback_position())
 	return voice_list[last_voice].player.get_playback_position()
 
 func _on_voice_end(voice_id):
+	_log("Naturally finished playing voice ", voice_id, 9999)
 	if is_instance_valid(sub_node):
-		sub_node.show_subtitle("", 0)
-	_log("Finished playing voice ", voice_id, 9999)
-	if voice_id == last_voice:
-		last_voice = ""
-		emit_signal("voice_end", voice_id)
+		sub_node.signal_end_subtitle()
+#	if voice_id == last_voice:
+	last_voice = ""
+	emit_signal("voice_end", voice_id)
 
 func _log(msg, id, seek):
 	print(msg + id + " (%f)" % seek)
