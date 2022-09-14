@@ -21,9 +21,11 @@ var cfg = {
 	room_openness = 2,
 	audience = true,
 	subtitles = true,
-	music = true,
+	overall_volume = 15,
+	music_volume = 15,
 	cutscenes = true,
 	hide_room_code = false,
+	hide_room_code_ingame = false,
 	awesomeness = true
 }
 

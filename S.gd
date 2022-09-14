@@ -304,5 +304,13 @@ func _on_voice_end(voice_id):
 	last_voice = ""
 	emit_signal("voice_end", voice_id)
 
+onready var bgm_bus: int = AudioServer.get_bus_index("BGM")
+
+func set_music_volume(percentage: float):
+	AudioServer.set_bus_volume_db(bgm_bus, linear2db(percentage * percentage))
+
+func set_overall_volume(percentage: float):
+	AudioServer.set_bus_volume_db(0, linear2db(percentage * percentage))
+
 func _log(msg, id, seek):
 	print(msg + id + " (%f)" % seek)

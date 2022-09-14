@@ -4,6 +4,7 @@ var settings_dict = [
 	{
 		k = "graphics_quality",
 		t = "Graphics quality",
+		r = [0, 2],
 		o = [
 			{
 				v = 0,
@@ -26,6 +27,7 @@ Animated shaders:
 	},{
 		k = "room_size",
 		t = "Room size",
+		r = [0, 7],
 		o = [
 			{
 				v = 0,
@@ -71,6 +73,7 @@ Animated shaders:
 	},{
 		k = "room_openness",
 		t = "Room openness",
+		r = [0, 2],
 		o = [
 			{
 				v = 0,
@@ -91,6 +94,7 @@ Animated shaders:
 	},{
 		k = "audience",
 		t = "Audience",
+		r = [0, 1],
 		o = [
 			{
 				v = false,
@@ -106,6 +110,7 @@ Animated shaders:
 	},{
 		k = "subtitles",
 		t = "Subtitles",
+		r = [0, 1],
 		o = [
 			{
 				v = false,
@@ -119,23 +124,68 @@ Animated shaders:
 			}
 		]
 	},{
-		k = "music",
-		t = "Music",
+		k = "overall_volume",
+		t = "Volume",
+		r = [0, 15],
 		o = [
 			{
-				v = false,
-				t = "mute",
-				d = "No background music, just the host’s voice and you."
+				v = 0,
+				t = "Mute",
+				d = "why"
 			},
+			{v =  1,	t = "1/15",	d = ""},
+			{v =  2,	t = "2/15",	d = ""},
+			{v =  3,	t = "3/15",	d = ""},
+			{v =  4,	t = "4/15",	d = ""},
+			{v =  5,	t = "5/15",	d = ""},
+			{v =  6,	t = "6/15",	d = ""},
+			{v =  7,	t = "7/15",	d = ""},
+			{v =  8,	t = "8/15",	d = ""},
+			{v =  9,	t = "9/15",	d = ""},
+			{v = 10,	t = "10/15",	d = ""},
+			{v = 11,	t = "11/15",	d = ""},
+			{v = 12,	t = "12/15",	d = ""},
+			{v = 13,	t = "13/15",	d = ""},
+			{v = 14,	t = "14/15",	d = ""},
 			{
-				v = true,
-				t = "play",
-				d = "Play the bangin’ soundtrack in the background as you play."
+				v = 15,
+				t = "Full",
+				d = "I paid for the whole speaker, I’m gonna use the whole speaker."
+			}
+		]},{
+		k = "music_volume",
+		t = "Music volume",
+		r = [0, 15],
+		o = [
+			{
+				v = 0,
+				t = "Mute",
+				d = "why"
+			},
+			{v =  1,	t = "1/15",	d = ""},
+			{v =  2,	t = "2/15",	d = ""},
+			{v =  3,	t = "3/15",	d = ""},
+			{v =  4,	t = "4/15",	d = ""},
+			{v =  5,	t = "5/15",	d = ""},
+			{v =  6,	t = "6/15",	d = ""},
+			{v =  7,	t = "7/15",	d = ""},
+			{v =  8,	t = "8/15",	d = ""},
+			{v =  9,	t = "9/15",	d = ""},
+			{v = 10,	t = "10/15",	d = ""},
+			{v = 11,	t = "11/15",	d = ""},
+			{v = 12,	t = "12/15",	d = ""},
+			{v = 13,	t = "13/15",	d = ""},
+			{v = 14,	t = "14/15",	d = ""},
+			{
+				v = 15,
+				t = "Full",
+				d = "Play that funky music right into my ears!"
 			}
 		]
 	},{
 		k = "cutscenes",
 		t = "Cutscenes/Tutorials",
+		r = [0, 1],
 		o = [
 			{
 				v = false,
@@ -156,6 +206,7 @@ Exceptions:
 	},{
 		k = "hide_room_code",
 		t = "Start with the room code...",
+		r = [0, 1],
 		o = [
 			{
 				v = false,
@@ -169,8 +220,25 @@ Exceptions:
 			}
 		]
 	},{
+		k = "hide_room_code_ingame",
+		t = "Room code in-game",
+		r = [0, 1],
+		o = [
+			{
+				v = false,
+				t = "visible",
+				d = "Let everyone see the Room Code. Come join in, everyone!"
+			},
+			{
+				v = true,
+				t = "hidden",
+				d = "Don’t show the Room Code while you’re playing. If you disconnect, good luck with that."
+			}
+		]
+	},{
 		k = "awesomeness",
 		t = "Detect awesomeness",
+		r = [0, 1],
 		o = [
 			{
 				v = false,
@@ -191,18 +259,79 @@ onready var temp_config = R.cfg.duplicate()
 onready var vbox = $Scroll/VBoxContainer
 onready var title = $Details/Name
 onready var desc = $Details/Desc
+var setting_elements = []
+var setting_is_bool = []
 var setup_done = false
 
 func _ready():
 	S.play_music("main_theme", 1)
-	for i in range(len(temp_config)):
-		focus_index = i
-		change_desc(true)
-	focus_index = 0
-	vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider").grab_focus()
+	# Set up the options. Finally automate this sucker.
+	var range_used: bool = false
+	var bool_used: bool = false
 	for i in range(len(settings_dict)):
+		focus_index = i # prevent weirdness upon changing slider values
+		var element: Node
+		var s = settings_dict[i]
+		var is_a_boolean = (s.r[0] == 0 and s.r[1] == 1)
+		setting_is_bool.push_back(is_a_boolean)
 		var headline_text = settings_dict[i].t
-		vbox.get_child(1 + i).get_node("VBox/HSplit/Label").set_text(headline_text)
+		if is_a_boolean:
+			element = vbox.get_node("Bool")
+			if bool_used:
+				element = element.duplicate()
+				vbox.add_child(element)
+			else:
+				bool_used = true
+			element.get_node("VBox/HSplit/SBox").set_pressed_no_signal(temp_config[s.k])
+			element.connect("toggled", self, "_on_check_toggled")
+		else:
+			element = vbox.get_node("Range")
+			if range_used:
+				element = element.duplicate()
+				vbox.add_child(element)
+			else:
+				range_used = true
+			element.get_node("VBox/HBoxContainer/HSlider").min_value = s.r[0]
+			element.get_node("VBox/HBoxContainer/HSlider").max_value = s.r[1]
+			element.get_node("VBox/HBoxContainer/HSlider").value = temp_config[s.k]
+			element.connect("value_changed", self, "_on_HSlider_value_changed")
+
+		vbox.move_child(element, i + 1)
+		element.get_node("VBox/HSplit/Label").set_text(headline_text)
+		element.get_node("VBox/HSplit/value").text = s.o[int(temp_config[s.k])].t
+		setting_elements.push_back(element)
+#	for i in range(len(temp_config)):
+#		focus_index = i
+#		change_desc(true)
+	focus_index = 0
+	# signals and focuses
+	for i in range(len(setting_elements)):
+		var element = setting_elements[i]
+		element.connect("mouse_entered", self, "_on_option_mouse_entered", [i])
+		var checkbox: Node
+		if setting_is_bool[i]:
+			checkbox = element.get_node("VBox/HSplit/SBox")
+			checkbox.connect("toggled", self, "_on_check_toggled")
+		else:
+			checkbox = element.get_node("VBox/HBoxContainer/HSlider")
+			checkbox.connect("value_changed", self, "_on_HSlider_value_changed")
+		checkbox.connect("focus_entered", self, "_change_focus", [i])
+		
+		var i_before = posmod(i - 1, len(setting_elements))
+		if setting_is_bool[i_before]:
+			checkbox.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HSplit/SBox").get_path()
+		else:
+			checkbox.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HBoxContainer/HSlider").get_path()
+		var i_after = posmod(i + 1, len(setting_elements))
+		if setting_is_bool[i_after]:
+			checkbox.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HSplit/SBox").get_path()
+		else:
+			checkbox.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HBoxContainer/HSlider").get_path()
+	# finally focus on the first item
+	if setting_is_bool[0]:
+		vbox.get_child(1).get_node("VBox/HSplit/SBox").grab_focus()
+	else:
+		vbox.get_child(1).get_node("VBox/HBoxContainer/HSlider").grab_focus()
 	setup_done = true
 
 func _input(event):
@@ -220,7 +349,9 @@ func change_desc(backwards: bool = true):
 	var setting_name = set.k
 	var options = set.o
 	var val = int(temp_config[set.k])
-	desc.bbcode_text = "[i]" + options[val].t + "[/i] - " + options[val].d
+	desc.bbcode_text = "[i]" + options[val].t + "[/i]"
+	if options[val].d != "":
+		desc.append_bbcode(" - " + options[val].d)
 	var ind = vbox.get_child(1 + focus_index).get_node_or_null("VBox/HSplit/value")
 	if ind:
 		ind.text = options[val].t
@@ -233,6 +364,23 @@ func change_desc(backwards: bool = true):
 			if checkbox:
 				checkbox.set_pressed_no_signal(options[val].v)
 
+# Scroll the currently selected element into view
+onready var scroll: ScrollContainer = $Scroll
+var scroll_margin: float = 16.0
+func scroll_scroller():
+	if scroll.scroll_vertical > setting_elements[focus_index].rect_position.y:
+		print("focused element is too high")
+		scroll.scroll_vertical = \
+			setting_elements[focus_index].rect_position.y\
+			- scroll_margin
+	elif scroll.scroll_vertical + scroll.rect_size.y < setting_elements[focus_index].rect_position.y + setting_elements[focus_index].rect_size.y:
+		print("focused element is too low")
+		scroll.scroll_vertical = \
+			setting_elements[focus_index].rect_position.y\
+			+ setting_elements[focus_index].rect_size.y\
+			- scroll.rect_size.y\
+			+ scroll_margin
+
 func _on_HSlider_value_changed(value):
 	var setting_name = settings_dict[focus_index].k
 	temp_config[setting_name] = value
@@ -240,19 +388,22 @@ func _on_HSlider_value_changed(value):
 		var slider = vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider")
 		if slider:
 			S.play_sfx("key_move", 1.0 + ((0.0 + value) / slider.max_value))
-	if settings_dict[focus_index].k == "graphics_quality":
-		R._set_visual_quality(value)
-	elif settings_dict[focus_index].k == "music":
-		if value == true:
-			S._play_music("options")
-		else:
-			S._stop_music("options")
+	match settings_dict[focus_index].k:
+		"graphics_quality":
+			R._set_visual_quality(value)
+		"music_volume":
+			S.set_music_volume(float(value) / settings_dict[focus_index].r[1])
+		"overall_volume":
+			S.set_overall_volume(float(value) / settings_dict[focus_index].r[1])
 	change_desc()
 
 func _change_focus(extra_arg_0):
+	if focus_index == extra_arg_0: return
 	focus_index = extra_arg_0
 	change_title()
 	change_desc()
+	scroll_scroller()
+	S.play_sfx("menu_move")
 
 func _on_check_toggled(button_pressed):
 	if setup_done:

@@ -302,7 +302,7 @@ scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Scroll"]
 margin_right = 736.0
-margin_bottom = 858.0
+margin_bottom = 226.0
 size_flags_horizontal = 3
 alignment = 2
 
@@ -311,31 +311,31 @@ margin_right = 736.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
 
-[node name="GraphicsQuality" type="PanelContainer" parent="Scroll/VBoxContainer"]
+[node name="Range" type="PanelContainer" parent="Scroll/VBoxContainer"]
 margin_top = 20.0
 margin_right = 736.0
 margin_bottom = 122.0
 rect_min_size = Vector2( 0, 80 )
 theme = ExtResource( 21 )
 
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/GraphicsQuality"]
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/Range"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 728.0
 margin_bottom = 94.0
 
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/GraphicsQuality/VBox"]
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/Range/VBox"]
 margin_right = 720.0
 margin_bottom = 34.0
 
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/GraphicsQuality/VBox/HSplit"]
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/Range/VBox/HSplit"]
 margin_right = 500.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
 
-[node name="value" type="Label" parent="Scroll/VBoxContainer/GraphicsQuality/VBox/HSplit"]
+[node name="value" type="Label" parent="Scroll/VBoxContainer/Range/VBox/HSplit"]
 margin_left = 504.0
 margin_top = 3.0
 margin_right = 720.0
@@ -348,15 +348,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/GraphicsQuality/VBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/Range/VBox"]
 margin_top = 38.0
 margin_right = 720.0
 margin_bottom = 86.0
 
-[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/GraphicsQuality/VBox/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/Range/VBox/HBoxContainer"]
 margin_right = 720.0
 margin_bottom = 48.0
-focus_neighbour_bottom = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
 size_flags_horizontal = 3
 max_value = 2.0
 value = 2.0
@@ -364,132 +363,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RoomSize" type="PanelContainer" parent="Scroll/VBoxContainer"]
+[node name="Bool" type="PanelContainer" parent="Scroll/VBoxContainer"]
 margin_top = 126.0
 margin_right = 736.0
-margin_bottom = 228.0
+margin_bottom = 206.0
 rect_min_size = Vector2( 0, 80 )
 theme = ExtResource( 21 )
 
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/RoomSize"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 94.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/RoomSize/VBox"]
-margin_right = 720.0
-margin_bottom = 34.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/RoomSize/VBox/HSplit"]
-margin_right = 500.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/RoomSize/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 3.0
-margin_right = 720.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/RoomSize/VBox"]
-margin_top = 38.0
-margin_right = 720.0
-margin_bottom = 86.0
-
-[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/RoomSize/VBox/HBoxContainer"]
-margin_right = 720.0
-margin_bottom = 48.0
-focus_neighbour_top = NodePath("../../../../GraphicsQuality/VBox/HBoxContainer/HSlider")
-focus_neighbour_bottom = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
-size_flags_horizontal = 3
-max_value = 7.0
-value = 7.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RoomOpenness" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 232.0
-margin_right = 736.0
-margin_bottom = 334.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/RoomOpenness"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 94.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/RoomOpenness/VBox"]
-margin_right = 720.0
-margin_bottom = 34.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/RoomOpenness/VBox/HSplit"]
-margin_right = 500.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/RoomOpenness/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 3.0
-margin_right = 720.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/VBoxContainer/RoomOpenness/VBox"]
-margin_top = 38.0
-margin_right = 720.0
-margin_bottom = 86.0
-
-[node name="HSlider" type="HSlider" parent="Scroll/VBoxContainer/RoomOpenness/VBox/HBoxContainer"]
-margin_right = 720.0
-margin_bottom = 48.0
-focus_neighbour_top = NodePath("../../../../RoomSize/VBox/HBoxContainer/HSlider")
-focus_neighbour_bottom = NodePath("../../../../Audience/VBox/HSplit/SBox")
-size_flags_horizontal = 3
-max_value = 2.0
-value = 2.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Audience" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 338.0
-margin_right = 736.0
-margin_bottom = 418.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/Audience"]
+[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/Bool"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 728.0
 margin_bottom = 72.0
 
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/Audience/VBox"]
+[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/Bool/VBox"]
 margin_right = 720.0
 margin_bottom = 64.0
 
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/Audience/VBox/HSplit"]
+[node name="Label" type="Label" parent="Scroll/VBoxContainer/Bool/VBox/HSplit"]
 margin_top = 15.0
 margin_right = 500.0
 margin_bottom = 49.0
@@ -497,7 +388,7 @@ rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 24 )
 
-[node name="value" type="Label" parent="Scroll/VBoxContainer/Audience/VBox/HSplit"]
+[node name="value" type="Label" parent="Scroll/VBoxContainer/Bool/VBox/HSplit"]
 margin_left = 504.0
 margin_top = 18.0
 margin_right = 652.0
@@ -507,234 +398,17 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
 clip_text = true
 
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/Audience/VBox/HSplit"]
+[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/Bool/VBox/HSplit"]
 margin_left = 656.0
 margin_right = 720.0
 margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../RoomOpenness/VBox/HBoxContainer/HSlider")
-focus_neighbour_bottom = NodePath("../../../../PanelContainer6/VBox/HSplit/SBox")
-pressed = true
-align = 2
-
-[node name="PanelContainer6" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 422.0
-margin_right = 736.0
-margin_bottom = 502.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer6"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer6/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../Audience/VBox/HSplit/SBox")
-focus_neighbour_bottom = NodePath("../../../../PanelContainer3/VBox/HSplit/SBox")
-pressed = true
-align = 2
-
-[node name="PanelContainer3" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 506.0
-margin_right = 736.0
-margin_bottom = 586.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer3"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer3/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-pressed = true
-align = 2
-
-[node name="PanelContainer4" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 590.0
-margin_right = 736.0
-margin_bottom = 670.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer4"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer4/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-pressed = true
-align = 2
-
-[node name="PanelContainer5" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 674.0
-margin_right = 736.0
-margin_bottom = 754.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer5"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer5/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../PanelContainer4/VBox/HSplit/SBox")
-focus_neighbour_bottom = NodePath("../../../../PanelContainer7/VBox/HSplit/SBox")
-pressed = true
-align = 2
-
-[node name="PanelContainer7" type="PanelContainer" parent="Scroll/VBoxContainer"]
-margin_top = 758.0
-margin_right = 736.0
-margin_bottom = 838.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="Scroll/VBoxContainer/PanelContainer7"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="Scroll/VBoxContainer/PanelContainer7/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="Scroll/VBoxContainer/PanelContainer7/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="Scroll/VBoxContainer/PanelContainer7/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="Scroll/VBoxContainer/PanelContainer7/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-focus_neighbour_top = NodePath("../../../../PanelContainer5/VBox/HSplit/SBox")
 pressed = true
 align = 2
 
 [node name="BottomSpacer" type="Control" parent="Scroll/VBoxContainer"]
-margin_top = 842.0
+margin_top = 210.0
 margin_right = 736.0
-margin_bottom = 858.0
+margin_bottom = 226.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="Details" type="Panel" parent="."]
@@ -816,33 +490,6 @@ margin_bottom = -16.0
 grow_vertical = 0
 text = "Clear question cache"
 
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/GraphicsQuality" to="." method="_on_option_mouse_entered" binds= [ 0 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/GraphicsQuality/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 0 ]]
-[connection signal="value_changed" from="Scroll/VBoxContainer/GraphicsQuality/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/RoomSize" to="." method="_on_option_mouse_entered" binds= [ 1 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/RoomSize/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 1 ]]
-[connection signal="value_changed" from="Scroll/VBoxContainer/RoomSize/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/RoomOpenness" to="." method="_on_option_mouse_entered" binds= [ 2 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/RoomOpenness/VBox/HBoxContainer/HSlider" to="." method="_change_focus" binds= [ 2 ]]
-[connection signal="value_changed" from="Scroll/VBoxContainer/RoomOpenness/VBox/HBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/Audience" to="." method="_on_option_mouse_entered" binds= [ 3 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/Audience/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 3 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/Audience/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer6" to="." method="_on_option_mouse_entered" binds= [ 4 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 4 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer6/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer3" to="." method="_on_option_mouse_entered" binds= [ 5 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 5 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer3/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer4" to="." method="_on_option_mouse_entered" binds= [ 6 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 6 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer4/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer5" to="." method="_on_option_mouse_entered" binds= [ 7 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 7 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer5/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
-[connection signal="mouse_entered" from="Scroll/VBoxContainer/PanelContainer7" to="." method="_on_option_mouse_entered" binds= [ 8 ]]
-[connection signal="focus_entered" from="Scroll/VBoxContainer/PanelContainer7/VBox/HSplit/SBox" to="." method="_change_focus" binds= [ 7 ]]
-[connection signal="toggled" from="Scroll/VBoxContainer/PanelContainer7/VBox/HSplit/SBox" to="." method="_on_check_toggled"]
 [connection signal="back_pressed" from="BackButton" to="." method="_on_BackButton_back_pressed"]
 [connection signal="back_pressed" from="SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="SaveButton/Panel" to="SaveButton" method="_on_Panel_pressed"]
