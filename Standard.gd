@@ -85,6 +85,7 @@ var no_answer_audience = []
 # players who used a lifesaver.
 # audience members won't get one.
 var used_lifesaver = []
+var lifesaver_is_activated: bool = false
 # players who answered wrong.
 # player IDs are moved from answers to answered_wrong as the correct answer gets revealed.
 var answered_wrong = []
@@ -264,7 +265,7 @@ func _gp_button(input_player, button, pressed):
 					if option != -1:
 						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
-						# TODO: check if everyone's answered
+						
 						if is_audience:
 							no_answer_audience.erase(player)
 						else:
@@ -429,6 +430,10 @@ func answer_submitted(text):
 	kb.disconnect("text_confirmed", self, "answer_submitted")
 	timer.stop_timer()
 	timer.hide_timer()
+	# In case buzz in voice hasn't stopped yet, stop it before unloading
+	# and loading a different one
+	S.stop_voice("buzz_in")
+	Loader.load_random_voice_line("buzz_in", "buzz_in")
 	# blank?
 	if len(text) == 0:
 		Loader.load_random_voice_line("gib_wrong", "gib_blank")
@@ -450,7 +455,7 @@ func answer_submitted(text):
 			# TODO: Host-specific cuss lines
 			cuss_level = 1
 			# preload lines
-			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_b1", "cuss_c0"]:
+			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
 				var value = Loader.random_dict.audio_episode[key][0]
 				S.preload_ep_voice(key, value.v, "", value.s)
 				
@@ -459,14 +464,14 @@ func answer_submitted(text):
 			yield(S, "voice_end")
 			# deduct score
 			S.play_sfx("naughty")
-			hud.punish_players(answers[0], 100)
+			hud.punish_players(answers[0], 10000)
 			yield(get_tree().create_timer(1.25), "timeout")
 			# "why don't we take away some more points"
 			S.play_voice("cuss_a1")
 			yield(S, "voice_end")
 			# deduct score again
 			S.play_sfx("naughty")
-			hud.punish_players(answers[0], 900)
+			hud.punish_players(answers[0], 90000)
 			yield(get_tree().create_timer(1.25), "timeout")
 			# let's get back to the game
 			S.play_voice("cuss_a2")
@@ -474,12 +479,9 @@ func answer_submitted(text):
 		elif cuss_level == 1:
 			cuss_level = 2
 			# "take a look at your score"
-			S.play_voice("cuss_b0")
-			yield(S, "voice_end")
 			# DON'T deduct score
-			yield(get_tree().create_timer(3.3), "timeout")
 			# let's get back to the game
-			S.play_voice("cuss_b1")
+			S.play_voice("cuss_b0")
 			return
 		else:
 			# "you know what we quit"
@@ -489,7 +491,8 @@ func answer_submitted(text):
 			return
 	else:
 		print("incorrect")
-		Loader.load_random_voice_line("gib_wrong",
+		Loader.load_random_voice_line(
+			"gib_wrong",
 			"gib_early" if gib_clues == 0 else
 			"gib_wrong" if gib_clues < 3 else
 			"gib_late"
@@ -512,7 +515,7 @@ func _on_gib_audience_answer(message, from, finalize: bool):
 # for cosmetic animation/sfx.
 func player_buzz_in(player):
 	hud.player_buzzed_in(player)
-	S.play_sfx("lock_in", pow(2.0, float(randi() % 4) / 12.0))
+	S.play_sfx("lock_in", [1.0/1.0, 9.0/8.0, 5.0/4.0, 3.0/2.0][randi() % 4])
 
 func reset_answers():
 	answers = [[], [], [], [], [], []]
@@ -560,6 +563,7 @@ func change_stage(next_stage):
 		for k in musics[question_type]:
 			S.preload_music(k)
 		$Qbox/Candy.hide()
+		lifesaver_is_activated = false
 		match question_type:
 			"N":
 				$BG/ColorRect.show()
@@ -708,7 +712,7 @@ func change_stage(next_stage):
 				"thousand" if question_type == "T" else
 				"candy" if question_type == "C" else
 				# TODO: Implement Rage question type on controller
-#				"normal" if question_type == "O" else
+				"rage" if question_type == "O" else
 				"normal", {
 				"question": question.bbcode_text,
 				"options": data.options.t
@@ -863,7 +867,7 @@ func change_stage(next_stage):
 		timer.start_timer(true)
 	elif stage == "options" or stage == "countdown" and next_stage == "reveal":
 		stage = "reveal"
-		if !len(used_lifesaver) or len(answered_wrong):
+		if !len(used_lifesaver) or lifesaver_is_activated:
 			ep.set_pause_penalty(false)
 		set_buzz_in(false)
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
@@ -874,10 +878,16 @@ func change_stage(next_stage):
 		yield(get_tree().create_timer(0.25), "timeout")
 		stop_remote_buzz_in()
 		# which version of the line will Candy say?
-		if not(len(answers[0]) or len(answers[1]) or len(answers[2]) or len(answers[3]) or len(used_lifesaver)):
+		if lifesaver_is_activated: # TODO
+			# lifesaver already used, don't play a voice line
+			pass
+		elif not(len(answers[0]) or len(answers[1]) or len(answers[2]) or len(answers[3]) or len(used_lifesaver)):
 			# crickets: nobody answered
 			S.play_voice("reveal_crickets")
-		elif len(used_lifesaver) == 0 and len(answers[0]) and len(answers[1]) and len(answers[2]) and len(answers[3]):
+		elif (
+			#len(used_lifesaver) == 0 and
+			len(answers[0]) and len(answers[1]) and len(answers[2]) and len(answers[3])
+		):
 			# split: at least 1 person chose each of the 4 options
 			S.play_voice("reveal_split")
 		elif 0 == len(no_answer) and 0 == len(answered_wrong) and len(used_lifesaver) == 0 and ( # if everyone chose the same option, exactly 3 options will be not true
@@ -1244,43 +1254,30 @@ func _on_voice_end(voice_id):
 		"gib_genre":
 			change_stage("gib_question")
 		"gib_question":
-			if voice_id == "question":
-				bgs.G.countdown()
-				return
-			elif voice_id == "reveal":
-				change_stage("gib_answer")
-				return
-			elif voice_id == "gib_wrong":
-				# penalize
-				S.play_sfx("option_wrong")
-				hud.punish_players(answers[0], bgs.G.value)
-				# no people left to buzz in?
-				yield(get_tree().create_timer(1.5), "timeout")
-				# pass through to "prepare for next player"
-			elif voice_id == "cuss_a2":
-				# pass through to "prepare for next player"
-				pass
-			elif voice_id == "cuss_b1":
-				hud.punish_players(answers[0], 0)
-				# pass through to "prepare for next player"
-			else:
-				return
-			# prepare for next player
-			if len(no_answer) == 0:
-				S.play_track(0, 0.0)
-				S.play_track(1, 0.0)
-				S.play_voice("reveal")
-			else:
-				# load next wrong line
-				#S.cycle_voices(["gib_wrong0", "gib_wrong1", "gib_wrong2"])
-				
-				# prepare buzz in
-				answers[0] = []
-				S.play_track(0, 1.0)
-				S.play_track(1, 1.0)
-				bgs.G.countdown_pause(false)
-				stage = "gib_question"
-				set_buzz_in(true)
+			match voice_id:
+				"question":
+					bgs.G.countdown()
+					return
+				"reveal":
+					change_stage("gib_answer")
+					return
+				"gib_wrong":
+					# penalize
+					S.play_sfx("option_wrong")
+					hud.punish_players(answers[0], bgs.G.value)
+					# no people left to buzz in?
+					yield(get_tree().create_timer(1.5), "timeout")
+					# pass through to "prepare for next player"
+					G_prepare_next_player()
+				"cuss_a2":
+					# pass through to "prepare for next player"
+					G_prepare_next_player()
+				"cuss_b1":
+					hud.punish_players(answers[0], 0)
+					# pass through to "prepare for next player"
+					G_prepare_next_player()
+				_:
+					pass
 		
 		"thou_setup":
 			match voice_id:
@@ -1387,6 +1384,7 @@ func _on_voice_end(voice_id):
 			reveal_option(correct_answer)
 		"before_countdown":
 			set_buzz_in(true)
+			lifesaver_is_activated = true
 			no_answer = used_lifesaver
 			used_lifesaver = []
 			change_stage("countdown")
@@ -1791,6 +1789,21 @@ func G_checkpoint(id: int):
 			S.play_voice("reveal")
 			print("Gibberish gave up")
 			bgs.G.disconnect("checkpoint", self, "G_checkpoint")
+
+func G_prepare_next_player():
+	# prepare for next player
+	if len(no_answer) == 0:
+		S.play_track(0, 0.0)
+		S.play_track(1, 0.0)
+		S.play_voice("reveal")
+	else:
+		# prepare buzz in
+		answers[0] = []
+		S.play_track(0, 1.0)
+		S.play_track(1, 1.0)
+		bgs.G.countdown_pause(false)
+		stage = "gib_question"
+		set_buzz_in(true)
 
 func T_checkpoint(id: int):
 	if id == 0:
