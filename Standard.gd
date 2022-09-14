@@ -426,7 +426,7 @@ func activate_keyboard(player):
 	answers[0].append(player)
 
 func answer_submitted(text):
-	print(text)
+	print("answer_submitted: " + text)
 	kb.disconnect("text_confirmed", self, "answer_submitted")
 	timer.stop_timer()
 	timer.hide_timer()
@@ -1739,8 +1739,8 @@ func S_show_answer():
 				else:
 					audience_answered += 1
 					accuracy_audience[(p - len(R.players)) * 2 + 1] += 1
-	print(accuracy)
-	print(accuracy_audience)
+	print("ply acc:", accuracy)
+	print("aud acc:", accuracy_audience)
 	if len(accuracy_audience):
 		# gdscript errors on 0.0/0.0 so I manually produce NAN
 		if audience_answered:
@@ -2002,7 +2002,7 @@ func _on_player_requested_nick(id):
 
 func _send_scenes_to(id):
 	for scene in scene_history:
-		print(scene)
+		print("Scene: ", scene)
 		Ws.send('message', scene, id)
 
 func finish_loading_screen():
