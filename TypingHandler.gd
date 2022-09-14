@@ -119,7 +119,7 @@ func submit():
 	can_type = false
 	emit_signal("text_confirmed", tbox.get_text().strip_edges())
 	$Anim.play("Hide")
-	print(Ws.get_signal_connection_list('remote_typing'))
+	print("Signal remote_typing was connected to ", len(Ws.get_signal_connection_list('remote_typing')), " nodes.")
 	if self in Ws.get_signal_connection_list('remote_typing'):
 		Ws.disconnect('remote_typing', self, 'remote_typing')
 
