@@ -181,7 +181,7 @@
   ]
   , "multiple_names_censored" : [
     {"v": "multiple_names_censored_00", "s": "I see your lack of originality. Let me fix that up by giving you some decent names."},
-    {"v": "multiple_names_censored_01", "s": "You sound like you’re the frat type who drinks a six-pack a day and burps at each other’s faces[#4865#]watching Frasier or Wacked Out Sports. Some new names are in order."},
+    {"v": "multiple_names_censored_01", "s": "You sound like you’re that frat type who drinks a six-pack a day and burps at each other’s faces[#4865#]watching Frasier or Wacked Out Sports. Some new names are in order."},
     {"v": "multiple_names_censored_02", "s": "You want an easter egg? You get an embarrassing name each."}
   ]
   , "give_multiple_names": [
@@ -284,77 +284,65 @@
   , {"v": "outro_slam_08", "s": "Yay. /s"}
   , {"v": "outro_slam_09", "s": "’Cause I’m not."}
   ]
-  , "cuss_a0": [
+  , "cuss_a0_legacy": [
     {"v": "cuss_a0", "s": "[b]Robot voice:[/b] Congratulations! You have unlocked the “fuck you” easter egg.[#4362#]Please take a look at your score to receive your prize."}
   ]
-  , "cuss_a1": [
+  , "cuss_a1_legacy": [
     {"v": "cuss_a1", "s": "[b]Robot voice:[/b] Please note that it is discouraged for someone else to continue doing the same thing.[#4509#]You will be penalized further as a warning."}
   ]
-  , "cuss_a2": [
+  , "cuss_a2_legacy": [
     {"v": "cuss_a2", "s": "[b]Robot voice:[/b] It is advisable that we get back to the question."}
   ]
-  , "cuss_b0": [
-    {"v": "cuss_b0", "s": "[b]Robot voice:[/b] Congratulations for revealing the second layer of the “fuck you” easter egg![#4557#]Please take a look at your score to receive your prize."}
+  , "cuss_b0_legacy": [
+    {"v": "cuss_b0", "s": "[b]Robot voice:[/b] Congratulations for revealing the second layer of the “fuck you” easter egg![#4557#]Please take a look at your score to receive your prize.[#7935#][b]Robot voice:[/b] There is no prize, because typing in “fuck you” is no longer original.[#15886#]Please get back to the question."}
   ]
-  , "cuss_b1": [
-    {"v": "cuss_b1", "s": "[b]Robot voice:[/b] There is no prize, because typing in “fuck you” is no longer original.[#4851#]Please get back to the question."}
-  ]
-  , "cuss_c0": [
+  , "cuss_c0_legacy": [
     {"v": "cuss_c0", "s": "[b]Robot voice:[/b] Congratulations for discovering the only possible way that you can earn a game over.[#5176#]Please enjoy the game over screen prepared for this express purpose."}
   ]
   , "cuss_a0_daisy": [
-    {"v": "cuss_a0", "s": ""}
+    {"v": "cuss_a0_daisy", "s": "[b]Candy:[/b] Oh, you wanna fuck me, huh? I’m not a slut, you know.[#3451#]You gotta be more sensitive, caring, romantic...[##]Yeah, I’m an expensive girl to date.[#9181#]In fact, your remark just cost you."}
   ]
   , "cuss_a1_daisy": [
-    {"v": "cuss_a1", "s": ""}
+    {"v": "cuss_a1_daisy", "s": "[b]Candy:[/b] Ugh, I’m gonna have to edit this out later.[#2010#][b]Daisy:[/b] I know what to do with people like you.\n[b]Candy:[/b] Daisy?[#4838#][b]Daisy:[/b] You see, when you signed up for the game, I actually looked you up online.\n[b]Candy:[/b] Daisy, wha—[#9263#][b]Daisy:[/b] And I found your full name on a high school publication,[#11888#][i]and[/i] found your Facebook profile from your name and your general area.[#15455#][b]Candy:[/b] [i][shocked][/i] Daisy, holy shit![#16966#][b]Daisy:[/b] And I got your email from there, and I looked you up on a password database, leaked from—[#20821#][b]Candy:[/b] Whoa, whoa, whoa! Why don’t we just change his name?[#23261#][b]Daisy:[/b] Eh, if it works for you, it’s fine by me."}
   ]
   , "cuss_a2_daisy": [
-    {"v": "cuss_a2", "s": ""}
+    {"v": "cuss_a2_daisy", "s": "[b]Candy:[/b] Well, that should be enough of a punishment to scare you away from doing that same stupid stunt again.[#5571#]Let’s get back to the game."}
   ]
   , "cuss_b0_daisy": [
-    {"v": "cuss_b0", "s": ""}
-  ]
-  , "cuss_b1_daisy": [
-    {"v": "cuss_b1", "s": ""}
+    {"v": "cuss_b0_daisy", "s": "[b]Candy:[/b] Didn’t your teacher tell you that plagiarism is wrong?[#3080#]Oh! And why not hook up with that other guy who told me that just now?[#6417#]Get a room, you disgusting stupid couple, you.[#9607#][b]Daisy:[/b] See?! I knew this wasn’t enough! Hey! Other contestant! Guess what?[#13488#][b]Candy:[/b] Daisy, no!\n[b]Daisy:[/b] I also happened to try [i]your[/i] email–password combination on a bunch of other websites, and—[#18849#]Oh-ho-ho boy, I found [i]a lot[/i] of ammo.[#23358#][b]Candy:[/b] Daisy, you’re scaring me![#24493#][b]Daisy:[/b] What should I read first...?[#26763#]Embarrassing fanfiction... Cheesy poems I can only assume are to your crush...[#31847#][i](gasp)[/i] Your Amazon purchase history?![#34064#][b]Candy:[/b] We are [i]not[/i] doxxing our contestants over a swear word![#38384#][b]Candy:[/b] Both of you contestants, fuck you right back, but please change your password on... everything...[#44243#]And also, take a good, long look at your score.[#47381#][#49849#]See what I did there? Literally nothing.[#52381#]Because I’m not gonna give you the catharsis of seeing a result for your actions this time.[#57036#]How’s that for subversion of expectation, huh?[#60237#]Maybe next time you buzz in, let’s see if you can answer the fucking question.[#64589#]Ya bone-head. Let’s get back to the game."}
   ]
   , "cuss_c0_daisy": [
-    {"v": "cuss_c0", "s": ""}
+    {"v": "cuss_c0", "s": "[b]Candy:[/b] Good grief. When I said I wanted this game to be like You Don’t Know Jack, I didn’t mean it [i]this[/i] literally.[#5324#]But hey, you want an easter egg? I’m gonna do us all a favor and close the game.[#9945#]See you when you want to, y’know, [i]play the game?[/i][#13209#][b]Daisy:[/b] Hey, Candy! Want me to release a virus onto this last guy’s phone?\n[b]Candy:[/b] [i]No![/i][#16767#][#17833#][b]Daisy:[/b] Please?"}
   ]
   , "cuss_a0_miles": [
-    {"v": "cuss_a0", "s": ""}
+    {"v": "cuss_a0_miles", "s": ""}
   ]
   , "cuss_a1_miles": [
-    {"v": "cuss_a1", "s": ""}
+    {"v": "cuss_a1_miles", "s": ""}
   ]
   , "cuss_a2_miles": [
-    {"v": "cuss_a2", "s": ""}
+    {"v": "cuss_a2_miles", "s": ""}
   ]
   , "cuss_b0_miles": [
-    {"v": "cuss_b0", "s": ""}
-  ]
-  , "cuss_b1_miles": [
-    {"v": "cuss_b1", "s": ""}
+    {"v": "cuss_b0_miles", "s": ""}
   ]
   , "cuss_c0_miles": [
-    {"v": "cuss_c0", "s": ""}
+    {"v": "cuss_c0_miles", "s": ""}
   ]
   , "cuss_a0_ozzy": [
-    {"v": "cuss_a0", "s": ""}
+    {"v": "cuss_a0_ozzy", "s": "[Candy] Oh, great. See, I told them this would happen one day.[#3153#]One day, some immature fucko would rock up and think it would be funny to flip me off.[#8448#]Well, you know what, buster? I happen to know a potty mouth who will make yours look like a kitty litter mouth.[#14491#][shouting] Hey! Ozzy! Get in here![#16990#](door opens)\n[Ozzy] What do you want for me now, Candy?! I’m about to have lunch here![#20671#][Candy] That bowl of offal you call lunch can wait, Ozzy. Here, have a gander at what this player typed.[#25923#][Ozzy] What? Why should I care what one your contestants says—[#28887#][#29857#][i](uproarious laughter)[/i][#35647#][Candy] You... find this funny?[#37862#][Ozzy] Oh! That’s classic! [i](continued laughter)[/i][#41268#][Candy] You have got to be kidding me.[#42924#][Ozzy] Hey! Kiddo! [i][stumbling over words in laughter][/i] Next time, why don’t you tell her to drop her britches first [i][inaudible][/i] before saying-[#47849#][Candy] Ozzy, shut up! I dragged you here to help me punish this player, not to make them feel good about it![#52764#][Ozzy] Why not? This is the best thing that has ever happened around here! (extended laughter)[#61011#][Candy] Okay, never mind, you were useless anyway. I’ll deal with this fucker myself.[#64902#]Hey, you! Watch this!"}
   ]
   , "cuss_a1_ozzy": [
-    {"v": "cuss_a1", "s": ""}
+    {"v": "cuss_a1_ozzy", "s": "[Candy] Alright, that’s that dealt with, now— Are you still laughing, you geriatric kookaburra?[#6117#][Ozzy] [i][amid laughter][/i] I haven’t had a laugh this hard in years![#8732#][Candy] Listen, if you’re not going to bother me, could you just... leave? Please?[#12782#][Ozzy] [i][gradually getting farther][/i] Oh! I needed that![#17423#](door closes) I really needed that!"}
   ]
   , "cuss_a2_ozzy": [
-    {"v": "cuss_a2", "s": ""}
+    {"v": "cuss_a2_ozzy", "s": "[Candy] Okay, let’s get back to the game.[#2320#]And don’t pull that kind of trick another time, alright?[#5421#]Or else Ozzy gets it."}
   ]
   , "cuss_b0_ozzy": [
-    {"v": "cuss_b0", "s": ""}
-  ]
-  , "cuss_b1_ozzy": [
-    {"v": "cuss_b1", "s": ""}
+    {"v": "cuss_b0_ozzy", "s": "[Candy] You’re real fucking mature, you know that? You think I’m just going to sit here and take this sort of abuse—[#5537#][i](Ozzy enters, laughing)[/i][#6834#][Candy] [i][flatly][/i] You really are finding this amusing, aren’t you.[#9534#][Ozzy] You bet I do! [i](laughter)[/i][#12613#[/i]Oh, that is peak comedy right there! Peak comedy![#17359#][Candy] Look! I don’t want you endorsing this sort of delinquency, Ozzy! We want to discourage the player from ever doing it again![#23571#][i](Ozzy continues laughing)[/i][#26883#][Candy] [i](clicks tongue)[/i] Okay. There’s only one way to fix this.[#29815#]Hey, Ozzy! You’re taking a mandatory vacation to The Bottom whether you like it or not.[#34181#][#36396#][Ozzy] (stops laughing) Wait, Bottom? What’s this about—[#39465#][i](trap door opens, Ozzy screams as he falls)[/i][#41036#][i](trap door shuts, Candy dusts her hands together as if to say “job well done”)[/i]\n[Candy] Problem solved.[#43883#]Anyway, did you pay attention to your score? See anything different with it?[#47248#]That’s right, nothing. Because I don’t want this kind of crass behavior being repeated again.[#52205#]And if you don’t behave, you’re going to meet Ozzy down below![#55738#]Now, can we please get back to the fucking question?"}
   ]
   , "cuss_c0_ozzy": [
-    {"v": "cuss_c0", "s": ""}
+    {"v": "cuss_c0_ozzy", "s": "[Candy] [i][without faith][/i] You know what? This is just pathetic. I don’t...[#2805#]I don’t have the time or patience to deal with a pack of two-year-old shitheads who have nothing better to do[#7298#]than come into a game and tell me to go fuck myself and—[#10314#]Actually, no, I bet it’s just one 40-year-old bastard, sitting in his mom’s basement,[#15493#]getting a boner to the sound of my voice.[#18245#]You do realize that this is all a video game, right?[#20861#]I’m just some guy named Haley, talking to a mic in a bedroom somewhere in Japan.[#25564#]Yeah, Japan. Small world, huh?[#28517#]Anyway, Candy isn’t a real person. Shit, you’d better fucking hope Candy isn’t a real person,[#33337#]not with all the shit we’ve written her to do.[#36258#]Because, if you’re actually jacking off to some sarcastically enthusiastic goth girl that you can’t even see,[#42470#]you have some serious issues, buddy.[#44464#]And you know what? I’m not going to let you finish. Game’s over.[#48081#]Come back when you’re ready to play this trivia game the way God fucking intended.[#52068#]"}
   ]
   , "too_many_pauses": [
     {"v": "too_many_pauses_00", "s": "Oh, did Dr. Google give you that answer you were looking for?[#3408#]Either way, that answer’s useless now that you’re disqualified. Bye."}

@@ -452,11 +452,35 @@ func answer_submitted(text):
 		S.play_track(0, 0.0)
 		print("fuck you right back, player")
 		if cuss_level == 0:
-			# TODO: Host-specific cuss lines
+			# Host-specific cuss lines. Choose between the 4 sets.
+			# Total number of points to deduct. Make it a multiple of 10.
+			var total_money_deduction: int = 100000
+			# Name to rename the player as. If it's blank, deduct scores in 2 stages instead.
+			var cuss_names = {
+				"legacy": "",
+				"daisy": "Dig Dunny",
+				"miles": "Limp Prick",
+				"ozzy": ""
+			}
+			var cuss_categories = cuss_names.keys()
+			# Don't choose the same co-host as before,
+			# until the player has seen all of them.
+			var used_cuss_lines = R.save_data.misc.cuss_history
+			if len(used_cuss_lines) < len(cuss_categories):
+				for k in used_cuss_lines:
+					cuss_categories.erase(k)
+			var cuss_category = cuss_categories[
+				R.rng.randi_range(0, len(cuss_categories) - 1)
+			]
+			# save it back
+			used_cuss_lines.push_back(cuss_category)
+			R.set_save_data_item("misc", "cuss_history", used_cuss_lines)
+			
+			# Alright, it's screw-back time
 			cuss_level = 1
 			# preload lines
 			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
-				var value = Loader.random_dict.audio_episode[key][0]
+				var value = Loader.random_dict.audio_episode[key + "_" + cuss_category][0]
 				S.preload_ep_voice(key, value.v, "", value.s)
 				
 			# "come on why do people do this"
@@ -464,15 +488,23 @@ func answer_submitted(text):
 			yield(S, "voice_end")
 			# deduct score
 			S.play_sfx("naughty")
-			hud.punish_players(answers[0], 10000)
+			if cuss_names[cuss_category] == "":
+				hud.punish_players(answers[0], total_money_deduction / 10)
+			else:
+				hud.punish_players(answers[0], total_money_deduction)
 			yield(get_tree().create_timer(1.25), "timeout")
 			# "why don't we take away some more points"
 			S.play_voice("cuss_a1")
 			yield(S, "voice_end")
 			# deduct score again
-			S.play_sfx("naughty")
-			hud.punish_players(answers[0], 90000)
-			yield(get_tree().create_timer(1.25), "timeout")
+			if cuss_names[cuss_category] == "":
+				S.play_sfx("naughty")
+				hud.punish_players(answers[0], total_money_deduction * 9 / 10)
+				yield(get_tree().create_timer(1.25), "timeout")
+			else:
+				hud.set_player_name(cuss_names[cuss_category])
+				S.play_sfx("name_change")
+				yield(get_tree().create_timer(0.5), "timeout")
 			# let's get back to the game
 			S.play_voice("cuss_a2")
 			return

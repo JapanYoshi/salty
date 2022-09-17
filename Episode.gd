@@ -267,6 +267,8 @@ func play_intro():
 		1:
 			if R.cfg.cutscenes:
 				q_box.hud.highlight_players(censored_players)
+				S.play_sfx("option_highlight")
+				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("name_censored"); yield(S, "voice_end")
 			R.players[censored_players[0]].name = names[chosen_names[0]].name
 			q_box.hud.set_player_name(censored_players[0], R.players[censored_players[0]].name, true)
@@ -279,11 +281,15 @@ func play_intro():
 					'isVip': false
 				});
 			if R.cfg.cutscenes:
-				S.play_voice("give_name"); yield(S, "voice_end")
+				S.play_sfx("name_change")
+				yield(get_tree().create_timer(0.5), "timeout")
 				q_box.hud.reset_playerboxes(censored_players)
+				S.play_voice("give_name"); yield(S, "voice_end")
 		2, 3:
 			if R.cfg.cutscenes:
 				q_box.hud.highlight_players(censored_players)
+				S.play_sfx("option_highlight")
+				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("multiple_names_censored"); yield(S, "voice_end")
 			# Generate sets of names
 			var new_names = []
@@ -325,6 +331,8 @@ func play_intro():
 						'isVip': false
 					});
 			if R.cfg.cutscenes:
+				S.play_sfx("name_change")
+				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
 				q_box.hud.reset_playerboxes(censored_players)
 		_:
@@ -339,8 +347,10 @@ func play_intro():
 						'playerIndex': R.players[i].player_number,
 						'isVip': false
 					});
-			q_box.hud.punish_players(range(len(R.players)), 500.01)
+			q_box.hud.punish_players(range(len(R.players)), 50001)
 			if R.cfg.cutscenes:
+				S.play_sfx("naughty")
+				yield(get_tree().create_timer(1.0), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
 			q_box.hud.reset_all_playerboxes()
 	

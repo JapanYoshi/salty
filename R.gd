@@ -29,6 +29,47 @@ var cfg = {
 	awesomeness = true
 }
 
+var save_data = {
+	history = {
+		"random": {
+			"last_played": 0,
+			"high_score": -1,
+			"best_accuracy": -1,
+			"locked": false,
+		},
+		"demo": {
+			"last_played": 0,
+			"high_score": -1,
+			"best_accuracy": -1,
+			"locked": false,
+		},
+		"ep_1": {
+			"last_played": 0,
+			"high_score": -1,
+			"best_accuracy": -1,
+			"locked": false,
+		},
+		"ep_2": {
+			"last_played": 0,
+			"high_score": -1,
+			"best_accuracy": -1,
+			"locked": true,
+		},
+		"ep_3": {
+			"last_played": 0,
+			"high_score": -1,
+			"best_accuracy": -1,
+			"locked": true,
+		}
+	},
+	achievements = {
+		
+	},
+	misc = {
+		cuss_history = []
+	}
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -37,6 +78,7 @@ func _ready():
 	if result != OK:
 		print("Could not compile cuss RegEx: error code %d" % result)
 	load_settings()
+	load_save_data()
 	_set_visual_quality(cfg.graphics_quality)
 
 ### Helper function
@@ -74,6 +116,28 @@ func load_settings():
 	for k in config.get_section_keys("config"):
 		# Fetch the data for each section.
 		cfg[k] = config.get_value("config", k)
+
+### save data
+func load_save_data():
+	var save = ConfigFile.new()
+	var err = save.load("user://save.cfg")
+	# If the file didn't load, ignore t.
+	if err != OK:
+		return
+	# If the option isn't present in the file, don't reset it.
+	for s in save.get_sections():
+		for k in save.get_section_keys(s):
+			save_data[s][k] = save.get_value(s, k)
+
+func set_save_data_item(section, key, value):
+	save_data[section][key] = value
+
+func save_save_data():
+	var save = ConfigFile.new()
+	for s in save_data.keys():
+		for k in save_data[s].keys():
+			save.set_value(s, k, save_data[s][k])
+	save.save("user://save.cfg")
 
 ### currency formatting
 var currency_data = {
