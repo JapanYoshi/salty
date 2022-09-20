@@ -4,7 +4,7 @@ const LOCAL_MODE = false
 signal connected()
 signal disconnected()
 # The URL we will connect to
-var websocket_url = "localhost:3001" if LOCAL_MODE else "haitouch.herokuapp.com"
+var websocket_url = "localhost:3001" if LOCAL_MODE else "haitouch.onrender.com"
 var client_name = ""
 var connected = false
 
