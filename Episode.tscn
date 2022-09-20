@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -21,7 +21,7 @@
 [ext_resource path="res://fonts/player_number_font.tres" type="DynamicFont" id=19]
 [ext_resource path="res://images/kb_spiral_letter.png" type="Texture" id=20]
 [ext_resource path="res://images/kb_base.png" type="Texture" id=21]
-[ext_resource path="res://static.tres" type="Shader" id=22]
+[ext_resource path="res://static.webp" type="Texture" id=22]
 [ext_resource path="res://Pause.gd" type="Script" id=23]
 [ext_resource path="res://audio/sfx/pause_exit.wav" type="AudioStream" id=24]
 [ext_resource path="res://audio/sfx/pause_enter.wav" type="AudioStream" id=25]
@@ -1205,15 +1205,6 @@ tracks/1/keys = {
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = ExtResource( 22 )
-shader_param/offset = Vector2( 0, 0 )
-shader_param/canvas_size = Vector2( 1280, 720 )
-shader_param/scale = 714.412
-shader_param/p_time = 0.0
-shader_param/blend = 0.6
-shader_param/radius = 1.5
-
 [sub_resource type="Animation" id=12]
 resource_name = "hide"
 length = 0.5
@@ -1918,17 +1909,26 @@ __meta__ = {
 
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
-material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0.184314, 0.184314, 0.184314, 1 )
+color = Color( 0.196078, 0.227451, 0.203922, 1 )
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Bg" type="TextureRect" parent="Pause"]
+modulate = Color( 1, 1, 1, 0.207843 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 256.0
+margin_bottom = 256.0
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pause"]
 reset_on_save = false

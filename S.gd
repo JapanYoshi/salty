@@ -60,7 +60,7 @@ func _ready():
 	### End testing
 
 func preload_music(name):
-	if !R.cfg.music or music_dict.has(name): return
+	if music_dict.has(name): return
 	var music = load(music_path + name + ".ogg")
 	var player = AudioStreamPlayer.new()
 	player.set_stream(music)
@@ -69,7 +69,7 @@ func preload_music(name):
 	music_dict[name] = player
 
 func unload_music(name):
-	if R.cfg.music or music_dict.has(name):
+	if R.cfg.music_volume > 0 or music_dict.has(name):
 		music_dict[name].queue_free()
 	music_dict.erase(name)
 
@@ -160,12 +160,16 @@ func cycle_voices(keys):
 	items[-1].subtitle = temp_subtitle
 
 func _stop_music(name):
-	if name in music_dict.keys():
+#	print("_stop_music(%s)" % name)
+#	print("check 1: ", name in music_dict.keys())
+#	print("check 2: ", is_instance_valid(music_dict[name]))
+	if name in music_dict.keys() and is_instance_valid(music_dict[name]):
 		music_dict[name].stop()
 		_log("Stopped music ", name, music_dict[name].get_playback_position())
 
 func _set_music_vol(track: int, vol: float, dont_tween = true):
-	if tracks[track] in music_dict.keys():
+	print("S: _set_music_vol(%d, %f, %s)" % [track, vol, str(dont_tween)])
+	if is_instance_valid(music_dict[tracks[track]]):
 		var voldb = max(-80, linear2db(vol) + max_music_db)
 		if dont_tween:
 			music_dict[tracks[track]].set_volume_db(voldb)
@@ -200,13 +204,13 @@ func play_multitrack(
 	name1: String = "", volume_1: float = 0.0,
 	name2: String = "", volume_2: float = 0.0
 ):
-	if tracks[0] in music_dict.keys():
-		_stop_music(tracks[0])
-	if tracks[1] in music_dict.keys():
-		_stop_music(tracks[1])
-	if tracks[2] in music_dict.keys():
-		_stop_music(tracks[2])
-	if !R.cfg.music: return
+#	print("play_multitrack(%s, %f, %s, %f, %s, %f)" % [
+#		name0, volume_0, name1, volume_1, name2, volume_2
+#	])
+	_stop_music(tracks[0])
+	_stop_music(tracks[1])
+	_stop_music(tracks[2])
+	if R.cfg.music_volume == 0: return
 	tracks[0] = name0
 	tracks[1] = name1
 	tracks[2] = name2
@@ -219,15 +223,16 @@ func play_multitrack(
 	if name2 != "":
 		_set_music_vol(2, volume_2)
 		_play_music(name2)
+#	print("play_multitrack finished")
 
 func seek_multitrack(time):
-	if !R.cfg.music: return
+	if !R.cfg.music_volume == 0: return
 	for i in range(3):
-		if tracks[i] in music_dict.keys():
+		if is_instance_valid(music_dict[tracks[i]]):
 			music_dict[tracks[i]].seek(time)
 
 func play_track(track = 0, active = true, dont_tween = false):
-	if !R.cfg.music: return
+	if R.cfg.music_volume == 0: return
 	if tracks[track] != "":
 		_set_music_vol(track, float(active), dont_tween)
 		if track != 0:

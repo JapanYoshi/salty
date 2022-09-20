@@ -4,7 +4,9 @@ var frame = 0
 var delta_cumul = 0.0
 var paused_times = 0
 var device = -1
+const framerate = 30.0
 
+onready var bg = $Bg
 onready var anim = $AnimationPlayer
 onready var number_label = $NinePatchRect/Sprite/Label
 onready var title_label = $NinePatchRect/Label
@@ -18,17 +20,25 @@ func _ready():
 
 func _process(delta):
 	if !visible: return
-	_update_shader(delta)
+	_move_randomly(delta)
+#	_update_shader(delta)
 
-func _update_shader(delta):
-	delta_cumul += delta * 30.0
+func _move_randomly(delta):
+	delta_cumul += delta * framerate
 	if delta_cumul >= 1.0:
 		delta_cumul -= 1.0
 		frame += 1
-		self.material.set_shader_param(
+		bg.rect_position = -256 * Vector2(fmod(frame * 355 / 113.0, 1.0), fmod(frame * 127 / 360.0, 1))
+
+func _update_shader(delta):
+	delta_cumul += delta * framerate
+	if delta_cumul >= 1.0:
+		delta_cumul -= 1.0
+		frame += 1
+		bg.material.set_shader_param(
 			"p_time", fmod(frame * 92.4, 1.0)
 		)
-		self.material.set_shader_param(
+		bg.material.set_shader_param(
 			"offset", Vector2(fmod(frame * 355 / 113.0, 1.0), fmod(frame * 127 / 360.0, 1))
 		)
 
