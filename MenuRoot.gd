@@ -13,9 +13,10 @@ signal next_question_please
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	click_mask.hide()
+	print("MenuRoot readying...")
 	S.play_multitrack("signup_base", 1, "signup_extra", 0, "signup_extra2", 0)
-	S.seek_multitrack(S.music_dict.signup_base.get_playback_position())
+	click_mask.hide()
+	print("MenuRoot readied.")
 	pass # Replace with function body.
 
 func back():
