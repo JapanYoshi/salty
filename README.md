@@ -59,7 +59,7 @@ This game involves some questions with free-response answers. There are 3 typing
 
 ### "Phones as Controllers"
 
-A standard Web browser can be used to play the game by accessing [the hai!touch Controller webpage](https://haitouch.herokuapp.com). Its code is maintained in [this other GitHub repository](https://github.com/JapanYoshi/haitouch-heroku).
+A standard Web browser can be used to play the game by accessing [the hai!touch Controller webpage](https://haitouch.onrender.com). Its code is maintained in [this other GitHub repository](https://github.com/JapanYoshi/haitouch-heroku).
 
 As an improvement to the official You Don't Know Jack games, the full question text and options text are displayed on the device, as well as the correctness of your choices.
 

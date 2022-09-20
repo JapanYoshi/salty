@@ -198,7 +198,7 @@ Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are 
 • Player 4: 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-Phone: Additional players can connect via a Web browser. Go to https://haitouch.herokuapp.com to test it out."
+Phone: Additional players can connect via a Web browser. Go to https://haitouch.onrender.com to test it out."
 fit_content_height = true
 
 [node name="Close" type="Button" parent="About"]
