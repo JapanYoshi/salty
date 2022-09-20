@@ -2019,8 +2019,10 @@ func revert_scene(until):
 	print("Cleared all scene events")
 
 func _on_server_reply(id):
-	if Ws.server_reply_content == "name given":
-		_send_scenes_to(id)
+	# what the fuck does this do?
+	pass
+#	if Ws.server_reply_content == "name given":
+#		_send_scenes_to(Ws.client_name)
 
 func _on_player_requested_nick(id):
 	for i in ep.remote_players:
@@ -2031,6 +2033,7 @@ func _on_player_requested_nick(id):
 				playerIndex = i
 			}, id)
 			_send_scenes_to(id)
+			break
 
 func _send_scenes_to(id):
 	for scene in scene_history:
