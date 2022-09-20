@@ -13,21 +13,21 @@ func _ready():
 	### End testing
 
 func clear_contents():
-	print("SUB CLEAR_CONTENTS")
+#	print("SUB CLEAR_CONTENTS")
 	timer.stop()
 	queue.clear()
 	tbox.bbcode_text = ""
 
 # Queues timed subtitles.
 func queue_subtitles(contents = ""):
-	print("SUB QUEUE_SUBTITLES ", contents)
+#	print("SUB QUEUE_SUBTITLES ", contents)
 	if !R.cfg.subtitles: return
 	queue = Loader.parse_time_markers(contents)
 	show_queued()
 
 # Shows subtitles from the queue. Clears the subtitle if the queue is empty.
 func show_queued():
-	print("SUB SHOW_QUEUED ", queue)
+#	print("SUB SHOW_QUEUED ", queue)
 	if len(queue) == 0:
 		clear_contents()
 		return
@@ -38,7 +38,7 @@ func show_queued():
 # Negative time disables the timer,
 # displaying the subtitle until interrupted by a different subtitle.
 func show_subtitle(contents = "", time = 0):
-	print("SUB SHOW_SUBTITLE ", contents, " ", time)
+#	print("SUB SHOW_SUBTITLE ", contents, " ", time)
 	if !R.cfg.subtitles: return
 	if time == 0:
 		clear_contents()
@@ -59,5 +59,5 @@ func signal_end_subtitle():
 		last_duration = 0
 
 func _on_Timer_timeout():
-	print("SUB TIMER_TIMEOUT")
+#	print("SUB TIMER_TIMEOUT")
 	show_queued()
