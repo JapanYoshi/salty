@@ -15,6 +15,7 @@ var disable_controls = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("Episodes readying...")
 	ep_scroller.get_parent().get_v_scrollbar().rect_min_size.x = 32
 	var ep_box = ep_scroller.get_node("Option")
 	ep_box.name = "Template"
@@ -43,10 +44,10 @@ func _ready():
 	ep_scroller.get_node(first).grab_focus()
 	ep_box.queue_free()
 	focus_shifted(first)
-	print(eps)
+	print("Episodes readied.")
 
 func focus_shifted(which):
-	print("which", which)
+	print("focus_shifted to ", which)
 	if selected_now != which:
 		selected_now = which
 		S.play_sfx("menu_move")
