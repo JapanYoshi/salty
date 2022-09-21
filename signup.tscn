@@ -217,7 +217,7 @@ margin_right = 822.0
 margin_bottom = 49.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = ExtResource( 11 )
-text = "Visit the website haitouch.herokuapp.com"
+text = "Visit the website haitouch.onrender.com"
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false

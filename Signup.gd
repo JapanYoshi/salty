@@ -47,6 +47,7 @@ func server_connected():
 	$Instructions/SignupOnline/RoomCode2.set_text("Opening room...")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
+	Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
 	Ws.open_room()
 
 func room_opened():

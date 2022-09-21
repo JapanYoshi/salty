@@ -106,7 +106,7 @@ func _on_data():
 		'onGetMyName':
 			client_name = data.name
 			print('WS: This client has the name ' + data.name)
-			server_reply_content = 'name given'; emit_signal('server_reply');
+			server_reply_content = 'name given'; emit_signal('server_reply', server_reply_content);
 		'onBroadcast':
 			print("WS: Client {from} broadcast this message: {message}".format(data))
 		'onMessage':
@@ -115,7 +115,7 @@ func _on_data():
 			print("WS: Error received from server: {message}".format(data))
 			if data.message.begins_with("You are already hosting"):
 				close_room()
-			server_reply_content = 'error'; emit_signal('server_reply')
+			server_reply_content = 'error'; emit_signal('server_reply', server_reply_content)
 		'sendToHost':
 			if !data.has("action"):
 				print("WS: Client {from} in your room broadcast this action: {action} / {which} / {reason}".format(data))
@@ -141,11 +141,11 @@ func _on_data():
 				'requestNick':
 					emit_signal("player_requested_nick", data.from)
 		'roomFound':
-			server_reply_content = 'occupied'; emit_signal('server_reply')
+			server_reply_content = 'occupied'; emit_signal('server_reply', server_reply_content)
 		'roomNotFound':
-			server_reply_content = 'free'; emit_signal('server_reply')
+			server_reply_content = 'free'; emit_signal('server_reply', server_reply_content)
 		'onRoomMade':
-			server_reply_content = 'room made'; emit_signal('server_reply')
+			server_reply_content = 'room made'; emit_signal('server_reply', server_reply_content)
 		'onPlayerJoin':
 			if players.has(data.name):
 				print("WS: Player {name} rejoined after disconnecting.".format(data))
@@ -243,8 +243,11 @@ func generate_room_code():
 		room_code = code
 		return code
 
+func _send_heartbeat():
+	print("WS: Heartbeat " + client_name)
+	send('heartbeat')
+	$Timer.start()
+
 func _on_Timer_timeout():
 	if connected:
-		print("WS: Heartbeat")
-		send('heartbeat')
-		$Timer.start()
+		_send_heartbeat()
