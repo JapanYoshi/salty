@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/lifesaver2_tute0_03.wav-c69af9a2abe666be0629b51c52e22c59.sample"
+path="res://.import/lifesaver2_tute2_00.wav-4a070c18cbd062422ed49370e7bb7f84.sample"
 
 [deps]
 
-source_file="res://audio/voice/lifesaver2_tute0_03.wav"
-dest_files=[ "res://.import/lifesaver2_tute0_03.wav-c69af9a2abe666be0629b51c52e22c59.sample" ]
+source_file="res://audio/voice/lifesaver2_tute2_00.wav"
+dest_files=[ "res://.import/lifesaver2_tute2_00.wav-4a070c18cbd062422ed49370e7bb7f84.sample" ]
 
 [params]
 
