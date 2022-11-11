@@ -15,7 +15,7 @@ func _ready():
 	R._set_visual_quality(R.cfg.graphics_quality)
 	add_child(tween)
 	$Logo.play_intro()
-	S.play_music("new_theme", 1.0)
+	S.play_music("hiphop", 1.0)
 	now_focused = -1
 	change_focus_to(0)
 
