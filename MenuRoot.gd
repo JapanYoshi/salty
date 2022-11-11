@@ -37,14 +37,14 @@ func back():
 		cancel_loading = true
 		# free the added controller slots, so that we can reuse them next time
 		var indices = []
-		for p in current_page.players_list:
+		for p in R.players:
 			if p.device == C.DEVICES.GAMEPAD:
 				indices.push_back(p.device_index)
 		for p in current_page.signup_queue:
 			if p[0] == C.DEVICES.GAMEPAD:
 				indices.push_back(p[1])
-		if len(current_page.signup_now) > 0 and current_page.signup_now[0] == C.DEVICES.GAMEPAD:
-			indices.push_back(current_page.signup_now[1])
+		if len(current_page.signup_now) > 0 and current_page.signup_now.type == C.DEVICES.GAMEPAD:
+			indices.push_back(current_page.signup_now.device_number)
 		if len(indices) > 0:
 			C.remove_controllers_by_index(indices)
 		R.players = []
@@ -169,6 +169,7 @@ func start_game():
 		current_page.get_node("MouseMask").color = Color(0, 0, 0, 0.5)
 		current_page.get_node("LoadingPanel").show()
 		return
+	var scene_tree = get_tree() # this element will be out of the scene tree later
 	S.play_track(0, 0.1)
 	S.play_track(1, 0.1)
 	S.play_track(2, 0.1)
@@ -181,7 +182,7 @@ func start_game():
 	S.play_track(0, 0)
 	S.play_track(1, 0)
 	S.play_track(2, 0)
-	get_tree().change_scene("res://Episode.tscn")
+	scene_tree.change_scene("res://Episode.tscn")
 
 onready var http_request = $HTTPRequest
 
