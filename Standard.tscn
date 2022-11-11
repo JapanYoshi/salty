@@ -1315,6 +1315,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="NumThumb" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.0627451 )
+position = Vector2( 640, 360 )
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 4
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
 anims/RESET = SubResource( 14 )

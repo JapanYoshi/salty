@@ -114,6 +114,7 @@ var scene_history = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+# warning-ignore:return_value_discarded
 	S.connect("voice_end", self, "_on_voice_end")
 	timer.connect("time_up", self, "_on_question_time_up")
 	Ws.connect('server_reply', self, "_on_server_reply")
@@ -595,7 +596,7 @@ func change_stage(next_stage):
 		hud.reset_all_playerboxes()
 		#hud.slide_playerbar(false)
 		reset_answers()
-		$QNum.hide()
+		$NumThumb.hide()
 		# Which mode next?
 		for k in musics[question_type]:
 			S.preload_music(k)
@@ -606,8 +607,8 @@ func change_stage(next_stage):
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#4a2229")
 				hud.enable_lifesaver(true)
-				$QNum.set_text("%d" % (question_number + 1))
-				$QNum.show()
+				$NumThumb.frame = question_number + 1
+				$NumThumb.show()
 				$Options.set_theme(theme_normal)
 				point_value = 1000 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
