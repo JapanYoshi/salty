@@ -9,7 +9,7 @@ shader = ExtResource( 3 )
 shader_param/offset = Vector2( 0, 0 )
 shader_param/canvas_size = Vector2( 1280, 720 )
 shader_param/scale = 0.05
-shader_param/strength = 50.0
+shader_param/strength = 15.0
 shader_param/p_time = 0.0
 
 [node name="ColorRect" type="TextureRect"]

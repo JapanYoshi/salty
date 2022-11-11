@@ -1,30 +1,50 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://SubtitleHandler.gd" type="Script" id=1]
 [ext_resource path="res://fonts/subtitle_italic.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/subtitle_normal.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/subtitle_bold.tres" type="DynamicFont" id=4]
+[ext_resource path="res://outline_shader.tres" type="Shader" id=5]
 
-[node name="SubBox" type="CenterContainer"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/line_color = Color( 0, 0, 0, 0.784314 )
+shader_param/line_thickness = 4.0
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+[node name="SubManager" type="Control"]
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -448.0
-margin_top = -160.0
-margin_right = 448.0
-margin_bottom = -64.0
-rect_pivot_offset = Vector2( 560, -256 )
+margin_top = 720.0
 mouse_filter = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[node name="SubText" type="RichTextLabel" parent="."]
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+material = SubResource( 1 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 192.0
+margin_top = -160.0
+margin_right = -192.0
+margin_bottom = -64.0
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 896, 96 )
+transparent_bg = true
+
+[node name="SubBox" type="CenterContainer" parent="ViewportContainer/Viewport"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="SubText" type="RichTextLabel" parent="ViewportContainer/Viewport/SubBox"]
 margin_top = 31.0
 margin_right = 896.0
 margin_bottom = 65.0
@@ -32,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 896, 0 )
 mouse_filter = 2
-custom_colors/default_color = Color( 1, 0.933333, 0.486275, 1 )
+custom_colors/default_color = Color( 1, 0.945098, 0.498039, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/italics_font = ExtResource( 2 )
 custom_fonts/bold_font = ExtResource( 4 )
@@ -41,4 +61,4 @@ bbcode_enabled = true
 fit_content_height = true
 scroll_active = false
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer" to="ViewportContainer/Viewport/SubBox" method="_on_Timer_timeout"]

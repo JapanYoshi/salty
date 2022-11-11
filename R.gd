@@ -165,7 +165,7 @@ func set_currency(curr_name="fmt_dollars"):
 	fmt_file.close()
 
 # Helper function to convert the score into a currency-signed and comma'd string.
-func format_currency(score = 0.0, no_sign = false, min_digits = 0):
+func format_currency(score = 0.0, no_plus = false, min_digits = 0):
 	score *= currency_data.multiplier
 	var numText = str(int(floor(abs(score))))
 	var digits = len(numText)
@@ -190,7 +190,7 @@ func format_currency(score = 0.0, no_sign = false, min_digits = 0):
 		]).right(2) # get part after the "0."
 	var sign_arr = currency_data.nega
 	if score >= 0.0:
-		if no_sign:
+		if no_plus:
 			sign_arr = currency_data.noSign
 		elif score > 0.0:
 			sign_arr = currency_data.posi
@@ -296,3 +296,28 @@ func give_audience_nick(id):
 
 func update_audience_count():
 	emit_signal("change_audience_count", len(audience_keys))
+
+### Room code generation
+## Generate 4 ASCII uppercase letters, then try again if it gets censored
+## lots of them are based on pokemon nickname censors
+## ref: https://bulbapedia.bulbagarden.net/wiki/List_of_censored_words_in_Generation_V
+## If a search for swear words led you here, I'm sorry.
+const bad_room_codes = ["ARSE","ARSH","BICH","BITC","BITE","BSTD","BTCH","CAZI","CAZO","CAZZ","CHNK","CLIT","COCC","COCK","COCU","COKC","COKK","CONO","COON","CUCK","CULE","CULO","CUUL","CUMM","CUMS","CUNT","CUUM","DAMN","DICC","DICK","DICS","DICX","DIKC","DIKK","DIKS","DIKX","DIXX","DKHD","DYKE","FAAG","FAGG","FAGS","FFAG","FICA","FICK","FIGA","FOTZ","FCUK","FUCC","FUCK","FUCT","FUCX","FUKC","FUKK","FUKT","FUKX","FUXX","GIMP","GYPS","HEIL","HOES","HOMO","HORE","HTLR","JODA","JODE","JAPS","JEWS","JIPS","JIZZ","KACK","KIKE","KUNT","MERD","MRCA","MRCN","MRDE","NAZI","NCUL","NEGR","NGGR","NGRR","NGRS","NIGG","NIGR","NUTE","NUTT","PAKI","PCHA","PEDE","PEDO","PHUC","PHUK","PINE","PISS","PLLA","PNIS","POOP","PORN","POYA","PUTA","PUTE","PUTN","PUTO","RAEP","RAPE","SECS","SECX","SEKS","SEKX","SEXX","SHAT","SHIT","SHIZ","SHYT","SIMP","SLAG","SPAS","SPAZ","SPRM","TARD","TITS","TROA","TROI","TWAT","VAGG","VIOL","WANK","WHOR"];
+const bad_room_substr = ["ASS","CUM","FAG","KKK"];
+func generate_room_code():
+	var buf: PoolByteArray = [0, 0, 0, 0]
+	var code: String = ""
+	while true:
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		for i in range(4):
+			buf[i] = rng.randi_range(65, 90)
+		code = buf.get_string_from_ascii()
+		# validate
+		if code in bad_room_codes: continue;
+		var substr_passing: bool = true
+		for substr in bad_room_substr:
+			if code.find(substr) != -1:
+				substr_passing = false; break
+		if !substr_passing: continue
+		return code
