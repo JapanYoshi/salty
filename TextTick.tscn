@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://images/gib_4.png" type="Texture" id=1]
 [ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://images/gib_5.png" type="Texture" id=14]
 [ext_resource path="res://images/thousand_thousand.png" type="Texture" id=15]
 [ext_resource path="res://images/thousand_logo.png" type="Texture" id=16]
+[ext_resource path="res://ThemeQuestion.theme" type="Theme" id=17]
 [ext_resource path="res://images/gib_time_0.png" type="Texture" id=18]
 [ext_resource path="res://images/gib_time_1.png" type="Texture" id=19]
 [ext_resource path="res://images/gib_time_2.png" type="Texture" id=20]
@@ -1064,7 +1065,7 @@ tracks/27/path = NodePath("AnimationPlayer/AudioStreamPlayer")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/imported = false
-tracks/27/enabled = true
+tracks/27/enabled = false
 tracks/27/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -1784,6 +1785,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("../GibCategory:rect_scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../GibCategory:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.01 ),
+"transitions": PoolRealArray( 3.27079e-05, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=18]
 resource_name = "reset"
@@ -2153,12 +2178,12 @@ anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="GibBase" type="Node2D" parent="."]
+visible = false
 position = Vector2( 640, 360 )
-scale = Vector2( 0.667, 0.667 )
+scale = Vector2( 0.333, 0.333 )
 
 [node name="G0" type="Node2D" parent="GibBase"]
-visible = false
-position = Vector2( -512, -180 )
+position = Vector2( 0, -180 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -2180,7 +2205,7 @@ texture = ExtResource( 13 )
 
 [node name="G1" type="Node2D" parent="GibBase"]
 visible = false
-position = Vector2( 296, 180 )
+position = Vector2( 0, 180 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -2203,33 +2228,34 @@ texture = ExtResource( 14 )
 [node name="GibFake0" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( -560, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake1" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( -198, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 7 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake2" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( 129, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 8 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake3" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( 495, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 12 )
 offset = Vector2( 0, -80 )
 
 [node name="GibLogo" type="Sprite" parent="GibBase"]
 visible = false
+scale = Vector2( 1, 1e-05 )
 texture = ExtResource( 9 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -2268,8 +2294,8 @@ margin_top = -376.0
 margin_right = 1500.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 3000, 700 )
-rect_rotation = 10.0
-rect_scale = Vector2( 0.2, 0.2 )
+rect_rotation = -10.0
+rect_scale = Vector2( 0.4, 0.4 )
 rect_pivot_offset = Vector2( 1500, 350 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2330,6 +2356,7 @@ anims/reset = SubResource( 18 )
 anchor_right = 1.0
 margin_top = 48.0
 margin_bottom = 178.0
+rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 640, 50 )
 custom_fonts/font = ExtResource( 26 )
 text = "What rhymes?"
@@ -2411,9 +2438,6 @@ offset = Vector2( 0, -256 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 640, 360 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="ThouTute"]
 modulate = Color( 1, 1, 1, 0 )
@@ -2467,29 +2491,34 @@ __meta__ = {
 }
 
 [node name="GibQ" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 64.0
+margin_top = 6.0
 margin_right = 1216.0
-margin_bottom = 160.0
-rect_scale = Vector2( 1, 1e-05 )
+margin_bottom = 166.0
 rect_pivot_offset = Vector2( 576, 80 )
 theme = ExtResource( 35 )
-text = "Wow, gourmet wing? Smith-Bauer."
+text = "Wow, gourmet wing? Smith Bauer. aoeuaoeuaoeuaoeuaoeuaoeu"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+autowrap = true
+
+[node name="GibCategory" type="RichTextLabel" parent="."]
+margin_left = 64.0
+margin_top = 147.0
+margin_right = 1216.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 1152, 48 )
+rect_pivot_offset = Vector2( 576, 24 )
+theme = ExtResource( 17 )
+bbcode_enabled = true
 
 [node name="GibACont" type="CenterContainer" parent="."]
 margin_left = 64.0
+margin_top = 5.0
 margin_right = 1216.0
-margin_bottom = 160.0
+margin_bottom = 165.0
 rect_scale = Vector2( 1, 1e-05 )
 rect_pivot_offset = Vector2( 0, 80 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GibA" type="RichTextLabel" parent="GibACont"]
 margin_top = 45.0
@@ -2519,7 +2548,6 @@ margin_right = -40.0
 margin_bottom = 320.0
 grow_vertical = 2
 rect_min_size = Vector2( 0, 48 )
-rect_scale = Vector2( 1, 1e-05 )
 rect_pivot_offset = Vector2( -8, 24 )
 rect_clip_content = false
 theme = ExtResource( 34 )
@@ -2567,7 +2595,7 @@ rect_clip_content = false
 theme = ExtResource( 34 )
 bbcode_enabled = true
 bbcode_text = "It was a [i]System[/i] designed for [i]Entertainment![/i]"
-text = "It was a System designed for Entertainment!"
+text = "It was a [i]System[/i] designed for [i]Entertainment![/i]"
 fit_content_height = true
 scroll_active = false
 __meta__ = {

@@ -54,7 +54,7 @@ func init_thousand():
 	if !R.cfg.cutscenes:
 		anim.play("thou_logo", -1, 10000)
 
-func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
+func init_gibberish(category, question, clue1, clue2, clue3, answer, is_round2):
 	mode = "G"; count = 0;
 	# max_value = (2 if is_round2 else 1) * 50 # apply round 2 bonus
 	max_value = 10_000 # ignore round 2 bonus
@@ -62,6 +62,11 @@ func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
 	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(4/255.0, 16/255.0, 64/255.0, 126/255.0))
+	$GibCategory.bbcode_text = ""
+	$GibCategory.append_bbcode(
+		"[center]With what [b]%s[/b] does this rhyme?[/center]" % category if category else\
+		"[center]With what does this rhyme?[/center]")
+	$GibCategory.rect_scale.y = 0
 	$GibQ.set_text(question)
 	$GibQ.rect_scale.y = 0
 	$GibClue1.bbcode_text = clue1
