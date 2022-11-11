@@ -1,6 +1,8 @@
 extends Node
 # Handles sound.
 
+signal voice_preloaded(result)
+
 signal voice_end
 
 onready var tweens = [Tween.new(), Tween.new(), Tween.new()]
@@ -82,9 +84,22 @@ func preload_sfx(name):
 	sfx_dict[name] = player
 
 func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
+	# async testing, artificially induce lag
+#	yield(get_tree().create_timer(0.5), "timeout")
 	var file = File.new()
 	var filepath = (questions_path if question_specific else voice_path) + filename + ".wav"
-	var voice = load(filepath) # try loading, and if it doesn't load, fallback
+	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(filepath)
+	if loader == null: # Check for errors.
+		printerr("S.preload_voice - ResourceInteractiveLoader failed to preload %s!" % filename)
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	while loader.poll() == OK:
+		yield(get_tree().create_timer(0.05), "timeout")
+	if loader.poll() != ERR_FILE_EOF:
+		printerr("S.preload_voice - ResourceInteractiveLoader got error # %d while preloading %s!" % [loader.poll(), filename])
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
 	if voice == null and file.file_exists(filepath + ".import"):
 		print(filepath + ".import exists. Loading.")
 		# find out what the actual data is called.
@@ -101,10 +116,14 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	if voice == null:
 		printerr("Voice line could not load! File path: " + filepath)
 		voice = load("res://audio/_.wav")
+		emit_signal("voice_preloaded", ERR_DOES_NOT_EXIST)
+		return
+	print("Voice preloaded: " + filename)
 	# avoid duplicate keys
 	if voice_list.has(key):
 		voice_list[key].player.set_stream(voice)
 		voice_list[key].subtitle = subtitle_string
+		emit_signal("voice_preloaded", OK)
 		return
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
@@ -114,6 +133,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		player = player,
 		subtitle = subtitle_string
 	}
+	emit_signal("voice_preloaded", OK)
 	return
 
 func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
@@ -122,18 +142,35 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 		final_filename = voice_path + final_filename
 	else:
 		final_filename = (episode_path + episode_name + "/") + final_filename
-	var voice = load(final_filename)
+	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(final_filename)
+	if loader == null: # Check for errors.
+		printerr("S.preload_voice - ResourceInteractiveLoader failed to preload %s!" % filename)
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	while loader.poll() == OK:
+		yield(get_tree(), "idle_frame")
+	if loader.poll() != ERR_FILE_EOF:
+		printerr("S.preload_ep_voice - ResourceInteractiveLoader got error # %d while preloading %s!" % [loader.poll(), filename])
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
 	if voice == null:
 		printerr("Voice line could not load! File path: " + final_filename)
+		emit_signal("voice_preloaded", OK)
+		return
+	print("Voice preloaded: " + filename)
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
-	player.connect("finished", self, "_on_voice_end", [key])
+	# we'll connect when we play it
+#	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
 	voice_list[key] = {
 		player = player,
 		subtitle = subtitle_string
 	}
+	emit_signal("voice_preloaded", OK)
+	return
 
 func unload_voice(key):
 	if voice_list.has(key):

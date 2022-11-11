@@ -1,5 +1,10 @@
 extends Node
 
+# Used to communicate to Episode.gd
+signal loaded
+# Used to communicate to itself that a random voice line has loaded in S.gd
+signal voice_line_loaded
+
 # Loads episode data.
 # Also parses question structure and timing markers in text.
 const episode_path = "res://ep"
@@ -188,7 +193,7 @@ const random_voice_line_keys = [
 	"like_outro"
 ];
 
-func load_question(id, first_question: bool):
+func load_question(id, first_question: bool, q_box: Node):
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
 	# Support the older file names too.
@@ -205,12 +210,15 @@ func load_question(id, first_question: bool):
 			var textfile = File.new()
 			textfile.open(question_path + "/" + id + "/" + n, File.READ)
 			print(textfile.get_as_text())
+			break
 		else:
 			print("OK")
 			break
-	if err != OK:
-		printerr("Couldn't load question ID: " + id)
+	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data for ID '" + id + "' is missing.")
+		return
+	if err == ERR_PARSE_ERROR:
+		R.crash("Question data for ID '" + id + "' cannot be parsed.")
 		return
 	var data = {}
 	for section in file.get_sections():
@@ -326,22 +334,27 @@ func load_question(id, first_question: bool):
 		# Sorta Kinda option voice lines.
 		if key == "sort_options":
 			for i in range(0, 7):
-				S.preload_voice("sort_option%d" % i, id + ("/sort_option%d" % i), true, data[key].s[i])
+				S.call_deferred("preload_voice",
+					"sort_option%d" % i, id + ("/sort_option%d" % i), true, data[key].s[i]
+				)
+				yield(S, "voice_preloaded")
 		elif data.has(key) and data[key]["v"] != "":
 			if data[key]["v"] != "random":
 				# not random
 				if not data[key]["v"].begins_with("_"):
 					# question-specific voice line
-					S.preload_voice(key, id + "/" + data[key].v, true, data[key].s)
+					S.call_deferred("preload_voice",key, id + "/" + data[key].v, true, data[key].s)
+					yield(S, "voice_preloaded")
 				else:
 #					# common voice line
 #					var possible_lines = random_dict.audio_question[data[key].v.substr(1)]
 #					if len(possible_lines) == 1:
-#						S.preload_voice(key, possible_lines[0].v, false, possible_lines[0].s)
+#						S.call_deferred("preload_voice",key, possible_lines[0].v, false, possible_lines[0].s)
 #					else:
 #						var index = R.rng.randi_range(0, len(possible_lines) - 1)
-#						S.preload_voice(key, possible_lines[index].v, false, possible_lines[index].s)
+#						S.call_deferred("preload_voice",key, possible_lines[index].v, false, possible_lines[index].s)
 					load_random_voice_line(key, data[key].v.substr(1))
+					yield(self, "voice_line_loaded")
 			# is random?
 			elif key in random_voice_line_keys:
 				# some logic depending on the situation
@@ -350,6 +363,7 @@ func load_question(id, first_question: bool):
 					"pretitle_q1" if first_question == true and key == "pretitle" else\
 					key
 				load_random_voice_line(key, pool)
+				yield(self, "voice_line_loaded")
 		else:
 			# is optional?
 			if key in [
@@ -373,10 +387,14 @@ func load_question(id, first_question: bool):
 					"pretitle_q1" if first_question == true and key == "pretitle" else\
 					key
 				load_random_voice_line(key, pool)
+				yield(self, "voice_line_loaded")
 			else:
 				printerr("Missing voice for " + key)
 				breakpoint
-	return data
+	print("Loader: Question loaded.", data)
+	q_box.data = data
+	emit_signal("loaded")
+	return
 
 # Parses the time markers in the subtitle files.
 # Timing is encoded in milliseconds since the start of the audio file, in this format: [#9999#]
@@ -468,6 +486,8 @@ func load_random_voice_line(key, pool = "", episode = false):
 	var selection = sel[\
 		rng.randi_range(0, len(sel) - 1)\
 	]
-	S.preload_voice(
+	S.call_deferred("preload_voice",
 		key, selection.v, false, selection.s
 	)
+	yield(S, "voice_preloaded")
+	emit_signal("voice_line_loaded")
