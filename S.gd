@@ -42,10 +42,8 @@ func _ready():
 		preload_sfx(k)
 	for k in [
 		"answer_now", "answer_now_2", "answer_now_3", "answer_now_4", "answer_now_5",
-		"load_loop", "main_theme", "new_theme",
-		"options",
+		"load_loop", "hiphop", "house", "main_theme", "new_theme",
 		"outro",
-		"placeholder",
 		"reading_question_base", "reading_question_extra",
 		"signup_base", "signup_extra", "signup_extra2",
 	]:
