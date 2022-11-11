@@ -77,10 +77,10 @@ func _input(event):
 			else:
 				emit_signal("gp_axis", which.player, which.axis, event.axis_value)
 
-func inject_button(player: int, button: int, pressed: bool):
-	#print("Player %d, button %d, pressed %s" % [player, button, str(pressed)])
+func inject_button(device: int, button: int, pressed: bool):
+	print("Device %d, button %d, pressed %s (injected)" % [device, button, str(pressed)])
 	# remote or touchscreen can't leave pause menu
-	emit_signal("gp_button", player, button, pressed)
+	emit_signal("gp_button", device, button, pressed)
 
 func _on_input_changed(device: int, connected: bool):
 	if connected:
@@ -153,6 +153,12 @@ func add_controller(device_type, device, side = 0):
 	ctrl.append(c)
 	ignore_axis.append(0)
 	return len(ctrl) - 1
+
+func lookup_remote(uuid):
+	for i in range(5, len(ctrl)):
+		if ctrl[i].device_type == DEVICES.REMOTE and ctrl[i].device_name == uuid:
+			return i
+	return -1
 
 # Use for system keys as well.
 # If a non-shared controller gets D-pad input, it returns the enums

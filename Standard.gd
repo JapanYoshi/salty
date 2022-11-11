@@ -110,15 +110,13 @@ var ans_regex = RegEx.new()
 var cuss_level = 0
 var gib_clues = 0
 
-var scene_history = []
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	S.connect("voice_end", self, "_on_voice_end")
 	timer.connect("time_up", self, "_on_question_time_up")
-	Ws.connect('server_reply', self, "_on_server_reply")
-	Ws.connect('player_requested_nick', self, "_on_player_requested_nick")
-	Ws.connect('synced_button', self, "_on_synced_button")
+#	Ws.connect('server_reply', self, "_on_server_reply")
+#	Ws.connect('player_requested_nick', self, "_on_player_requested_nick")
+#	Ws.connect('synced_button', self, "_on_synced_button")
 
 # process waiting for the sugar rush phase to start at a measure boundary
 var last_pos
@@ -138,22 +136,21 @@ func set_buzz_in(enabled):
 	can_buzz_in = enabled
 	if enabled:
 		audience_can_buzz_in = true
-		send_scene('enableBuzzIn')
+		ep.send_scene('enableBuzzIn')
 		var result = C.connect("gp_button", self, "_gp_button")
 		print("Result of Standard connecting to C.gp_button is: ", result)
 		# buzz in button
 		if question_type in ["G"]:
 			$TouchButton.show()
-			if len(R.audience_keys):
-				Ws.connect("remote_typing", self, "_on_gib_audience_submit")
+#			if len(R.audience_keys):
+#				Ws.connect("remote_typing", self, "_on_gib_audience_submit")
 		# lifesaver button
 		elif question_type in ["N", "C", "O"]:
 			$LSButton.show()
 	else:
-		send_scene('disableBuzzIn')
-		revert_scene('enableBuzzIn')
-		var result = C.disconnect("gp_button", self, "_gp_button")
-		print("Result of Standard disconnecting from C.gp_button is: ", result)
+		ep.revert_scene('enableBuzzIn')
+		ep.send_scene('disableBuzzIn')
+		C.disconnect("gp_button", self, "_gp_button")
 		# buzz in button
 		if question_type in ["G"]:
 			$TouchButton.hide()
@@ -168,7 +165,7 @@ func enable_skip():
 	if can_skip == true:
 		printerr("Double call enable_skip()")
 		return
-	send_scene('enableSkip')
+	ep.send_scene('enableSkip')
 	can_skip = true
 	ep.get_node("SkipButton").show()
 	var result = C.connect("gp_button", self, "_gp_button")
@@ -178,12 +175,11 @@ func disable_skip():
 	if can_skip == false:
 		printerr("Double call disable_skip()")
 		return
-	send_scene('disableSkip')
-	revert_scene('enableSkip')
+	ep.revert_scene('enableSkip')
+	ep.send_scene('disableSkip')
 	can_skip = false
 	ep.get_node("SkipButton").hide()
-	var result = C.disconnect("gp_button", self, "_gp_button")
-	print("Result of Standard disconnecting from C.gp_button is: ", result)
+	C.disconnect("gp_button", self, "_gp_button")
 
 func skip():
 	disable_skip()
@@ -292,8 +288,8 @@ func _gp_button(input_player, button, pressed):
 						S.play_track(1, 0)
 						activate_keyboard(player)
 						yield(get_tree().create_timer(0.75), "timeout")
-						if R.players[player].device == C.DEVICES.REMOTE:
-							Ws.send('message', {'action': 'gibYourTurn'}, R.players[player].device_name)
+#						if R.players[player].device == C.DEVICES.REMOTE:
+#							Ws.send('message', {'action': 'gibYourTurn'}, R.players[player].device_name)
 						S.play_voice("buzz_in")
 			"T":
 				# If audience buzzes in, they will be added to evaluation queue
@@ -327,10 +323,10 @@ func _gp_button(input_player, button, pressed):
 						pass
 			"R":
 				if not pressed: return
-				R_synced_button(player, button, -1)
+				R_button(player, button)
 			"L":
 				if not pressed: return
-				L_synced_button(player, button, -1)
+				L_button(player, button)
 			_:
 				printerr("Unimplemented input.")
 	elif can_skip:
@@ -354,34 +350,33 @@ func _gp_button(input_player, button, pressed):
 					bgs.L.abort = true
 					skip()
 
-func _on_synced_button(input_player, button, new_state):
-	var is_audience: bool = input_player >= len(C.ctrl)
-	if (
-		!is_audience and !can_buzz_in
-	) or (
-		is_audience and !audience_can_buzz_in
-	): return
-	if question_type in ["R", "L"]:
-		# Is this an audience member or an actual player?
-		var player: int = input_player
-		if !is_audience:
-			for i in range(len(R.players)):
-				if R.players[i].device_index == input_player:
-					player = i
-					break
+# Firebase stores the current seletion state as a STRING of '0' and '1'.
+# Correct the selection state locally to match the state on Firebase.
+func _on_remote_finale(value: String, slot: int):
+	var player: int = R.slot2player(slot)
+	if player == -1:
+		printerr("_on_remote_finale called for a slot number that does not correspond to a player (%d)" % slot)
+		return
+	var rush: bool = question_type == "R"
+	for i in range(6 if rush else 4):
+		var new_state: bool = (value[i] == "1")
+		var old_state: bool = answers[i].has(player)
+		if new_state == old_state: continue
+		if new_state:
+			answers[i].push_back(player)
+			S.play_sfx("rush_on")
 		else:
-			player += len(R.players) - len(C.ctrl)
-		if question_type == "R":
-			R_synced_button(player, button, new_state)
+			answers[i].erase(player)
+			S.play_sfx("rush_off")
+		if rush:
+			hud.set_finale_answer(player, i, new_state)
 		else:
-			L_synced_button(player, button, new_state)
+			bgs.L.toggle_player_input(player, i, new_state)
 
-func R_synced_button(player, button, new_state):
+func R_button(player, button):
 	if player == -1 or button == -1 or button == 6: # shouldn't be pause button!
 		return
 	var old_state = answers[button].has(player)
-	# if new_state isn't -1, it's the state the option should be in at the end.
-	if new_state != -1 and bool(new_state) == old_state: return
 	if old_state:
 		answers[button].erase(player)
 		S.play_sfx("rush_off")
@@ -391,13 +386,11 @@ func R_synced_button(player, button, new_state):
 		S.play_sfx("rush_on")
 		hud.set_finale_answer(player, button, true)
 
-func L_synced_button(player, button, new_state):
+func L_button(player, button):
 	if player == -1 or button in [-1, 0, 2]:
 		return
 	var option = [-1, 0, -1, 1, 3, 2, -1][button]
 	var old_state = answers[option].has(player)
-	# if new_state isn't -1, it's the state the option should be in at the end.
-	if new_state != -1 and bool(new_state) == old_state: return
 	if old_state:
 		answers[option].erase(player)
 		S.play_sfx("rush_off")
@@ -469,13 +462,15 @@ func answer_submitted(text):
 			if len(used_cuss_lines) < len(cuss_categories):
 				for k in used_cuss_lines:
 					cuss_categories.erase(k)
+			else:
+				used_cuss_lines = []
 			var cuss_category = cuss_categories[
 				R.rng.randi_range(0, len(cuss_categories) - 1)
 			]
 			# save it back
 			used_cuss_lines.push_back(cuss_category)
 			R.set_save_data_item("misc", "cuss_history", used_cuss_lines)
-			
+			R.save_save_data()
 			# Alright, it's screw-back time
 			cuss_level = 1
 			# preload lines
@@ -627,7 +622,7 @@ func change_stage(next_stage):
 				bgs.S.show()
 				hud.enable_lifesaver(false)
 				S_question_number = 0
-				send_scene("sort", {
+				ep.send_scene("sort", {
 					'hasBoth': data.has_both,
 					'a': data.sort_a_short.t,
 					'b': data.sort_b_short.t
@@ -683,7 +678,7 @@ func change_stage(next_stage):
 				var result = ans_regex.compile(data.answer.r)
 				if result != OK:
 					print("Could not compile RegEx %s: error code %d" % [data.answer.r, result])
-				send_scene("gib", {
+				ep.send_scene("gib", {
 					"question": data.question.t
 				})
 				$Value.hide()
@@ -707,9 +702,10 @@ func change_stage(next_stage):
 				$BG.add_child(bgs.R)
 				hud.show_finale_box(1)
 				hud.show_accuracy(accuracy)
-				send_scene("rush", {
+				ep.send_scene("rush", {
 					'title': data.title.t
 				})
+				Fb.connect("remote_finale", self, "_on_remote_finale")
 			"L":
 				hud.enable_lifesaver(false)
 				reset_accuracy()
@@ -718,9 +714,10 @@ func change_stage(next_stage):
 				$BG.add_child(bgs.L)
 				hud.show_finale_box(2)
 				hud.show_accuracy(accuracy)
-				send_scene("like", {
+				ep.send_scene("like", {
 					'title': data.title.t,
 				})
+				Fb.connect("remote_finale", self, "_on_remote_finale")
 		if question_type in ["N", "C", "O", "T"]:
 			question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
 			question.bbcode_text = ""
@@ -740,7 +737,7 @@ func change_stage(next_stage):
 					responses[i] = 0
 			revealed_count = 0
 			timer.initialize(15)
-			send_scene(
+			ep.send_scene(
 				"thousand" if question_type == "T" else
 				"candy" if question_type == "C" else
 				# TODO: Implement Rage question type on controller
@@ -871,7 +868,7 @@ func change_stage(next_stage):
 		S.play_sfx("question_show")
 		S.play_voice("question")
 		anim.play("question_enter")
-		send_scene('showQuestion')
+		ep.send_scene('showQuestion')
 		ep.set_pause_penalty(true)
 		reveal_question_text()
 	elif stage == "question" and next_stage == "options":
@@ -911,8 +908,8 @@ func change_stage(next_stage):
 		stop_remote_buzz_in()
 		# which version of the line will Candy say?
 		if lifesaver_is_activated: # TODO
-			# lifesaver already used, don't play a voice line
-			pass
+			# lifesaver already used, don't play a voice line. immediately go to option
+			reveal_next_option()
 		elif not(len(answers[0]) or len(answers[1]) or len(answers[2]) or len(answers[3]) or len(used_lifesaver)):
 			# crickets: nobody answered
 			S.play_voice("reveal_crickets")
@@ -981,11 +978,11 @@ func change_stage(next_stage):
 		ep.set_pause_penalty(false)
 		bgs.G.gib_reveal()
 		S.play_music("gibberish_end", 1)
-		send_scene('gibReveal', {
+		ep.send_scene('gibReveal', {
 			answer = data.answer.t
 		})
 		if len(R.audience_keys):
-			Ws.disconnect("remote_typing", self, "_on_gib_audience_submit")
+#			Ws.disconnect("remote_typing", self, "_on_gib_audience_submit")
 			for kv_pair in answers_audience[0]:
 				hud.reward_players([kv_pair[0]], kv_pair[1])
 			for kv_pair in answered_wrong_audience:
@@ -1019,7 +1016,7 @@ func change_stage(next_stage):
 		S.play_sfx("question_show")
 		S.play_voice("question")
 		anim.play("question_enter")
-		send_scene('showQuestion')
+		ep.send_scene('showQuestion')
 		reveal_question_text()
 	elif stage == "thou_question" and next_stage == "thou_options":
 		stage = "thou_options"
@@ -1032,7 +1029,7 @@ func change_stage(next_stage):
 	
 	elif stage == "intro_R" and next_stage == "rush_clue":
 		bgs.R.show_title(data.title.t)
-		send_scene("rushClue")
+		ep.send_scene("rushClue")
 		hud.slide_playerbar(true)
 		S.play_voice("title")
 		yield(S, "voice_end")
@@ -1050,7 +1047,7 @@ func change_stage(next_stage):
 		yield(S, "voice_end")
 		bgs.L.show_title(data.title.t)
 		S.play_voice("title")
-		send_scene("likeClue")
+		ep.send_scene("likeClue")
 		yield(S, "voice_end")
 		S.play_voice("like_options")
 		yield(S, "voice_end")
@@ -1085,8 +1082,8 @@ func change_stage(next_stage):
 		stage = "end"
 		print("Change stage to end")
 		S.play_track(0, false)
-		send_scene('endQuestion')
-		revert_scene('')
+		ep.send_scene('endQuestion')
+		ep.revert_scene('')
 		S.play_sfx("question_leave")
 		# all the question types with question text, title, or point value
 		if question_type in ["N", "C", "O", "T", "G", "S"]:
@@ -1186,7 +1183,7 @@ func _on_voice_end(voice_id):
 			stage = "intro"
 			change_stage("question")
 		"sorta_setup":
-			var last_line_name: String = "sort_lifesaver" if R.get_lifesaver_count() == 0 else "sort_no_lifesaver"
+			#var last_line_name: String = "sort_lifesaver" if R.get_lifesaver_count() == 0 else "sort_no_lifesaver"
 # possible scenarios:
 # if no "Both":
 # sort_category -> sort_explain ->
@@ -1304,7 +1301,7 @@ func _on_voice_end(voice_id):
 				"cuss_a2":
 					# pass through to "prepare for next player"
 					G_prepare_next_player()
-				"cuss_b1":
+				"cuss_b0":
 					hud.punish_players(answers[0], 0)
 					# pass through to "prepare for next player"
 					G_prepare_next_player()
@@ -1345,7 +1342,7 @@ func _on_voice_end(voice_id):
 				point_value = bgs.G.value
 			if responses[correct_answer] == RESPONSE_USED:
 				# just revealed the right answer
-				send_scene('correctReveal', {index = correct_answer})
+				ep.send_scene('correctReveal', {index = correct_answer})
 				# check if anyone in the audience answered it right
 				# (and remove the audience from the correct answer count calculations)
 				var audience_correct: int = 0
@@ -1391,8 +1388,8 @@ func _on_voice_end(voice_id):
 								hud.punish_players(answers_audience[i], point_value)
 				change_stage("outro")
 			else:
-				send_scene('wrongReveal', {index = last_revealed_answer})
-				revert_scene('wrongReveal')
+				ep.send_scene('wrongReveal', {index = last_revealed_answer})
+				#ep.revert_scene('wrongReveal')
 				option_boxes[last_revealed_answer].wrong()
 				S.play_sfx("option_wrong")
 				hud.punish_players(answers[last_revealed_answer], point_value)
@@ -1633,7 +1630,7 @@ func S_show_question():
 		#S._stop_music("sort_base"); S._stop_music("sort_extra")
 		S.play_music("sort_outro", 0.65)
 		hud.show_accuracy(accuracy)
-		revert_scene('sortQuestion')
+		ep.revert_scene('sortQuestion')
 		# find best accuracy of players
 		var winners = []
 		var losers = []
@@ -1658,13 +1655,13 @@ func S_show_question():
 			else:
 				breakevens.append(p)
 			# show remote players their own score
-			if p in ep.remote_players:
-				Ws.send('message', {
-					'action': 'changeScene',
-					'sceneName': 'sortAcc',
-					'numerator': accuracy[p * 2],
-					'denominator': accuracy[p * 2 + 1],
-				}, R.players[p].device_name)
+#			if p in ep.remote_players:
+#				Ws.send('message', {
+#					'action': 'changeScene',
+#					'sceneName': 'sortAcc',
+#					'numerator': accuracy[p * 2],
+#					'denominator': accuracy[p * 2 + 1],
+#				}, R.players[p].device_name)
 		# find accuracy of audience
 		var audience_correct: int = 0
 		var audience_answered: int = 0
@@ -1672,12 +1669,12 @@ func S_show_question():
 			audience_correct += accuracy_audience[p * 2]
 			audience_answered += accuracy_audience[p * 2 + 1]
 			# show remote players their own score
-			Ws.send('message', {
-				'action': 'changeScene',
-				'sceneName': 'sortAcc',
-				'numerator': accuracy_audience[p * 2],
-				'denominator': accuracy_audience[p * 2 + 1],
-			}, R.audience[p].device_name)
+#			Ws.send('message', {
+#				'action': 'changeScene',
+#				'sceneName': 'sortAcc',
+#				'numerator': accuracy_audience[p * 2],
+#				'denominator': accuracy_audience[p * 2 + 1],
+#			}, R.audience[p].device_name)
 		var audience_accuracy_percentage: float = NAN
 		if audience_answered > 0:
 			audience_accuracy_percentage = (
@@ -1722,9 +1719,9 @@ func S_show_question():
 		timer.show_timer()
 		hud.reset_all_playerboxes()
 		if i != 0:
-			revert_scene('sortQuestion')
+			ep.revert_scene('sortQuestion')
 			hud.hide_accuracy_audience()
-		send_scene('sortQuestion', {
+		ep.send_scene('sortQuestion', {
 			"question": data.sort_options.t[i]
 		})
 		set_buzz_in(true)
@@ -1737,10 +1734,11 @@ func S_show_answer():
 	timer.hide_timer()
 	ep.set_pause_penalty(false)
 	set_buzz_in(false)
+# warning-ignore:return_value_discarded
 	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	var i = S_question_number
 	bgs.S.answer(data.sort_options.a[i])
-	send_scene('sortAnswer', {"index": data.sort_options.a[i]})
+	ep.send_scene('sortAnswer', {"index": data.sort_options.a[i]})
 	if data.sort_options.a[i] == 0:
 		S.play_sfx("sort_a_long")
 	elif data.sort_options.a[i] == 1:
@@ -1792,21 +1790,21 @@ func G_checkpoint(id: int):
 	match id:
 		0:
 			S.play_voice("clue0")
-			send_scene('gibClue', {
+			ep.send_scene('gibClue', {
 				i = 0,
 				t = data.clue0.t
 			})
 			gib_clues = 1
 		1:
 			S.play_voice("clue1")
-			send_scene('gibClue', {
+			ep.send_scene('gibClue', {
 				i = 1,
 				t = data.clue1.t
 			})
 			gib_clues = 2
 		2:
 			S.play_voice("clue2")
-			send_scene('gibClue', {
+			ep.send_scene('gibClue', {
 				i = 2,
 				t = data.clue2.t
 			})
@@ -1945,8 +1943,8 @@ func L_show_question():
 		bgs.L.reset_all_answers()
 		set_buzz_in(true)
 		if S_question_number > 0:
-			revert_scene("likeSection")
-		send_scene("likeSection", {
+			ep.revert_scene("likeSection")
+		ep.send_scene("likeSection", {
 			'question': section.t,
 			'options': section.o
 		})
@@ -1961,7 +1959,7 @@ func L_show_answers():
 	bgs.L.reveal(section.a)
 	yield(bgs.L.anim, "animation_finished")
 	yield(get_tree().create_timer(1), "timeout")
-	send_scene("likeReveal", {
+	ep.send_scene("likeReveal", {
 		'answers': section.a
 	})
 	for i in range(4):
@@ -1995,50 +1993,28 @@ func _on_LSButton_pressed():
 	# 4 = touchscreen, 0 = left shoulder button, true = pressed
 	C.inject_button(4, 0, true)
 
-# Keeps a log of scenes sent, in case someone has to reconnect.
-func send_scene(name, data = {}):
-	Ws.scene(name, data)
-	data.action = "changeScene"
-	data.sceneName = name
-	scene_history.push_back(data)
-	#print("If you were to rejoin now, you would receive these scene events:")
+#
+#func _on_server_reply(id):
+#	# what the fuck does this do?
+#	pass
+##	if Ws.server_reply_content == "name given":
+##		_send_scenes_to(Ws.client_name)
+#
+#func _on_player_requested_nick(id):
+#	for i in ep.remote_players:
+#		if R.players[i].device_name == id:
+##			Ws.send('message', {
+##				action = 'changeNick',
+##				nick = R.players[i].name,
+##				playerIndex = i
+##			}, id)
+#			_send_scenes_to(id)
+#			break
+#
+#func _send_scenes_to(id):
 #	for scene in scene_history:
-#		print(scene.sceneName, scene)
-	return
-
-# Pops the latest scene packets until the sceneName matches the `until` param.
-# If it's '' or there's no match, the whole scene log is deleted.
-func revert_scene(until):
-	while len(scene_history):
-		var back = scene_history.pop_back()
-		if back.sceneName == until:
-			#print("If you were to rejoin now, you would receive these scene events:")
-			for scene in scene_history:
-				print(scene.sceneName, scene)
-			return
-	print("Cleared all scene events")
-
-func _on_server_reply(id):
-	# what the fuck does this do?
-	pass
-#	if Ws.server_reply_content == "name given":
-#		_send_scenes_to(Ws.client_name)
-
-func _on_player_requested_nick(id):
-	for i in ep.remote_players:
-		if R.players[i].device_name == id:
-			Ws.send('message', {
-				action = 'changeNick',
-				nick = R.players[i].name,
-				playerIndex = i
-			}, id)
-			_send_scenes_to(id)
-			break
-
-func _send_scenes_to(id):
-	for scene in scene_history:
-		print("Scene: ", scene)
-		Ws.send('message', scene, id)
+#		print("Scene: ", scene)
+##		Ws.send('message', scene, id)
 
 func finish_loading_screen():
 	S.play_track(0, 0.0)

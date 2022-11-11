@@ -26,40 +26,49 @@ func _ready():
 	$Instructions/SignupOnline/ShowHide.set_text("")
 	if R.cfg.room_openness != 0:
 		$Instructions/SignupOnline/host.set_text("Connecting to server...")
-		Ws.connect('connected', self, "server_connected", [], CONNECT_ONESHOT)
-		Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
-		Ws.connect('player_requested_nick', self, "give_player_nick")
-		Ws._connect()
+#		Ws.connect('connected', self, "server_connected", [], CONNECT_ONESHOT)
+#		Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
+#		Ws.connect('player_requested_nick', self, "give_player_nick")
+#		Ws._connect()
+		Fb._init_firebase()
+		yield(Fb, "finished")
+		server_connected_result(Fb.db_ready)
 	else:
 		$Instructions/SignupOnline/host.set_text("Online controllers are turned off because\n“Room openness” is set to “no room”.")
 
+func server_connected_result(success: bool):
+	if success:
+		server_connected()
+	else:
+		server_failed()
+
 func server_failed():
-	Ws.disconnect('connected', self, "server_connected")
+#	Ws.disconnect('connected', self, "server_connected")
 	$Instructions/SignupOnline.self_modulate = Color(0.5, 0.5, 0.5, 0.5)
 	$Instructions/SignupOnline/host.set_text("Could not connect to server.")
 	$Instructions/SignupOnline/RoomCode2.set_text("Local play still works, though!")
 
 func server_connected():
-	Ws.disconnect('disconnected', self, "server_failed")
+#	Ws.disconnect('disconnected', self, "server_failed")
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	# Ws.websocket_url
 	$Instructions/SignupOnline/host.set_text("Visit haitouch.GA/TE")
 	$Instructions/SignupOnline/RoomCode2.set_text("Opening room...")
 	$Instructions/SignupOnline/RoomCode.set_text("")
-	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
-	Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
-	Ws.open_room()
+#	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
+#	Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
+	Fb.try_room(self, "room_tried")
 
-func room_opened():
-	if Ws.room_code != "":
-		room_code = Ws.room_code
-		self.connect("tree_exited", Ws, "close_room")
+func room_tried(success: bool):
+	if success:
+		room_code = Fb.room_code
+#		self.connect("tree_exited", Ws, "close_room")
 		$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 1.0)
 		$Instructions/SignupOnline/RoomCode2.set_text("and enter the room code:")
 		room_code_hidden = !R.cfg.hide_room_code
 		toggle_show_room_code()
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
-		Ws.connect("player_joined", self, 'remote_queue')
+		Fb.connect("player_joined", self, 'remote_queue')
 	else:
 		room_code = ""
 		$Instructions/SignupOnline.self_modulate = Color(0.5, 0.2, 0.2, 0.5)
@@ -424,7 +433,7 @@ func signup_ended(name, keyboard_type):
 	# check if player is remote and got rejected
 	if keyboard_type == -1:
 		S.play_sfx("menu_fail")
-		Ws.kick_player(signup_now.remote_device_name)
+		Fb.reject_remote_player(signup_now.remote_device_name)
 	# end check
 	else:
 		var box = signup_box.instance()
@@ -513,7 +522,10 @@ func signup_ended(name, keyboard_type):
 		give_player_nick(player.device_name)
 	S.play_track(0, 0.0 if len(players_list) else 1.0)
 		R.players.append(player)
+		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
+		else:
+			Fb.update_player_count(len(R.players))
 	S.play_track(0, 0.0 if len(R.players) else 1.0)
 	S.play_track(1, 0.0)
 	S.play_track(2, 1.0 if len(players_list) else 0.0)
@@ -522,10 +534,10 @@ func signup_ended(name, keyboard_type):
 
 func start_game():
 	# disconnect this signal before exiting the RIGHT way
-	self.disconnect("tree_exited", Ws, "close_room")
+#	self.disconnect("tree_exited", Ws, "close_room")
 	print("Start the game!")
 	$MouseMask.show()
-	R.players = players_list
+	R.uuid_reset()
 	# pass on the duty of registering new audience members to Root while the game is on
 	R.listen_for_audience_join()
 	get_parent().start_game()
@@ -556,17 +568,13 @@ func _on_Ready_gui_input(event):
 func give_player_nick(id):
 	for p in players_list:
 		if p.device == C.DEVICES.REMOTE and p.device_name == id:
-			Ws.send('message', {
-				'to': id,
-				'action': 'changeNick',
-				'nick': p.name,
-				'playerIndex': p.player_number,
-				'isVip': p.player_number == 0
-			})
+			Fb.add_remote_player(
+				id, p.name, p.player_number
+			)
 			return
 	# If we can't find the browser in the player list,
 	# Check if it's an audience member.
-	R.give_audience_nick(id)
+#	Fb.add_remote_audience(id, "p.namewhat the fuck")
 
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."

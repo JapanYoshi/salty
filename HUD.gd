@@ -85,7 +85,7 @@ func _ready():
 	player_bar.rect_position.y = player_bar_default_y + player_bar_slide_distance
 	# If we (potentially) have an audience, connect the signal from Root.
 	if R.cfg.audience:
-		rc_box.show_room_code(Ws.room_code)
+		rc_box.show_room_code(Fb.room_code)
 		R.connect("change_audience_count", rc_box, "show_count")
 		rc_box.show_count(len(R.audience_keys))
 
@@ -133,13 +133,14 @@ func reward_players(players: Array, point_value):
 			refresh_remote_score(R.audience[i - len(R.players)].device_name, R.audience[i - len(R.players)].score)
 
 func refresh_remote_score(device_name, score):
-	Ws.send(
-		"message", {
-			"action": "score",
-			"value": score,
-			"formatted": R.format_currency(score, true)
-		}, device_name
-	)
+	pass
+#	Ws.send(
+#		"message", {
+#			"action": "score",
+#			"value": score,
+#			"formatted": R.format_currency(score, true)
+#		}, device_name
+#	)
 
 func give_lifesaver():
 	for i in range(8):

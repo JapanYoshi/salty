@@ -228,7 +228,7 @@ func _set_visual_quality(quality):
 ### Crash handling
 
 func crash(reason):
-	Ws.close_room()
+#	Ws.close_room()
 	S.stop_voice()
 	S.play_music("", 0)
 	audience_keys = []
@@ -251,16 +251,39 @@ func get_lifesaver_count() -> int:
 			ans += 1
 	return ans
 
+### Look up player slot from controller index (C.gd)
+# Store controller indices previously asked for.
+var slot_dict: Dictionary
+
+func slot2player(slot) -> int:
+	if slot_dict.has(slot):
+		return slot_dict[slot]
+	else:
+		for i in len(players):
+			if players[i].device_index == slot:
+				slot_dict[slot] = i
+				return i
+		slot_dict[slot] = -1
+		return -1
+
+func uuid_reset():
+	slot_dict.clear()
+
 ### Audience join (here because people might join/leave mid-game)
+# [TODO] Not implemented for Firebase
 
 func listen_for_audience_join():
+	pass
 	if cfg.room_openness != 0 and cfg.audience:
-		Ws.connect("player_joined", self, 'audience_join')
-		Ws.connect('player_requested_nick', self, "give_audience_nick")
+#		Ws.connect("player_joined", self, 'audience_join')
+		Fb.connect("player_joined", self, 'audience_join')
+#		Ws.connect('player_requested_nick', self, "give_audience_nick")
 
 func stop_listening_for_audience_join():
-	Ws.disconnect("player_joined", self, 'audience_join')
-	Ws.disconnect('player_requested_nick', self, "give_audience_nick")
+	pass
+#	Ws.disconnect("player_joined", self, 'audience_join')
+	Fb.disconnect("player_joined", self, 'audience_join')
+#	Ws.disconnect('player_requested_nick', self, "give_audience_nick")
 
 func audience_join(data):
 	# join as audience if permitted
@@ -273,6 +296,7 @@ func audience_join(data):
 				device_name = data.name,
 				player_number = cfg.room_size + len(audience),
 			}
+			Fb.add_remote_audience(player.device_name, player.name, len(audience))
 			audience.push_back(player)
 			audience_keys.push_back(data.name)
 			update_audience_count()
@@ -280,19 +304,8 @@ func audience_join(data):
 			print("rejoin")
 	else:
 		# reject
-		Ws.kick_player(data.name)
-
-func give_audience_nick(id):
-	var i = audience_keys.find(id)
-	if i != -1:
-		Ws.send('message', {
-			'to': id,
-			'action': 'changeNick',
-			'nick': audience[i].name,
-			'playerIndex': 8,
-			'isVip': 0
-		})
-		return
+#		Ws.kick_player(data.name)
+		Fb.reject_remote_player(data.name)
 
 func update_audience_count():
 	emit_signal("change_audience_count", len(audience_keys))

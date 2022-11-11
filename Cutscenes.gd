@@ -157,13 +157,13 @@ func show_final_leaderboard():
 					"%dth" % (p.placement + 1)
 				)
 				comment = ("You tied for %s!" if p.tied else "You placed %s!") % _ord
-			Ws.send('message', {
-				'action': 'changeScene',
-				'sceneName': 'finalResult',
-				'result': p.score,
-				'resultAsText': R.format_currency(p.score),
-				'comment': comment
-			}, p.device_name);
+#			Ws.send('message', {
+#				'action': 'changeScene',
+#				'sceneName': 'finalResult',
+#				'result': p.score,
+#				'resultAsText': R.format_currency(p.score),
+#				'comment': comment
+#			}, p.device_name);
 	for a in R.audience:
 		# Calculate how many players you beat.
 #		ranking[i].score
@@ -198,13 +198,13 @@ func show_final_leaderboard():
 				comment = "Oh, come on! You tied with the Player?!"
 			else:
 				comment = "See, this is why you can’t play with the Player."
-		Ws.send('message', {
-			'action': 'changeScene',
-			'sceneName': 'finalResult',
-			'result': a.score,
-			'resultAsText': R.format_currency(a.score),
-			'comment': comment
-		}, a.device_name);
+#		Ws.send('message', {
+#			'action': 'changeScene',
+#			'sceneName': 'finalResult',
+#			'result': a.score,
+#			'resultAsText': R.format_currency(a.score),
+#			'comment': comment
+#		}, a.device_name);
 	# actually, load the credits too while we're at it.
 	var credits = ConfigFile.new()
 	var err = credits.load("res://credits.gdcfg")

@@ -13,6 +13,8 @@ var DEBUG = false
 var remote_players = []
 var penalize_pausing = false
 
+var scene_history = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	q_box.ep = self
@@ -32,8 +34,9 @@ func _ready():
 	question_number = 0
 #	if not R.pass_between.has("episode_name"):
 #		# we're debugging
+#		DEBUG = true
 #		R.pass_between.episode_name = "demo"
-#		question_number = 0
+#		question_number = 12
 #		load_next_question()
 #		return
 #	elif R.pass_between.episode_name == "demo":
@@ -52,14 +55,16 @@ func enable_skip():
 	$SkipButton.show()
 	skippable = true
 	skipped = false
-	Ws.scene("enableSkip")
+#	Ws.scene("enableSkip")
+	send_scene("enableSkip")
 
 func disable_skip():
 	$SkipButton.hide()
 	C.disconnect("gp_button", self, "_gp_button")
 	skippable = false
 	skipped = true
-	Ws.scene("disableSkip")
+#	Ws.scene("disableSkip")
+	send_scene("disableSkip")
 
 func _gp_button(player, button, pressed):
 	print(R.players)
@@ -108,7 +113,7 @@ func play_intro():
 	for p in R.players:
 		if p.name_type == 1: # default name
 			default_players.append(p.player_number)
-		if p.name_type == 2: # censored name
+		elif p.name_type == 2: # censored name
 			censored_players.append(p.player_number)
 			q_box.hud.set_player_name(p.player_number, "[CENSORED]")
 		if p.device == C.DEVICES.REMOTE:
@@ -119,20 +124,21 @@ func play_intro():
 		R.players[i].name = names[chosen_names.pop_back()].name
 		q_box.hud.set_player_name(i, R.players[i].name)
 		if i in remote_players:
-			Ws.send('message', {
-				'to': R.players[i].device_name,
-				'action': 'changeNick',
-				'nick': R.players[i].name,
-				'playerIndex': R.players[i].player_number,
-				'isVip': false
-			});
+			Fb.change_nick(R.players[i].device_name, R.players[i].name)
+#			Ws.send('message', {
+#				'to': R.players[i].device_name,
+#				'action': 'changeNick',
+#				'nick': R.players[i].name,
+#				'playerIndex': R.players[i].player_number,
+#				'isVip': false
+#			});
 	# censored names will be given later
 	# will be used later if cutscenes are on.
 	var show_tech_diff: bool = false
 	var voice_lines = [
 		"welcome"
 	]
-	if episode_data.has("welcome_before") and episode_data.welcome_before != "default":
+	if episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
 		show_tech_diff = true
 		voice_lines.append_array(
 			[
@@ -143,7 +149,8 @@ func play_intro():
 	var player_voice
 	var global_voice_lines = []
 	if R.cfg.cutscenes:
-		Ws.scene("intro")
+#		Ws.scene("intro")
+		send_scene("intro")
 		# preload the voice lines we need
 		if lifesaver_left:
 			voice_lines.append_array([
@@ -173,6 +180,7 @@ func play_intro():
 				global_voice_lines.append(player_voice)
 				global_voice_lines.append("name_censored")
 				S.preload_ep_voice("give_name", names[chosen_names[0]].v, false, names[chosen_names[0]].s)
+				yield(S, "voice_preloaded")
 			2, 3:
 				player_voice = "%d_player_callout" % len(censored_players)
 				global_voice_lines.append(player_voice)
@@ -201,12 +209,21 @@ func play_intro():
 					printerr("No candidate lines for key: ", key)
 					breakpoint
 					# fallback
-					S.preload_ep_voice(key, "wrong_00", false, "LINE ID %s NOT FOUND" % key)
+					S.call_deferred("preload_ep_voice",
+						key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+					)
+					yield(S, "voice_preloaded")
 				elif len(candidates) > 1:
 					index = R.rng.randi_range(0, len(candidates) - 1)
-				S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
+				S.call_deferred("preload_ep_voice",
+					key, candidates[index].v, false, candidates[index].s
+				)
+				yield(S, "voice_preloaded")
 			else:
-				S.preload_ep_voice(key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s)
+				S.call_deferred("preload_ep_voice",
+					key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s
+				)
+				yield(S, "voice_preloaded")
 		for key in global_voice_lines:
 			# not episode specific, assume you meant to do it
 			var candidates = Loader.random_dict.audio_episode[key]
@@ -215,26 +232,34 @@ func play_intro():
 				printerr("No candidate lines for key: ", key)
 				breakpoint
 				# fallback
-				S.preload_ep_voice(key, "wrong_00", false, "LINE ID %s NOT FOUND" % key)
+				S.call_deferred("preload_ep_voice",
+					key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+				)
+				yield(S, "voice_preloaded")
 			elif len(candidates) > 1:
 				index = R.rng.randi_range(0, len(candidates) - 1)
-			S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
+			S.call_deferred("preload_ep_voice",
+				key, candidates[index].v, false, candidates[index].s
+			)
+			yield(S, "voice_preloaded")
 		# non-random skip voice?
 		if episode_data.audio.has("skip") == false or episode_data.audio["skip"].v == "default":
 			var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
-			S.preload_voice(
+			S.call_deferred("preload_voice",
 				"skip",
 				Loader.random_dict.audio_question.skip[skip_index].v,
 				false,
 				Loader.random_dict.audio_question.skip[skip_index].s
 			)
+			yield(S, "voice_preloaded")
 		else:
-			S.preload_ep_voice(
+			S.call_deferred("preload_ep_voice",
 				"skip",
 				episode_data.audio["skip"].v,
 				R.pass_between.episode_name,
 				episode_data.audio["skip"].s
 			)
+			yield(S, "voice_preloaded")
 		yield(get_tree().create_timer(0.5), "timeout")
 		# fake intro
 		if show_tech_diff:
@@ -272,14 +297,14 @@ func play_intro():
 				S.play_voice("name_censored"); yield(S, "voice_end")
 			R.players[censored_players[0]].name = names[chosen_names[0]].name
 			q_box.hud.set_player_name(censored_players[0], R.players[censored_players[0]].name, true)
-			if censored_players[0] in remote_players:
-				Ws.send('message', {
-					'to': R.players[censored_players[0]].device_name,
-					'action': 'changeNick',
-					'nick': R.players[censored_players[0]].name,
-					'playerIndex': R.players[censored_players[0]].player_number,
-					'isVip': false
-				});
+#			if censored_players[0] in remote_players:
+#				Ws.send('message', {
+#					'to': R.players[censored_players[0]].device_name,
+#					'action': 'changeNick',
+#					'nick': R.players[censored_players[0]].name,
+#					'playerIndex': R.players[censored_players[0]].player_number,
+#					'isVip': false
+#				});
 			if R.cfg.cutscenes:
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -322,14 +347,14 @@ func play_intro():
 			for i in range(len(censored_players)):
 				R.players[censored_players[i]].name = new_names[i]
 				q_box.hud.set_player_name(censored_players[i], new_names[i], true)
-				if censored_players[i] in remote_players:
-					Ws.send('message', {
-						'to': R.players[censored_players[i]].device_name,
-						'action': 'changeNick',
-						'nick': R.players[censored_players[i]].name,
-						'playerIndex': R.players[censored_players[i]].player_number,
-						'isVip': false
-					});
+#				if censored_players[i] in remote_players:
+#					Ws.send('message', {
+#						'to': R.players[censored_players[i]].device_name,
+#						'action': 'changeNick',
+#						'nick': R.players[censored_players[i]].name,
+#						'playerIndex': R.players[censored_players[i]].player_number,
+#						'isVip': false
+#					});
 			if R.cfg.cutscenes:
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -339,14 +364,14 @@ func play_intro():
 			for i in range(len(R.players)):
 				R.players[i].name = "Number %d" % (i + 1)
 				q_box.hud.set_player_name(i, R.players[i].name)
-				if i in remote_players:
-					Ws.send('message', {
-						'to': R.players[i].device_name,
-						'action': 'changeNick',
-						'nick': R.players[i].name,
-						'playerIndex': R.players[i].player_number,
-						'isVip': false
-					});
+#				if i in remote_players:
+#					Ws.send('message', {
+#						'to': R.players[i].device_name,
+#						'action': 'changeNick',
+#						'nick': R.players[i].name,
+#						'playerIndex': R.players[i].player_number,
+#						'isVip': false
+#					});
 			q_box.hud.punish_players(range(len(R.players)), 50001)
 			if R.cfg.cutscenes:
 				S.play_sfx("naughty")
@@ -358,7 +383,8 @@ func play_intro():
 		if lifesaver_left:
 			enable_skip()
 			c_box.show_lifesaver_logo()
-			Ws.scene("lifesaver")
+#			Ws.scene("lifesaver")
+			send_scene("lifesaver")
 			S.play_voice("lifesaver"); yield(S, "voice_end")
 			if skipped: return
 			hud.give_lifesaver()
@@ -394,7 +420,8 @@ func play_intro_2():
 			break
 	intermission_played = true
 	skipped = false
-	Ws.scene("round2")
+#	Ws.scene("round2")
+	send_scene("round2")
 	var voice_lines = [
 		"round2",
 		"round2_tute"
@@ -403,7 +430,8 @@ func play_intro_2():
 		voice_lines.append_array([
 			"lifesaver2",
 			"lifesaver2_tute0",
-			"lifesaver2_tute1"
+			"lifesaver2_tute1",
+			"lifesaver2_tute2"
 		])
 	for key in voice_lines:
 		if episode_data.audio.has(key) == false or episode_data.audio[key].v == "default":
@@ -413,31 +441,41 @@ func play_intro_2():
 				printerr("No candidate lines for key: ", key)
 				breakpoint
 				# fallback
-				S.preload_ep_voice(key, "wrong_00", false, "LINE ID %s NOT FOUND" % key)
+				S.call_deferred("preload_ep_voice",
+					key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+				)
+				yield(S, "voice_preloaded")
 			elif len(candidates) > 1:
 				index = R.rng.randi_range(0, len(candidates) - 1)
-			S.preload_ep_voice(key, candidates[index].v, false, candidates[index].s)
+			S.call_deferred("preload_ep_voice",
+				key, candidates[index].v, false, candidates[index].s
+			)
+			yield(S, "voice_preloaded")
 		else:
-			S.preload_ep_voice(key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s)
+			S.call_deferred("preload_ep_voice",
+				key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s
+			)
+			yield(S, "voice_preloaded")
 	# non-random skip voice?
 	if episode_data.audio.has("skip_round2") == false or episode_data.audio["skip_round2"].v == "default":
 		var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
-		S.preload_voice(
+		S.call_deferred("preload_ep_voice",
 			"skip",
 			Loader.random_dict.audio_question.skip[skip_index].v,
 			false,
 			Loader.random_dict.audio_question.skip[skip_index].s
 		)
+		yield(S, "voice_preloaded")
 	else:
-		S.preload_ep_voice(
+		S.call_deferred("preload_ep_voice",
 			"skip",
 			episode_data.audio["skip_round2"].v,
 			R.pass_between.episode_name,
 			episode_data.audio["skip_round2"].s
 		)
+		yield(S, "voice_preloaded")
 	
-	q_box.loadanim.play("straighten", 0.4, 1.0)
-	q_box.anim.play("touchprism_leave")
+	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
 	
@@ -454,19 +492,21 @@ func play_intro_2():
 		enable_skip()
 		hud.slide_playerbar(true)
 		c_box.show_lifesaver_logo()
-		Ws.scene("lifesaver")
+#		Ws.scene("lifesaver")
+		send_scene("lifesaver2")
 		S.play_voice("lifesaver2"); yield(S, "voice_end")
 		if skipped: return
 		hud.give_lifesaver()
-		c_box.lifesaver_tutorial(0)
-		c_box.lifesaver_tutorial(1)
+		c_box.lifesaver_tutorial(3)
 		#yield(c_box.anim, "animation_finished")
 		S.play_voice("lifesaver2_tute0");
 		yield(S, "voice_end")
 		if skipped: return
-		c_box.lifesaver_tutorial(3)
+		c_box.lifesaver_tutorial(4)
 		S.play_voice("lifesaver2_tute1"); yield(S, "voice_end")
 		if skipped: return
+		c_box.lifesaver_tutorial(5)
+		S.play_voice("lifesaver2_tute2"); yield(S, "voice_end")
 		disable_skip()
 	for k in voice_lines:
 		S.unload_voice(k)
@@ -477,10 +517,9 @@ func end_intro():
 	S.play_sfx("question_leave")
 	disable_skip()
 	hud.slide_playerbar(false)
-	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
+#	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
 	c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
-#	q_box.show_loading_logo()
 	q_box.set_process(true)
 	load_next_question()
 
@@ -500,16 +539,24 @@ func play_intermission():
 			printerr("No candidate lines for key: intermission")
 			breakpoint
 			# fallback
-			S.preload_ep_voice("intermission", "wrong_00", false, "LINE ID intermission NOT FOUND")
+			S.call_deferred("preload_ep_voice",
+				"intermission", "wrong_00", false, "LINE ID intermission NOT FOUND"
+			)
+			yield(S, "voice_preloaded")
 		elif len(candidates) > 1:
 			index = R.rng.randi_range(0, len(candidates) - 1)
-		S.preload_ep_voice("intermission", candidates[index].v, false, candidates[index].s)
+		S.call_deferred("preload_ep_voice",
+			"intermission", candidates[index].v, false, candidates[index].s
+		)
+		yield(S, "voice_preloaded")
 	else:
-		S.preload_ep_voice("intermission", episode_data.audio["intermission"].v, R.pass_between.episode_name, episode_data.audio["intermission"].s)
+		S.call_deferred("preload_ep_voice",
+			"intermission", episode_data.audio["intermission"].v, R.pass_between.episode_name, episode_data.audio["intermission"].s
+		)
+		yield(S, "voice_preloaded")
 	
 	c_box.set_process(true)
-	q_box.loadanim.play("straighten", 0.4, 1.0)
-	q_box.anim.play("touchprism_leave")
+	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
 	
@@ -542,11 +589,15 @@ func load_next_question():
 
 func load_question(q_name):
 	c_box.set_process(false)
-	q_box.question_number = question_number
-	q_box.data = Loader.load_question(q_name, question_number == 0)
-	question_number += 1
 	q_box.call_deferred("show_loading_logo")
 	yield(q_box.anim, "animation_finished")
+	q_box.question_number = question_number
+	Loader.call_deferred("load_question",
+		q_name, question_number == 0, q_box
+	)
+	yield(Loader, "loaded")
+#	print("Q_BOX.DATA SHOULD NOW BE THE DICTIONARY ", q_box.data)
+	question_number += 1
 	q_box.call_deferred("change_stage", "init")
 
 func too_many_pauses():
@@ -568,15 +619,18 @@ func too_many_pauses():
 	disqualified()
 
 func disqualified():
-	Ws.close_room()
+#	Ws.close_room()
 	Loader.load_random_voice_line("too_many_pauses", "", true)
 	S.play_voice("too_many_pauses")
 	yield(S, "voice_end")
+	shutter()
+
+func shutter():
 	$Shutter.set_texture(load("res://images/shutter.png"))
 	$Shutter/AnimationPlayer.play("disqualified")
 	S.play_sfx("dq")
 	yield($Shutter/AnimationPlayer, "animation_finished")
-	Ws._disconnect()
+#	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 
 func play_outro():
@@ -596,10 +650,14 @@ func play_outro():
 		elif len(candidates) > 1:
 			index = R.rng.randi_range(0, len(candidates) - 1)
 		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
+		yield(S, "voice_preloaded")
 		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
+		yield(S, "voice_preloaded")
 	else:
 		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
+		yield(S, "voice_preloaded")
 		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
+		yield(S, "voice_preloaded")
 	
 	hud.rc_box.hide()
 	c_box.show_final_leaderboard();
@@ -630,7 +688,7 @@ func _on_SkipButton_gui_input(event):
 
 func _on_BackButton_back_pressed():
 	intermission_played = false
-	Ws.close_room()
+#	Ws.close_room()
 	S.play_track(0, 0)
 	S.play_sfx("menu_back")
 	c_box.tween.interpolate_property(
@@ -641,8 +699,32 @@ func _on_BackButton_back_pressed():
 	)
 	c_box.tween.start()
 	yield(c_box.tween, "tween_all_completed")
-	Ws._disconnect()
+#	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_credits_link_clicked(meta):
 	OS.shell_open(meta)
+
+# Keeps a log of scenes sent, in case someone has to reconnect.
+func send_scene(name, scene_data = {}):
+#	Ws.scene(name, scene_data)
+	scene_data.action = "changeScene"
+	scene_data.sceneName = name
+	scene_history.push_back(scene_data)
+	Fb.scene(scene_history)
+	#print("If you were to rejoin now, you would receive these scene events:")
+#	for scene in scene_history:
+#		print(scene.sceneName, scene)
+	return
+
+# Pops the latest scene packets until the sceneName matches the `until` param.
+# If it's '' or there's no match, the whole scene log is deleted.
+func revert_scene(until):
+	while len(scene_history):
+		var back = scene_history.pop_back()
+		if back.sceneName == until:
+			#print("If you were to rejoin now, you would receive these scene events:")
+			for scene in scene_history:
+				print(scene.sceneName, scene)
+			return
+	print("Cleared all scene events")
