@@ -713,6 +713,9 @@
   , "gib_genre_title": [
     {"v": "gib_genre_title", "s": "With what [i]title[/i] does this rhyme?"}
   ]
+  , "gib_genre_trope": [
+    {"v": "gib_genre_trope", "s": "With what [i]TV Trope[/i] does this rhyme?"}
+  ]
   , "gib_genre_videogame": [
     {"v": "gib_genre_videogame", "s": "With what [i]video game title[/i] does this rhyme?"}
   ]
