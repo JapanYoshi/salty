@@ -43,6 +43,10 @@ func _input(e):
 		else:
 			change_focus_to(posmod(now_focused - 1, len(desc)))
 		accept_event()
+	elif e.is_action_pressed("ui_cancel"):
+		if $About.visible:
+			_on_Close_pressed()
+			accept_event()
 
 func _on_Play_pressed():
 	if not active: return
@@ -57,6 +61,7 @@ func _on_Play_pressed():
 	)
 	tween.start()
 	yield(tween, "tween_all_completed")
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://MenuRoot.tscn")
 	pass # Replace with function body.
 
@@ -74,6 +79,7 @@ func _on_Options_pressed():
 	)
 	tween.start()
 	yield(tween, "tween_all_completed")
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://Settings.tscn")
 	pass # Replace with function body.
 

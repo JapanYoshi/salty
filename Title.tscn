@@ -23,9 +23,20 @@ margin_left = -16.0
 margin_right = 16.0
 texture = ExtResource( 2 )
 expand = true
-flip_h = true
 
 [node name="Logo" parent="." instance=ExtResource( 3 )]
+visible = true
+position = Vector2( 1014, 137 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 784.0
+margin_top = 248.0
+margin_right = 1240.0
+margin_bottom = 299.0
+custom_fonts/font = ExtResource( 4 )
+text = "Episode Pack Vol. 1"
+align = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
@@ -34,51 +45,49 @@ stream = ExtResource( 8 )
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -640.0
-margin_right = -64.0
-alignment = 1
+margin_left = -496.0
+margin_right = -40.0
+margin_bottom = -134.0
+alignment = 2
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-margin_top = 218.0
-margin_right = 576.0
-margin_bottom = 286.0
+margin_top = 302.0
+margin_right = 456.0
+margin_bottom = 370.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Play"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
-margin_top = 290.0
-margin_right = 576.0
-margin_bottom = 358.0
+margin_top = 374.0
+margin_right = 456.0
+margin_bottom = 442.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "About"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
-margin_top = 362.0
-margin_right = 576.0
-margin_bottom = 430.0
+margin_top = 446.0
+margin_right = 456.0
+margin_bottom = 514.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Settings"
 
 [node name="Button4" type="Button" parent="VBoxContainer"]
-margin_top = 434.0
-margin_right = 576.0
-margin_bottom = 502.0
+margin_top = 518.0
+margin_right = 456.0
+margin_bottom = 586.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Exit"
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 40.0
-margin_top = 464.0
-margin_right = 616.0
-margin_bottom = 536.0
+margin_left = 784.0
+margin_top = 608.0
+margin_right = 1240.0
+margin_bottom = 680.0
 theme = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
 anchor_right = 1.0
@@ -87,21 +96,6 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = -16.0
 bbcode_enabled = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="."]
-margin_left = 48.0
-margin_top = 320.0
-margin_right = 608.0
-margin_bottom = 411.0
-custom_fonts/font = ExtResource( 4 )
-text = "v0.beta-1 Development Build"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="About" type="Popup" parent="."]
 anchor_right = 1.0
@@ -174,7 +168,7 @@ There are 3 different input methods:
 • [b]Player 4:[/b] 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-[b]Phone:[/b] Additional players can connect via a Web browser. Go to [url]https://haitouch.onrender.com[/url] to test it out."
+[b]Phone:[/b] Additional players can connect via a Web browser. Go to hai!touch Gate ([url]https://haitouch.ga/te[/url]) to test it out."
 text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
 Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
 
@@ -198,7 +192,7 @@ Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are 
 • Player 4: 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-Phone: Additional players can connect via a Web browser. Go to https://haitouch.onrender.com to test it out."
+Phone: Additional players can connect via a Web browser. Go to hai!touch Gate (https://haitouch.ga/te) to test it out."
 fit_content_height = true
 
 [node name="Close" type="Button" parent="About"]
