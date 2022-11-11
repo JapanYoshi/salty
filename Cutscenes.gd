@@ -239,7 +239,7 @@ func hide_final_leaderboard():
 
 func roll_credits():
 	anim.play("credits_roll")
-	S.play_music("main_theme", 0.5)
+	S.play_music("organ", 1.0)
 
 func set_radius(value):
 	backdrop.set_param("radius", value)

@@ -1,7 +1,7 @@
-extends Container
+extends Control
 
 onready var timer = $Timer
-onready var tbox = $SubText
+onready var tbox = $ViewportContainer/Viewport/SubBox/SubText
 var queue = []
 var last_duration: int = 0
 

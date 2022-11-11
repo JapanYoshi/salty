@@ -515,7 +515,7 @@ func play_intermission():
 	
 	S.play_sfx("leaderboard_show")
 	c_box.show_leaderboard()
-	S.play_music("main_theme", 1)
+	S.play_music("house", 1)
 	yield(get_tree().create_timer(1.5), "timeout")
 	S.play_track(0, 0.5)
 	S.play_voice("intermission"); yield(S, "voice_end")
