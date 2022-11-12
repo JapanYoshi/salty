@@ -686,9 +686,6 @@ margin_bottom = 56.0
 custom_fonts/font = ExtResource( 11 )
 text = "Confirm"
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="SignupModal/Panel/Confirm"]
 margin_left = 8.0
