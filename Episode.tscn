@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -883,7 +883,7 @@ tracks/3/path = NodePath("Cutscenes/Label0:bbcode_text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -912,7 +912,7 @@ tracks/1/path = NodePath("Cutscenes/Label1:bbcode_text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -941,12 +941,41 @@ tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ "12 questions, 1 Lifesaver" ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "lifesavers_tute3"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscenes/Label2:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ 1300.0, 720.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "6 more questions!" ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -1173,6 +1202,9 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.733333, 0.305882, 0.305882, 1 ), Color( 0.733333, 0.305882, 0.305882, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 1 )
+
 [sub_resource type="Animation" id=12]
 resource_name = "hide"
 length = 0.5
@@ -1310,6 +1342,9 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 640, 360 )
 mouse_filter = 2
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscenes"]
 root_node = NodePath("../..")
@@ -1323,6 +1358,7 @@ anims/lifesavers_logo = SubResource( 4 )
 anims/lifesavers_tute0 = SubResource( 5 )
 anims/lifesavers_tute1 = SubResource( 6 )
 anims/lifesavers_tute2 = SubResource( 7 )
+anims/lifesavers_tute3 = SubResource( 30 )
 anims/logo_leave = SubResource( 3 )
 anims/round2 = SubResource( 17 )
 anims/round2_reverse = SubResource( 16 )
@@ -1330,7 +1366,6 @@ anims/round2_reverse = SubResource( 16 )
 [node name="Tween" type="Tween" parent="Cutscenes"]
 
 [node name="Circle" type="ColorRect" parent="Cutscenes"]
-modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 29 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1825,21 +1860,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -384.0
-margin_top = -70.0
+margin_top = -88.0
 margin_right = 384.0
-margin_bottom = 37.0
+margin_bottom = 39.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_fonts/font = ExtResource( 16 )
+custom_styles/normal = SubResource( 10 )
 text = "Game Over"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Shutter/Label"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -70.0
-margin_bottom = -7.0
+margin_top = -63.0
 custom_fonts/font = ExtResource( 13 )
-text = "Was it worth it? You monster."
+text = "I bet you didn’t know this was possible."
 align = 1
 valign = 1
 
