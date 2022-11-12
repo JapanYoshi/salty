@@ -596,7 +596,7 @@ func change_stage(next_stage):
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#4a2229")
 				hud.enable_lifesaver(true)
-				$QNum.set_text("%d" % (question_number + 1))
+				$QNum.frame = question_number + 1
 				$QNum.show()
 				$Options.set_theme(theme_normal)
 				point_value = 1000 * (1 if question_number < 6 else 2)
@@ -1876,8 +1876,8 @@ func R_show_question():
 		timer.initialize(15)
 		timer.start_timer()
 		if S_question_number > 0:
-			revert_scene("rushSection")
-		send_scene("rushSection", {
+			ep.revert_scene("rushSection")
+		ep.send_scene("rushSection", {
 			'question': section.q,
 			'options': section.o
 		})
@@ -1889,7 +1889,7 @@ func R_show_answers():
 	ep.set_pause_penalty(false)
 	bgs.R.time_up(true)
 	var solutions = data["section%d" % S_question_number].a
-	send_scene("rushReveal", {
+	ep.send_scene("rushReveal", {
 		'answers': solutions
 	})
 	yield(get_tree().create_timer(0.7), "timeout")
@@ -1993,7 +1993,6 @@ func _on_LSButton_pressed():
 	# 4 = touchscreen, 0 = left shoulder button, true = pressed
 	C.inject_button(4, 0, true)
 
-#
 #func _on_server_reply(id):
 #	# what the fuck does this do?
 #	pass
