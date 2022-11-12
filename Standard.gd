@@ -112,7 +112,6 @@ var gib_clues = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-# warning-ignore:return_value_discarded
 	S.connect("voice_end", self, "_on_voice_end")
 	timer.connect("time_up", self, "_on_question_time_up")
 #	Ws.connect('server_reply', self, "_on_server_reply")
@@ -406,7 +405,6 @@ func activate_keyboard(player):
 	timer.initialize(30 if R.players[player].device == C.DEVICES.KEYBOARD else 60)
 	timer.show_timer()
 	timer.start_timer()
-# warning-ignore:return_value_discarded
 	kb.connect("text_confirmed", self, "answer_submitted")
 #func start_keyboard(
 #	which_keyboard: int = 0, which_player: int = 0, which_input: int = 0,
@@ -438,7 +436,6 @@ func answer_submitted(text):
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
 		print("correct")
-# warning-ignore:return_value_discarded
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		hud.reward_players(answers[0], bgs.G.value)
 		change_stage("gib_answer")
@@ -487,7 +484,6 @@ func answer_submitted(text):
 			# deduct score
 			S.play_sfx("naughty")
 			if cuss_names[cuss_category] == "":
-# warning-ignore:integer_division
 				hud.punish_players(answers[0], total_money_deduction / 10)
 			else:
 				hud.punish_players(answers[0], total_money_deduction)
@@ -498,12 +494,10 @@ func answer_submitted(text):
 			# deduct score again
 			if cuss_names[cuss_category] == "":
 				S.play_sfx("naughty")
-# warning-ignore:integer_division
 				hud.punish_players(answers[0], total_money_deduction * 9 / 10)
 				yield(get_tree().create_timer(1.25), "timeout")
 			else:
-				# double index because we need the integer
-				hud.set_player_name(answers[0][0], cuss_names[cuss_category])
+				hud.set_player_name(cuss_names[cuss_category])
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 			# let's get back to the game
@@ -520,7 +514,7 @@ func answer_submitted(text):
 			# "you know what we quit"
 			S.play_voice("cuss_c0")
 			yield(S, "voice_end")
-			ep.shutter()
+			ep.disqualified()
 			return
 	else:
 		print("incorrect")
@@ -591,7 +585,7 @@ func change_stage(next_stage):
 		hud.reset_all_playerboxes()
 		#hud.slide_playerbar(false)
 		reset_answers()
-		$NumThumb.hide()
+		$QNum.hide()
 		# Which mode next?
 		for k in musics[question_type]:
 			S.preload_music(k)
@@ -602,8 +596,8 @@ func change_stage(next_stage):
 				$BG/ColorRect.show()
 				$BG/ColorRect.color = Color("#4a2229")
 				hud.enable_lifesaver(true)
-				$NumThumb.frame = question_number + 1
-				$NumThumb.show()
+				$QNum.set_text("%d" % (question_number + 1))
+				$QNum.show()
 				$Options.set_theme(theme_normal)
 				point_value = 1000 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
@@ -671,7 +665,6 @@ func change_stage(next_stage):
 				bgs.G.set_process(true)
 				bgs.G.connect("checkpoint", self, "_on_TextTick_checkpoint")
 				bgs.G.init_gibberish(
-					data.gib_genre.t if "t" in data.gib_genre.keys() else "",
 					data.question.t,
 					data.clue0.t,
 					data.clue1.t,
@@ -906,7 +899,6 @@ func change_stage(next_stage):
 		if !len(used_lifesaver) or lifesaver_is_activated:
 			ep.set_pause_penalty(false)
 		set_buzz_in(false)
-# warning-ignore:return_value_discarded
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		S.stop_voice("options")
 		S.play_track(0, false); S.play_track(1, false); S.play_track(2, false)
@@ -1098,7 +1090,6 @@ func change_stage(next_stage):
 			anim.play("question_exit")
 		$Vignette.close()
 		if question_number != 5:
-# warning-ignore:return_value_discarded
 			$Vignette.connect("tween_finished", self, "show_loading_logo", [], CONNECT_ONESHOT)
 		hud.slide_playerbar(false)
 		print("DEBUG PRINT UNLOAD MUSIC")
@@ -1444,7 +1435,6 @@ func reveal_next_option():
 			len(no_answer) == 0
 		):
 			stage = "reveal_correct"
-# warning-ignore:return_value_discarded
 			get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 			S.play_voice("reveal_correct")
 		else:
@@ -1821,7 +1811,6 @@ func G_checkpoint(id: int):
 			gib_clues = 3
 		3:
 			set_buzz_in(false)
-# warning-ignore:return_value_discarded
 			get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 			ep.set_pause_penalty(false)
 			S.play_track(0, 0); S.play_track(1, 0)
@@ -1849,7 +1838,6 @@ func G_prepare_next_player():
 func T_checkpoint(id: int):
 	if id == 0:
 		set_buzz_in(false)
-# warning-ignore:return_value_discarded
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 		S.play_track(0, 0); S.play_track(1, 0)
 		S.play_sfx("time_up")
@@ -1868,13 +1856,9 @@ func R_show_question():
 		hud.slide_playerbar(false)
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-# warning-ignore:integer_division
-# warning-ignore:integer_division
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		for i in range(len(R.audience)):
-# warning-ignore:integer_division
-# warning-ignore:integer_division
 			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
 			R.audience[i].score += gain
 		bgs.R.queue_free()
@@ -1892,8 +1876,8 @@ func R_show_question():
 		timer.initialize(15)
 		timer.start_timer()
 		if S_question_number > 0:
-			ep.revert_scene("rushSection")
-		ep.send_scene("rushSection", {
+			revert_scene("rushSection")
+		send_scene("rushSection", {
 			'question': section.q,
 			'options': section.o
 		})
@@ -1901,12 +1885,11 @@ func R_show_question():
 
 func R_show_answers():
 	set_buzz_in(false)
-# warning-ignore:return_value_discarded
 	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	ep.set_pause_penalty(false)
 	bgs.R.time_up(true)
 	var solutions = data["section%d" % S_question_number].a
-	ep.send_scene("rushReveal", {
+	send_scene("rushReveal", {
 		'answers': solutions
 	})
 	yield(get_tree().create_timer(0.7), "timeout")
@@ -1935,13 +1918,9 @@ func L_show_question():
 		# Question end!
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-# warning-ignore:integer_division
-# warning-ignore:integer_division
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		for i in range(len(R.audience)):
-# warning-ignore:integer_division
-# warning-ignore:integer_division
 			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
 			R.audience[i].score += gain
 		S.play_music("like_outro", 0.75)
@@ -1972,7 +1951,6 @@ func L_show_question():
 
 func L_show_answers():
 	set_buzz_in(false)
-# warning-ignore:return_value_discarded
 	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	ep.set_pause_penalty(false)
 	stop_remote_buzz_in()

@@ -5,7 +5,7 @@
   "audio": {
     "welcome": {
       "v": "welcome",
-      "s": "I’m Candy Barre, and you’re watching Salty Trivia![#2977#]I’ve only slept 9 hours over the past 4 days, so I’m right at the verge of a nervous breakdown.[#7832#][#8134#]Ugh, that wasn’t my sandwich. That was my cue card."
+      "s": "Welcome to Salty Trivia with Candy Barr.[#1000#]I’ve only slept nine hours over the past four days,[#2000#]so I’m right on the verge of a nervous breakdown.[#3000#](chomp)[#4000#]Ugh, that wasn’t my sandwich. That was my cue card."
     },
     "player_1": {
       "v": "default"
@@ -36,15 +36,15 @@
     },
     "intermission": {
       "v": "intermission",
-      "s": "That’s it for Round 1.[#1360#]But we’ll be back in the next round, where point values will be doubled![#5304#][i][grumbly][/i] I can’t believe this is happening."
+      "s": "That’s it for Round 1.[#1000#]But we’ll be back in the next round, where point values will be doubled![#2000#](grumbly) I can’t believe this is happening."
     },
     "round2": {
       "v": "welcome_back",
-      "s": "Welcome back to Salty Trivia.[#1807#]Candy is still recovering backstage,[#3422#]so I, the producer, will be continuing to host the game.[#7500#]But hopefully not for long...[#9268#]I’m not a big fan of public speaking."
+      "s": "Welcome back to Salty Trivia.[#1000#]Candy is still recovering backstage,[#2000#]so I, the producer, will be continuing to host the game.[#3000#]But hopefully not for long...[#4000#]I’m not a big fan of public speaking."
     },
     "round2_tute": {
       "v": "round2_tute",
-      "s": "Did I mention that point values are doubled in Round 2?[#2750#]I’m sure you know already, but I’m just making sure."
+      "s": "Did I mention that point values are doubled in Round 2?[#1000#]I’m sure you know already, but I’m just making sure."
     },
     "lifesaver2": {
       "v": "lifesaver2",
@@ -64,35 +64,28 @@
     },
     "outro_game": {
       "v": "outro",
-      "s": "That’s all for this episode of Salty Trivia![#2440#]I hope you learned a thing or two today![#4200#]"
+      "s": "That’s all for this episode of Salty Trivia![#1000#]I hope you learned a thing or two today![#2000#]"
     },
     "outro_slam": {
       "v": "outro_slam",
-      "s": "Because I sure as hell didn’t.[#1500#]"
-    },
-    "skip": {
-      "v": "default"
-    },
-    "skip_round2": {
-      "v": "skip_round2",
-      "s": "Sure, let’s skip it."
+      "s": "Because I sure as hell didn’t."
     }
   },
   "question_id": [
-    "n025",
-    "c003",
-    "s004",
-    "n026",
-    "n027",
-    "n028",
+    "n001",
+    "n002",
+    "n003",
+    "s001",
+    "n004",
+    "c001",
 
-    "n029",
-    "n030",
-    "t002",
-    "g003",
-    "n031",
-    "n032",
+    "n005",
+    "g001",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
 
-    "r002"
+    "h001"
   ]
 }

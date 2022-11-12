@@ -57,22 +57,8 @@ func show_lifesaver_logo():
 	$Lifesavers.show()
 	anim.play("lifesavers_logo")
 
-# 0, 1, 2: first round
-# 3, 4, 5: second round
 func lifesaver_tutorial(stage: int):
-	var lbl: RichTextLabel = get_node("Label%d" % (stage % 3))
-	var text = [
-		# round 1
-		"Press ㍘ or ㍚ to activate",
-		"From 4 options to 2 options",
-		"12 questions, 1 Lifesaver",
-		# round 2
-		"From 4 options to 2 options",
-		"6 more questions!",
-		"Press ㍘ or ㍚ to activate",
-	][stage]
-	lbl.bbcode_text = text
-	anim.play("lifesavers_tute%d" % (stage % 3))
+	anim.play("lifesavers_tute%d" % stage)
 
 class LBSorter:
 	static func _sort_players(a, b):
@@ -263,9 +249,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func show_techdiff():
 	$TechDiff.show()
-	$TechDiff.set_process(true)
 	logo.hide_logo()
-	set_radius(0.0)
 	anim.play("intro", 0.0, 0.01, false)
 	anim.stop() # resets playback position to 0
 
