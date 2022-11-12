@@ -30,7 +30,7 @@ func back():
 		S.play_track(2, 0)
 		tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.start()
-		Ws._disconnect()
+#		Ws._disconnect()
 		yield(get_tree().create_timer(0.5), "timeout")
 		get_tree().change_scene("res://Title.tscn")
 	else:

@@ -84,9 +84,9 @@ func resume():
 
 func quit():
 	if anim.get_playing_speed() or !visible: return
-	if Ws.connected:
-		Ws.close_room()
-		Ws._disconnect(1000, "Game quit from pause menu.")
+#	if Ws.connected:
+#		Ws.close_room()
+#		Ws._disconnect(1000, "Game quit from pause menu.")
 	S.stop_voice()
 	get_tree().change_scene("res://Title.tscn")
 	get_tree().paused = false

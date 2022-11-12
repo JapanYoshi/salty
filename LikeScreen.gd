@@ -21,7 +21,7 @@ func _ready():
 	question.get_node("Ani0").play("enter")
 	question.get_node("Ani0").stop(true)
 	$Notch/TextureRect3/Label2.set_text(
-		"Room %s" % Ws.room_code if Ws.room_code != "" else "Local Mode"
+		"Room %s" % Fb.room_code if Fb.room_code != "" else "Local Mode"
 	)
 	leave_question()
 	leave_options()

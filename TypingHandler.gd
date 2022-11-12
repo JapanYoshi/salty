@@ -119,9 +119,9 @@ func submit():
 	can_type = false
 	emit_signal("text_confirmed", tbox.get_text().strip_edges())
 	$Anim.play("Hide")
-	print("Signal remote_typing was connected to ", len(Ws.get_signal_connection_list('remote_typing')), " nodes.")
-	if self in Ws.get_signal_connection_list('remote_typing'):
-		Ws.disconnect('remote_typing', self, 'remote_typing')
+#	print("Signal remote_typing was connected to ", len(Ws.get_signal_connection_list('remote_typing')), " nodes.")
+	if which_keyboard == 3:
+		Fb.disconnect('remote_typing', self, 'remote_typing')
 
 func reset_state():
 	which_player = -1
@@ -323,6 +323,8 @@ func _button_pressed(device, which_button, pressed):
 				_key_pressed(config.sp_shoulder[1])
 			_:
 				_key_pressed(config.sp_main[sp_index])
+	elif which_keyboard == 3:
+		submit()
 
 func _axis_tilted(which_input, which_axis, axis_value):
 	if self.which_input != which_input:
@@ -366,11 +368,14 @@ func sp_set_page(new_page: int):
 	# find if the index will change
 	if new_page != 0:
 		# positive if clockwise, negative if counterclockwise
-		var diff: int = abs(posmod(4 + new_page - dw_page, 8)) - 4
+		var diff: int = posmod(4 + new_page - dw_page, 8)
+		if diff < 0:
+			diff = -diff
+		diff -= 4
 		sp_index = posmod(sp_index + diff, len(config.sp_main))
 		#print("Letter index ", sp_index)
 		for i in range(5):
-			var index_to_change = posmod(sp_index + i * sign(diff), 8)
+			var index_to_change = posmod(sp_index + i * (1 if diff >= 0 else -1), 8)
 			sp_relabel(i, index_to_change, diff > 0)
 	# set size of each letter
 	sp_tween.seek(9999.0)
@@ -598,7 +603,7 @@ func start_keyboard(
 			pass
 		3:
 			$NA.show()
-			Ws.connect('remote_typing', self, 'remote_typing')
+			Fb.connect('remote_typing', self, 'remote_typing')
 	$Anim.play("Show")
 	yield($Anim, "animation_finished")
 	can_type = true
@@ -640,7 +645,7 @@ func _on_TextBox_text_changed(new_text):
 		sfx_press()
 	tbox.caret_position = p
 
-func remote_typing(new_text, from, finalize):
+func remote_typing(new_text, from):
 	if (from != C.ctrl[which_input].device_name):
 		return
 	tbox.text = new_text.to_upper()
@@ -653,8 +658,6 @@ func remote_typing(new_text, from, finalize):
 			result = text_filter.search(tbox.text)
 	else:
 		sfx_press()
-	if finalize:
-		submit()
 
 func _input(event):
 	if which_keyboard != -1 and (
