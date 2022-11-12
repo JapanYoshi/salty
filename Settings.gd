@@ -67,7 +67,7 @@ Animated shaders:
 			{
 				v = 7,
 				t = "1 - 8 players",
-				d = "“I’m playing the whole game; I’m gonna use the whole game.”"
+				d = "You have 7 friends to play with you? Wow, I’m jealous..."
 			}
 		]
 	},{
@@ -205,13 +205,13 @@ Exceptions:
 		]
 	},{
 		k = "hide_room_code",
-		t = "Start with the room code...",
+		t = "Start signup with Room Code hidden",
 		r = [0, 1],
 		o = [
 			{
 				v = false,
 				t = "visible",
-				d = "Let everyone see the Room Code. Come join in, everyone!"
+				d = "Let everyone see the Room Code. Come join in, everyone! (You can choose to hide the Room Code during sign-up.)"
 			},
 			{
 				v = true,
@@ -221,18 +221,18 @@ Exceptions:
 		]
 	},{
 		k = "hide_room_code_ingame",
-		t = "Room code in-game",
+		t = "Hide room code during the game",
 		r = [0, 1],
 		o = [
 			{
 				v = false,
 				t = "visible",
-				d = "Let everyone see the Room Code. Come join in, everyone!"
+				d = "Let everyone see the Room Code at the top right of the screen. It’s open viewing night!"
 			},
 			{
 				v = true,
 				t = "hidden",
-				d = "Don’t show the Room Code while you’re playing. If you disconnect, good luck with that."
+				d = "Don’t show the Room Code at the top right of the screen while you’re playing. If you disconnect, good luck with rejoining."
 			}
 		]
 	},{
@@ -257,8 +257,8 @@ var ring_speed = 1
 var focus_index = 0
 onready var temp_config = R.cfg.duplicate()
 onready var vbox = $Scroll/VBoxContainer
-onready var title = $Details/Name
-onready var desc = $Details/Desc
+onready var title = $Details/VBoxContainer/Name
+onready var desc = $Details/VBoxContainer/Desc
 var setting_elements = []
 var setting_is_bool = []
 var setup_done = false
@@ -332,6 +332,9 @@ func _ready():
 		vbox.get_child(1).get_node("VBox/HSplit/SBox").grab_focus()
 	else:
 		vbox.get_child(1).get_node("VBox/HBoxContainer/HSlider").grab_focus()
+	focus_index = 0
+	change_title()
+	change_desc()
 	setup_done = true
 
 func _input(event):
@@ -399,6 +402,7 @@ func _on_HSlider_value_changed(value):
 
 func _change_focus(extra_arg_0):
 	if focus_index == extra_arg_0: return
+	print("Changed focus to ", extra_arg_0)
 	focus_index = extra_arg_0
 	change_title()
 	change_desc()
@@ -421,8 +425,14 @@ func _on_SaveButton_pressed():
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_option_mouse_entered(extra_arg_0):
-	_change_focus(extra_arg_0)
-
+	#_change_focus(extra_arg_0)
+	var element = setting_elements[extra_arg_0]
+	var checkbox
+	if setting_is_bool[extra_arg_0]:
+		checkbox = element.get_node("VBox/HSplit/SBox")
+	else:
+		checkbox = element.get_node("VBox/HBoxContainer/HSlider")
+	checkbox.grab_focus()
 
 func clear_question_cache():
 	Loader.clear_question_cache()

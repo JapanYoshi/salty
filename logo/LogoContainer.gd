@@ -58,6 +58,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "haitouch":
 		$AnimationPlayer.play("jackbox")
 	else:
+# warning-ignore:return_value_discarded
 		get_tree().change_scene_to(title)
 
 # Called when the user skips the logo.

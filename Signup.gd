@@ -2,7 +2,6 @@ extends Control
 
 var p_count = 0 # number of players
 var room_full: bool = false
-var players_list: Array = []
 var signup_now: Dictionary
 var signup_queue: Array = []
 var used_ids: Array = []
@@ -17,7 +16,7 @@ func _ready():
 	C.connect("gp_button", self, "_gp_button")
 	$LoadingPanel.hide()
 	$MouseMask.hide()
-	players_list = []; signup_now = {}; signup_queue = []; used_ids = [];
+	R.players = []; signup_now = {}; signup_queue = []; used_ids = [];
 	p_count = 0
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	$Instructions/SignupOnline/RoomCode2.set_text("")
@@ -199,10 +198,11 @@ func read_room_code():
 
 # Just the remote game start thing.
 func _gp_button(player: int, button: int, pressed: bool):
-	if len(players_list) > 0\
-	and players_list[0].device == C.DEVICES.REMOTE\
-	and players_list[0].device_index == player\
-	and button == 5:
+	if len(R.players) > 0\
+	and R.players[0].device == C.DEVICES.REMOTE\
+	and R.players[0].device_index == player\
+	and button == 5\
+	and pressed:
 		start_game()
 
 # Check for controllers that haven't signed up yet.
@@ -245,10 +245,10 @@ func _input(e):
 				e.device == 0 and len(signup_now) == 0
 			):
 				if lookup.button == 5 and (
-					len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0
+					len(R.players) > 0 and len(signup_now) == 0 and len(signup_queue) == 0
 				):
 					if (
-						players_list[0].device == C.DEVICES.GAMEPAD and players_list[0].device_index == lookup.player
+						R.players[0].device == C.DEVICES.GAMEPAD and R.players[0].device_index == lookup.player
 					):
 						start_game()
 				elif e.button_index == JOY_DS_B:
@@ -280,7 +280,7 @@ func _input(e):
 				kb_queue(3)
 			elif sc == KEY_ENTER or sc == KEY_KP_ENTER:
 				# check if anyone's signing up
-				if len(players_list) > 0 and len(signup_now) == 0 and len(signup_queue) == 0:
+				if len(R.players) > 0 and len(signup_now) == 0 and len(signup_queue) == 0:
 					start_game()
 			elif sc == KEY_SPACE:
 				# check if anyone's signing up
@@ -318,7 +318,7 @@ func kb_queue(input_slot_number):
 	signup_now.type == C.DEVICES.KEYBOARD:
 		return
 	# check if the player's already signed up
-	for p in players_list:
+	for p in R.players:
 		if p.device == C.DEVICES.KEYBOARD and p.device_index == input_slot_number:
 			return
 	# check if room is full
@@ -358,7 +358,7 @@ func remote_queue(data):
 
 func check_full():
 	# R.cfg.room_size is in range 0 - 7. Add 1 to get the actual player count.
-	var total_players: int = len(players_list) + len(signup_now) + len(signup_queue);
+	var total_players: int = len(R.players) + len(signup_now) + len(signup_queue);
 	print("DEBUG Player Count Check", total_players, "/", R.cfg.room_size + 1)
 	if total_players >= R.cfg.room_size + 1:
 		# this is done server-side
@@ -371,7 +371,7 @@ func check_full():
 		room_full = false;
 	print("DEBUG Player Count Check room_full=", room_full)
 
-func _process(delta):
+func _process(_delta):
 	if (
 		len(signup_now) == 0 # checking if the dictionary is empty
 	and
@@ -380,7 +380,7 @@ func _process(delta):
 		start_signup()
 
 func start_signup():
-	if len(players_list) > R.cfg.room_size:
+	if len(R.players) > R.cfg.room_size:
 		return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
@@ -475,10 +475,10 @@ func signup_ended(name, keyboard_type):
 			keyboard_type = 3
 			var device_number = C.add_controller(C.DEVICES.REMOTE, signup_now.remote_device_name)
 			signup_now.device_number = device_number
-			default_name = "Remote %d" % (len(players_list) + 1)
+			default_name = "Remote %d" % (len(R.players) + 1)
 		else:
 			icon_name = "retro"
-			default_name = "Player %d" % (len(players_list) + 1)
+			default_name = "Player %d" % (len(R.players) + 1)
 		# is name default?
 		if name == "":
 			name = default_name
@@ -488,7 +488,7 @@ func signup_ended(name, keyboard_type):
 			var matched = R.cuss_regex.search(name)
 			if null != matched:
 				name_type = 2
-		box.setup(name, len(players_list), icon_name)
+		box.setup(name, len(R.players), icon_name)
 		var player_device_index = signup_now.device_number # [input revamp]
 		if signup_now.type == C.DEVICES.REMOTE:
 			player_device_index = C.lookup_button(C.DEVICES.REMOTE, signup_now.remote_device_name, 0).player;
@@ -501,12 +501,12 @@ func signup_ended(name, keyboard_type):
 			device_index = player_device_index,
 			device_name = signup_now.remote_device_name if signup_now.type == C.DEVICES.REMOTE else "N/A",
 			has_lifesaver = true,
-			player_number = len(players_list),
+			player_number = len(R.players),
 			side = signup_now.side,
 			keyboard = keyboard_type
 		}
 		print("Appending new player: ", player)
-		if len(players_list) == 0:
+		if len(R.players) == 0:
 			$Ready/Label2.set_text("Or press Return on the keyboard")
 			if signup_now.type == C.DEVICES.GAMEPAD:
 				$Ready/Label.set_text("Press ㍝ to start!")
@@ -518,9 +518,8 @@ func signup_ended(name, keyboard_type):
 			elif signup_now.type == C.DEVICES.REMOTE:
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
-		players_list.append(player)
+
 		give_player_nick(player.device_name)
-	S.play_track(0, 0.0 if len(players_list) else 1.0)
 		R.players.append(player)
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
@@ -528,7 +527,7 @@ func signup_ended(name, keyboard_type):
 			Fb.update_player_count(len(R.players))
 	S.play_track(0, 0.0 if len(R.players) else 1.0)
 	S.play_track(1, 0.0)
-	S.play_track(2, 1.0 if len(players_list) else 0.0)
+	S.play_track(2, 1.0 if len(R.players) else 0.0)
 	yield(get_tree().create_timer(1.0), "timeout")
 	signup_now = {}
 
@@ -560,13 +559,13 @@ func _on_TouchButton_pressed():
 	check_full()
 
 func _on_Ready_gui_input(event):
-	if players_list[0].device == C.DEVICES.TOUCHSCREEN:
+	if R.players[0].device == C.DEVICES.TOUCHSCREEN:
 		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 			start_game()
 
 # if the remote controller finishes signup before the html can load, their nickname will be "signing up..."
 func give_player_nick(id):
-	for p in players_list:
+	for p in R.players:
 		if p.device == C.DEVICES.REMOTE and p.device_name == id:
 			Fb.add_remote_player(
 				id, p.name, p.player_number
@@ -579,6 +578,7 @@ func give_player_nick(id):
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."
 	if eta >= 60*1000:
+# warning-ignore:integer_division
 		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
 	elif eta >= 1000:
 		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
