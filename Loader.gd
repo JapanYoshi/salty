@@ -145,7 +145,7 @@ func load_episodes_list():
 #			episode_desc = "Episode %d is unavailable. Stay tuned!" % i
 #		}
 	### END TEST
-	#print(episodes)
+	print(episodes)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

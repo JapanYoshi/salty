@@ -22,7 +22,6 @@ R="*res://R.gd"
 C="*res://C.gd"
 S="*res://S.gd"
 Loader="*res://Loader.gd"
-Ws="res://Websocket.tscn"
 firebase="*res://firebase_app_lite/firebase.gd"
 Fb="*res://FirebaseManager.tscn"
 

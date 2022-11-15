@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://images/thumbnails.png" type="Texture" id=1]
 [ext_resource path="res://Noise.gd" type="Script" id=2]
@@ -18,8 +18,6 @@
 [ext_resource path="res://images/candy_blank.png" type="Texture" id=16]
 [ext_resource path="res://images/touchprism-center.png" type="Texture" id=17]
 [ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=18]
-[ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=19]
-[ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=20]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=21]
 [ext_resource path="res://images/touchprism-text.png" type="Texture" id=22]
 [ext_resource path="res://images/touchprism-rays-top.png" type="Texture" id=23]
@@ -32,12 +30,6 @@ shader_param/scale = 8.0
 shader_param/p_time = null
 shader_param/blend = 0.2
 shader_param/radius = 1.5
-
-[sub_resource type="DynamicFont" id=17]
-size = 1024
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 20 )
-fallback/0 = ExtResource( 19 )
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -700,7 +692,7 @@ length = 1.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("Loading/Thumbnails:scale")
 tracks/0/interp = 1
-tracks/0/loop_wrap = false
+tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
@@ -712,7 +704,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/path = NodePath("Loading/Thumbnails:position")
 tracks/1/interp = 1
-tracks/1/loop_wrap = false
+tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
@@ -724,7 +716,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/path = NodePath("Loading/Thumbnails:rotation_degrees")
 tracks/2/interp = 1
-tracks/2/loop_wrap = false
+tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
@@ -736,7 +728,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("Loading/Touchprism:position")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
@@ -748,7 +740,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:rotation_degrees")
 tracks/4/interp = 1
-tracks/4/loop_wrap = false
+tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
@@ -760,7 +752,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/path = NodePath("Loading/Touchprism/Touchprism-rays-top:rotation_degrees")
 tracks/5/interp = 1
-tracks/5/loop_wrap = false
+tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
@@ -772,7 +764,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/path = NodePath("Loading/Touchprism/Touchprism-center:modulate:a")
 tracks/6/interp = 1
-tracks/6/loop_wrap = false
+tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
@@ -784,7 +776,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:modulate:a")
 tracks/7/interp = 1
-tracks/7/loop_wrap = false
+tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
@@ -796,7 +788,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/path = NodePath("Loading/Touchprism/Touchprism-rays-top:modulate:a")
 tracks/8/interp = 1
-tracks/8/loop_wrap = false
+tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
@@ -808,7 +800,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/path = NodePath("Loading/Touchprism/Touchprism-text:modulate:a")
 tracks/9/interp = 1
-tracks/9/loop_wrap = false
+tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
@@ -820,7 +812,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/path = NodePath("Loading/Thumbnails:modulate:a")
 tracks/10/interp = 1
-tracks/10/loop_wrap = false
+tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
@@ -829,25 +821,13 @@ tracks/10/keys = {
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("Loading/Thumbnails/Panel:self_modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=23]
 resource_name = "touchprism_leave"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Loading/Touchprism:position")
 tracks/0/interp = 1
-tracks/0/loop_wrap = false
+tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
@@ -859,7 +839,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/path = NodePath("Loading/Thumbnails:position")
 tracks/1/interp = 1
-tracks/1/loop_wrap = false
+tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
@@ -871,7 +851,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/path = NodePath("Loading/Thumbnails:scale")
 tracks/2/interp = 1
-tracks/2/loop_wrap = false
+tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
@@ -883,7 +863,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("Loading/Thumbnails:modulate:a")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
@@ -895,7 +875,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/path = NodePath("Loading/Touchprism/Touchprism-text:modulate:a")
 tracks/4/interp = 1
-tracks/4/loop_wrap = false
+tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
@@ -907,7 +887,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/path = NodePath("Loading/Touchprism/Touchprism-rays-bottom:modulate:a")
 tracks/5/interp = 1
-tracks/5/loop_wrap = false
+tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
@@ -919,7 +899,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/path = NodePath("Loading/Touchprism/Touchprism-center:modulate:a")
 tracks/6/interp = 1
-tracks/6/loop_wrap = false
+tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
@@ -931,7 +911,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/path = NodePath("Loading/Touchprism/Touchprism-rays-top:modulate:a")
 tracks/7/interp = 1
-tracks/7/loop_wrap = false
+tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
@@ -939,18 +919,6 @@ tracks/7/keys = {
 "transitions": PoolRealArray( -2.5, -2.5, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0, 0.0 ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("Loading/Thumbnails/Panel:self_modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Theme" id=13]
@@ -1216,7 +1184,7 @@ resource_name = "straighten"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Thumbnails:rotation_degrees")
 tracks/0/interp = 1
-tracks/0/loop_wrap = false
+tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
@@ -1228,7 +1196,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/path = NodePath("Thumbnails:position")
 tracks/1/interp = 1
-tracks/1/loop_wrap = false
+tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
@@ -1240,7 +1208,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/path = NodePath("../Touchprism/Touchprism-center:rotation_degrees")
 tracks/2/interp = 1
-tracks/2/loop_wrap = false
+tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
@@ -1252,7 +1220,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("Panel:rect_position:y")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
@@ -1264,7 +1232,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/path = NodePath("Panel:rect_rotation")
 tracks/4/interp = 1
-tracks/4/loop_wrap = false
+tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
@@ -1295,10 +1263,16 @@ expand_margin_bottom = 32.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BG" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect" type="ColorRect" parent="BG"]
 material = SubResource( 18 )
@@ -1390,7 +1364,6 @@ margin_top = 38.0
 margin_right = -107.0
 margin_bottom = -122.0
 text = "Why do seagulls fly over the sea?"
-autowrap = true
 uppercase = true
 
 [node name="punchline" type="Label" parent="Qbox/Candy/Bg"]
@@ -1418,6 +1391,9 @@ bbcode_text = "Lorem ipsum dolor sit amet, [i]consectetur adipiscing[/i] elit, s
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna_aliqua(). Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat? The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. 3.1459265358979"
 scroll_active = false
 scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="QuestionRevealTimer" type="Timer" parent="Qbox"]
 one_shot = true
@@ -1426,6 +1402,7 @@ one_shot = true
 
 [node name="Timer" type="Node2D" parent="Qbox"]
 position = Vector2( 1184, 97 )
+rotation = -0.349066
 scale = Vector2( 1e-05, 1e-05 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -1628,17 +1605,17 @@ rotation = -3.49066
 scale = Vector2( 1e-05, 1e-05 )
 
 [node name="Panel" type="Panel" parent="Loading/Thumbnails"]
-self_modulate = Color( 1, 1, 1, 0 )
 margin_left = -640.0
 margin_top = -360.0
 margin_right = 640.0
 margin_bottom = 360.0
-rect_rotation = -3.0
 rect_pivot_offset = Vector2( 640, 360 )
 custom_styles/panel = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Thumbnails" type="Sprite" parent="Loading/Thumbnails"]
-rotation = -0.0523599
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4

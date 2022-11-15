@@ -201,8 +201,7 @@ func _gp_button(player: int, button: int, pressed: bool):
 	if len(R.players) > 0\
 	and R.players[0].device == C.DEVICES.REMOTE\
 	and R.players[0].device_index == player\
-	and button == 5\
-	and pressed:
+	and button == 5:
 		start_game()
 
 # Check for controllers that haven't signed up yet.
@@ -371,7 +370,7 @@ func check_full():
 		room_full = false;
 	print("DEBUG Player Count Check room_full=", room_full)
 
-func _process(_delta):
+func _process(delta):
 	if (
 		len(signup_now) == 0 # checking if the dictionary is empty
 	and
@@ -518,8 +517,6 @@ func signup_ended(name, keyboard_type):
 			elif signup_now.type == C.DEVICES.REMOTE:
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
-
-		give_player_nick(player.device_name)
 		R.players.append(player)
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
@@ -578,7 +575,6 @@ func give_player_nick(id):
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."
 	if eta >= 60*1000:
-# warning-ignore:integer_division
 		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
 	elif eta >= 1000:
 		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
