@@ -1090,8 +1090,8 @@ func change_stage(next_stage):
 		stage = "end"
 		print("Change stage to end")
 		S.play_track(0, false)
-		ep.send_scene('endQuestion')
 		ep.revert_scene('')
+		ep.send_scene('endQuestion')
 		S.play_sfx("question_leave")
 		# all the question types with question text, title, or point value
 		if question_type in ["N", "C", "O", "T", "G", "S"]:
@@ -1640,7 +1640,7 @@ func S_show_question():
 		#S._stop_music("sort_base"); S._stop_music("sort_extra")
 		S.play_music("sort_outro", 0.65)
 		hud.show_accuracy(accuracy)
-		ep.revert_scene('sortQuestion')
+#		ep.revert_scene('sortQuestion')
 		# find best accuracy of players
 		var winners = []
 		var losers = []
@@ -1729,7 +1729,7 @@ func S_show_question():
 		timer.show_timer()
 		hud.reset_all_playerboxes()
 		if i != 0:
-			ep.revert_scene('sortQuestion')
+#			ep.revert_scene('sortQuestion')
 			hud.hide_accuracy_audience()
 		ep.send_scene('sortQuestion', {
 			"question": data.sort_options.t[i]
@@ -1891,8 +1891,8 @@ func R_show_question():
 		)
 		timer.initialize(15)
 		timer.start_timer()
-		if S_question_number > 0:
-			ep.revert_scene("rushSection")
+#		if S_question_number > 0:
+#			ep.revert_scene("rushSection")
 		ep.send_scene("rushSection", {
 			'question': section.q,
 			'options': section.o
@@ -1963,8 +1963,8 @@ func L_show_question():
 		reset_answers()
 		bgs.L.reset_all_answers()
 		set_buzz_in(true)
-		if S_question_number > 0:
-			ep.revert_scene("likeSection")
+#		if S_question_number > 0:
+#			ep.revert_scene("likeSection")
 		ep.send_scene("likeSection", {
 			'question': section.t,
 			'options': section.o
