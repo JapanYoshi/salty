@@ -391,7 +391,7 @@ func load_question(id, first_question: bool, q_box: Node):
 			else:
 				printerr("Missing voice for " + key)
 				breakpoint
-	print("Loader: Question loaded.", data)
+	print("Loader: Question loaded.")
 	q_box.data = data
 	emit_signal("loaded")
 	return
