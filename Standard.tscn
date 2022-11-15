@@ -1287,6 +1287,7 @@ radius = 1.5
 
 [node name="QNum" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.188235 )
+position = Vector2( 640, 360 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
@@ -1314,10 +1315,6 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 808, 608 )
 mouse_filter = 2
 theme = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Option" parent="Options" instance=ExtResource( 6 )]
 position = Vector2( 32, 26 )
 
