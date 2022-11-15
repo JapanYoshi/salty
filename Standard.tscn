@@ -1311,30 +1311,8 @@ __meta__ = {
 undul_speed = 0.25
 radius = 1.5
 
-[node name="QNum" type="Label" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.145098 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -720.0
-margin_top = -614.0
-margin_right = 720.0
-margin_bottom = 826.0
-rect_min_size = Vector2( 1440, 1440 )
-rect_rotation = 5.0
-rect_pivot_offset = Vector2( 720, 610 )
-custom_fonts/font = SubResource( 17 )
-text = "12"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NumThumb" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.0627451 )
+[node name="QNum" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.188235 )
 position = Vector2( 640, 360 )
 texture = ExtResource( 1 )
 hframes = 4
@@ -1363,10 +1341,6 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 808, 608 )
 mouse_filter = 2
 theme = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Option" parent="Options" instance=ExtResource( 6 )]
 position = Vector2( 32, 26 )
 
