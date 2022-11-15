@@ -706,15 +706,22 @@ func _on_credits_link_clicked(meta):
 	OS.shell_open(meta)
 
 # Keeps a log of scenes sent, in case someone has to reconnect.
-func send_scene(name, scene_data = {}):
+func send_scene(name = "", scene_data = {}):
+	if name == "":
+		# Just send the current backlog with no additions
+		Fb.scene(scene_history)
+#		print("resent scene history")
+		return
 #	Ws.scene(name, scene_data)
-	scene_data.action = "changeScene"
+	#scene_data.action = "changeScene"
 	scene_data.sceneName = name
+	# The client can keep track of which events are new
+	scene_data.time = Time.get_ticks_msec()
+	# Add the new scene to the backlog
 	scene_history.push_back(scene_data)
+	# Send the whole backlog to the room
 	Fb.scene(scene_history)
-	#print("If you were to rejoin now, you would receive these scene events:")
-#	for scene in scene_history:
-#		print(scene.sceneName, scene)
+#	print("sent scene history:", scene_history)
 	return
 
 # Pops the latest scene packets until the sceneName matches the `until` param.
@@ -723,8 +730,6 @@ func revert_scene(until):
 	while len(scene_history):
 		var back = scene_history.pop_back()
 		if back.sceneName == until:
-			#print("If you were to rejoin now, you would receive these scene events:")
-			for scene in scene_history:
-				print(scene.sceneName, scene)
+#			print("reverted scene history:", scene_history)
 			return
 	print("Cleared all scene events")

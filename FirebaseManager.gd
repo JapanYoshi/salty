@@ -460,7 +460,7 @@ func _ping_timer_result(success: bool):
 # Listen for any changes in the reference holding the players' data.
 # This will also include OUR changes!
 func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
-	print(snapshot)
+	#print(snapshot)
 	var new_value = snapshot.value()
 	var old_value = player_snapshot
 	if old_value == null: return
