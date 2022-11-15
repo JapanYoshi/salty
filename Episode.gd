@@ -64,6 +64,7 @@ func disable_skip():
 	skippable = false
 	skipped = true
 #	Ws.scene("disableSkip")
+	revert_scene("enableSkip")
 	send_scene("disableSkip")
 
 func _gp_button(player, button, pressed):
@@ -381,10 +382,10 @@ func play_intro():
 	
 	if R.cfg.cutscenes:
 		if lifesaver_left:
+			send_scene("lifesaver")
 			enable_skip()
 			c_box.show_lifesaver_logo()
 #			Ws.scene("lifesaver")
-			send_scene("lifesaver")
 			S.play_voice("lifesaver"); yield(S, "voice_end")
 			if skipped: return
 			hud.give_lifesaver()
@@ -489,11 +490,11 @@ func play_intro_2():
 	
 	c_box.round2_logo(true); yield(get_tree().create_timer(0.5), "timeout")
 	if lifesaver_left:
+#		Ws.scene("lifesaver")
+		send_scene("lifesaver2")
 		enable_skip()
 		hud.slide_playerbar(true)
 		c_box.show_lifesaver_logo()
-#		Ws.scene("lifesaver")
-		send_scene("lifesaver2")
 		S.play_voice("lifesaver2"); yield(S, "voice_end")
 		if skipped: return
 		hud.give_lifesaver()
@@ -515,7 +516,7 @@ func play_intro_2():
 func end_intro():
 	S.play_track(0, 0.0, false)
 	S.play_sfx("question_leave")
-	disable_skip()
+#	disable_skip()
 	hud.slide_playerbar(false)
 #	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
@@ -575,6 +576,8 @@ func play_intermission():
 	play_intro_2()
 
 func load_next_question():
+	revert_scene("")
+	send_scene()
 	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
 	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
 		play_intermission()
@@ -720,11 +723,17 @@ func send_scene(name, scene_data = {}):
 # Pops the latest scene packets until the sceneName matches the `until` param.
 # If it's '' or there's no match, the whole scene log is deleted.
 func revert_scene(until):
+	if until == "":
+		# Just clear the whole backlog regardless
+		scene_history.clear()
+		return
 	while len(scene_history):
+		# Pop the backlog one scene at a time until we find the one
+		# we should stop at (or we clear out the whole history)
 		var back = scene_history.pop_back()
 		if back.sceneName == until:
 			#print("If you were to rejoin now, you would receive these scene events:")
 			for scene in scene_history:
 				print(scene.sceneName, scene)
 			return
-	print("Cleared all scene events")
+#	print("Cleared all scene events")

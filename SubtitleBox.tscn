@@ -28,20 +28,24 @@ material = SubResource( 1 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 192.0
+margin_left = 184.0
 margin_top = -160.0
-margin_right = -192.0
+margin_right = -184.0
 margin_bottom = -64.0
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 896, 96 )
+size = Vector2( 912, 96 )
 transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
 
 [node name="SubBox" type="CenterContainer" parent="ViewportContainer/Viewport"]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = -8.0
 mouse_filter = 2
 
 [node name="SubText" type="RichTextLabel" parent="ViewportContainer/Viewport/SubBox"]
@@ -53,12 +57,12 @@ grow_vertical = 2
 rect_min_size = Vector2( 896, 0 )
 mouse_filter = 2
 custom_colors/default_color = Color( 1, 0.945098, 0.498039, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/italics_font = ExtResource( 2 )
 custom_fonts/bold_font = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
+text = "aoeuaoeuaoeuaouaoeu"
 fit_content_height = true
 scroll_active = false
 
-[connection signal="timeout" from="Timer" to="ViewportContainer/Viewport/SubBox" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
