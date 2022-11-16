@@ -25,7 +25,7 @@ b = ["Haley Walker"]
 [music]
 h = "Music"
 b = [
-  "Haley Walker · Salty Trivia, Salty Trivia (classic) · Candy Trivia · Sorta Kinda · All Outta Salt · Sugar Rush · Like It or Leave It · Thousand-Question Question · options",
+  "Haley Walker · Salty Trivia, Salty Trivia (classic) · Candy Trivia · Sorta Kinda · All Outta Salt · Sugar Rush · Like It or Leave It · Thousand-Question Question · Scoreboard · End Credits",
   "Tri-Tachyon · Rage Against the Times, from [url=https://opengameart.org/content/heavy-metal-riffs-4hrdm8]Heavy Metal Riffs[/url]",
 ]
 
@@ -52,9 +52,8 @@ h = "Technologies Used"
 b = [
   "Godot Engine · [i]game engine[/i]",
   "Gotm.io · [i]game hosting[/i]",
-  "WebSocket · [i]client-server communication[/i]",
-  "Node.js and Express · [i]Web controller system[/i]",
-  "Render · [i]Web controller hosting[/i]",
+  "Firebase Realtime Database · [i]Web controller system[/i]",
+  "Firebase Web Hosting · [i]Web controller hosting[/i]",
   "GitHub Pages · [i]home page hosting[/i]",
   "Casting Call Club · [i]voice talent recruitment[/i]",
   "Inkscape · [i]graphic design[/i]",
