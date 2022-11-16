@@ -37,7 +37,7 @@ func back():
 		cancel_loading = true
 		# free the added controller slots, so that we can reuse them next time
 		var indices = []
-		for p in current_page.players_list:
+		for p in R.players:
 			if p.device == C.DEVICES.GAMEPAD:
 				indices.push_back(p.device_index)
 		for p in current_page.signup_queue:
