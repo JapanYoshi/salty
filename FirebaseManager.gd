@@ -127,7 +127,7 @@ func try_room(call_node: Node, call_function: String):
 		call_node.call(call_function, true)
 	return false
 
-func _ready():
+#func _ready():
 	#_init_firebase()
 	#update_room_list()
 	#while just_finished != "update_room_list":
@@ -149,7 +149,7 @@ func _ready():
 	#while just_finished != "add_scene":
 	#	yield(self, "finished")
 	#just_finished = ""
-	pass # Replace with function body.
+#	pass # Replace with function body.
 
 # Update the settings for the default room. Fired after changing the settings or booting up the game.
 func update_default_room_settings():
@@ -443,7 +443,7 @@ func reset_finale_input(digits: int = 6):
 
 # Update the player count online.
 func update_player_count(new_player_count: int):
-	if R.cfg.room_openness > 0:
+	if connected_to_room and R.cfg.room_openness > 0:
 		var player_count_ref = db.get_reference_lite("rooms/" + room_code + "/playerCount")
 		player_count_ref.put(new_player_count)
 
