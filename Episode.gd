@@ -639,9 +639,14 @@ func shutter():
 func play_outro():
 	$Pause.hide()
 	c_box.set_radius(0)
-	intermission_played = false
+#	intermission_played = false
 	S.preload_music("drum_roll")
 	# use the same index for both lines
+	var outro_game_v: String
+	var outro_game_s: String
+	var outro_slam_v: String
+	var outro_slam_s: String
+	var use_episode_voice: bool
 	if episode_data.audio.has("outro_game") == false or episode_data.audio["outro_game"].v == "default":
 		var candidates = Loader.random_dict.audio_episode["outro_game"]
 		var candidates_slam = Loader.random_dict.audio_episode["outro_slam"]
@@ -651,19 +656,52 @@ func play_outro():
 		elif len(candidates_slam) == 0:
 			R.crash("No candidate lines for key: " + "outro_slam")
 		elif len(candidates) > 1:
-			index = R.rng.randi_range(0, len(candidates) - 1)
-		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
-		yield(S, "voice_preloaded")
-		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
-		yield(S, "voice_preloaded")
+			index = R.rng.randi_range(0, len(candidates) - 1)\
+		# complications arose from preloading too fast
+		outro_game_v = candidates[index].v
+		outro_game_s = candidates[index].s
+		outro_slam_v = candidates_slam[index].v
+		outro_slam_s = candidates_slam[index].s
+		use_episode_voice = false
+#		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
+#		yield(S, "voice_preloaded")
+#		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
+#		yield(S, "voice_preloaded")
 	else:
-		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
-		yield(S, "voice_preloaded")
-		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
-		yield(S, "voice_preloaded")
+		outro_game_v = episode_data.audio["outro_game"].v
+		outro_game_s = episode_data.audio["outro_game"].s
+		outro_slam_v = episode_data.audio["outro_slam"].v
+		outro_slam_s = episode_data.audio["outro_slam"].s
+		use_episode_voice = true
+#		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
+#		yield(S, "voice_preloaded")
+#		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
+#		yield(S, "voice_preloaded")
+	S.connect("voice_preloaded", self, "_on_outro_voice_load_1", [outro_slam_v, outro_slam_s, use_episode_voice], CONNECT_ONESHOT)
+	S.preload_ep_voice(
+		"outro_game", outro_game_v,
+		R.pass_between.episode_name if use_episode_voice else false,
+		outro_game_s
+	)
+	return
+
+# ignore the result and assume it succeeded
+func _on_outro_voice_load_1(_result: int, v2: String, s2: String, episode):
+	print("_on_outro_voice_load_1")
+	S.disconnect("voice_preloaded", self, "_on_outro_voice_load_1") # but, but it's fucking CONNECT_ONESHOT
+	S.connect("voice_preloaded", self, "_on_outro_voice_load_2", [], CONNECT_ONESHOT)
+	S.preload_ep_voice(
+		"outro_slam", v2,
+		R.pass_between.episode_name if episode else false,
+		s2
+	)
+	return
 	
+# ignore the result and assume it succeeded
+func _on_outro_voice_load_2(_result: int):
+	print("_on_outro_voice_load_2")
 	hud.rc_box.hide()
-	c_box.show_final_leaderboard();
+	c_box.show_final_leaderboard()
 	S.play_music("drum_roll", true)
 	q_box.hide()
 	yield(c_box.anim, "animation_finished")
