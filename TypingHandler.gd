@@ -646,7 +646,7 @@ func _on_TextBox_text_changed(new_text):
 	tbox.caret_position = p
 
 func remote_typing(new_text, from):
-	if (from != C.ctrl[which_input].device_name):
+	if (from != which_player):
 		return
 	tbox.text = new_text.to_upper()
 	var result = text_filter.search(tbox.text)
