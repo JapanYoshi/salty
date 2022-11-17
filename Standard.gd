@@ -288,7 +288,11 @@ func _gp_button(input_player, button, pressed):
 						S.play_track(1, 0)
 						activate_keyboard(player)
 						yield(get_tree().create_timer(0.75), "timeout")
-#						if R.players[player].device == C.DEVICES.REMOTE:
+						if R.players[player].device == C.DEVICES.REMOTE:
+							Fb.send_to_player(
+								R.players[player].device_name,
+								{action = 'gibYourTurn'}
+							)
 #							Ws.send('message', {'action': 'gibYourTurn'}, R.players[player].device_name)
 						S.play_voice("buzz_in")
 			"T":
@@ -1655,7 +1659,15 @@ func S_show_question():
 			else:
 				breakevens.append(p)
 			# show remote players their own score
-#			if p in ep.remote_players:
+			if p in ep.remote_players:
+				Fb.send_to_player(
+					R.players[p].device_name,
+					{
+						action = 'sortAcc',
+						numerator = accuracy[p * 2],
+						denominator = accuracy [p * 2 + 1],
+					}
+				)
 #				Ws.send('message', {
 #					'action': 'changeScene',
 #					'sceneName': 'sortAcc',
@@ -1669,6 +1681,14 @@ func S_show_question():
 			audience_correct += accuracy_audience[p * 2]
 			audience_answered += accuracy_audience[p * 2 + 1]
 			# show remote players their own score
+			Fb.send_to_player(
+				R.players[p].device_name,
+				{
+					action = 'sortAcc',
+					numerator = accuracy_audience[p * 2],
+					denominator = accuracy_audience[p * 2 + 1],
+				}
+			)
 #			Ws.send('message', {
 #				'action': 'changeScene',
 #				'sceneName': 'sortAcc',

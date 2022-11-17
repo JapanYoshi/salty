@@ -421,6 +421,15 @@ func change_nick(uuid, new_nick):
 		nick = new_nick
 	})
 
+func update_score(uuid, score, score_text):
+	var this_guy_in_particular = db.get_reference_lite(
+		"rooms/" + room_code + "/players/" + uuid
+	)
+	this_guy_in_particular.update({
+		score = score,
+		scoreText = score_text
+	})
+
 func send_to_player(player, data):
 	if !(player in player_refs.keys()):
 		return

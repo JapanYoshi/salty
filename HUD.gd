@@ -133,7 +133,7 @@ func reward_players(players: Array, point_value):
 			refresh_remote_score(R.audience[i - len(R.players)].device_name, R.audience[i - len(R.players)].score)
 
 func refresh_remote_score(device_name, score):
-	pass
+	Fb.update_score(device_name, score, R.format_currency(score, true))
 #	Ws.send(
 #		"message", {
 #			"action": "score",
