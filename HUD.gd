@@ -145,6 +145,8 @@ func refresh_remote_score(device_name, score):
 func give_lifesaver():
 	for i in range(8):
 		player_boxes[i].give_lifesaver()
+		if R.players[i].device == C.DEVICES.REMOTE:
+			Fb.update_lifesaver(R.players[i].device_name, true)
 
 func enable_lifesaver(active = true):
 	for i in range(8):
@@ -156,6 +158,8 @@ func player_buzzed_in(player):
 func players_used_lifesaver(players):
 	for i in players:
 		player_boxes[i].use_lifesaver()
+		if R.players[i].device == C.DEVICES.REMOTE:
+			Fb.update_lifesaver(R.players[i].device_name, false)
 
 func show_accuracy(data: PoolByteArray):
 	for i in range(len(data) / 2):
@@ -174,6 +178,9 @@ func hide_accuracy_audience():
 func show_finale_box(type):
 	for i in range(8):
 		player_boxes[i].show_finale_box(type)
+		# Remove Lifesaver icon from remote players
+		if R.players[i].device == C.DEVICES.REMOTE:
+			Fb.update_lifesaver(R.players[i].device_name, false)
 
 func reset_finale_box():
 	for i in range(8):

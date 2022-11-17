@@ -348,6 +348,7 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 				input = 0,
 				inputText = "",
 				inputFinale = "000000",
+				lifesaver = false,
 				messages = {
 					action = "none"
 				},
@@ -366,6 +367,7 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 				input = 0,
 				inputText = "",
 				inputFinale = "000000",
+				lifesaver = false,
 				messages = {
 					action = "none"
 				},
@@ -428,6 +430,14 @@ func update_score(uuid, score, score_text):
 	this_guy_in_particular.update({
 		score = score,
 		scoreText = score_text
+	})
+
+func update_lifesaver(uuid, has_lifesaver: bool = false):
+	var this_guy_in_particular = db.get_reference_lite(
+		"rooms/" + room_code + "/players/" + uuid
+	)
+	this_guy_in_particular.update({
+		lifesaver = has_lifesaver
 	})
 
 func send_to_player(player, data):
