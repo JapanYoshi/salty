@@ -146,7 +146,8 @@ func set_buzz_in(enabled):
 #				Ws.connect("remote_typing", self, "_on_gib_audience_submit")
 		# lifesaver button
 		elif question_type in ["N", "C", "O"]:
-			$LSButton.show()
+			if R.get_lifesaver_count() > 0:
+				$LSButton.show()
 	else:
 		#ep.revert_scene('enableBuzzIn')
 		ep.send_scene('disableBuzzIn')
@@ -1258,9 +1259,10 @@ func _on_voice_end(voice_id):
 						S.play_voice("sort_press_up")
 						S.play_sfx("sort_button", 1.5)
 					else:
-						
+						disable_skip()
 						S.play_voice("sort_lifesaver")
 				"sort_press_up":
+					disable_skip()
 					S.play_voice("sort_lifesaver")
 				"sort_lifesaver":
 					change_stage("sorta_questions")

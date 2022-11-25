@@ -3,6 +3,7 @@ extends Control
 onready var player_bar = $PlayerBar
 onready var player_bar_default_y: float = 624.0
 var player_bar_slide_distance: float = 116.0
+var player_bar_is_in: bool = false
 onready var player_boxes = [
 	$PlayerBar/PlayerHBox/PlayerBox,
 	$PlayerBar/PlayerHBox/PlayerBox2,
@@ -82,6 +83,7 @@ func _ready():
 			player_boxes[i].initialize(R.players[i])
 		else:
 			player_boxes[i].hide()
+	player_bar_is_in = false
 	player_bar.rect_position.y = player_bar_default_y + player_bar_slide_distance
 	# If we (potentially) have an audience, connect the signal from Root.
 	if R.cfg.audience:
@@ -90,6 +92,8 @@ func _ready():
 		rc_box.show_count(len(R.audience_keys))
 
 func slide_playerbar(slide_in: bool):
+	if slide_in == player_bar_is_in: return
+	player_bar_is_in = slide_in
 	$Tween.interpolate_property(
 		player_bar, "rect_position:y",
 		player_bar_default_y + player_bar_slide_distance if slide_in else player_bar_default_y,

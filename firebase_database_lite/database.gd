@@ -27,11 +27,11 @@ func _init(app : Node):
 
 # Returns a reference to the specified node in the database.
 func get_reference(path : String = "", debug : bool = false) -> FirebaseReference:
-    var ref : FirebaseReference = FirebaseReference.new(self, path, debug)
-    add_child(ref)
-    return ref
+	var ref : FirebaseReference = FirebaseReference.new(self, path, debug)
+	add_child(ref)
+	return ref
 
 func get_reference_lite(path : String = "", debug : bool = false) -> FirebaseReference:
-    var ref : FirebaseReference = FirebaseReference.new(self, path, debug, true)
-    add_child(ref)
-    return ref
+	var ref : FirebaseReference = FirebaseReference.new(self, path, debug, true)
+	add_child(ref)
+	return ref
