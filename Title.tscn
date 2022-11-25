@@ -35,7 +35,7 @@ margin_top = 248.0
 margin_right = 1240.0
 margin_bottom = 299.0
 custom_fonts/font = ExtResource( 4 )
-text = "Episode Pack Vol. 1"
+text = "Pre-Show Version"
 align = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

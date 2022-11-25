@@ -482,9 +482,8 @@ func answer_submitted(text):
 			# preload lines
 			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
 				var value = Loader.random_dict.audio_episode[key + "_" + cuss_category][0]
-				yield(
-					S.preload_ep_voice(key, value.v, "", value.s), "finished"
-				)
+				S.call_deferred("preload_ep_voice", key, value.v, "", value.s)
+				yield(S, "voice_preloaded")
 				
 			# "come on why do people do this"
 			S.play_voice("cuss_a0")

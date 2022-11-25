@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/wrong_miles_01.wav-65dacfcf39e4f1434fc04a5a5e648bcb.sample"
+path="res://.import/gib_wrong_04.wav-e5379a0417c5133814f237dab7fe25e3.sample"
 
 [deps]
 
-source_file="res://audio/voice/wrong_miles_01.wav"
-dest_files=[ "res://.import/wrong_miles_01.wav-65dacfcf39e4f1434fc04a5a5e648bcb.sample" ]
+source_file="res://audio/voice/gib_wrong_04.wav"
+dest_files=[ "res://.import/gib_wrong_04.wav-e5379a0417c5133814f237dab7fe25e3.sample" ]
 
 [params]
 
