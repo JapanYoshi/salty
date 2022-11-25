@@ -51,7 +51,7 @@ func server_connected():
 #	Ws.disconnect('disconnected', self, "server_failed")
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	# Ws.websocket_url
-	$Instructions/SignupOnline/host.set_text("Visit haitouch.GA/TE")
+	$Instructions/SignupOnline/host.set_text("Visit haitouch.ga/te")
 	$Instructions/SignupOnline/RoomCode2.set_text("Opening room...")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 #	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
