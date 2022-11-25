@@ -32,21 +32,21 @@ func _ready():
 	q_box.connect("question_done", self, "load_next_question")
 	q_box.hud = hud
 	question_number = 0
-#	if not R.pass_between.has("episode_name"):
-#		# we're debugging
-#		DEBUG = true
-#		R.pass_between.episode_name = "demo"
-#		question_number = 12
-#		load_next_question()
-#		return
-#	elif R.pass_between.episode_name == "demo":
-#		# still debug for now
-#		DEBUG = true
-#		question_number = 12
-#		episode_data = Loader.load_episode(R.pass_between.episode_name)
-#		load_next_question()
-#		return
 	episode_data = R.pass_between.episode_data
+	if not R.pass_between.has("episode_name"):
+#		# we're debugging
+		DEBUG = true
+		R.pass_between.episode_name = "demo"
+		question_number = 12
+		episode_data = Loader.load_episode(R.pass_between.episode_name)
+		load_next_question()
+		return
+	elif R.pass_between.episode_name == "demo":
+		# still debug for now
+		DEBUG = true
+		question_number = 12
+		load_next_question()
+		return
 	$Cutscenes/Round2.scale = Vector2(0, 1)
 	call_deferred("play_intro")
 
