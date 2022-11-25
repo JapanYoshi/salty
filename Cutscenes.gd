@@ -245,7 +245,7 @@ func show_final_leaderboard():
 		printerr("Could not load credits.")
 	else:
 		var spacer = scrollerV.get_child(0)
-		spacer.rect_min_size.y = scroller.rect_size.y
+		spacer.get_custom_minimum_size().y = scroller.rect_size.y
 		var rtl_title: RichTextLabel = scrollerV.get_child(1)
 		var rtl_body: RichTextLabel = scrollerV.get_child(2)
 		for sect in credits.get_sections():

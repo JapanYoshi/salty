@@ -168,7 +168,7 @@ func enable_skip():
 		return
 	ep.send_scene('enableSkip')
 	can_skip = true
-	ep.get_node("SkipButton").show()
+	ep.skip_btn.show()
 	var result = C.connect("gp_button", self, "_gp_button")
 	print("Result of Standard connecting to C.gp_button is: ", result)
 
@@ -179,7 +179,7 @@ func disable_skip():
 	ep.revert_scene('enableSkip')
 	ep.send_scene('disableSkip')
 	can_skip = false
-	ep.get_node("SkipButton").hide()
+	ep.skip_btn.hide()
 	C.disconnect("gp_button", self, "_gp_button")
 
 func skip():
@@ -286,6 +286,7 @@ func _gp_button(input_player, button, pressed):
 						S.play_sfx("buzz_in")
 						S.stop_voice()
 						bgs.G.countdown_pause(true)
+						bgs.G.gib_typing(true)
 						S.play_track(1, 0)
 						activate_keyboard(player)
 						yield(get_tree().create_timer(0.75), "timeout")
@@ -426,6 +427,7 @@ func activate_keyboard(player):
 func answer_submitted(text):
 	print("answer_submitted: " + text)
 	kb.disconnect("text_confirmed", self, "answer_submitted")
+	bgs.G.gib_typing(false)
 	timer.stop_timer()
 	timer.hide_timer()
 	# In case buzz in voice hasn't stopped yet, stop it before unloading
@@ -674,6 +676,7 @@ func change_stage(next_stage):
 				bgs.G.set_process(true)
 				bgs.G.connect("checkpoint", self, "_on_TextTick_checkpoint")
 				bgs.G.init_gibberish(
+					data.gib_genre.t if data.gib_genre.t else "phrase",
 					data.question.t,
 					data.clue0.t,
 					data.clue1.t,
@@ -969,6 +972,7 @@ func change_stage(next_stage):
 		S.play_voice("gib_genre")
 		hud.slide_playerbar(true)
 		bgs.G.show_price()
+		bgs.G.gib_category()
 	elif stage == "gib_genre" and next_stage == "gib_question":
 		stage = "gib_question"
 		ep.set_pause_penalty(true)

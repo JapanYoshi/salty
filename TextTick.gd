@@ -3,7 +3,13 @@ extends Control
 var mode = "T"
 var count = 0
 var max_value = 1000 * 1000 # 1000 dollars per question
-var value: int = 0;
+var value: int = 0
+
+# used to move the nonsense phrase into view while typing
+const outside_y: float = -48.0
+const clue_y: float = 40.0
+const question_up_y: float = 24.0
+const question_y: float = 56.0
 
 signal intro_ended
 signal checkpoint(checkpoint)
@@ -13,6 +19,15 @@ onready var anim = $AnimationPlayer
 onready var gib_anim = $GibTute/AnimationPlayer
 onready var thou_anim = $ThouTute/AnimationPlayer
 onready var tween = $Tween
+
+onready var gib_q_box = $GibQBox
+onready var gib_q = $GibQBox/GibQ
+onready var gib_category = $GibCategory
+onready var gib_clue1 = $GibClue1
+onready var gib_clue2 = $GibClue2
+onready var gib_clue3 = $GibClue3
+onready var gib_a_box = $GibABox
+onready var gib_a = $GibABox/GibA
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,16 +60,16 @@ func init_thousand():
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(64/255.0, 36/255.0, 4/255.0, 126/255.0))
 	thou_anim.play("reset")
-	$GibQ.set_text("")
-	$GibClue1.bbcode_text = ""
-	$GibClue2.bbcode_text = ""
-	$GibClue3.bbcode_text = ""
+	gib_q.set_text("")
+	gib_clue1.bbcode_text = ""
+	gib_clue2.bbcode_text = ""
+	gib_clue3.bbcode_text = ""
 	$GibACont/GibA.bbcode_text = ""
 	$ColorRect.modulate = Color.white
 	if !R.cfg.cutscenes:
 		anim.play("thou_logo", -1, 10000)
 
-func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
+func init_gibberish(category, question, clue1, clue2, clue3, answer, is_round2):
 	mode = "G"; count = 0;
 	# max_value = (2 if is_round2 else 1) * 50 # apply round 2 bonus
 	max_value = 10_000 # ignore round 2 bonus
@@ -62,16 +77,21 @@ func init_gibberish(question, clue1, clue2, clue3, answer, is_round2):
 	$PriceBox.hide()
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(4/255.0, 16/255.0, 64/255.0, 126/255.0))
-	$GibQ.set_text(question)
-	$GibQ.rect_scale.y = 0
-	$GibClue1.bbcode_text = clue1
-	$GibClue1.rect_scale.y = 0
-	$GibClue2.bbcode_text = clue2
-	$GibClue2.rect_scale.y = 0
-	$GibClue3.bbcode_text = clue3
-	$GibClue3.rect_scale.y = 0
-	$GibACont/GibA.bbcode_text = "[center]" + answer + "[/center]"
-	$GibACont.rect_scale.y = 0
+	gib_category.bbcode_text = "[center]With what [b]" + category + "[/b] does this rhyme?[/center]"
+	gib_category.rect_scale.y = 0
+	gib_category.rect_position.y = clue_y
+	gib_q.bbcode_text = "[center]" + question + "[/center]"
+	gib_q_box.rect_scale.y = 0
+	gib_q_box.rect_position.y = question_y
+	gib_clue1.bbcode_text = clue1
+	gib_clue1.rect_scale.y = 0
+	gib_clue2.bbcode_text = clue2
+	gib_clue2.rect_scale.y = 0
+	gib_clue3.bbcode_text = clue3
+	gib_clue3.rect_scale.y = 0
+	gib_a.bbcode_text = "[center]" + answer + "[/center]"
+	gib_a_box.rect_scale.y = 0
+	gib_a_box.rect_position.y = question_y
 	$ColorRect.modulate = Color.transparent
 	if !R.cfg.cutscenes:
 		anim.play("gib_logo", -1, 10000)
@@ -150,8 +170,38 @@ func thou_tute(phase: int):
 		yield(thou_anim, "animation_finished");
 		$ThouTute.hide()
 
+func gib_category():
+	tween.interpolate_property(
+		gib_category, "rect_scale", gib_category.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.start()
+
 func gib_question():
-	gib_anim.play("gibQ")
+	tween.interpolate_property(
+		gib_q_box, "rect_scale", gib_q_box.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.interpolate_property(
+		gib_q_box, "modulate", gib_q_box.modulate, Color.white, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.start()
+
+func gib_typing(start: bool):
+	tween.interpolate_property(
+		gib_q_box, "rect_position", gib_q_box.rect_position, Vector2(
+			gib_q_box.rect_position.x, question_up_y if start else question_y
+		), 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.interpolate_property(
+		gib_a_box, "rect_position", gib_a_box.rect_position, Vector2(
+			gib_a_box.rect_position.x, question_up_y if start else question_y
+		), 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.interpolate_property(
+		gib_category, "rect_position", gib_category.rect_position, Vector2(
+			gib_category.rect_position.x, outside_y if start else clue_y
+		), 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.start()
 
 func skip_gib_intro():
 	gib_anim.play("4", -1, 5.0)
@@ -161,30 +211,43 @@ func skip_thou_intro():
 	yield(thou_anim, "animation_finished");
 	$ThouTute.hide()
 
+func gib_clue(index: int, start: bool = true):
+	var el = [gib_clue1, gib_clue2, gib_clue3][index]
+	tween.interpolate_property(
+		el, "rect_scale", el.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.interpolate_property(
+		el, "modulate", el.modulate, Color.white, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	if !start: return
+	tween.start()
+
 func gib_reveal():
-	print("$GibClue1.rect_scale has type %f and Vector2.ONE has type %f" % [typeof($GibClue1.rect_scale), typeof(Vector2.ONE)])
-	print("$GibClue1.modulate has type %f and Color.white has type %f" % [typeof($GibClue1.modulate), typeof(Color.white)])
+	print("gib_clue1.rect_scale has type %f and Vector2.ONE has type %f" % [typeof(gib_clue1.rect_scale), typeof(Vector2.ONE)])
+	print("gib_clue1.modulate has type %f and Color.white has type %f" % [typeof(gib_clue1.modulate), typeof(Color.white)])
+	gib_clue(0, false)
+	gib_clue(1, false)
+	gib_clue(2, false)
 	tween.interpolate_property(
-		$GibClue1, "rect_scale", $GibClue1.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_q_box, "rect_scale", gib_q_box.rect_scale, Vector2.RIGHT, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	tween.interpolate_property(
-		$GibClue1, "modulate", $GibClue1.modulate, Color.white, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_q_box, "modulate", gib_q_box.modulate, Color.transparent, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.19
 	)
 	tween.interpolate_property(
-		$GibClue2, "rect_scale", $GibClue2.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_category, "rect_scale", gib_category.rect_scale, Vector2.RIGHT, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	tween.interpolate_property(
-		$GibClue2, "modulate", $GibClue2.modulate, Color.white, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_category, "modulate", gib_category.modulate, Color.transparent, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.19
 	)
 	tween.interpolate_property(
-		$GibClue3, "rect_scale", $GibClue3.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_a_box, "rect_scale", gib_a_box.rect_scale, Vector2.ONE, 0.2, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	tween.interpolate_property(
-		$GibClue3, "modulate", $GibClue3.modulate, Color.white, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		gib_a_box, "modulate", gib_a_box.modulate, Color.white, 0.01, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	print("Alright, should be fine to tween these. Play it")
 	tween.start()
-	gib_anim.play("gibA")
 
 func thou_tute_set_value():
 	var l = $ThouTute/Label;
@@ -195,17 +258,7 @@ func thou_tute_set_value():
 func _on_TextTick_checkpoint(checkpoint):
 	print("DEBUG: Checkpoint %d reached." % checkpoint)
 	if mode == "G":
-		match checkpoint:
-			0:
-				gib_anim.play("gibClue1")
-			1:
-				gib_anim.play("gibClue2")
-			2:
-				gib_anim.play("gibClue3")
-			3:
-				pass
-	elif mode == "G":
-		pass
+		gib_clue(checkpoint)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name in ["gib_logo", "thou_logo"]:

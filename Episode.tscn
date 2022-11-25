@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://images/techdiff.png" type="Texture" id=40]
 [ext_resource path="res://Thousand.gdshader" type="Shader" id=41]
 [ext_resource path="res://fonts/credits_header.tres" type="DynamicFont" id=42]
+[ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=43]
 
 [sub_resource type="ViewportTexture" id=28]
 viewport_path = NodePath("ViewportContainer/Viewport")
@@ -49,7 +50,7 @@ viewport_path = NodePath("ViewportContainer/Viewport")
 [sub_resource type="Animation" id=25]
 resource_name = "credits_roll"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Logo:scale")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -61,7 +62,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Logo:position")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -73,7 +74,7 @@ tracks/1/keys = {
 "values": [ Vector2( 640, 360 ), Vector2( 320, 160 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Circle:modulate")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Circle:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -85,7 +86,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Leaderboard:rect_scale")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -97,7 +98,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.6, 0.6 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Leaderboard:rect_position")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -109,7 +110,7 @@ tracks/4/keys = {
 "values": [ Vector2( 268, 730 ), Vector2( 96, 284 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Cutscenes/Leaderboard:rect_rotation")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -121,7 +122,7 @@ tracks/5/keys = {
 "values": [ 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Cutscenes/CreditBox/CreditScroller:visible")
+tracks/6/path = NodePath("ScreenStretch/Cutscenes/CreditBox/CreditScroller:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -133,7 +134,7 @@ tracks/6/keys = {
 "values": [ false, true ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Cutscenes/CreditBox:rect_scale")
+tracks/7/path = NodePath("ScreenStretch/Cutscenes/CreditBox:rect_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -145,7 +146,7 @@ tracks/7/keys = {
 "values": [ Vector2( 2, 2 ), Vector2( 1, 1 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("BackButton:visible")
+tracks/8/path = NodePath("ScreenStretch/BackButton:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -157,7 +158,7 @@ tracks/8/keys = {
 "values": [ false, true ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("BackButton:rect_position")
+tracks/9/path = NodePath("ScreenStretch/BackButton:rect_position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -173,7 +174,7 @@ tracks/9/keys = {
 resource_name = "end_intro"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Lifesavers:modulate:a")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -185,7 +186,7 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Label0:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Label0:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -197,7 +198,7 @@ tracks/1/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Label1:modulate:a")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Label1:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -209,7 +210,7 @@ tracks/2/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Label2:modulate:a")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Label2:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -221,7 +222,7 @@ tracks/3/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Lifesavers:visible")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -237,7 +238,7 @@ tracks/4/keys = {
 resource_name = "final_standings"
 length = 6.0
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("Cutscenes/Final/Label:rect_position:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -247,7 +248,7 @@ tracks/0/keys = {
 "times": PoolRealArray(  )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("Cutscenes/Final/Label:rect_position:y")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -257,7 +258,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 4.7, 5 )
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Final/Label:rect_scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -269,7 +270,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.4, 0.4 ), Vector2( 0.4, 0.4 ), Vector2( 1.04, 1.04 ), Vector2( 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Final/Label:rect_rotation")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -281,7 +282,7 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0, 2.8 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Final/Label:modulate")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Final/Label:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -293,7 +294,7 @@ tracks/4/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.313726, 0, 0, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Cutscenes/Final/Panel:modulate")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Final/Panel:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -305,7 +306,7 @@ tracks/5/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Cutscenes/Final/Filter:color")
+tracks/6/path = NodePath("ScreenStretch/Cutscenes/Final/Filter:color")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -317,7 +318,7 @@ tracks/6/keys = {
 "values": [ Color( 0, 0, 0, 0.866667 ), Color( 0, 0, 0, 0.866667 ), Color( 1, 0.941176, 0.803922, 1 ), Color( 0.913725, 0.819608, 0.607843, 0.619608 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Cutscenes/Final/FinalLeaderboard:rect_scale")
+tracks/7/path = NodePath("ScreenStretch/Cutscenes/Final/FinalLeaderboard:rect_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -329,7 +330,7 @@ tracks/7/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Cutscenes/Final/FinalLeaderboard:rect_position:y")
+tracks/8/path = NodePath("ScreenStretch/Cutscenes/Final/FinalLeaderboard:rect_position:y")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -341,7 +342,7 @@ tracks/8/keys = {
 "values": [ 240.0, 240.0, 0.0 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Cutscenes/Final/FinalLeaderboard:modulate")
+tracks/9/path = NodePath("ScreenStretch/Cutscenes/Final/FinalLeaderboard:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -353,7 +354,7 @@ tracks/9/keys = {
 "values": [ Color( 0.592157, 0.4, 0.231373, 0 ), Color( 0.592157, 0.4, 0.231373, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Cutscenes/Final:visible")
+tracks/10/path = NodePath("ScreenStretch/Cutscenes/Final:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -365,7 +366,7 @@ tracks/10/keys = {
 "values": [ true ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Cutscenes/Logo:rotation_degrees")
+tracks/11/path = NodePath("ScreenStretch/Cutscenes/Logo:rotation_degrees")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -377,7 +378,7 @@ tracks/11/keys = {
 "values": [ 0.0 ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Cutscenes/CreditBox:visible")
+tracks/12/path = NodePath("ScreenStretch/Cutscenes/CreditBox:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -389,7 +390,7 @@ tracks/12/keys = {
 "values": [ true ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Cutscenes/CreditBox:rect_scale")
+tracks/13/path = NodePath("ScreenStretch/Cutscenes/CreditBox:rect_scale")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -401,7 +402,7 @@ tracks/13/keys = {
 "values": [ Vector2( 2, 2 ) ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("Cutscenes/Logo:modulate")
+tracks/14/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -413,7 +414,7 @@ tracks/14/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("Cutscenes/Logo:scale")
+tracks/15/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
@@ -425,7 +426,7 @@ tracks/15/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 tracks/16/type = "value"
-tracks/16/path = NodePath("Cutscenes/Circle:modulate")
+tracks/16/path = NodePath("ScreenStretch/Cutscenes/Circle:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/imported = false
@@ -437,7 +438,7 @@ tracks/16/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/17/type = "value"
-tracks/17/path = NodePath("Cutscenes/Circle:radius")
+tracks/17/path = NodePath("ScreenStretch/Cutscenes/Circle:radius")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
@@ -449,7 +450,7 @@ tracks/17/keys = {
 "values": [ 1.5 ]
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("Cutscenes/Circle:color")
+tracks/18/path = NodePath("ScreenStretch/Cutscenes/Circle:color")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -465,7 +466,7 @@ tracks/18/keys = {
 resource_name = "intro"
 length = 3.0
 tracks/0/type = "method"
-tracks/0/path = NodePath("Cutscenes")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -479,7 +480,7 @@ tracks/0/keys = {
 } ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Logo:scale")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -491,7 +492,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Logo:position")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -503,7 +504,7 @@ tracks/2/keys = {
 "values": [ Vector2( 640, 360 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Logo:rotation_degrees")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Logo:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -515,7 +516,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Lifesavers:modulate:a")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:modulate:a")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -527,7 +528,7 @@ tracks/4/keys = {
 "values": [ 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Cutscenes/Label0:rect_position:x")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Label0:rect_position:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -539,7 +540,7 @@ tracks/5/keys = {
 "values": [ 1300.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Cutscenes/Label1:rect_position:x")
+tracks/6/path = NodePath("ScreenStretch/Cutscenes/Label1:rect_position:x")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -551,7 +552,7 @@ tracks/6/keys = {
 "values": [ 1300.0 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Cutscenes/Label2:rect_position:x")
+tracks/7/path = NodePath("ScreenStretch/Cutscenes/Label2:rect_position:x")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -563,7 +564,7 @@ tracks/7/keys = {
 "values": [ 1300.0 ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Cutscenes/Logo:modulate")
+tracks/8/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -575,7 +576,7 @@ tracks/8/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Cutscenes/Round2:modulate")
+tracks/9/path = NodePath("ScreenStretch/Cutscenes/Round2:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -587,7 +588,7 @@ tracks/9/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Cutscenes/Circle:modulate")
+tracks/10/path = NodePath("ScreenStretch/Cutscenes/Circle:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -599,7 +600,7 @@ tracks/10/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Cutscenes/Lifesavers:scale")
+tracks/11/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:scale")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -611,7 +612,7 @@ tracks/11/keys = {
 "values": [ Vector2( 0.667, 0.667 ) ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Cutscenes/Leaderboard:rect_position")
+tracks/12/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -623,7 +624,7 @@ tracks/12/keys = {
 "values": [ Vector2( 268, 730 ) ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Cutscenes/Circle:color")
+tracks/13/path = NodePath("ScreenStretch/Cutscenes/Circle:color")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -639,7 +640,7 @@ tracks/13/keys = {
 resource_name = "leaderboard"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Leaderboard:rect_position:y")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -651,7 +652,7 @@ tracks/0/keys = {
 "values": [ 730.0, -6.0, 2.0, -1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Logo:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -663,7 +664,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Logo:scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -675,7 +676,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Round2:scale")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Round2:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -687,7 +688,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Logo:position")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Logo:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -699,7 +700,7 @@ tracks/4/keys = {
 "values": [ Vector2( 640, 360 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Cutscenes/Logo:rotation_degrees")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Logo:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -715,7 +716,7 @@ tracks/5/keys = {
 resource_name = "leaderboard_end"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Leaderboard:rect_position:y")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -727,7 +728,7 @@ tracks/0/keys = {
 "values": [ 0.0, -730.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Logo:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -739,7 +740,7 @@ tracks/1/keys = {
 "values": [ 0.4, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Logo:scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -755,7 +756,7 @@ tracks/2/keys = {
 resource_name = "lifesavers_logo"
 length = 0.8
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Lifesavers:position:y")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -767,7 +768,7 @@ tracks/0/keys = {
 "values": [ 400.0, 320.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Lifesavers:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -779,7 +780,7 @@ tracks/1/keys = {
 "values": [ 0.0, 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Label0:modulate:a")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Label0:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -791,7 +792,7 @@ tracks/2/keys = {
 "values": [ 1.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Label1:modulate:a")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Label1:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -803,7 +804,7 @@ tracks/3/keys = {
 "values": [ 1.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Cutscenes/Label2:modulate:a")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Label2:modulate:a")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -815,7 +816,7 @@ tracks/4/keys = {
 "values": [ 1.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Cutscenes/Lifesavers:position:x")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:position:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -827,7 +828,7 @@ tracks/5/keys = {
 "values": [ 640.0, 640.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Cutscenes/Lifesavers:visible")
+tracks/6/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -844,7 +845,7 @@ resource_name = "lifesavers_tute0"
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Lifesavers:position:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -856,40 +857,36 @@ tracks/0/keys = {
 "values": [ 640.0, 320.0, 390.0, 365.0, 370.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Lifesavers:scale")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Label0:rect_position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05 ),
-"transitions": PoolRealArray( -2, 1 ),
-"update": 0,
-"values": [ Vector2( 0.667, 0.667 ), Vector2( 0.5, 0.5 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Label0:rect_position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( -2, 1 ),
 "update": 0,
 "values": [ 1300.0, 720.0 ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Label0:bbcode_text")
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.667, 0, 0, 0.02, 0, 0.5, -0.03, 0, 0, 0 ),
+"times": PoolRealArray( 0, 0.05 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Lifesavers:scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Press ㍘ or ㍚ to activate" ]
+"points": PoolRealArray( 0.667, 0, 0, 0.02, 0, 0.5, -0.03, 0, 0, 0 ),
+"times": PoolRealArray( 0, 0.05 )
 }
 
 [sub_resource type="Animation" id=6]
@@ -897,7 +894,7 @@ resource_name = "lifesavers_tute1"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Label1:rect_position:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Label1:rect_position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -907,18 +904,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( -2, 1 ),
 "update": 0,
 "values": [ 1300.0, 720.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Label1:bbcode_text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "From 4 options to 2 options" ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -926,7 +911,7 @@ resource_name = "lifesavers_tute2"
 length = 0.1
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Label2:rect_position:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Label2:rect_position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -937,24 +922,12 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 1300.0, 720.0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "12 questions, 1 Lifesaver" ]
-}
 
 [sub_resource type="Animation" id=3]
 resource_name = "logo_leave"
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Logo:rotation_degrees")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Logo:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -966,7 +939,7 @@ tracks/0/keys = {
 "values": [ 0.0, -35.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Logo:position:y")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -982,7 +955,7 @@ tracks/1/keys = {
 resource_name = "round2"
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Logo:scale:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Logo:scale:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -994,7 +967,7 @@ tracks/0/keys = {
 "values": [ 0.5, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Round2:scale:x")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Round2:scale:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1006,7 +979,7 @@ tracks/1/keys = {
 "values": [ 0.0, 1.0, 0.9, 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Round2:modulate:a")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Round2:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1018,7 +991,7 @@ tracks/2/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Cutscenes/Logo:modulate")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -1034,7 +1007,7 @@ tracks/3/keys = {
 resource_name = "round2_reverse"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Logo:scale:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Logo:scale:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1046,7 +1019,7 @@ tracks/0/keys = {
 "values": [ 0.0, 0.0, 0.5 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Round2:scale:x")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Round2:scale:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1058,7 +1031,7 @@ tracks/1/keys = {
 "values": [ 1.0, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cutscenes/Round2:modulate:a")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Round2:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1295,7 +1268,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Screen" type="TextureRect" parent="."]
+[node name="ScreenStretch" parent="." instance=ExtResource( 43 )]
+
+[node name="Screen" type="TextureRect" parent="ScreenStretch"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1306,9 +1281,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Standard" parent="." instance=ExtResource( 1 )]
+[node name="Standard" parent="ScreenStretch" instance=ExtResource( 1 )]
 
-[node name="Cutscenes" type="Control" parent="."]
+[node name="Cutscenes" type="Control" parent="ScreenStretch"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 640, 360 )
@@ -1318,8 +1293,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscenes"]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenStretch/Cutscenes"]
+root_node = NodePath("../../..")
 anims/credits_roll = SubResource( 25 )
 anims/end_intro = SubResource( 8 )
 anims/final_standings = SubResource( 18 )
@@ -1334,10 +1309,9 @@ anims/logo_leave = SubResource( 3 )
 anims/round2 = SubResource( 17 )
 anims/round2_reverse = SubResource( 16 )
 
-[node name="Tween" type="Tween" parent="Cutscenes"]
+[node name="Tween" type="Tween" parent="ScreenStretch/Cutscenes"]
 
-[node name="Circle" type="ColorRect" parent="Cutscenes"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="Circle" type="ColorRect" parent="ScreenStretch/Cutscenes"]
 material = SubResource( 29 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1348,12 +1322,12 @@ color = Color( 0.211765, 0.360784, 0.270588, 1 )
 script = ExtResource( 7 )
 radius = 1.5
 
-[node name="Round2" type="Sprite" parent="Cutscenes"]
+[node name="Round2" type="Sprite" parent="ScreenStretch/Cutscenes"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 640, 360 )
 texture = ExtResource( 29 )
 
-[node name="Label" type="Label" parent="Cutscenes/Round2"]
+[node name="Label" type="Label" parent="ScreenStretch/Cutscenes/Round2"]
 margin_left = -94.0
 margin_top = 88.0
 margin_right = 285.0
@@ -1366,11 +1340,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Logo" parent="Cutscenes" instance=ExtResource( 3 )]
+[node name="Logo" parent="ScreenStretch/Cutscenes" instance=ExtResource( 3 )]
 position = Vector2( 640, 360 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="TechDiff" type="ColorRect" parent="Cutscenes"]
+[node name="TechDiff" type="ColorRect" parent="ScreenStretch/Cutscenes"]
 visible = false
 material = SubResource( 1 )
 anchor_right = 1.0
@@ -1384,19 +1358,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Techdiff" type="Sprite" parent="Cutscenes/TechDiff"]
+[node name="Techdiff" type="Sprite" parent="ScreenStretch/Cutscenes/TechDiff"]
 position = Vector2( 640, 360 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 40 )
 
-[node name="Lifesavers" type="Sprite" parent="Cutscenes"]
-visible = false
+[node name="Lifesavers" type="Sprite" parent="ScreenStretch/Cutscenes"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 640, 320 )
+position = Vector2( 640, 365 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 9 )
 
-[node name="Label0" type="RichTextLabel" parent="Cutscenes"]
+[node name="Label0" type="RichTextLabel" parent="ScreenStretch/Cutscenes"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1410,44 +1383,37 @@ theme = ExtResource( 10 )
 bbcode_enabled = true
 bbcode_text = "Press ㍘ or ㍚ to activate"
 text = "Press ㍘ or ㍚ to activate"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label1" type="RichTextLabel" parent="Cutscenes"]
+[node name="Label1" type="RichTextLabel" parent="ScreenStretch/Cutscenes"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 660.0
+margin_left = 80.0
 margin_top = -56.0
-margin_right = 1204.0
+margin_right = 624.0
 margin_bottom = 12.0
 mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
-bbcode_text = "From 4 options to 2 options"
-text = "From 4 options to 2 options"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="RichTextLabel" parent="Cutscenes"]
+[node name="Label2" type="RichTextLabel" parent="ScreenStretch/Cutscenes"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 660.0
+margin_left = 80.0
 margin_top = 16.0
-margin_right = 1204.0
+margin_right = 624.0
 margin_bottom = 84.0
 mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
-bbcode_text = "12 questions, 1 Lifesaver"
-text = "12 questions, 1 Lifesaver"
 
-[node name="Leaderboard" type="VBoxContainer" parent="Cutscenes"]
+[node name="Leaderboard" type="VBoxContainer" parent="ScreenStretch/Cutscenes"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 268.0
@@ -1459,7 +1425,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Cutscenes/Leaderboard"]
+[node name="Panel" type="Panel" parent="ScreenStretch/Cutscenes/Leaderboard"]
 margin_top = 254.0
 margin_right = 760.0
 margin_bottom = 334.0
@@ -1467,7 +1433,7 @@ rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 custom_styles/panel = ExtResource( 26 )
 
-[node name="Label" type="Label" parent="Cutscenes/Leaderboard/Panel"]
+[node name="Label" type="Label" parent="ScreenStretch/Cutscenes/Leaderboard/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 16 )
@@ -1478,14 +1444,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PC" type="Panel" parent="Cutscenes/Leaderboard"]
+[node name="PC" type="Panel" parent="ScreenStretch/Cutscenes/Leaderboard"]
 margin_top = 338.0
 margin_right = 760.0
 margin_bottom = 402.0
 rect_min_size = Vector2( 0, 64 )
 custom_styles/panel = ExtResource( 27 )
 
-[node name="Number" type="Label" parent="Cutscenes/Leaderboard/PC"]
+[node name="Number" type="Label" parent="ScreenStretch/Cutscenes/Leaderboard/PC"]
 margin_left = -40.0
 margin_top = -5.33331
 margin_right = 24.0
@@ -1504,7 +1470,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBox" type="HBoxContainer" parent="Cutscenes/Leaderboard/PC"]
+[node name="HBox" type="HBoxContainer" parent="ScreenStretch/Cutscenes/Leaderboard/PC"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
@@ -1515,7 +1481,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Cutscenes/Leaderboard/PC/HBox"]
+[node name="Name" type="Label" parent="ScreenStretch/Cutscenes/Leaderboard/PC/HBox"]
 margin_right = 472.0
 margin_bottom = 58.0
 grow_horizontal = 2
@@ -1533,7 +1499,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="Cutscenes/Leaderboard/PC/HBox"]
+[node name="Score" type="Label" parent="ScreenStretch/Cutscenes/Leaderboard/PC/HBox"]
 margin_left = 476.0
 margin_right = 730.0
 margin_bottom = 58.0
@@ -1553,7 +1519,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Final" type="ColorRect" parent="Cutscenes"]
+[node name="Final" type="ColorRect" parent="ScreenStretch/Cutscenes"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1562,7 +1528,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Cutscenes/Final"]
+[node name="Panel" type="Panel" parent="ScreenStretch/Cutscenes/Final"]
 modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1582,7 +1548,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Cutscenes/Final"]
+[node name="Label" type="Label" parent="ScreenStretch/Cutscenes/Final"]
 modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1605,7 +1571,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Filter" type="ColorRect" parent="Cutscenes/Final"]
+[node name="Filter" type="ColorRect" parent="ScreenStretch/Cutscenes/Final"]
 material = SubResource( 22 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1614,7 +1580,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FinalLeaderboard" type="VBoxContainer" parent="Cutscenes/Final"]
+[node name="FinalLeaderboard" type="VBoxContainer" parent="ScreenStretch/Cutscenes/Final"]
 modulate = Color( 0.592157, 0.4, 0.231373, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1628,7 +1594,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FinalPBox" type="Panel" parent="Cutscenes/Final/FinalLeaderboard"]
+[node name="FinalPBox" type="Panel" parent="ScreenStretch/Cutscenes/Final/FinalLeaderboard"]
 self_modulate = Color( 1, 1, 1, 0 )
 margin_top = 320.0
 margin_right = 1280.0
@@ -1636,7 +1602,7 @@ margin_bottom = 400.0
 rect_min_size = Vector2( 1280, 80 )
 script = ExtResource( 32 )
 
-[node name="bg" type="Panel" parent="Cutscenes/Final/FinalLeaderboard/FinalPBox"]
+[node name="bg" type="Panel" parent="ScreenStretch/Cutscenes/Final/FinalLeaderboard/FinalPBox"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1650,7 +1616,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="number" type="Label" parent="Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
+[node name="number" type="Label" parent="ScreenStretch/Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -1663,7 +1629,7 @@ text = "8"
 align = 1
 valign = 1
 
-[node name="score" type="Label" parent="Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
+[node name="score" type="Label" parent="ScreenStretch/Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 86.0
@@ -1680,7 +1646,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="name" type="Label" parent="Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
+[node name="name" type="Label" parent="ScreenStretch/Cutscenes/Final/FinalLeaderboard/FinalPBox/bg"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 30.0
@@ -1694,7 +1660,7 @@ text = "WWWWWWWWWWWW"
 align = 2
 valign = 1
 
-[node name="CreditBox" type="Panel" parent="Cutscenes"]
+[node name="CreditBox" type="Panel" parent="ScreenStretch/Cutscenes"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1709,23 +1675,24 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CreditScroller" type="ScrollContainer" parent="Cutscenes/CreditBox"]
+[node name="CreditScroller" type="ScrollContainer" parent="ScreenStretch/Cutscenes/CreditBox"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
 scroll_horizontal_enabled = false
 
-[node name="V" type="VBoxContainer" parent="Cutscenes/CreditBox/CreditScroller"]
+[node name="V" type="VBoxContainer" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller"]
 margin_right = 552.0
-margin_bottom = 73.0
+margin_bottom = 93.0
 size_flags_horizontal = 3
 custom_constants/separation = 8
 
-[node name="Spacer" type="Control" parent="Cutscenes/CreditBox/CreditScroller/V"]
+[node name="Spacer" type="Control" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
 margin_right = 552.0
 size_flags_horizontal = 3
 
-[node name="Title" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
+[node name="Title" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
 margin_top = 8.0
 margin_right = 552.0
 margin_bottom = 36.0
@@ -1736,7 +1703,7 @@ text = "Salty Trivia with Candy Barre"
 fit_content_height = true
 scroll_active = false
 
-[node name="Body" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
+[node name="Body" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
 margin_top = 44.0
 margin_right = 552.0
 margin_bottom = 73.0
@@ -1746,7 +1713,7 @@ text = "Presented by hai!touch Studios"
 fit_content_height = true
 scroll_active = false
 
-[node name="Label" type="Label" parent="Cutscenes/CreditBox"]
+[node name="Label" type="Label" parent="ScreenStretch/Cutscenes/CreditBox"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1761,7 +1728,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Cutscenes/CreditBox"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox"]
 margin_left = -22.0
 margin_top = -106.0
 margin_right = 882.0
@@ -1777,7 +1744,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shutter" type="TextureRect" parent="."]
+[node name="Shutter" type="TextureRect" parent="ScreenStretch"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -720.0
@@ -1789,10 +1756,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Shutter"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenStretch/Shutter"]
 anims/disqualified = SubResource( 9 )
 
-[node name="Label" type="Label" parent="Shutter"]
+[node name="Label" type="Label" parent="ScreenStretch/Shutter"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1807,7 +1774,7 @@ custom_styles/normal = SubResource( 10 )
 text = "Game Over"
 align = 1
 
-[node name="Label" type="Label" parent="Shutter/Label"]
+[node name="Label" type="Label" parent="ScreenStretch/Shutter/Label"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1817,12 +1784,12 @@ text = "I bet you didn’t know this was possible."
 align = 1
 valign = 1
 
-[node name="TypingHandler" parent="." instance=ExtResource( 12 )]
+[node name="TypingHandler" parent="ScreenStretch" instance=ExtResource( 12 )]
 margin_right = 0.0
 
-[node name="HUD" parent="." instance=ExtResource( 8 )]
+[node name="HUD" parent="ScreenStretch" instance=ExtResource( 8 )]
 
-[node name="SkipButton" type="Label" parent="."]
+[node name="SkipButton" type="Label" parent="ScreenStretch"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1840,10 +1807,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SubBox" parent="." instance=ExtResource( 6 )]
-
-[node name="Pause" type="ColorRect" parent="."]
+[node name="Pause" type="ColorRect" parent="ScreenStretch"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1855,7 +1821,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bg" type="TextureRect" parent="Pause"]
+[node name="Bg" type="TextureRect" parent="ScreenStretch/Pause"]
 modulate = Color( 1, 1, 1, 0.207843 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1865,15 +1831,15 @@ texture = ExtResource( 22 )
 expand = true
 stretch_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Pause"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenStretch/Pause"]
 reset_on_save = false
 anims/hide = SubResource( 12 )
 anims/show = SubResource( 13 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pause"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ScreenStretch/Pause"]
 stream = ExtResource( 24 )
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Pause"]
+[node name="NinePatchRect" type="NinePatchRect" parent="ScreenStretch/Pause"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1893,7 +1859,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="TextureRect" parent="Pause/NinePatchRect"]
+[node name="Sprite" type="TextureRect" parent="ScreenStretch/Pause/NinePatchRect"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -144.0
@@ -1906,7 +1872,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Pause/NinePatchRect/Sprite"]
+[node name="Label" type="Label" parent="ScreenStretch/Pause/NinePatchRect/Sprite"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 6.0
@@ -1920,7 +1886,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Pause/NinePatchRect"]
+[node name="Label" type="Label" parent="ScreenStretch/Pause/NinePatchRect"]
 anchor_right = 1.0
 margin_left = 64.0
 margin_top = 40.0
@@ -1936,7 +1902,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Pause/NinePatchRect"]
+[node name="Label2" type="Label" parent="ScreenStretch/Pause/NinePatchRect"]
 anchor_right = 1.0
 margin_left = 64.0
 margin_top = 128.0
@@ -1947,7 +1913,7 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_fonts/font = ExtResource( 11 )
 text = "You have paused 0 time(s) this game."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Pause/NinePatchRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScreenStretch/Pause/NinePatchRect"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1956,7 +1922,7 @@ margin_top = -232.0
 margin_right = -64.0
 margin_bottom = -56.0
 
-[node name="Button2" type="Button" parent="Pause/NinePatchRect/HBoxContainer"]
+[node name="Button2" type="Button" parent="ScreenStretch/Pause/NinePatchRect/HBoxContainer"]
 margin_right = 318.0
 margin_bottom = 176.0
 size_flags_horizontal = 3
@@ -1970,7 +1936,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Pause/NinePatchRect/HBoxContainer"]
+[node name="Button" type="Button" parent="ScreenStretch/Pause/NinePatchRect/HBoxContainer"]
 margin_left = 322.0
 margin_right = 640.0
 margin_bottom = 176.0
@@ -1985,16 +1951,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackButton" parent="." instance=ExtResource( 38 )]
+[node name="BackButton" parent="ScreenStretch" instance=ExtResource( 38 )]
 visible = false
 margin_left = -222.0
 margin_right = -6.0
 
-[connection signal="animation_finished" from="Cutscenes/AnimationPlayer" to="Cutscenes" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/Body" to="." method="_on_credits_link_clicked"]
-[connection signal="meta_clicked" from="Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
-[connection signal="gui_input" from="SkipButton" to="." method="_on_SkipButton_gui_input"]
-[connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button2" to="Pause" method="quit"]
-[connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button" to="Pause" method="resume"]
-[connection signal="back_pressed" from="BackButton" to="." method="_on_BackButton_back_pressed"]
+[node name="SubManager" parent="." instance=ExtResource( 6 )]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="animation_finished" from="ScreenStretch/Cutscenes/AnimationPlayer" to="ScreenStretch/Cutscenes" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V/Body" to="." method="_on_credits_link_clicked"]
+[connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
+[connection signal="gui_input" from="ScreenStretch/SkipButton" to="." method="_on_SkipButton_gui_input"]
+[connection signal="animation_finished" from="ScreenStretch/Pause/AnimationPlayer" to="ScreenStretch/Pause" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="ScreenStretch/Pause/NinePatchRect/HBoxContainer/Button2" to="ScreenStretch/Pause" method="quit"]
+[connection signal="pressed" from="ScreenStretch/Pause/NinePatchRect/HBoxContainer/Button" to="ScreenStretch/Pause" method="resume"]
+[connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_BackButton_back_pressed"]

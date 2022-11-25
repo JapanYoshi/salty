@@ -1,5 +1,6 @@
 extends Control
 
+var menu_root: Control
 var p_count = 0 # number of players
 var room_full: bool = false
 var signup_now: Dictionary
@@ -251,7 +252,7 @@ func _input(e):
 					):
 						start_game()
 				elif e.button_index == JOY_DS_B:
-					get_parent().back()
+					menu_root.back()
 				elif e.button_index == JOY_DS_X:
 					toggle_show_room_code()
 				elif e.button_index == JOY_SELECT:
@@ -260,7 +261,7 @@ func _input(e):
 		var sc = e.physical_scancode
 		if e.pressed:
 			if sc == KEY_ESCAPE:
-				get_parent().back()
+				menu_root.back()
 			# This is a hacky workaround caused by the fact that
 			# "physical scancode" has been backported from Godot 4,
 			# but not "is physical key pressed".
@@ -549,7 +550,7 @@ func start_game():
 	R.uuid_reset()
 	# pass on the duty of registering new audience members to Root while the game is on
 	R.listen_for_audience_join()
-	get_parent().start_game()
+	menu_root.start_game()
 
 func _on_TouchButton_pressed():
 	# touchscreen player is in slot 4
@@ -562,13 +563,15 @@ func _on_TouchButton_pressed():
 			"device_number": 4,
 			"input_slot_number": 4,
 			"player_number": p_count,
-			"side": 0
+			"side": 0,
+			"censored": false,
 		}
 	)
 	p_count += 1
 	check_full()
 
 func _on_Ready_gui_input(event):
+	if R.players.empty(): return
 	if R.players[0].device == C.DEVICES.TOUCHSCREEN:
 		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 			start_game()

@@ -1,8 +1,9 @@
 extends ColorRect
 
-onready var q_box = $Standard
-onready var c_box = $Cutscenes
-onready var hud = $HUD
+onready var q_box = $ScreenStretch/Standard
+onready var c_box = $ScreenStretch/Cutscenes
+onready var hud = $ScreenStretch/HUD
+onready var skip_btn = $ScreenStretch/SkipButton
 var episode_data = {}
 var question_number = 0
 var intermission_played = false
@@ -22,44 +23,44 @@ func _ready():
 	q_box.set_process(false)
 	c_box.set_process(true)
 	S.play_sfx("blank")
-	$Shutter/AnimationPlayer.stop()
-	$SkipButton.hide()
-	$BackButton.hide()
-	$Cutscenes/Circle.color = Color.black
-	$Cutscenes/Circle.modulate = Color.white
-	$Cutscenes/TechDiff.hide()
-	$Cutscenes/Final.hide()
+	$ScreenStretch/Shutter/AnimationPlayer.stop()
+	skip_btn.hide()
+	$ScreenStretch/BackButton.hide()
+	c_box.get_node("Circle").color = Color.black
+	c_box.get_node("Circle").modulate = Color.white
+	c_box.get_node("TechDiff").hide()
+	c_box.get_node("Final").hide()
 	q_box.connect("question_done", self, "load_next_question")
 	q_box.hud = hud
 	question_number = 0
 	episode_data = R.pass_between.episode_data
-	if not R.pass_between.has("episode_name"):
-#		# we're debugging
-		DEBUG = true
-		R.pass_between.episode_name = "demo"
-		question_number = 12
-		episode_data = Loader.load_episode(R.pass_between.episode_name)
-		load_next_question()
-		return
-	elif R.pass_between.episode_name == "demo":
-		# still debug for now
-		DEBUG = true
-		question_number = 12
-		load_next_question()
-		return
-	$Cutscenes/Round2.scale = Vector2(0, 1)
+#	if not R.pass_between.has("episode_name"):
+##		# we're debugging
+#		DEBUG = true
+#		R.pass_between.episode_name = "demo"
+#		question_number = 12
+#		episode_data = Loader.load_episode(R.pass_between.episode_name)
+#		load_next_question()
+#		return
+#	elif R.pass_between.episode_name == "demo":
+#		# still debug for now
+#		DEBUG = true
+#		question_number = 12
+#		load_next_question()
+#		return
+	c_box.get_node("Round2").scale = Vector2(0, 1)
 	call_deferred("play_intro")
 
 func enable_skip():
 	C.connect("gp_button", self, "_gp_button")
-	$SkipButton.show()
+	skip_btn.show()
 	skippable = true
 	skipped = false
 #	Ws.scene("enableSkip")
 	send_scene("enableSkip")
 
 func disable_skip():
-	$SkipButton.hide()
+	skip_btn.hide()
 	C.disconnect("gp_button", self, "_gp_button")
 	skippable = false
 	skipped = true
@@ -621,7 +622,7 @@ func too_many_pauses():
 	# Retrieve the captured image.
 	var screenshot: Image = get_viewport().get_texture().get_data()
 	txr.create_from_image(screenshot, 0)
-	$Screen.set_texture(txr)
+	$ScreenStretch/Screen.set_texture(txr)
 #	$Screen.show()
 	
 	S.play_music("", 0)
@@ -639,10 +640,10 @@ func disqualified():
 	shutter()
 
 func shutter():
-	$Shutter.set_texture(load("res://images/shutter.png"))
-	$Shutter/AnimationPlayer.play("disqualified")
+	$ScreenStretch/Shutter.set_texture(load("res://images/shutter.png"))
+	$ScreenStretch/Shutter/AnimationPlayer.play("disqualified")
 	S.play_sfx("dq")
-	yield($Shutter/AnimationPlayer, "animation_finished")
+	yield($ScreenStretch/Shutter/AnimationPlayer, "animation_finished")
 #	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 

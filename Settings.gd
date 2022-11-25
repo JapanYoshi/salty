@@ -256,15 +256,15 @@ Exceptions:
 var ring_speed = 1
 var focus_index = 0
 onready var temp_config = R.cfg.duplicate()
-onready var vbox = $Scroll/VBoxContainer
-onready var title = $Details/Name
-onready var desc = $Details/Desc
+onready var vbox = $ScreenStretch/Scroll/VBoxContainer
+onready var title = $ScreenStretch/Details/Name
+onready var desc = $ScreenStretch/Details/Desc
 var setting_elements = []
 var setting_is_bool = []
 var setup_done = false
 
 func _ready():
-	S.play_music("main_theme", 1)
+	S.play_music("house", 1)
 	# Set up the options. Finally automate this sucker.
 	var range_used: bool = false
 	var bool_used: bool = false
@@ -365,7 +365,7 @@ func change_desc(backwards: bool = true):
 				checkbox.set_pressed_no_signal(options[val].v)
 
 # Scroll the currently selected element into view
-onready var scroll: ScrollContainer = $Scroll
+onready var scroll: ScrollContainer = $ScreenStretch/Scroll
 var scroll_margin: float = 16.0
 func scroll_scroller():
 	if scroll.scroll_vertical > setting_elements[focus_index].rect_position.y:

@@ -1,6 +1,6 @@
 extends Control
 
-onready var current_page = $Episodes
+onready var current_page = $ScreenStretch/Episodes
 var first_page = preload("res://Episodes.tscn")
 var signup = preload("res://signup.tscn")
 onready var tween = $Tween
@@ -13,6 +13,7 @@ signal next_question_please
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	current_page.menu_root = self
 	print("MenuRoot readying...")
 	S.play_multitrack("signup_base", 1, "signup_extra", 0, "signup_extra2", 0)
 	click_mask.hide()
@@ -65,8 +66,9 @@ func change_scene_to(n):
 	yield(get_tree().create_timer(0.5), "timeout")
 	current_page.queue_free()
 	current_page = n
-	add_child(current_page, true)
-	move_child(current_page, 1)
+	current_page.menu_root = self
+	$ScreenStretch.add_child(current_page, true)
+	$ScreenStretch.move_child(current_page, 1)
 	click_mask.hide()
 
 func choose_episode(id):
@@ -181,7 +183,7 @@ func start_game():
 	S.play_track(0, 0)
 	S.play_track(1, 0)
 	S.play_track(2, 0)
-	get_tree().change_scene("res://Episode.tscn")
+	get_tree().call_deferred("change_scene", "res://Episode.tscn")
 
 onready var http_request = $HTTPRequest
 

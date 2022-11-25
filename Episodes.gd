@@ -1,4 +1,5 @@
 extends Control
+var menu_root: Control
 onready var ep_scroller = $ScrollContainer/VBoxContainer
 var eps = {}
 #var eps = {"RQ": {
@@ -88,7 +89,7 @@ func _input(event):
 		pass
 	elif event.is_action_pressed("ui_cancel"):
 		accept_event()
-		get_parent().back()
+		menu_root.back()
 	elif event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
 		accept_event()
 
@@ -101,10 +102,10 @@ func _on_Option_pressed():
 			disable_controls = true
 			S.play_sfx("menu_confirm")
 			release_focus()
-			get_parent().choose_episode(eps[selected_now].filename)
+			menu_root.choose_episode(eps[selected_now].filename)
 	else:
 		focus_shifted(get_focus_owner().name)
 
 func _on_BackButton_back_pressed():
 	S.play_sfx("menu_back")
-	get_parent().back()
+	menu_root.back()

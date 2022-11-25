@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://images/gib_4.png" type="Texture" id=1]
 [ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://images/gib_5.png" type="Texture" id=14]
 [ext_resource path="res://images/thousand_thousand.png" type="Texture" id=15]
 [ext_resource path="res://images/thousand_logo.png" type="Texture" id=16]
+[ext_resource path="res://ThemeRushOption.theme" type="Theme" id=17]
 [ext_resource path="res://images/gib_time_0.png" type="Texture" id=18]
 [ext_resource path="res://images/gib_time_1.png" type="Texture" id=19]
 [ext_resource path="res://images/gib_time_2.png" type="Texture" id=20]
@@ -733,7 +734,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "gib_logo"
-length = 5.0
+length = 5.25
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("GibBase/G0/Gib0:scale:y")
@@ -762,7 +763,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/path = NodePath("GibBase/G0/Gib2:scale:y")
 tracks/2/interp = 1
-tracks/2/loop_wrap = true
+tracks/2/loop_wrap = false
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
@@ -774,7 +775,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("GibBase/G1/Gib3:scale:y")
 tracks/3/interp = 1
-tracks/3/loop_wrap = true
+tracks/3/loop_wrap = false
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
@@ -786,7 +787,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/path = NodePath("GibBase/G1/Gib4:scale:y")
 tracks/4/interp = 1
-tracks/4/loop_wrap = true
+tracks/4/loop_wrap = false
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
@@ -798,7 +799,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/path = NodePath("GibBase/G1/Gib5:scale:y")
 tracks/5/interp = 1
-tracks/5/loop_wrap = true
+tracks/5/loop_wrap = false
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
@@ -810,7 +811,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/path = NodePath("GibBase:scale")
 tracks/6/interp = 1
-tracks/6/loop_wrap = true
+tracks/6/loop_wrap = false
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
@@ -822,7 +823,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/path = NodePath("GibBase/GibFake0:scale")
 tracks/7/interp = 1
-tracks/7/loop_wrap = true
+tracks/7/loop_wrap = false
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
@@ -834,7 +835,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/path = NodePath("GibBase/GibFake1:scale")
 tracks/8/interp = 1
-tracks/8/loop_wrap = true
+tracks/8/loop_wrap = false
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
@@ -882,7 +883,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/path = NodePath("GibBase:modulate:a")
 tracks/12/interp = 1
-tracks/12/loop_wrap = true
+tracks/12/loop_wrap = false
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/keys = {
@@ -894,7 +895,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/path = NodePath("GibBase:visible")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
@@ -930,7 +931,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/path = NodePath("GibBase:rotation_degrees")
 tracks/16/interp = 1
-tracks/16/loop_wrap = true
+tracks/16/loop_wrap = false
 tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/keys = {
@@ -990,7 +991,7 @@ tracks/20/keys = {
 tracks/21/type = "value"
 tracks/21/path = NodePath("GibBase/GibFake0:visible")
 tracks/21/interp = 1
-tracks/21/loop_wrap = true
+tracks/21/loop_wrap = false
 tracks/21/imported = false
 tracks/21/enabled = true
 tracks/21/keys = {
@@ -1002,7 +1003,7 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/path = NodePath("GibBase/GibFake1:visible")
 tracks/22/interp = 1
-tracks/22/loop_wrap = true
+tracks/22/loop_wrap = false
 tracks/22/imported = false
 tracks/22/enabled = true
 tracks/22/keys = {
@@ -1621,199 +1622,35 @@ tracks/4/keys = {
 "values": [ 0.25, 0.25, 0.0 ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "gibA"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/path = NodePath("../GibQ:rect_scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 2, 1 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibACont:rect_scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("../GibACont:modulate")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("../GibQ:modulate")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "gibClue1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("../GibClue1:rect_scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibClue1:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=15]
-resource_name = "gibClue2"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("../GibClue2:rect_scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibClue2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=16]
-resource_name = "gibClue3"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("../GibClue3:rect_scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibClue3:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=17]
-resource_name = "gibQ"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("../GibQ:rect_scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibQ:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
 [sub_resource type="Animation" id=18]
 resource_name = "reset"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("../GibQ:rect_scale:y")
+tracks/0/path = NodePath("../GibABox:rect_scale:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1e-05 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../GibACont:rect_scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../GibClue1:rect_scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1e-05 ]
+}
 tracks/2/type = "value"
-tracks/2/path = NodePath("../GibClue1:rect_scale:y")
+tracks/2/path = NodePath("../GibClue2:rect_scale:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1825,24 +1662,12 @@ tracks/2/keys = {
 "values": [ 1e-05 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../GibClue2:rect_scale:y")
+tracks/3/path = NodePath("../GibClue3:rect_scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1e-05 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("../GibClue3:rect_scale:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -2320,17 +2145,13 @@ anims/1 = SubResource( 8 )
 anims/2 = SubResource( 9 )
 anims/3 = SubResource( 11 )
 anims/4 = SubResource( 12 )
-anims/gibA = SubResource( 13 )
-anims/gibClue1 = SubResource( 14 )
-anims/gibClue2 = SubResource( 15 )
-anims/gibClue3 = SubResource( 16 )
-anims/gibQ = SubResource( 17 )
 anims/reset = SubResource( 18 )
 
 [node name="Label2" type="Label" parent="GibTute"]
 anchor_right = 1.0
 margin_top = 48.0
 margin_bottom = 178.0
+rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 640, 50 )
 custom_fonts/font = ExtResource( 26 )
 text = "What rhymes?"
@@ -2467,32 +2288,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GibQ" type="Label" parent="."]
+[node name="GibQBox" type="CenterContainer" parent="."]
+margin_left = 72.0
+margin_top = 56.0
+margin_right = 1224.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 1152, 128 )
+rect_pivot_offset = Vector2( 576, 64 )
+
+[node name="GibQ" type="RichTextLabel" parent="GibQBox"]
+margin_top = 11.0
+margin_right = 1152.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 1152, 0 )
+theme = ExtResource( 17 )
+bbcode_enabled = true
+bbcode_text = "[center]Trial of the Sword [i](Legend of Zelda: Breath of the Wild)[/i][/center]"
+text = "Trial of the Sword (Legend of Zelda: Breath of the Wild)"
+fit_content_height = true
+
+[node name="GibCategory" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_left = 88.0
+margin_top = 23.9998
+margin_right = -40.0
+margin_bottom = 71.9998
+grow_vertical = 2
+rect_min_size = Vector2( 0, 48 )
+rect_scale = Vector2( 1, 1e-05 )
+rect_pivot_offset = Vector2( -8, 24 )
+theme = ExtResource( 34 )
+bbcode_enabled = true
+bbcode_text = "[center]With what [b]Internet meme[/b] does this rhyme?[/center]"
+text = "With what Internet meme does this rhyme?"
+
+[node name="GibABox" type="CenterContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 64.0
+margin_top = 36.0
 margin_right = 1216.0
-margin_bottom = 160.0
-rect_scale = Vector2( 1, 1e-05 )
-rect_pivot_offset = Vector2( 576, 80 )
-theme = ExtResource( 35 )
-text = "Wow, gourmet wing? Smith-Bauer."
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="GibACont" type="CenterContainer" parent="."]
-margin_left = 64.0
-margin_right = 1216.0
-margin_bottom = 160.0
+margin_bottom = 196.0
 rect_scale = Vector2( 1, 1e-05 )
 rect_pivot_offset = Vector2( 0, 80 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GibA" type="RichTextLabel" parent="GibACont"]
+[node name="GibA" type="RichTextLabel" parent="GibABox"]
 margin_top = 45.0
 margin_right = 1152.0
 margin_bottom = 114.0
@@ -2529,9 +2371,6 @@ bbcode_text = "It’s an ad slogan for a hit game console..."
 text = "It’s an ad slogan for a hit game console..."
 fit_content_height = true
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GibClue2" type="RichTextLabel" parent="."]
 anchor_right = 1.0
