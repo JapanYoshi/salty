@@ -21,7 +21,7 @@ var point_value = 0
 
 var question_number = 0
 var question_type = "N"
-var S_question_number = 0
+var question_section_number = 0
 
 var theme_normal = preload("res://ThemeOption.theme")
 var theme_candy = preload("res://ThemeCandyOption.tres")
@@ -120,7 +120,7 @@ func _ready():
 
 # process waiting for the sugar rush phase to start at a measure boundary
 var last_pos
-var measure = (16.0) / (15.0 * 4.0)
+var measure = (4.0) / (15.0)
 func _process(delta):
 	if stage == "rush_wait":
 		var pos = S.music_dict[S.tracks[0]].get_playback_position()
@@ -148,7 +148,7 @@ func set_buzz_in(enabled):
 		elif question_type in ["N", "C", "O"]:
 			$LSButton.show()
 	else:
-		ep.revert_scene('enableBuzzIn')
+		#ep.revert_scene('enableBuzzIn')
 		ep.send_scene('disableBuzzIn')
 		C.disconnect("gp_button", self, "_gp_button")
 		# buzz in button
@@ -430,10 +430,12 @@ func answer_submitted(text):
 	# In case buzz in voice hasn't stopped yet, stop it before unloading
 	# and loading a different one
 	S.stop_voice("buzz_in")
-	Loader.load_random_voice_line("buzz_in", "buzz_in")
+	# it'll probably load while the voice line is playing.
+	Loader.call_deferred("load_random_voice_line", "buzz_in", "buzz_in")
 	# blank?
 	if len(text) == 0:
-		Loader.load_random_voice_line("gib_wrong", "gib_blank")
+		Loader.call_deferred("load_random_voice_line", "gib_wrong", "gib_blank")
+		yield(Loader, "voice_line_loaded")
 		S.play_voice("gib_wrong")
 		return
 	# cuss word?
@@ -480,7 +482,9 @@ func answer_submitted(text):
 			# preload lines
 			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
 				var value = Loader.random_dict.audio_episode[key + "_" + cuss_category][0]
-				S.preload_ep_voice(key, value.v, "", value.s)
+				yield(
+					S.preload_ep_voice(key, value.v, "", value.s), "finished"
+				)
 				
 			# "come on why do people do this"
 			S.play_voice("cuss_a0")
@@ -501,7 +505,7 @@ func answer_submitted(text):
 				hud.punish_players(answers[0], total_money_deduction * 9 / 10)
 				yield(get_tree().create_timer(1.25), "timeout")
 			else:
-				hud.set_player_name(cuss_names[cuss_category])
+				hud.set_player_name(answers[0], cuss_names[cuss_category])
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 			# let's get back to the game
@@ -522,12 +526,13 @@ func answer_submitted(text):
 			return
 	else:
 		print("incorrect")
-		Loader.load_random_voice_line(
+		Loader.call_deferred("load_random_voice_line",
 			"gib_wrong",
 			"gib_early" if gib_clues == 0 else
 			"gib_wrong" if gib_clues < 3 else
 			"gib_late"
 		)
+		yield(Loader, "voice_line_loaded")
 		S.play_voice("gib_wrong")
 		return
 
@@ -625,7 +630,7 @@ func change_stage(next_stage):
 				bgs.S.connect("outro_ended", self, "outro_S_ended")
 				bgs.S.show()
 				hud.enable_lifesaver(false)
-				S_question_number = 0
+				question_section_number = 0
 				ep.send_scene("sort", {
 					'hasBoth': data.has_both,
 					'a': data.sort_a_short.t,
@@ -701,7 +706,7 @@ func change_stage(next_stage):
 			"R":
 				hud.enable_lifesaver(false)
 				reset_accuracy()
-				S_question_number = 0
+				question_section_number = 0
 				bgs.R = load("res://RushBG.tscn").instance()
 				$BG.add_child(bgs.R)
 				hud.show_finale_box(1)
@@ -713,7 +718,7 @@ func change_stage(next_stage):
 			"L":
 				hud.enable_lifesaver(false)
 				reset_accuracy()
-				S_question_number = 0
+				question_section_number = 0
 				bgs.L = load("res://LikeBG.tscn").instance()
 				$BG.add_child(bgs.L)
 				hud.show_finale_box(2)
@@ -1093,8 +1098,8 @@ func change_stage(next_stage):
 		if question_type in ["N", "C", "O", "T", "G", "S"]:
 			anim.play("question_exit")
 		$Vignette.close()
-		if question_number != 5:
-			$Vignette.connect("tween_finished", self, "show_loading_logo", [], CONNECT_ONESHOT)
+#		if question_number != 5:
+#			$Vignette.connect("tween_finished", self, "show_loading_logo", [], CONNECT_ONESHOT)
 		hud.slide_playerbar(false)
 		print("DEBUG PRINT UNLOAD MUSIC")
 		for k in musics[question_type]:
@@ -1104,7 +1109,7 @@ func change_stage(next_stage):
 		print("Question is successfully finished!")
 		if $Vignette.tween.is_active():
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
-			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
+#			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
 			yield($Vignette, "tween_finished")
 #			if question_number != 5:
 #				show_loading_logo()
@@ -1627,7 +1632,7 @@ func intro_T_ended():
 
 func S_show_question():
 	can_skip = false
-	var i = S_question_number
+	var i = question_section_number
 	if i == 7:
 		stage = "sort_end"
 		hud.reset_all_playerboxes(true)
@@ -1739,7 +1744,7 @@ func S_show_question():
 		timer.show_timer()
 		hud.reset_all_playerboxes()
 		if i != 0:
-#			ep.revert_scene('sortQuestion')
+			ep.revert_scene('sortQuestion')
 			hud.hide_accuracy_audience()
 		ep.send_scene('sortQuestion', {
 			"question": data.sort_options.t[i]
@@ -1756,7 +1761,7 @@ func S_show_answer():
 	set_buzz_in(false)
 # warning-ignore:return_value_discarded
 	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
-	var i = S_question_number
+	var i = question_section_number
 	bgs.S.answer(data.sort_options.a[i])
 	ep.send_scene('sortAnswer', {"index": data.sort_options.a[i]})
 	if data.sort_options.a[i] == 0:
@@ -1797,7 +1802,7 @@ func S_show_answer():
 			hud.show_accuracy_audience(float(100 * audience_correct) / float(audience_answered))
 		else:
 			hud.show_accuracy_audience(NAN)
-	S_question_number += 1
+	question_section_number += 1
 
 func S_answer_shown():
 	S.stop_voice()
@@ -1871,7 +1876,7 @@ func T_checkpoint(id: int):
 		breakpoint
 
 func R_show_question():
-	if S_question_number == 6:
+	if question_section_number == 6:
 		# Question is over!
 		hud.slide_playerbar(false)
 		# maximum 18000 dollars for final round
@@ -1888,15 +1893,15 @@ func R_show_question():
 		hud.reset_finale_box()
 		reset_answers()
 		S._stop_music(0)
-		S.play_music("rush_phase_%d" % (S_question_number + 1), true)
-		var section = data["section%d" % S_question_number]
+		S.play_music("rush_phase_%d" % (question_section_number + 1), true)
+		var section = data["section%d" % question_section_number]
 		bgs.R.start_round(
 			section.q, section.o
 		)
 		timer.initialize(15)
 		timer.start_timer()
-#		if S_question_number > 0:
-#			ep.revert_scene("rushSection")
+		if question_section_number > 0:
+			ep.revert_scene("rushSection")
 		ep.send_scene("rushSection", {
 			'question': section.q,
 			'options': section.o
@@ -1908,7 +1913,7 @@ func R_show_answers():
 	get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
 	ep.set_pause_penalty(false)
 	bgs.R.time_up(true)
-	var solutions = data["section%d" % S_question_number].a
+	var solutions = data["section%d" % question_section_number].a
 	ep.send_scene("rushReveal", {
 		'answers': solutions
 	})
@@ -1930,17 +1935,19 @@ func R_show_answers():
 	yield(get_tree().create_timer(0.75), "timeout")
 	bgs.R.time_up(false)
 	yield(get_tree().create_timer(0.5), "timeout")
-	S_question_number += 1
+	question_section_number += 1
 	R_show_question()
 
 func L_show_question():
-	if S_question_number == 5:
+	if question_section_number == 5:
 		# Question end!
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
 		for i in range(len(R.audience)):
+			if accuracy_audience[i * 2 + 1] == 0:
+				continue # bail out before potential division by zero error on next line
 			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
 			R.audience[i].score += gain
 		S.play_music("like_outro", 0.75)
@@ -1955,19 +1962,19 @@ func L_show_question():
 		timer.initialize(10)
 		ep.set_pause_penalty(true)
 		timer.show_timer()
-		var section = data["section%d" % S_question_number]
-		bgs.L.show_question(section.t, section.o, S_question_number)
-		S.play_voice("section%d" % S_question_number)
-		timer.start_timer()
-		reset_answers()
-		bgs.L.reset_all_answers()
-		set_buzz_in(true)
-#		if S_question_number > 0:
-#			ep.revert_scene("likeSection")
+		var section = data["section%d" % question_section_number]
+		if question_section_number > 0:
+			ep.revert_scene("likeSection")
 		ep.send_scene("likeSection", {
 			'question': section.t,
 			'options': section.o
 		})
+		bgs.L.show_question(section.t, section.o, question_section_number)
+		S.play_voice("section%d" % question_section_number)
+		timer.start_timer()
+		reset_answers()
+		bgs.L.reset_all_answers()
+		set_buzz_in(true)
 
 func L_show_answers():
 	set_buzz_in(false)
@@ -1975,7 +1982,7 @@ func L_show_answers():
 	ep.set_pause_penalty(false)
 	stop_remote_buzz_in()
 	timer.hide_timer()
-	var section = data["answer%d" % S_question_number]
+	var section = data["answer%d" % question_section_number]
 	bgs.L.reveal(section.a)
 	yield(bgs.L.anim, "animation_finished")
 	yield(get_tree().create_timer(1), "timeout")
@@ -1987,9 +1994,9 @@ func L_show_answers():
 			if answers[i].has(j) == bool(section.a[i]):
 				accuracy[j * 2] += 1
 			accuracy[j * 2 + 1] += 1
-	S.play_voice("answer%d" % S_question_number)
+	S.play_voice("answer%d" % question_section_number)
 	yield(S, "voice_end")
-	S_question_number += 1
+	question_section_number += 1
 	L_show_question()
 
 func play_answer_music():

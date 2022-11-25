@@ -187,6 +187,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CensorRect" type="ColorRect" parent="TextBox"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -17.0
+color = Color( 1, 0, 0, 1 )
+
+[node name="CensorText" type="Label" parent="TextBox/CensorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "CENSORED"
+align = 1
+valign = 1
+
 [node name="KB" type="Panel" parent="."]
 visible = false
 anchor_left = 0.5

@@ -609,6 +609,7 @@
   , {"v": "gib_wrong_01", "s": "I’d say I understand why you typed that in, but that would be dishonest."}
   , {"v": "gib_wrong_02", "s": "I’m not gonna judge, maybe it rhymes in your accent.[#2566#][#3158#]I lied. That was dumb."}
   , {"v": "gib_wrong_03", "s": "Well, you wrote [i]something,[/i] alright."}
+  , {"v": "gib_wrong_04", "s": "I really want to believe that you made a really bad typo, instead of believing that you’re that dumb."}
   ]
   , "gib_late": [
     {"v": "gib_late_00", "s": "Three clues, and you [i]still[/i] got it wrong? Unreal."}

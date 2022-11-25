@@ -657,14 +657,14 @@ margin_top = 277.0
 margin_right = 888.0
 margin_bottom = 327.0
 custom_fonts/font = ExtResource( 11 )
-text = "→ — Yes, welcome!"
+text = "㍝ — Yes, welcome!"
 
 [node name="Button2" type="Button" parent="SignupModal/Panel/Name"]
 margin_top = 327.0
 margin_right = 888.0
 margin_bottom = 377.0
 custom_fonts/font = ExtResource( 11 )
-text = "↓ — No, get out."
+text = "㍜ — No, get out."
 
 [node name="Confirm" type="Panel" parent="SignupModal/Panel"]
 anchor_left = 1.0

@@ -4,6 +4,9 @@ onready var anim = $AnimationPlayer
 onready var logo = $Logo
 onready var tween = $Tween
 onready var backdrop = $Circle
+onready var scroller = $CreditBox/CreditScroller
+onready var scrollerV = scroller.get_child(0)
+
 var ranking
 
 signal animation_finished(name)
@@ -13,17 +16,17 @@ func _ready():
 	var pb = $Leaderboard/PC
 	for i in range(1, 8):
 		$Leaderboard.add_child(pb.duplicate())
-	$CreditBox/CreditScroller.hide()
+	scroller.hide()
 
 const credits_speed = 48
 var credits_scroll = 0.0
 
 func _process(delta):
-	if $CreditBox/CreditScroller.visible:
+	if scroller.visible:
 		credits_scroll += delta * credits_speed
-		if credits_scroll > $CreditBox/CreditScroller/V.rect_size.y - $CreditBox/CreditScroller.rect_size.y:
+		if credits_scroll > scrollerV.rect_size.y - scroller.rect_size.y:
 			credits_scroll = 0
-		$CreditBox/CreditScroller.scroll_vertical = credits_scroll
+		scroller.scroll_vertical = credits_scroll
 
 func play_intro():
 	backdrop.color = Color("#365c45");
@@ -58,7 +61,18 @@ func show_lifesaver_logo():
 	anim.play("lifesavers_logo")
 
 func lifesaver_tutorial(stage: int):
-	anim.play("lifesavers_tute%d" % stage)
+	var real_stage = stage % 3
+	get_node("Label%d" % real_stage).bbcode_text = (
+		[
+			"Press ㍘ or ㍚ to activate",
+			"From 4 options to 2 options",
+			"12 questions, 1 Lifesaver",
+			"From 4 options to 2 options",
+			"6 questions left to use!",
+			"Press ㍘ or ㍚ to activate",
+		][stage]
+	)
+	anim.play("lifesavers_tute%d" % real_stage)
 
 class LBSorter:
 	static func _sort_players(a, b):
@@ -98,9 +112,12 @@ func hide_leaderboard():
 	anim.play("leaderboard_end")
 	close_bg()
 
+# 0, 1, 2: 3 items in a row
+# 3, 4: 2 items in a row
 # depending on the number of players, the "indices" of the leaderboard boxes will be:
 const leaderboard_positions = [
-	[], [1], [3, 4], [0, 1, 2], [3, 2, 0, 4], [4, 0, 1, 2, 3], [1, 2, 3, 4, 0, 1], [3, 4, 0, 1, 2, 3, 4], [0, 1, 2, 3, 4, 0, 1, 2]
+	[], [1], [3, 4], [0, 1, 2], [3, 2, 0, 4], [4, 0, 1, 2, 3],
+	[1, 2, 3, 4, 0, 1], [3, 4, 0, 1, 2, 3, 4], [0, 1, 2, 3, 4, 0, 1, 2]
 ]
 func show_final_leaderboard():
 	var flb = $Final/FinalLeaderboard
@@ -157,6 +174,14 @@ func show_final_leaderboard():
 					"%dth" % (p.placement + 1)
 				)
 				comment = ("You tied for %s!" if p.tied else "You placed %s!") % _ord
+			Fb.send_to_player(
+				p.device_name, {
+					action = "finalResult",
+					result = p.score,
+					resultAsText = R.format_currency(p.score),
+					comment = comment,
+				}
+			)
 #			Ws.send('message', {
 #				'action': 'changeScene',
 #				'sceneName': 'finalResult',
@@ -198,6 +223,14 @@ func show_final_leaderboard():
 				comment = "Oh, come on! You tied with the Player?!"
 			else:
 				comment = "See, this is why you can’t play with the Player."
+		Fb.send_to_player(
+			a.device_name, {
+				action = "finalResult",
+				result = a.score,
+				resultAsText = R.format_currency(a.score),
+				comment = comment,
+			}
+		)
 #		Ws.send('message', {
 #			'action': 'changeScene',
 #			'sceneName': 'finalResult',
@@ -211,25 +244,25 @@ func show_final_leaderboard():
 	if err != OK:
 		printerr("Could not load credits.")
 	else:
-		$CreditBox/CreditScroller/V/Spacer.rect_min_size.y = $CreditBox/CreditScroller.rect_size.y
-		var rtl = $CreditBox/CreditScroller/V/RichTextLabel
+		var spacer = scrollerV.get_child(0);
+		spacer.rect_min_size.y = scroller.rect_size.y
+		var rtl_title: RichTextLabel = scrollerV.get_child(1)
+		var rtl_body: RichTextLabel = scrollerV.get_child(2)
 		for sect in credits.get_sections():
-			var new_rtl = rtl.duplicate(7) # don't use instancing so we can edit the text
+			var new_rtl = rtl_title.duplicate(7) # don't use instancing so we can edit the text
 			new_rtl.set_bbcode(
-				"[b]" +
-				credits.get_value(sect, "h") +
-				"[/b]"
+				credits.get_value(sect, "h")
 			)
 			new_rtl.name = sect
-			$CreditBox/CreditScroller/V.add_child(new_rtl)
+			scrollerV.add_child(new_rtl)
 			var items = credits.get_value(sect, "b")
 			for i in len(items):
-				new_rtl = rtl.duplicate(7)
+				new_rtl = rtl_body.duplicate(7)
 				new_rtl.set_bbcode(items[i])
 				new_rtl.name = sect + "_%02d" % i
-				$CreditBox/CreditScroller/V.add_child(new_rtl)
-		$CreditBox/CreditScroller/V.add_child($CreditBox/CreditScroller/V/Spacer.duplicate())
-		rtl.free()
+				scrollerV.add_child(new_rtl)
+		scrollerV.add_child(spacer.duplicate())
+#		rtl_title.free(); rtl_body.free()
 	anim.play("final_standings")
 	logo.show_logo()
 
@@ -252,6 +285,7 @@ func show_techdiff():
 	logo.hide_logo()
 	anim.play("intro", 0.0, 0.01, false)
 	anim.stop() # resets playback position to 0
+	set_radius(0.0)
 
 func hide_techdiff():
 	$TechDiff.hide()

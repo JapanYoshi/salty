@@ -587,6 +587,7 @@ func start_keyboard(
 	else:
 		$PlayerNumber.hide()
 	$TextBox.max_length = character_limit
+	$TextBox/CensorRect.hide()
 	match which_keyboard:
 		0:
 			$KB.show()
@@ -658,6 +659,14 @@ func remote_typing(new_text, from):
 			result = text_filter.search(tbox.text)
 	else:
 		sfx_press()
+	_censor_box()
+
+func _censor_box():
+	var matched = R.censor_regex.search(tbox.text)
+	if null != matched:
+		$TextBox/CensorRect.show()
+	else:
+		$TextBox/CensorRect.hide()
 
 func _input(event):
 	if which_keyboard != -1 and (

@@ -41,6 +41,7 @@
 [ext_resource path="res://TechDiff.gd" type="Script" id=39]
 [ext_resource path="res://images/techdiff.png" type="Texture" id=40]
 [ext_resource path="res://Thousand.gdshader" type="Shader" id=41]
+[ext_resource path="res://fonts/credits_header.tres" type="DynamicFont" id=42]
 
 [sub_resource type="ViewportTexture" id=28]
 viewport_path = NodePath("ViewportContainer/Viewport")
@@ -883,7 +884,7 @@ tracks/3/path = NodePath("Cutscenes/Label0:bbcode_text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -912,7 +913,7 @@ tracks/1/path = NodePath("Cutscenes/Label1:bbcode_text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -941,41 +942,12 @@ tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ "12 questions, 1 Lifesaver" ]
-}
-
-[sub_resource type="Animation" id=30]
-resource_name = "lifesavers_tute3"
-length = 0.1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("Cutscenes/Label2:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( -2, 1 ),
-"update": 0,
-"values": [ 1300.0, 720.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Cutscenes/Label2:bbcode_text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "6 more questions!" ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -1358,7 +1330,6 @@ anims/lifesavers_logo = SubResource( 4 )
 anims/lifesavers_tute0 = SubResource( 5 )
 anims/lifesavers_tute1 = SubResource( 6 )
 anims/lifesavers_tute2 = SubResource( 7 )
-anims/lifesavers_tute3 = SubResource( 30 )
 anims/logo_leave = SubResource( 3 )
 anims/round2 = SubResource( 17 )
 anims/round2_reverse = SubResource( 16 )
@@ -1366,6 +1337,7 @@ anims/round2_reverse = SubResource( 16 )
 [node name="Tween" type="Tween" parent="Cutscenes"]
 
 [node name="Circle" type="ColorRect" parent="Cutscenes"]
+modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 29 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1723,6 +1695,7 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="Cutscenes"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0
@@ -1737,18 +1710,14 @@ __meta__ = {
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="Cutscenes/CreditBox"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
 scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="V" type="VBoxContainer" parent="Cutscenes/CreditBox/CreditScroller"]
 margin_right = 552.0
-margin_bottom = 699.0
+margin_bottom = 73.0
 size_flags_horizontal = 3
 custom_constants/separation = 8
 
@@ -1756,55 +1725,24 @@ custom_constants/separation = 8
 margin_right = 552.0
 size_flags_horizontal = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
+[node name="Title" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
 margin_top = 8.0
 margin_right = 552.0
-margin_bottom = 669.0
+margin_bottom = 36.0
+custom_fonts/normal_font = ExtResource( 42 )
 bbcode_enabled = true
-bbcode_text = "[b]Salty Trivia with Candy Barre[/b]
-presented by hai!touch Studios
-Lorem ipsum dolor sit amet
-Consectetueur adipiscing elit
-Line number zero
-One
-Two
-Buckle my shoe
-Three
-Four
-Open the door
-Five
-Six
-Pick up sticks
-Seven
-Eight
-Close the gate
-Nine
-Ten
-A big fat hen
-This should be enough spacer text for now
-But just in case let's add some more"
-text = "Salty Trivia with Candy Barre
-presented by hai!touch Studios
-Lorem ipsum dolor sit amet
-Consectetueur adipiscing elit
-Line number zero
-One
-Two
-Buckle my shoe
-Three
-Four
-Open the door
-Five
-Six
-Pick up sticks
-Seven
-Eight
-Close the gate
-Nine
-Ten
-A big fat hen
-This should be enough spacer text for now
-But just in case let's add some more"
+bbcode_text = "Salty Trivia with Candy Barre"
+text = "Salty Trivia with Candy Barre"
+fit_content_height = true
+scroll_active = false
+
+[node name="Body" type="RichTextLabel" parent="Cutscenes/CreditBox/CreditScroller/V"]
+margin_top = 44.0
+margin_right = 552.0
+margin_bottom = 73.0
+bbcode_enabled = true
+bbcode_text = "Presented by [b]hai!touch Studios[/b]"
+text = "Presented by hai!touch Studios"
 fit_content_height = true
 scroll_active = false
 
@@ -1868,9 +1806,6 @@ custom_fonts/font = ExtResource( 16 )
 custom_styles/normal = SubResource( 10 )
 text = "Game Over"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Shutter/Label"]
 anchor_top = 1.0
@@ -2056,7 +1991,7 @@ margin_left = -222.0
 margin_right = -6.0
 
 [connection signal="animation_finished" from="Cutscenes/AnimationPlayer" to="Cutscenes" method="_on_AnimationPlayer_animation_finished"]
-[connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/RichTextLabel" to="." method="_on_credits_link_clicked"]
+[connection signal="meta_clicked" from="Cutscenes/CreditBox/CreditScroller/V/Body" to="." method="_on_credits_link_clicked"]
 [connection signal="meta_clicked" from="Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
 [connection signal="gui_input" from="SkipButton" to="." method="_on_SkipButton_gui_input"]
 [connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]

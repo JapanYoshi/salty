@@ -304,7 +304,8 @@ func gp_queue(device_number: int, side: int):
 			"device_number": device_number,
 			"input_slot_number": input_slot_number,
 			"player_number": p_count,
-			"side": side
+			"side": side,
+			"censored": false,
 		}
 	)
 	p_count += 1
@@ -330,7 +331,8 @@ func kb_queue(input_slot_number):
 		"device_number": input_slot_number,
 		"input_slot_number": input_slot_number,
 		"player_number": p_count,
-		"side": 0
+		"side": 0,
+		"censored": false,
 	})
 	p_count += 1
 	accept_event()
@@ -347,7 +349,8 @@ func remote_queue(data):
 			"player_number": p_count,
 			"remote_device_name": data.name,
 			"name": data.nick,
-			"side": 0
+			"side": 0,
+			"censored": false,
 		})
 		p_count += 1
 		accept_event()
@@ -413,6 +416,11 @@ func start_signup():
 		$TouchButton.hide()
 	else:
 		# online
+		# censor name
+		var matched = R.censor_regex.search(signup_now.name)
+		if null != matched:
+			signup_now.censored = true
+			signup_now.name = R.grawlix(len(signup_now.name))
 		if R.cfg.room_openness == 2:
 			signup_ended(
 				signup_now.name, 0
@@ -433,6 +441,7 @@ func signup_ended(name, keyboard_type):
 	if keyboard_type == -1:
 		S.play_sfx("menu_fail")
 		Fb.reject_remote_player(signup_now.remote_device_name)
+		used_ids.erase(signup_now.remote_device_name) # allow rejoin
 	# end check
 	else:
 		var box = signup_box.instance()
@@ -478,15 +487,19 @@ func signup_ended(name, keyboard_type):
 		else:
 			icon_name = "retro"
 			default_name = "Player %d" % (len(R.players) + 1)
+		# has name been censored before this point?
+		if signup_now.censored == true:
+			name_type = 2
 		# is name default?
-		if name == "":
+		elif name == "":
 			name = default_name
 			name_type = 1
 		# is name "fuck you"?
 		else:
-			var matched = R.cuss_regex.search(name)
+			var matched = R.censor_regex.search(name)
 			if null != matched:
 				name_type = 2
+				name = R.grawlix(len(name))
 		box.setup(name, len(R.players), icon_name)
 		var player_device_index = signup_now.device_number # [input revamp]
 		if signup_now.type == C.DEVICES.REMOTE:

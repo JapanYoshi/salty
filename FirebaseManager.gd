@@ -54,7 +54,7 @@ var db_user: FirebaseUser
 var room_codes = []
 var scene_history = []
 var scene_ref
-var players_list = [] # just in case we might use this
+var players_list = []
 var player_snapshot
 var all_players_ref
 
@@ -62,7 +62,6 @@ var audience_list = []
 var audience_snapshot
 var all_audience_ref
 var join_request_ref
-var player_refs = {}
 # Initialize the Firebase plugin.
 func _init_firebase():
 	db_ready = false
@@ -80,8 +79,8 @@ func _init_firebase():
 	just_finished = "_init_firebase"; emit_signal("finished")
 
 func check_if_connected(call_node: Node, call_function: String):
-	var dummy_ref = db.get_reference_lite("lastUpdate")
-	var result = yield(dummy_ref.put(Time.get_unix_time_from_system()), "completed")
+	var lastUpdateRef = db.get_reference_lite("lastUpdate")
+	var result = yield(lastUpdateRef.put(Time.get_unix_time_from_system()), "completed")
 	if result is FirebaseError:
 		if is_instance_valid(call_node):
 			call_node.call(call_function, false)
@@ -314,11 +313,11 @@ func clear_scenes() -> bool:
 func _new_player_entry(data: FirebaseDataSnapshot):
 	print("DATA.VALUE = ", data.value())
 	var v = data.value()
-	# check if rejoin
-	for p in R.players:
-		if p.device_name == v.uuid:
-			init_controller(v.uuid, p.name)
-			return
+#	# check if rejoin
+#	for p in R.players:
+#		if p.device_name == v.uuid:
+#			init_controller(v.uuid, p.name)
+#			return
 	# not a rejoin, sign up
 	emit_signal("player_joined", {name = v.uuid, nick = v.nick})
 
@@ -331,15 +330,21 @@ func _player_rejoin(data: FirebaseDataSnapshot):
 	# check if this is an audience member or not
 	for p in R.players:
 		if p.device_name == v.uuid:
-			init_controller(v.uuid, false) # player
+			init_controller(v.uuid, false)
 			return
-	init_controller(v.uuid, true) # audience, may change this later
+	for p in R.audience:
+		if p.device_name == v.uuid:
+			init_controller(v.uuid, true)
+			return
+	# not a rejoin, sign up
+	emit_signal("player_joined", {name = v.uuid, nick = v.nick})
 
 func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 	C.add_controller(C.DEVICES.REMOTE, uuid, 0) # let the controller handler handle it
 	if as_audience:
 		var audience_count_ref = db.get_reference_lite("rooms/" + room_code + "/audienceCount")
 		audience_count_ref.put(player_number + 1)
+		audience_list.append(uuid)
 		all_audience_ref.update({
 			uuid: { # we want the variable uuid, not the text "uuid"
 				nick = nick,
@@ -350,15 +355,22 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 				inputFinale = "000000",
 				lifesaver = false,
 				messages = {
-					action = "none"
+					action = "none",
+					time = 0,
 				},
 				playerNumber = -1
 			}
 		})
-		all_audience_ref.enable_listener() # only needs to be enabled once per game
+		# only needs to be enabled once per game
+		if all_audience_ref._listener == null:
+			var result = yield(all_audience_ref.fetch(), "completed")
+			audience_snapshot = result.value()
+			all_audience_ref.enable_listener()
+			all_audience_ref.connect("value_changed", self, "_all_audience_ref_changed")
 	else:
 		var player_count_ref = db.get_reference_lite("rooms/" + room_code + "/playerCount")
 		player_count_ref.put(player_number + 1)
+		players_list.append(uuid)
 		all_players_ref.update({
 			uuid: { # we want the variable uuid, not the text "uuid"
 				nick = nick,
@@ -369,7 +381,8 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 				inputFinale = "000000",
 				lifesaver = false,
 				messages = {
-					action = "none"
+					action = "none",
+					time = 0,
 				},
 				playerNumber = player_number
 			}
@@ -405,7 +418,7 @@ func reject_remote_player(uuid):
 	})
 
 # Reset the status in the "sign up" queue.
-func init_controller(uuid, as_audience):
+func init_controller(uuid, as_audience: bool):
 	var this_guy_in_particular = db.get_reference_lite(
 		"rooms/" + room_code + "/pending/" + uuid
 	)
@@ -440,12 +453,18 @@ func update_lifesaver(uuid, has_lifesaver: bool = false):
 		lifesaver = has_lifesaver
 	})
 
-func send_to_player(player, data):
-	if !(player in player_refs.keys()):
+func send_to_player(uuid, data):
+	if !(uuid in players_list):
 		return
-	var result = yield(player_refs[player].put({message = data}), "completed")
+	var this_guy_in_particular = db.get_reference_lite(
+		"rooms/" + room_code + "/players/" + uuid
+	)
+	data.time = Time.get_ticks_usec()
+	var result = yield(this_guy_in_particular.update({
+		messages = data
+	}), "completed")
 	if result is FirebaseError:
-		printerr("Could not send message to Player " + player + ".")
+		printerr("Could not send message to Player " + uuid + ".")
 		just_finished = "send_to_player"; emit_signal("finished")
 		return false
 	just_finished = "send_to_player"; emit_signal("finished")
@@ -479,10 +498,57 @@ func _ping_timer_result(success: bool):
 # Listen for any changes in the reference holding the players' data.
 # This will also include OUR changes!
 func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
+	var new_value = snapshot.value() # get a copy
+	#print(new_value)
+	assert(typeof(new_value) == TYPE_DICTIONARY, "New value is not a dictionary.")
+	var old_value = player_snapshot
+#	if old_value == null: return
+	player_snapshot = new_value
+	# HOO BOY we gotta check every input state?
+	for p in new_value.keys():
+		var slot = C.lookup_remote(p)
+		if slot == -1:
+			continue
+		if !old_value.has(p):
+			old_value[p] = {}
+		if new_value[p] is Dictionary:
+			for k in new_value[p].keys():
+				if !old_value[p].has(k):
+					print(p, " ", k, " (nothing) -> ", new_value[p][k])
+					#old_value[p][k] = new_value[p][k] # not necessary
+				elif old_value[p][k] != new_value[p][k]:
+					# messages
+					print(p, " ", k, " ", old_value[p][k], " -> ", new_value[p][k])
+				else:
+					continue # no change
+				# input
+				# inputText
+				match k:
+					"input":
+						var state: int = int(new_value[p].input) # json float fuckery
+						for i in range(7):
+							if (state >> i) & 1:
+								C.inject_button(slot, i, true)
+						# overwrite with 0 to reset button state
+						if state != 0:
+							all_players_ref.update({p + "/input": 0})
+					"inputText":
+						print("inputText ", p, " ", new_value[p].inputText)
+						var player = R.slot2player(slot)
+						emit_signal("remote_typing", new_value[p].inputText, player)
+					"inputFinale":
+						print("inputFinale ", p, " ", new_value[p].inputFinale)
+						emit_signal("remote_finale", new_value[p].inputFinale, slot)
+#	var result = yield(all_players_ref.fetch(), "completed")
+
+# Listen for any changes in the reference holding the players' data.
+# This will also include OUR changes!
+func _all_audience_ref_changed(snapshot: FirebaseDataSnapshot):
 	#print(snapshot)
 	var new_value = snapshot.value()
-	var old_value = player_snapshot
-	if old_value == null: return
+	var old_value = audience_snapshot
+	audience_snapshot = new_value
+#	if old_value == null: return
 	# HOO BOY we gotta check every input state?
 	for p in new_value.keys():
 		var slot = C.lookup_remote(p)
@@ -511,12 +577,12 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 							all_players_ref.update({p + "/input": 0})
 					"inputText":
 						print("inputText ", p, " ", new_value[p].inputText)
-						emit_signal("remote_typing", new_value[p].inputText, slot)
+						var player = R.slot2player(slot)
+						emit_signal("remote_typing", new_value[p].inputText, player)
 					"inputFinale":
 						print("inputFinale ", p, " ", new_value[p].inputFinale)
 						emit_signal("remote_finale", new_value[p].inputFinale, slot)
-	var result = yield(all_players_ref.fetch(), "completed")
-	player_snapshot = result.value()
+#	var result = yield(all_players_ref.fetch(), "completed")
 
 # Update the per-room scenes remotely.
 # The game keeps track of which scenes have been sent already.

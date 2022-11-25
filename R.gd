@@ -11,6 +11,7 @@ var players = []
 var audience = []
 # Store unique IDs of audience controllers for easier access.
 var audience_keys = []
+var censor_regex = RegEx.new()
 var cuss_regex = RegEx.new()
 # 0: Render at 1280x720. Disable most shader animations.
 # 1: Stretch to window size. Disable most shader animations.
@@ -77,9 +78,23 @@ func _ready():
 	var result = cuss_regex.compile("F+U+C+K+[^A-Z]*(Y+O+U|O+F)")
 	if result != OK:
 		print("Could not compile cuss RegEx: error code %d" % result)
+	result = censor_regex.compile("FU(CC|CK|KK|KC)|\\b(BULL|DOG|HORSE)?SHIT(E|S|TED|TER|TY)?\\b|\\bPISS(BABY|ED|ER|ING)?|NIGG(A|ER)|\bFAG(\b|GOT|S)|QUEER")
+	if result != OK:
+		print("Could not compile censor RegEx: error code %d" % result)
 	load_settings()
 	load_save_data()
 	_set_visual_quality(cfg.graphics_quality)
+	pause_mode = Node.PAUSE_MODE_PROCESS
+
+### Windowed/fullscreen
+func _input(event):
+	if event is InputEventKey and event.is_pressed():
+		var code = event.get_physical_scancode()
+		if code == KEY_F11:
+			toggle_fullscreen()
+
+func toggle_fullscreen():
+	OS.set_window_fullscreen(!OS.window_fullscreen)
 
 ### Helper function
 
@@ -90,6 +105,16 @@ func blank_bytes(size: int) -> PoolByteArray:
 	for i in range(size):
 		pba[i] = 0
 	return pba
+
+# Return a randomized string for censored names.
+const grawlix_chars = "£‡§ƒ¤±ℓ€÷∆√∫∑∂≠≤≥"
+func grawlix(length: int) -> String:
+	var out = ""
+	for i in range(length):
+		out += grawlix_chars[
+			rand_range(0, len(grawlix_chars) - 1)
+		]
+	return out
 
 ### Configuration
 

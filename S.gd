@@ -84,19 +84,21 @@ func preload_sfx(name):
 	sfx_dict[name] = player
 
 func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
-	# async testing, artificially induce lag
-#	yield(get_tree().create_timer(0.5), "timeout")
+	# we have to use a yield in this function for using yield() to wait for it
 	var file = File.new()
 	var filepath = (questions_path if question_specific else voice_path) + filename + ".wav"
 	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(filepath)
 	if loader == null: # Check for errors.
 		printerr("S.preload_voice - ResourceInteractiveLoader failed to preload %s!" % filename)
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
 		return
 	while loader.poll() == OK:
-		yield(get_tree().create_timer(0.05), "timeout")
+		# stall for time
+		yield(get_tree(), "idle_frame")
 	if loader.poll() != ERR_FILE_EOF:
 		printerr("S.preload_voice - ResourceInteractiveLoader got error # %d while preloading %s!" % [loader.poll(), filename])
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
 		return
 	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
@@ -116,6 +118,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	if voice == null:
 		printerr("Voice line could not load! File path: " + filepath)
 		voice = load("res://audio/_.wav")
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_DOES_NOT_EXIST)
 		return
 	print("Voice preloaded: " + filename)
@@ -123,6 +126,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	if voice_list.has(key):
 		voice_list[key].player.set_stream(voice)
 		voice_list[key].subtitle = subtitle_string
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", OK)
 		return
 	var player = AudioStreamPlayer.new()
@@ -133,6 +137,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		player = player,
 		subtitle = subtitle_string
 	}
+	yield(get_tree().create_timer(0), "timeout")
 	emit_signal("voice_preloaded", OK)
 	return
 
@@ -145,17 +150,20 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(final_filename)
 	if loader == null: # Check for errors.
 		printerr("S.preload_voice - ResourceInteractiveLoader failed to preload %s!" % filename)
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
 		return
 	while loader.poll() == OK:
 		yield(get_tree(), "idle_frame")
 	if loader.poll() != ERR_FILE_EOF:
 		printerr("S.preload_ep_voice - ResourceInteractiveLoader got error # %d while preloading %s!" % [loader.poll(), filename])
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
 		return
 	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
 	if voice == null:
 		printerr("Voice line could not load! File path: " + final_filename)
+		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", OK)
 		return
 	print("Voice preloaded: " + filename)
@@ -169,8 +177,13 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 		player = player,
 		subtitle = subtitle_string
 	}
+	yield(get_tree().create_timer(0), "timeout")
 	emit_signal("voice_preloaded", OK)
 	return
+
+func unload_all_voices():
+	for k in voice_list.keys():
+		unload_voice(k)
 
 func unload_voice(key):
 	if voice_list.has(key):
@@ -284,7 +297,7 @@ func play_sfx(name, speed = 1.0):
 	if is_instance_valid(sfx):
 		sfx.set_pitch_scale(speed)
 		sfx.play()
-		_log("Played SFX ", name, sfx.get_playback_position())
+#		_log("Played SFX ", name, sfx.get_playback_position())
 	else:
 		printerr("SFX not found: ", name)
 
@@ -309,7 +322,7 @@ func play_voice(id):
 #	voice_line.player.call_deferred("play")
 	voice_line.player.connect("finished", self, "_on_voice_end", [id], CONNECT_ONESHOT)
 	voice_line.player.play()
-	_log("Played voice ", id, voice_line.player.get_playback_position())
+#	_log("Played voice ", id, voice_line.player.get_playback_position())
 
 # Stop the currently playing voice.
 # DEPRECATED: supply the voice line that should be playing right now.

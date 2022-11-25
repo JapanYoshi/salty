@@ -1315,6 +1315,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 808, 608 )
 mouse_filter = 2
 theme = ExtResource( 12 )
+
 [node name="Option" parent="Options" instance=ExtResource( 6 )]
 position = Vector2( 32, 26 )
 
@@ -1364,6 +1365,7 @@ margin_top = 38.0
 margin_right = -107.0
 margin_bottom = -122.0
 text = "Why do seagulls fly over the sea?"
+autowrap = true
 uppercase = true
 
 [node name="punchline" type="Label" parent="Qbox/Candy/Bg"]
@@ -1376,6 +1378,7 @@ margin_right = -107.0
 margin_bottom = -38.0
 text = "If they flied over the bay, they’d be bagels."
 valign = 2
+autowrap = true
 uppercase = true
 
 [node name="Question" type="RichTextLabel" parent="Qbox"]

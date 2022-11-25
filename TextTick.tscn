@@ -1064,7 +1064,7 @@ tracks/27/path = NodePath("AnimationPlayer/AudioStreamPlayer")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/imported = false
-tracks/27/enabled = true
+tracks/27/enabled = false
 tracks/27/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -2153,12 +2153,12 @@ anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="GibBase" type="Node2D" parent="."]
+visible = false
 position = Vector2( 640, 360 )
-scale = Vector2( 0.667, 0.667 )
+scale = Vector2( 0.333, 0.333 )
 
 [node name="G0" type="Node2D" parent="GibBase"]
-visible = false
-position = Vector2( -512, -180 )
+position = Vector2( 0, -180 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -2180,7 +2180,7 @@ texture = ExtResource( 13 )
 
 [node name="G1" type="Node2D" parent="GibBase"]
 visible = false
-position = Vector2( 296, 180 )
+position = Vector2( 0, 180 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -2203,33 +2203,34 @@ texture = ExtResource( 14 )
 [node name="GibFake0" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( -560, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake1" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( -198, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 7 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake2" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( 129, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 8 )
 offset = Vector2( 0, -80 )
 
 [node name="GibFake3" type="Sprite" parent="GibBase"]
 visible = false
 position = Vector2( 495, -80 )
-scale = Vector2( 1, 1e-05 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 12 )
 offset = Vector2( 0, -80 )
 
 [node name="GibLogo" type="Sprite" parent="GibBase"]
 visible = false
+scale = Vector2( 1, 1e-05 )
 texture = ExtResource( 9 )
 
 [node name="ColorRect" type="ColorRect" parent="."]

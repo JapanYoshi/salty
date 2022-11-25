@@ -5,15 +5,15 @@
   "audio": {
     "welcome_before": {
       "v": "welcome_before",
-      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre, where the—[##]Hold on, what happened to the teleprompter?[##]It’s gone totally blank! Miles?![##][b]Miles:[/b]Ugh... Stand by, please!"
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#4217#]where the—[#5519#]Hold on, what happened to the teleprompter?[#7757#]It’s gone totally blank! Miles?![#10198#][b]Miles:[/b]Ugh... Stand by, please!"
     },
     "welcome_standby": {
       "v": "welcome_standby",
-      "s": "[b]Miles:[/b] Alright, who unplugged the teleprompter?[##][b]Daisy:[/b] It wasn't me, I swear![##][b]Candy:[/b] Come on, Daisy, whenever something bad happens in the studio, 9 times out of 10, it's your prank.[##][b]Miles:[/b] Candy, Daisy was right in front of the audio deck this whole time. I can vouch for her, for once.[##][b]Daisy:[/b] Oh, thank goodness, Miles-ey![##][b]Miles:[/b] For the umpteenth time, stop calling me that.[##][b]Candy:[/b] Oh hey, the teleprompter is back up![##][b]Miles:[/b] Good. Everyone back to battle stations and queue intro!"
+      "s": "[b]Miles:[/b] Alright, who unplugged the teleprompter?[#2289#][b]Daisy:[/b] It wasn't me, I swear![#3620#][b]Candy:[/b] Come on, Daisy, whenever something bad happens in the studio, 9 times out of 10, it's your prank.[#8614#][b]Miles:[/b] Candy, Daisy was in front of the audio deck this whole time.[#11513#]I can vouch for her, for once.[#13317#][b]Daisy:[/b] Oh, thank goodness, Miles-ey![#14884#][b]Miles:[/b] For the umpteenth time, stop calling me that.[#17131#][b]Candy:[/b] Oh hey, the teleprompter is back up![#18990#][b]Miles:[/b] Good. Everyone back to battle stations and queue intro!"
     },
     "welcome": {
       "v": "welcome",
-      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#3500]where the questions are ridiculous but the answers are serious![#6478#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#10856#]Now lift your trays to the upright position and prepare for take-off.[#14608#]Or don’t, I’m not your flight attendant."
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#3500#]where the questions are ridiculous but the answers are serious![#6478#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#10856#]Now lift your trays to the upright position and prepare for take-off.[#14608#]Or don’t, I’m not your flight attendant."
     },
     "player_1": {
       "v": "default"
