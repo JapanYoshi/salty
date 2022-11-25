@@ -6,7 +6,17 @@ onready var anim: AnimationPlayer = $AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("SplashScreen ready")
+	_on_size_changed()
+	get_viewport().connect("size_changed", self, "_on_size_changed")
 
+func _on_size_changed():
+	var resolution = get_viewport_rect().size
+	var scale = min(
+		resolution.x / 1280,
+		resolution.y / 720
+	)
+	rect_scale = Vector2.ONE * scale / 1.5 # 1080p logo in 720p screen
+	
 # Called when the logo is finished animating.
 # Also called when the user skips the logo.
 func _on_AnimationPlayer_animation_finished(anim_name):
