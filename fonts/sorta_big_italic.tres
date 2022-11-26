@@ -1,0 +1,14 @@
+[gd_resource type="DynamicFont" load_steps=3 format=2]
+
+[ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/display_italic_data.tres" type="DynamicFontData" id=2]
+
+[resource]
+size = 80
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+extra_spacing_top = 6
+extra_spacing_bottom = 4
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 1 )
