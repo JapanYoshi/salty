@@ -1,6 +1,5 @@
 extends ColorRect
 
-export var undul_speed: float = 0.1;
 export var v_speed: float = 0.01;
 export var radius: float = 0.0;
 
@@ -15,18 +14,13 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if !self.visible or R.cfg.graphics_quality < 2:
+	if !self.visible or R.cfg.graphics_quality == 0:
 		self.set_process(false)
 		return
 	self.material.set_shader_param(
 		"p_time",
 		self.material.get_shader_param("p_time")
-		+ delta * undul_speed
-	)
-	self.material.set_shader_param(
-		"offset",
-		self.material.get_shader_param("offset")
-		+ delta * v_speed * Vector2.DOWN
+		+ delta * v_speed
 	)
 	self.material.set_shader_param(
 		"radius",

@@ -1,8 +1,8 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://images/thumbnails.png" type="Texture" id=1]
 [ext_resource path="res://Noise.gd" type="Script" id=2]
-[ext_resource path="res://Thousand.gdshader" type="Shader" id=3]
+[ext_resource path="res://images/perlin.tres" type="Texture" id=3]
 [ext_resource path="res://ThemeQuestion.theme" type="Theme" id=4]
 [ext_resource path="res://ThemeTitle.theme" type="Theme" id=5]
 [ext_resource path="res://Option.tscn" type="PackedScene" id=6]
@@ -18,18 +18,33 @@
 [ext_resource path="res://images/candy_blank.png" type="Texture" id=16]
 [ext_resource path="res://images/touchprism-center.png" type="Texture" id=17]
 [ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=18]
+[ext_resource path="res://noise_additive.gdshader" type="Shader" id=19]
+[ext_resource path="res://circle.gdshader" type="Shader" id=20]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=21]
 [ext_resource path="res://images/touchprism-text.png" type="Texture" id=22]
 [ext_resource path="res://images/touchprism-rays-top.png" type="Texture" id=23]
 
-[sub_resource type="ShaderMaterial" id=18]
-shader = ExtResource( 3 )
+[sub_resource type="Gradient" id=30]
+offsets = PoolRealArray( 0, 0.31028, 0.562617, 0.809346 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.742188, 0.742188, 0.742188, 1, 0.402344, 0.402344, 0.402344, 1, 0.0703125, 0.0703125, 0.0703125, 1 )
+
+[sub_resource type="GradientTexture2D" id=31]
+flags = 4
+gradient = SubResource( 30 )
+width = 640
+height = 640
+fill = 1
+fill_from = Vector2( 0.5, 0.5 )
+fill_to = Vector2( 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=32]
+shader = ExtResource( 19 )
 shader_param/offset = null
 shader_param/canvas_size = Vector2( 1280, 720 )
-shader_param/scale = 8.0
-shader_param/p_time = null
-shader_param/blend = 0.2
-shader_param/radius = 1.5
+shader_param/scale = 1.0
+shader_param/p_time = 0.0
+shader_param/blend = 2.348
+shader_param/txr = ExtResource( 3 )
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -1097,19 +1112,8 @@ tracks/2/keys = {
 "values": [ 10.0, 0.0 ]
 }
 
-[sub_resource type="Shader" id=10]
-code = "shader_type canvas_item;
-
-uniform float radius: hint_range(0.0, 1.5) = 0.5;
-uniform float smoothing: hint_range(0.0, 1.0) = 0.0;
-
-void fragment() {
-	vec2 uv = (UV - 0.5) * 2.0;
-	COLOR.a = smoothstep(radius - smoothing, radius, length(uv));
-}"
-
 [sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+shader = ExtResource( 20 )
 shader_param/radius = 0.0
 shader_param/smoothing = 0.0
 
@@ -1270,27 +1274,31 @@ __meta__ = {
 [node name="BG" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ColorRect" type="ColorRect" parent="BG"]
-material = SubResource( 18 )
+[node name="Color" type="TextureRect" parent="BG"]
+modulate = Color( 0.290196, 0.133333, 0.160784, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 31 )
+expand = true
+stretch_mode = 7
+
+[node name="QNum" type="Sprite" parent="BG"]
+modulate = Color( 1, 1, 1, 0.188235 )
+position = Vector2( 640, 360 )
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="Noise" type="ColorRect" parent="BG"]
+material = SubResource( 32 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-undul_speed = 0.25
-radius = 1.5
-
-[node name="QNum" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.188235 )
-position = Vector2( 640, 360 )
-texture = ExtResource( 1 )
-hframes = 4
-vframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
@@ -1335,9 +1343,6 @@ index = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Candy" type="Node2D" parent="Qbox"]
 visible = false
@@ -1394,9 +1399,6 @@ bbcode_text = "Lorem ipsum dolor sit amet, [i]consectetur adipiscing[/i] elit, s
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna_aliqua(). Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat? The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. 3.1459265358979"
 scroll_active = false
 scroll_following = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="QuestionRevealTimer" type="Timer" parent="Qbox"]
 one_shot = true
@@ -1458,6 +1460,7 @@ anims/tick_tens = SubResource( 8 )
 one_shot = true
 
 [node name="Vignette" type="ColorRect" parent="."]
+visible = false
 material = SubResource( 11 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1468,11 +1471,8 @@ margin_top = -640.0
 margin_right = 640.0
 margin_bottom = 640.0
 mouse_filter = 2
-color = Color( 0.0285714, 0.0285714, 0.0285714, 1 )
+color = Color( 0.0714286, 0.0714286, 0.0714286, 1 )
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="RichTextLabel" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -1495,6 +1495,7 @@ __meta__ = {
 }
 
 [node name="Value" type="RichTextLabel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 16.0
 margin_top = -36.0
 margin_right = 176.0

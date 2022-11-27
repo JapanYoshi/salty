@@ -46,13 +46,13 @@ func round2_logo(backwards):
 
 func open_bg():
 	tween.interpolate_method(
-		self, "set_radius", 0.0, 0.75, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		self, "set_radius", 0.0, 1.5, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	tween.start()
 
 func close_bg():
 	tween.interpolate_method(
-		self, "set_radius", 0.75, 0.0, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		self, "set_radius", 1.5, 0.0, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
 	tween.start()
 

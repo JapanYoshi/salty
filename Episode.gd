@@ -19,9 +19,12 @@ var scene_history = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	q_box.ep = self
-	q_box.kb = get_node("TypingHandler")
+	q_box.kb = $ScreenStretch/TypingHandler
 	q_box.set_process(false)
-	c_box.set_process(true)
+	if R.cfg.cutscenes:
+		c_box.show()
+	else:
+		c_box.hide()
 	S.play_sfx("blank")
 	$ScreenStretch/Shutter/AnimationPlayer.stop()
 	skip_btn.hide()
@@ -100,6 +103,11 @@ func _give_default_names(count, size):
 	return chosen_names
 
 func play_intro():
+	# Fade the music that has been playing since the signup screen.
+	# (Takes 0.5 seconds.)
+	S.play_track(0, 0)
+	S.play_track(1, 0)
+	S.play_track(2, 0)
 	# in case I let players turn off Lifesavers in the future
 	var lifesaver_left = false
 	for p in R.players:
@@ -140,7 +148,7 @@ func play_intro():
 	var voice_lines = [
 		"welcome"
 	]
-	if episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
+	if R.cfg.cutscenes and episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
 		show_tech_diff = true
 		voice_lines.append_array(
 			[
@@ -150,6 +158,10 @@ func play_intro():
 		)
 	var player_voice
 	var global_voice_lines = []
+	# Wait for the volume to fade to -80.0 (zero)
+	while S.music_dict[S.tracks[0]].get_volume_db() > -80.0:
+#		print("Episode.gd waiting for the volume to fade: ", S.music_dict[S.tracks[0]].get_volume_db())
+		yield(get_tree(), "idle_frame")
 	if R.cfg.cutscenes:
 #		Ws.scene("intro")
 		send_scene("intro")
@@ -594,6 +606,7 @@ func load_next_question():
 		#load_question(episode_data.question_id[question_number])
 	elif question_number == 13:
 		q_box.set_process(false)
+		c_box.show()
 		c_box.set_process(true)
 		play_outro()
 	else:
@@ -612,6 +625,7 @@ func load_question(q_name):
 	yield(Loader, "loaded")
 #	print("Q_BOX.DATA SHOULD NOW BE THE DICTIONARY ", q_box.data)
 	question_number += 1
+	c_box.hide()
 	q_box.call_deferred("change_stage", "init")
 
 func too_many_pauses():
@@ -634,7 +648,10 @@ func too_many_pauses():
 
 func disqualified():
 #	Ws.close_room()
-	Loader.load_random_voice_line("too_many_pauses", "", true)
+	yield(
+		Loader.load_random_voice_line("too_many_pauses", "", true),
+		"completed"
+	)
 	S.play_voice("too_many_pauses")
 	yield(S, "voice_end")
 	shutter()

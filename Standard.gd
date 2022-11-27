@@ -433,20 +433,23 @@ func answer_submitted(text):
 	# In case buzz in voice hasn't stopped yet, stop it before unloading
 	# and loading a different one
 	S.stop_voice("buzz_in")
-	# it'll probably load while the voice line is playing.
-	Loader.call_deferred("load_random_voice_line", "buzz_in", "buzz_in")
+
 	# blank?
 	if len(text) == 0:
 		Loader.call_deferred("load_random_voice_line", "gib_wrong", "gib_blank")
 		yield(Loader, "voice_line_loaded")
 		S.play_voice("gib_wrong")
+		Loader.call_deferred("load_random_voice_line", "buzz_in", "buzz_in")
+#		yield(Loader, "voice_line_loaded")
 		return
 	# cuss word?
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
-		print("correct")
+#		print("correct")
+		# Move the person correctly answering to bucket 1
+		answers[1].push_back(answers[0].pop_back())
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
-		hud.reward_players(answers[0], bgs.G.value)
+		
 		change_stage("gib_answer")
 		return
 	matched = R.cuss_regex.search(text)
@@ -596,7 +599,7 @@ func change_stage(next_stage):
 		hud.reset_all_playerboxes()
 		#hud.slide_playerbar(false)
 		reset_answers()
-		$QNum.hide()
+		$BG/QNum.hide()
 		# Which mode next?
 		for k in musics[question_type]:
 			S.preload_music(k)
@@ -604,21 +607,23 @@ func change_stage(next_stage):
 		lifesaver_is_activated = false
 		match question_type:
 			"N":
-				$BG/ColorRect.show()
-				$BG/ColorRect.color = Color("#4a2229")
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("#4a2229")
 				hud.enable_lifesaver(true)
-				$QNum.frame = question_number + 1
-				$QNum.show()
+				$BG/QNum.frame = question_number + 1
+				$BG/QNum.show()
 				$Options.set_theme(theme_normal)
 				point_value = 1000 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"S":
-				$BG/ColorRect.set_process(false)
-				$BG/ColorRect.hide()
+				$BG/Noise.set_process(false)
+				$BG/Noise.hide()
 				bgs.S = load("res://Cinematic_SortaKinda.tscn").instance()
 				$BG.add_child(bgs.S)
 				reset_accuracy()
+				question.bbcode_text = ""
 				bgs.S.set_process(true)
 				bgs.S.init()
 				bgs.S.set_options(
@@ -642,8 +647,9 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true) + "×7")
 				$Value.show()
 			"C":
-				$BG/ColorRect.show()
-				$BG/ColorRect.color = Color("#a4576d")
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("#a4576d")
 				bgs.C = load("res://Cinematic_Candy.tscn").instance()
 				$BG.add_child(bgs.C)
 				bgs.C.init()
@@ -658,8 +664,8 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"O":
-				$BG/ColorRect.show()
-				$BG/ColorRect.color = Color("#4a2229")
+				$BG/Noise.set_process(false)
+				$BG/Noise.hide()
 				bgs.O = load("res://Cinematic_Rage.tscn").instance()
 				$BG.add_child(bgs.O)
 				#bgs.O.init() # no init function here
@@ -669,8 +675,9 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"G":
-				$BG/ColorRect.show()
-				$BG/ColorRect.color = Color("#196892")
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("#196892")
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
 				bgs.G.set_process(true)
@@ -695,8 +702,9 @@ func change_stage(next_stage):
 				})
 				$Value.hide()
 			"T":
-				$BG/ColorRect.show()
-				$BG/ColorRect.color = Color("#695933")
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("#695933")
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
 				bgs.G.set_process(true)
@@ -743,7 +751,7 @@ func change_stage(next_stage):
 				if data.options.i == i:
 					responses[i] = 1
 					correct_answer = i
-				elif data["option" + str(i)].v == "random":
+				elif data["option%d" % i].v == "random":
 					responses[i] = -1
 				else:
 					responses[i] = 0
@@ -962,7 +970,7 @@ func change_stage(next_stage):
 	elif stage == "intro" and next_stage == "gib_setup":
 		stage = "gib_setup"
 		enable_skip()
-		S.play_multitrack("gibberish_base", true, "gibberish_extra", false)
+		S.play_multitrack("gibberish_base", 0.6, "gibberish_extra", 0.0)
 		S.play_voice("gib_tute0")
 		bgs.G.gib_tute(0)
 	elif stage == "gib_setup" and next_stage == "gib_genre":
@@ -979,9 +987,10 @@ func change_stage(next_stage):
 		set_buzz_in(true)
 		if R.cfg.cutscenes:
 			#S.seek_multitrack(0)
-			S.play_track(1, 1)
+			S.play_track(0, 0.5)
+			S.play_track(1, 0.5)
 		else:
-			S.play_multitrack("gibberish_base", 1, "gibberish_extra", 1)
+			S.play_multitrack("gibberish_base", 0.5, "gibberish_extra", 0.5)
 		S.play_sfx("question_show")
 		S.play_voice("question")
 		bgs.G.gib_question()
@@ -989,11 +998,15 @@ func change_stage(next_stage):
 	elif stage == "gib_question" and next_stage == "gib_answer":
 		stage = "gib_answer"
 		ep.set_pause_penalty(false)
+		# animation lags so wait
+		yield(get_tree(), "idle_frame")
 		bgs.G.gib_reveal()
+		yield(get_tree().create_timer(0.05), "timeout")
 		S.play_music("gibberish_end", 1)
 		ep.send_scene('gibReveal', {
 			answer = data.answer.t
 		})
+		hud.reward_players(answers[1], bgs.G.value)
 		if len(R.audience_keys):
 #			Ws.disconnect("remote_typing", self, "_on_gib_audience_submit")
 			for kv_pair in answers_audience[0]:
@@ -1003,7 +1016,8 @@ func change_stage(next_stage):
 		yield(get_tree().create_timer(6.0), "timeout")
 		
 		stage = "outro"
-		S.play_music("gibberish_base", true)
+		S.play_music("gibberish_base", 0.0)
+		S.play_track(0, 0.6) # prevent sudden start
 		S.play_voice("outro")
 	
 	elif stage == "intro" and next_stage == "thou_setup":
@@ -1024,7 +1038,7 @@ func change_stage(next_stage):
 		stage = "thou_question"
 		ep.set_pause_penalty(true)
 		hud.slide_playerbar(true)
-		bgs.G.countdown()
+		bgs.G.countdown(true)
 		S.play_track(1, 1)
 		S.play_sfx("question_show")
 		S.play_voice("question")
@@ -1299,7 +1313,7 @@ func _on_voice_end(voice_id):
 		"gib_question":
 			match voice_id:
 				"question":
-					bgs.G.countdown()
+					bgs.G.countdown(true)
 					return
 				"reveal":
 					change_stage("gib_answer")
@@ -1308,6 +1322,8 @@ func _on_voice_end(voice_id):
 					# penalize
 					S.play_sfx("option_wrong")
 					hud.punish_players(answers[0], bgs.G.value)
+					# Move the person incorrectly answering to bucket 1
+					answered_wrong.push_back(answers[0].pop_back())
 					# no people left to buzz in?
 					yield(get_tree().create_timer(1.5), "timeout")
 					# pass through to "prepare for next player"
@@ -1469,20 +1485,24 @@ func reveal_next_option():
 			var wrong = -1
 			while len(options):
 				var choice = options.pop_at(R.rng.randi_range(0, len(options) - 1))
-				if choice == correct_answer:
+				if choice == correct_answer or responses[choice] == RESPONSE_USED:
 					continue
-				if responses[choice] == RESPONSE_USED:
-					continue
-				# find the first wrong response, prefer specific wrong response
-				if wrong == -1 or responses[wrong] == -1:
+				# if somebody chose it, and it is a specific line,
+				# reveal it
+				if responses[choice] == 0:
+					if len(answers[choice]) > 0:
+						reveal_option(choice)
+						return
+					# otherwise, if it is a specific line, save it for later
 					wrong = choice
-				if len(answers[choice]) > 0:
-					reveal_option(choice)
-					return
+				# generic wrong answer line.
+				# save it for later if there are no other wrong answer lines.
+				elif wrong == -1:
+					# if no wrong answer yet, choose it
+					wrong = choice
 			# no? pick the first wrong answer we found
 			reveal_option(wrong)
 			return
-	
 	# see if we have an unrevealed option with a specific voice line
 	var options = [0, 1, 2, 3]
 	var generic = -1
@@ -1859,8 +1879,8 @@ func G_prepare_next_player():
 	else:
 		# prepare buzz in
 		answers[0] = []
-		S.play_track(0, 1.0)
-		S.play_track(1, 1.0)
+		S.play_track(0, 0.5)
+		S.play_track(1, 0.5)
 		bgs.G.countdown_pause(false)
 		stage = "gib_question"
 		set_buzz_in(true)

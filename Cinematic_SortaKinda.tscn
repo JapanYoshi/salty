@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://images/ab-sorta.png" type="Texture" id=1]
 [ext_resource path="res://audio/music/sort_intro.ogg" type="AudioStream" id=2]
@@ -19,15 +19,16 @@
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=17]
 [ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=18]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=19]
+[ext_resource path="res://images/ab_noise.png" type="Texture" id=20]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
 shader_param/offset = Vector2( 0.5, 0.5 )
 shader_param/canvas_size = Vector2( 1280, 720 )
-shader_param/scale = 1.0
-shader_param/stripiness = 64
+shader_param/scale = 0.008
 shader_param/p_time = 0.0
 shader_param/blend = 0.2
+shader_param/txr = ExtResource( 20 )
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -1209,10 +1210,10 @@ tracks/14/keys = {
 "times": PoolRealArray( 0, 0.333333, 0.666667 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
-"args": [ Vector2( 1, 0 ) ],
+"args": [ Vector2( 1.085, 0.119 ) ],
 "method": "_set_center"
 }, {
-"args": [ Vector2( 0, 0 ) ],
+"args": [ Vector2( -0.125, 0.072 ) ],
 "method": "_set_center"
 }, {
 "args": [ Vector2( 0.5, 0.5 ) ],
