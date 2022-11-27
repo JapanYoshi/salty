@@ -697,8 +697,8 @@
   , "gib_genre_cliche": [
     {"v": "gib_genre_cliche", "s": "With what [i]cliché[/i] does this rhyme?"}
   ]
-  , "gib_genre_general": [
-    {"v": "gib_genre_general", "s": "With what [i]phrase[/i] does this rhyme?"}
+  , "gib_genre_phrase": [
+    {"v": "gib_genre_phrase", "s": "With what [i]phrase[/i] does this rhyme?"}
   ]
   , "gib_genre_meme": [
     {"v": "gib_genre_meme", "s": "With what [i]Internet meme[/i] does this rhyme?"}

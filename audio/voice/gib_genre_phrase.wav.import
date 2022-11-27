@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/gib_genre_general.wav-c20e5ed6832d8953250dc66834353b06.sample"
+path="res://.import/gib_genre_phrase.wav-320538a02c0685d88821d1d2539484d0.sample"
 
 [deps]
 
-source_file="res://audio/voice/gib_genre_general.wav"
-dest_files=[ "res://.import/gib_genre_general.wav-c20e5ed6832d8953250dc66834353b06.sample" ]
+source_file="res://audio/voice/gib_genre_phrase.wav"
+dest_files=[ "res://.import/gib_genre_phrase.wav-320538a02c0685d88821d1d2539484d0.sample" ]
 
 [params]
 
