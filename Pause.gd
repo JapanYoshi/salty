@@ -6,6 +6,7 @@ var paused_times = 0
 var device = -1
 const framerate = 30.0
 
+var ep: Control
 onready var bg = $Bg
 onready var anim = $AnimationPlayer
 onready var number_label = $NinePatchRect/Sprite/Label
@@ -15,6 +16,7 @@ onready var count_label = $NinePatchRect/Label2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
+	ep = get_parent().get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
 
@@ -43,14 +45,14 @@ func _update_shader(delta):
 		)
 
 func pause_modal(player_number, device_index):
-	if get_parent().penalize_pausing:
+	if ep.penalize_pausing:
 		paused_times += 1
 		if paused_times >= 3:
 			var rand = R.rng.randi() / 4294967296.0
 			var thres = (paused_times - 2) / 8.0
 			if rand < thres:
 				print("too many pauses")
-				get_parent().too_many_pauses()
+				ep.too_many_pauses()
 				C.disconnect("gp_button", self, "_gp_button")
 				return
 	device = device_index
@@ -116,7 +118,7 @@ func _gp_button_paused(index, button, pressed):
 		accept_event()
 		resume()
 		return;
-	elif button == 3:
+	elif button == 4:
 		accept_event()
 		quit()
 		return;
