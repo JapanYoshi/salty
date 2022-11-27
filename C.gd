@@ -110,6 +110,12 @@ func remove_controllers_by_index(indices):
 			ctrl.remove(i)
 			ignore_axis.remove(i)
 
+func remove_all_gamepads():
+	for index in range(len(ctrl) - 1, 4, -1):
+		if ctrl[index].device_type == DEVICES.GAMEPAD:
+			ctrl.remove(index)
+			ignore_axis.remove(index)
+
 # return the new player number.
 func add_controller(device_type, device, side = 0):
 	for i in range(len(ctrl)):
