@@ -281,10 +281,10 @@ func seek_multitrack(time):
 		if is_instance_valid(music_dict[tracks[i]]):
 			music_dict[tracks[i]].seek(time)
 
-func play_track(track = 0, active = true, dont_tween = false):
+func play_track(track = 0, volume: float = 1.0, dont_tween = false):
 	if R.cfg.music_volume == 0: return
 	if tracks[track] != "":
-		_set_music_vol(track, float(active), dont_tween)
+		_set_music_vol(track, volume, dont_tween)
 		if track != 0:
 			music_dict[tracks[track]].seek(music_dict[tracks[0]].get_playback_position())
 			print(" playback offsets: ",
