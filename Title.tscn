@@ -188,7 +188,9 @@ There are 3 different input methods:
 • [b]Player 4:[/b] 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-[b]Phone:[/b] Additional players can connect via a Web browser. Go to hai!touch Gate ([url]https://haitouch.ga/te[/url]) to test it out."
+[b]Phone:[/b] Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate ([url]https://haitouch.ga/te[/url]) to test it out.
+
+© 2022 hai!touch Studios"
 text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
 Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
 
@@ -212,7 +214,9 @@ Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are 
 • Player 4: 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-Phone: Additional players can connect via a Web browser. Go to hai!touch Gate (https://haitouch.ga/te) to test it out."
+Phone: Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate (https://haitouch.ga/te) to test it out.
+
+© 2022 hai!touch Studios"
 fit_content_height = true
 
 [node name="Close" type="Button" parent="ScreenStretch/About"]
