@@ -3,7 +3,7 @@ extends Node
 # Used to communicate to Episode.gd
 signal loaded
 # Used to communicate to itself that a random voice line has loaded in S.gd
-signal voice_line_loaded
+signal voice_line_loaded(result)
 
 # Loads episode data.
 # Also parses question structure and timing markers in text.
@@ -145,7 +145,7 @@ func load_episodes_list():
 #			episode_desc = "Episode %d is unavailable. Stay tuned!" % i
 #		}
 	### END TEST
-	print(episodes)
+	print("Loader: Episode data loaded.")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -194,6 +194,7 @@ const random_voice_line_keys = [
 ];
 
 func load_question(id, first_question: bool, q_box: Node):
+	var failed = []
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
 	# Support the older file names too.
@@ -337,14 +338,18 @@ func load_question(id, first_question: bool, q_box: Node):
 				S.call_deferred("preload_voice",
 					"sort_option%d" % i, id + ("/sort_option%d" % i), true, data[key].s[i]
 				)
-				yield(S, "voice_preloaded")
+				var result = yield(S, "voice_preloaded")
+				if result != OK:
+					failed.push_back(key)
 		elif data.has(key) and data[key]["v"] != "":
 			if data[key]["v"] != "random":
 				# not random
 				if not data[key]["v"].begins_with("_"):
 					# question-specific voice line
 					S.call_deferred("preload_voice",key, id + "/" + data[key].v, true, data[key].s)
-					yield(S, "voice_preloaded")
+					var result = yield(S, "voice_preloaded")
+					if result != OK:
+						failed.push_back(key)
 				else:
 #					# common voice line
 #					var possible_lines = random_dict.audio_question[data[key].v.substr(1)]
@@ -354,7 +359,9 @@ func load_question(id, first_question: bool, q_box: Node):
 #						var index = R.rng.randi_range(0, len(possible_lines) - 1)
 #						S.call_deferred("preload_voice",key, possible_lines[index].v, false, possible_lines[index].s)
 					load_random_voice_line(key, data[key].v.substr(1))
-					yield(self, "voice_line_loaded")
+					var result = yield(self, "voice_line_loaded")
+					if result != OK:
+						failed.push_back(key)
 			# is random?
 			elif key in random_voice_line_keys:
 				# some logic depending on the situation
@@ -363,7 +370,9 @@ func load_question(id, first_question: bool, q_box: Node):
 					"pretitle_q1" if first_question == true and key == "pretitle" else\
 					key
 				load_random_voice_line(key, pool)
-				yield(self, "voice_line_loaded")
+				var result = yield(self, "voice_line_loaded")
+				if result != OK:
+					failed.push_back(key)
 		else:
 			# is optional?
 			if key in [
@@ -387,14 +396,23 @@ func load_question(id, first_question: bool, q_box: Node):
 					"pretitle_q1" if first_question == true and key == "pretitle" else\
 					key
 				load_random_voice_line(key, pool)
-				yield(self, "voice_line_loaded")
+				var result = yield(self, "voice_line_loaded")
+				if result != OK:
+					failed.push_back(key)
 			else:
 				printerr("Missing voice for " + key)
 				breakpoint
-	print("Loader: Question loaded.")
-	q_box.data = data
-	emit_signal("loaded")
-	return
+	if failed.empty():
+		print("Loader: Question loaded.")
+		q_box.data = data
+		emit_signal("loaded")
+		return
+	else:
+		print("Loader: Question is missing voice lines. Crashing.")
+		var error_message: String = "The following voice lines for question ID %s failed to load:" % id
+		for s in failed:
+			error_message += "\n" + s
+		R.crash(error_message)
 
 # Parses the time markers in the subtitle files.
 # Timing is encoded in milliseconds since the start of the audio file, in this format: [#9999#]
@@ -489,5 +507,5 @@ func load_random_voice_line(key, pool = "", episode = false):
 	S.call_deferred("preload_voice",
 		key, selection.v, false, selection.s
 	)
-	yield(S, "voice_preloaded")
-	emit_signal("voice_line_loaded")
+	var result = yield(S, "voice_preloaded")
+	emit_signal("voice_line_loaded", result)
