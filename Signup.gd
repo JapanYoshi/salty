@@ -503,7 +503,9 @@ func signup_ended(name, keyboard_type):
 				name = R.grawlix(len(name))
 		box.setup(name, len(R.players), icon_name)
 		var player_device_index = signup_now.device_number # [input revamp]
-		if signup_now.type == C.DEVICES.REMOTE:
+		if signup_now.type == C.DEVICES.GAMEPAD:
+			player_device_index = signup_now.input_slot_number
+		elif signup_now.type == C.DEVICES.REMOTE:
 			player_device_index = C.lookup_button(C.DEVICES.REMOTE, signup_now.remote_device_name, 0).player;
 			keyboard_type = 3
 		var player = {
