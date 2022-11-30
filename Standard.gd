@@ -516,7 +516,7 @@ func answer_submitted(text):
 				hud.punish_players(answers[0], total_money_deduction * 9 / 10)
 				yield(get_tree().create_timer(1.25), "timeout")
 			else:
-				hud.set_player_name(answers[0], cuss_names[cuss_category])
+				hud.set_player_name(answers[0][0], cuss_names[cuss_category])
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 			# let's get back to the game
