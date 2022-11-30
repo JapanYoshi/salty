@@ -819,4 +819,41 @@
   , {"v": "buzz_in_07", "s": "What do you have for me?"}
   ]
 }
+, "special_guest": {
+  "name_to_id": [
+    ["CANDY", "candy"]
+  , ["CANDY BAR", "candy"]
+  , ["CANDY BARR", "candy"]
+  , ["CANDY BARRE", "candy"]
+  , ["DAISY", "daisy"]
+  , ["DAISY CHAIN", "daisy"]
+  , ["DAISY CHAINE", "daisy"]
+  , ["MILES", "miles"]
+  , ["MILES STONE", "miles"]
+  , ["COOKIE", "cookie"]
+  , ["C. MASTERSON", "cookie"]
+  , ["SCHMITTY", "schmitty"]
+  , ["NATE SHAPIRO", "nate"]
+  ]
+, "id_to_voice": {
+    "candy": [
+      {"v": "player_name_candy", "s": "Oh, I’m flattered that you’d name yourself after me. Unfortuantely, you neglected to pay the licensing fee to use my name, so I’m gonna have to deduct that from your winnings once this game is over."}
+    ]
+  , "daisy": [
+      {"v": "player_name_daisy", "s": "[b]Candy:[/b] Hold on, Daisy isn’t [i]actually[/i] in there, is she? Let me take a—[##][b]Daisy:[/b] Here.[##][b]Candy:[/b] [i][spooked][/i] Whoa! Daisy, when did you get two centimeters behind me?"}
+    ]
+  , "miles": [
+      {"v": "player_name_miles", "s": "[b]Candy:[/b] Uh, hey, Miles? Do I have to keep calling this guy by your name, or would that be confusing?[##][b]Miles:[/b] I think it’s fine, but don’t make too many inside jokes about me. They wouldn’t get them.[##][b]Candy:[/b] Oh, you think I’m concerned whether or not these people will get my jokes?"}
+    ]
+  , "cookie": [
+      {"v": "player_name_cookie", "s": "I can’t believe it myself, but this episode we have an epic celebrity guest! Give it up for Mr. Cookie “Fortune Cookie” Masterson! I loved your game shows, I still do! Of course, it’s not just Jack and Fibbage I watched from you. I especially loved you in Fakin’ It, how you infused a game show with an influence from stuff like Big Brother or Survivor! Yeah, I’ve seen everything you did that I could find on YouTube. Point is, big fan. So glad you’re here."}
+    ]
+  , "schmitty": [
+      {"v": "player_name_schmitty", "s": "Is that—? It is! The one and only Josh Schmitty Schmitstinstein! Oh, I loved your performance in Mortal Kombat! Heh, but no, seriously, you were stellar in Jack and Quiplash. I still love watching past broadcasts and playing along. I mean, a comedy tournament game show? Who could have come up with that, except maybe the Japanese? Point is, I’m so happy that you’re here!"}
+    ]
+  }
+  , "nate": [
+      {"v": "player_name_nate", "s": "Oh my gosh, we have a special guest this time! Everybody clap for Nate Shapiro! That guy from all those movies and the original You Don’t Know Jack! Hello and welcome to my show! I’m so grateful that you’d give mine a chance. So where have you been lately, anyway? I heard you’ve started a podcast recently? I should really check that out. Anyway, thank you for coming!"}
+    ]
+  }
 }
