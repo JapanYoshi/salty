@@ -259,10 +259,10 @@ func _http_request_completed(result, response_code, headers, body, q):
 	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
 	http_request.disconnect("request_completed", self, "_http_request_completed")
 	if result != HTTPRequest.RESULT_SUCCESS:
-		R.crash("The HTTP request for question ID %s did not succeed. Error code: %d" % [q, result])
+		R.crash("The HTTP request for question ID %s did not succeed. Error code: %d\nThis is probably due to a bad Internet connection." % [q, result])
 		return
 	elif response_code >= 400:
-		R.crash("Tried to load question ID %s, but response code was: %d" % [q, response_code])
+		R.crash("Tried to load question ID %s, but the Web request did not succeed. The HTTP response code was %d." % [q, response_code])
 		return
 	Loader.append_question_cache(q)
 	_load_question(q)
@@ -276,13 +276,13 @@ func _load_question(q):
 		if !success:
 			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
 		# check this file
-		if !file.file_exists("res://q/%s/title.wav.import" % q):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
-		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
-		else:
-			file.open("res://q/%s/_question.gdcfg" % q, File.READ)
-			file.close()
+		# if !file.file_exists("res://q/%s/title.wav.import" % q):
+		# 	R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
+		# if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+		# 	R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
+		# else:
+		# 	file.open("res://q/%s/_question.gdcfg" % q, File.READ)
+		# 	file.close()
 #		# check last file
 #		q = R.pass_between.episode_data.question_id[0]
 #		if !file.file_exists("res://q/%s/title.wav.import" % q):
@@ -295,5 +295,5 @@ func _load_question(q):
 #			file.close()
 		emit_signal("next_question_please")
 	else:
-		R.crash("Tried to load resource pack " + q + ".pck, but it does not exist. Please try clearing your question 	cache.")
+		R.crash("Tried to load the assets for question ID " + q + ", but the asset pack does not exist. Please try clearing your question cache and try again.")
 		return
