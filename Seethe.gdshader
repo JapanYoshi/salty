@@ -8,6 +8,6 @@ uniform sampler2D txr;
 
 void fragment() {
 	vec2 uv = (UV + offset) * canvas_size;
-    vec2 mn = texture(txr, uv * scale / 128.0).rg;
+    vec2 mn = texture(txr, uv * scale / 128.0).rg - 0.5;
     COLOR = texture(TEXTURE, (uv + mn * strength) / canvas_size - offset);
 }
