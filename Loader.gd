@@ -29,6 +29,8 @@ var rng = RandomNumberGenerator.new()
 # until interrupted by another subtitle command.
 var r_separator = RegEx.new()
 
+var special_guest_keys = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	r_separator.compile("\\[#\\d+#\\]")
@@ -37,7 +39,6 @@ func _ready():
 	load_random_voice_lines()
 	load_random_questions()
 	load_episodes_list()
-	load_high_scores()
 	### Testing
 #	load_question("n001")
 	### End testing
@@ -80,6 +81,18 @@ func load_random_voice_lines():
 		var json = JSON.parse(file.get_as_text())
 		if json.error == OK:
 			random_dict = json.result
+			# Do not greet the same special guest twice.
+			special_guest_keys = random_dict.special_guest.id_to_voice.keys()
+			var already_seen = R.get_save_data_item("misc", "guests_seen", [])
+			if !already_seen.empty():
+				for v in already_seen:
+					special_guest_keys.erase(v)
+			# If you've seen all the special guests, reset progress.
+			if already_seen.empty():
+				special_guest_keys = random_dict.special_guest.id_to_voice.keys()
+				R.set_save_data_item("misc", "guests_seen", [])
+		else:
+			R.crash("random_voicelines.json could not be parsed.")
 
 func load_random_questions():
 	var file = File.new()
@@ -150,9 +163,6 @@ func load_episodes_list():
 #func _process(delta):
 #	pass
 
-func load_high_scores():
-	pass
-
 func load_episode(id):
 	var file = File.new()
 	var err = file.open(episode_path + "/" + id + "/ep.json", File.READ)
@@ -161,8 +171,7 @@ func load_episode(id):
 	if err == OK and result.error == OK:
 		data = result.result
 	else:
-		printerr("Couldn't load episode ID: " + id)
-		R.crash("Episode data for ID '" + id + "' is missing.")
+		R.crash("Episode data for ID '" + id + "' is missing. Please make sure that the following file exists:\n" + episode_path + "/" + id + "/ep.json")
 	return data
 
 const random_voice_line_keys = [
@@ -197,30 +206,23 @@ func load_question(id, first_question: bool, q_box: Node):
 	var failed = []
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
-	# Support the older file names too.
-	var names = ["_question.gdcfg", "_question.tscn", "data.gdcfg"]
 	var err = ERR_FILE_NOT_FOUND
-	for n in names:
-		print("Trying to load the following file... " + question_path + "/" + id + "/" + n)
-		err = file.load(question_path + "/" + id + "/" + n)
-		if err == ERR_FILE_NOT_FOUND:
-			print("Didn't find " + n)
-			continue
-		elif err == ERR_PARSE_ERROR:
-			print("Found it, but it could not be parsed")
-			var textfile = File.new()
-			textfile.open(question_path + "/" + id + "/" + n, File.READ)
-			print(textfile.get_as_text())
-			break
-		else:
-			print("OK")
-			break
+	var path = question_path + "/" + id + "/_question.gdcfg"
+	print("Trying to load the following file... " + path)
+	err = file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data for ID '" + id + "' is missing.")
 		return
-	if err == ERR_PARSE_ERROR:
-		R.crash("Question data for ID '" + id + "' cannot be parsed.")
+	elif err == ERR_PARSE_ERROR:
+		print("Found it, but it could not be parsed")
+		var textfile = File.new()
+		textfile.open(path, File.READ)
+		print(textfile.get_as_text())
+		textfile.close()
+		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
 		return
+	else:
+		print("OK")
 	var data = {}
 	for section in file.get_sections():
 		if section == "root":
@@ -253,7 +255,7 @@ func load_question(id, first_question: bool, q_box: Node):
 	# "outro": {"v", "s"}
 	var keys = [];
 	if not(data.has("type")):
-		R.crash("Question data is missing the key 'type'.")
+		R.crash("Question data for ID " + id + " is missing the question type. Please make sure it has the key `type` inside the section `[root]`.")
 		return
 	match data.type:
 		"N":
@@ -331,6 +333,7 @@ func load_question(id, first_question: bool, q_box: Node):
 			]
 		_:
 			printerr("Question type can't be parsed yet: " + data.type)
+			R.crash("Question data for ID " + id + " has an invalid or unsupported question type code `" + data.type + "`.")
 	for key in keys:
 		# Sorta Kinda option voice lines.
 		if key == "sort_options":
@@ -509,3 +512,17 @@ func load_random_voice_line(key, pool = "", episode = false):
 	)
 	var result = yield(S, "voice_preloaded")
 	emit_signal("voice_line_loaded", result)
+
+func guest_id_or_empty_string(nick: String) -> String:
+	if nick in special_guest_keys:
+		var guest_id = random_dict.special_guest.name_to_id[nick]
+		R.set_save_data_item(
+			"misc", "guests_seen",
+			R.get_save_data_item(
+				"misc", "guests_seen", []
+			).push_back(
+				guest_id
+			)
+		)
+		return guest_id
+	return ""
