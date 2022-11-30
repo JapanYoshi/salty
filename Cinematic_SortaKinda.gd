@@ -146,9 +146,12 @@ func _on_size_changed():
 	else:
 		# too narrow
 		scale = resolution.x / base_resolution.x
-	$Viewport.size = base_resolution * scale
-	$Viewport/OptionsVP.size = base_resolution * scale
-	$Viewport/OptionsVP/Scale.rect_scale = Vector2.ONE * scale
-	#$Viewport/Options.scale = Vector3.ONE * scale
-	$Screen3D.rect_size = base_resolution * scale 
-	$Screen3D.rect_scale = Vector2.ONE / scale 
+	# todo: options viewport size is too big when started at 1080p
+	$Viewport.size = base_resolution * scale # enlarge to native res
+	
+	$Viewport/OptionsVP.size = base_resolution * scale # enlarge to native res
+	$Viewport/OptionsVP/Scale.rect_scale = Vector2.ONE * scale # enlarge to native res
+	$Viewport/Options.scale = Vector3.ONE / scale # shrink sprite to "logical" 720p relative to camera
+	
+	$Screen3D.rect_size = base_resolution * scale # enlarge to native res
+	$Screen3D.rect_scale = Vector2.ONE / scale # fit to "logical" 720p
