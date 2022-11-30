@@ -27,48 +27,47 @@ var cfg = {
 	cutscenes = true,
 	hide_room_code = false,
 	hide_room_code_ingame = false,
-	awesomeness = true
+	awesomeness = true,
 }
 
 var save_data = {
 	history = {
-		"random": {
+		random = {
 			"last_played": 0,
 			"high_score": -1,
+			"high_score_time": 0,
 			"best_accuracy": -1,
+			"best_accuarcy_time": 0,
 			"locked": false,
 		},
-		"demo": {
+		demo = {
 			"last_played": 0,
 			"high_score": -1,
+			"high_score_time": 0,
 			"best_accuracy": -1,
+			"best_accuarcy_time": 0,
 			"locked": false,
 		},
-		"ep_1": {
+		ep_001 = {
 			"last_played": 0,
 			"high_score": -1,
+			"high_score_time": 0,
 			"best_accuracy": -1,
+			"best_accuarcy_time": 0,
 			"locked": false,
 		},
-		"ep_2": {
-			"last_played": 0,
-			"high_score": -1,
-			"best_accuracy": -1,
-			"locked": true,
-		},
-		"ep_3": {
-			"last_played": 0,
-			"high_score": -1,
-			"best_accuracy": -1,
-			"locked": true,
-		}
 	},
 	achievements = {
 		
 	},
 	misc = {
-		cuss_history = []
+		cuss_history = [],
+		guests_seen = [],
 	}
+}
+var unlocks = {
+	ep_001 = ["ep_002"],
+	ep_002 = ["ep_003"],
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -154,8 +153,63 @@ func load_save_data():
 		for k in save.get_section_keys(s):
 			save_data[s][k] = save.get_value(s, k)
 
+func get_save_data_item(section, key, default_value = null):
+	return save_data[section][key] if (
+		section in save_data.keys() and\
+		key in save_data[section].keys()
+	) else default_value
+
 func set_save_data_item(section, key, value):
 	save_data[section][key] = value
+
+const DEFAULT_HS = {
+	"last_played": 0,
+	"high_score": -1,
+	"high_score_time": 0,
+	"best_accuracy": -1,
+	"best_accuracy_time": 0,
+	"locked": true,
+}
+func init_high_score(ep_id: String):
+	save_data.history[ep_id] = DEFAULT_HS.duplicate(true);
+
+func get_high_score(ep_id: String):
+	if not (ep_id in save_data.history.keys()):
+		init_high_score(ep_id)
+	else:
+		for k in DEFAULT_HS.keys():
+			if not (k in save_data.history[ep_id]):
+				save_data.history[ep_id][k] = DEFAULT_HS[k]
+	return save_data.history[ep_id]
+
+func submit_high_score(score: int, accuracy: float):
+	if not (pass_between.episode_name in save_data.history.keys()):
+		init_high_score(pass_between.episode_name)
+	var edited_high_score: bool = false
+	var now = OS.get_unix_time()
+	save_data.history[pass_between.episode_name].last_played = now
+	# check if high score is better
+	if save_data.history[pass_between.episode_name].high_score_time == 0\
+	or score > save_data.history[pass_between.episode_name].high_score:
+		edited_high_score = true
+		save_data.history[pass_between.episode_name].high_score = score
+		save_data.history[pass_between.episode_name].high_score_time = now
+	# check if accuarcy is better
+	if !is_nan(accuracy) and (
+		save_data.history[pass_between.episode_name].best_accuracy_time == 0\
+		or accuracy > save_data.history[pass_between.episode_name].best_accuracy
+	):
+		edited_high_score = true
+		save_data.history[pass_between.episode_name].best_accuracy = accuracy
+		save_data.history[pass_between.episode_name].best_accuracy_time = now
+	# check if new episode is unlocked
+	if pass_between.episode_name in unlocks.keys():
+		for unlock in unlocks[pass_between.episode_name]:
+			if save_data.history[unlock].locked:
+				edited_high_score = true
+				save_data.history[unlock].locked = false
+	if edited_high_score:
+		save_save_data()
 
 func save_save_data():
 	var save = ConfigFile.new()
@@ -190,7 +244,7 @@ func set_currency(curr_name="fmt_dollars"):
 	fmt_file.close()
 
 # Helper function to convert the score into a currency-signed and comma'd string.
-func format_currency(score = 0.0, no_plus = false, min_digits = 0):
+func format_currency(score = 0.0, no_plus = false, min_digits = 0) -> String:
 	score *= currency_data.multiplier
 	var numText = str(int(floor(abs(score))))
 	var digits = len(numText)
@@ -222,6 +276,15 @@ func format_currency(score = 0.0, no_plus = false, min_digits = 0):
 		else:
 			sign_arr = currency_data.zero
 	return sign_arr[0] + numText + sign_arr[1]
+
+## date formatting
+func format_date(unix_timestamp: int) -> String:
+	# year, month, day, weekday, hour, minute, second
+	var dict = Time.get_datetime_dict_from_unix_time(unix_timestamp)
+	return "%04d-%02d-%02d %02d:%02d" % [
+		dict.year, dict.month, dict.day,
+		dict.hour, dict.minute
+	]
 
 func _set_visual_quality(quality):
 	cfg.graphics_quality = quality

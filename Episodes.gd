@@ -7,12 +7,19 @@ var eps = {}
 #	filename = "random",
 #	name = "choose random questions",
 #	desc = "Randomly choose 13 questions to create your very own special episode of Salty Trivia. Let’s hope there are no repeats.",
-#	locked = false
+#	hs = {...},
 #}}
 var selected_now = ""
 var first = ""
 var last = ""
 var disable_controls = false
+
+onready var el_name = $Details/V/Name
+onready var el_locked = $Details/V/Stats/Locked
+onready var el_last_played = $Details/V/Stats/LastPlayed
+onready var el_high_score = $Details/V/Stats/HiScore
+onready var el_best_acc = $Details/V/Stats/BestAcc
+onready var el_desc = $Details/V/Desc
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +33,7 @@ func _ready():
 			filename = e,
 			name = Loader.episodes[e].episode_name,
 			desc = Loader.episodes[e].episode_desc,
-			locked = false
+			hs = R.get_high_score(e),
 		}
 		eps[ep.id] = ep
 		if first == "":
@@ -36,6 +43,10 @@ func _ready():
 		new_box.name = ep.id
 		new_box.get_node("VBox/Split/Num/Text").set_text(ep.id)
 		new_box.get_node("VBox/Split/Title").set_text(ep.name)
+		if ep.hs.locked:
+			new_box.self_modulate = Color(0.5, 0.5, 0.5, 1.0)
+			new_box.get_node("VBox/Split/Num/Text").modulate = Color(1.0, 1.0, 1.0, 0.25)
+			new_box.get_node("VBox/Split/Title").modulate = Color(1.0, 1.0, 1.0, 0.25)
 		ep_scroller.add_child(new_box)
 		ep_scroller.move_child($ScrollContainer/VBoxContainer/BottomSpacer, ep_scroller.get_child_count()-1)
 #	if eps.has("RQ"):
@@ -53,12 +64,39 @@ func focus_shifted(which):
 		selected_now = which
 		S.play_sfx("menu_move")
 		print("Shifted focus")
-		$Details/Name.set_text(eps[selected_now].name)
-		$Details/Desc.clear()
-		if eps[selected_now].has("locked") and eps[selected_now].locked == true:
-			$Details/Desc.append_bbcode("This episode is locked.")
+		# update info panel
+		el_name.set_text(eps[selected_now].name)
+		
+		var hs = eps[selected_now].hs
+		if hs.last_played == 0:
+			el_last_played.bbcode_text = "Never played"
 		else:
-			$Details/Desc.append_bbcode(eps[selected_now].desc)
+			el_last_played.bbcode_text = "Last played on %s" % Time.get_datetime_string_from_unix_time(hs.last_played)
+			
+		if hs.high_score_time == 0:
+			el_high_score.bbcode_text = "High score: $0 (never)"
+		else:
+			el_high_score.bbcode_text = "High score: %s (%s)" % [
+				R.format_currency(hs.high_score),
+				R.format_date(hs.high_score_time),
+			]
+		
+		if hs.best_accuracy_time == 0:
+			el_best_acc.bbcode_text = "Best accuracy: 0.0% (never)"
+		else:
+			el_best_acc.bbcode_text = "Best accuracy: %s (%s)" % [
+				".1f" % (hs.best_accuracy * 100.0),
+				R.format_date(hs.best_accuracy_time)
+			]
+		
+		el_desc.clear()
+		if hs.locked:
+			el_locked.bbcode_text = "Locked"
+			el_desc.append_bbcode("This episode is locked. Play the other episodes to unlock it.")
+		else:
+			el_locked.bbcode_text = "Playable"
+			el_desc.append_bbcode(eps[selected_now].desc)
+		
 		R.pass_between.episode_name = eps[selected_now].filename
 		if which == first:
 			ep_scroller.get_parent().set_v_scroll(0)
@@ -95,9 +133,42 @@ func _input(event):
 
 func _on_Option_pressed():
 	if disable_controls: return
-	if selected_now == get_focus_owner().name:
-		if eps[selected_now].has('locked') and eps[selected_now].locked:
+	var this_box = get_focus_owner()
+	if selected_now == this_box.name:
+		if eps[selected_now].hs.locked:
 			S.play_sfx("menu_fail")
+			var ease_time = 1.0 / 30.0
+			var ease_size = 32.0
+			var ease_shake = 6.0
+			var ease_fade = 0.8
+			var tween = $Tween
+			tween.stop_all()
+			tween.interpolate_property(
+				this_box, "rect_position:x",
+				0.0, ease_size, ease_time,
+				Tween.TRANS_SINE, Tween.EASE_OUT
+			)
+			var from = pow(ease_size, 1)
+			for i in range(ease_shake):
+				var to1 = -pow(ease_fade, i * 4 + 1) * ease_size
+				var to2 = pow(ease_fade, i * 4 + 3) * ease_size
+				tween.interpolate_property(
+					this_box, "rect_position:x",
+					from, to1, ease_time * 2.0,
+					Tween.TRANS_SINE, Tween.EASE_IN_OUT, ease_time * (1.0 + i * 4.0)
+				)
+				tween.interpolate_property(
+					this_box, "rect_position:x",
+					to1, to2, ease_time * 2.0,
+					Tween.TRANS_SINE, Tween.EASE_IN_OUT, ease_time * (3.0 + i * 4.0)
+				)
+				from = to2
+			tween.interpolate_property(
+				this_box, "rect_position:x",
+				from, 0.0, ease_time,
+				Tween.TRANS_SINE, Tween.EASE_IN, ease_time * (1.0 + ease_shake * 4.0)
+			)
+			tween.start()
 		else:
 			disable_controls = true
 			S.play_sfx("menu_confirm")

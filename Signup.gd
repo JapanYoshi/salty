@@ -512,6 +512,7 @@ func signup_ended(name, keyboard_type):
 			name = name,
 			name_type = name_type,
 			score = 0,
+			accuracy = [0, 0],
 			device = signup_now.type,
 			device_index = player_device_index,
 			device_name = signup_now.remote_device_name if signup_now.type == C.DEVICES.REMOTE else "N/A",
