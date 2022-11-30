@@ -1288,9 +1288,6 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 640, 360 )
 mouse_filter = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenStretch/Cutscenes"]
 root_node = NodePath("../../..")
@@ -1784,6 +1781,7 @@ align = 1
 valign = 1
 
 [node name="TypingHandler" parent="ScreenStretch" instance=ExtResource( 12 )]
+visible = false
 margin_right = 0.0
 
 [node name="HUD" parent="ScreenStretch" instance=ExtResource( 8 )]

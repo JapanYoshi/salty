@@ -120,12 +120,26 @@ func play_intro():
 	var default_players = []
 	var censored_players = []
 	var chosen_names = []
+	var special_guest: int = (
+		# -1 is sentinel for "none yet",
+		# -2 for "this episode can't do that"
+		-2 if (
+			!episode_data.has("no_special_guest")
+			or episode_data.no_special_guest == false
+		) else -1
+	)
+	var special_guest_id: String = ""
 	for p in R.players:
 		if p.name_type == 1: # default name
 			default_players.append(p.player_number)
 		elif p.name_type == 2: # censored name
 			censored_players.append(p.player_number)
 #			q_box.hud.set_player_name(p.player_number, "[CENSORED]")
+		elif special_guest == -1:
+			var guest_id_or_empty_string = Loader.guest_id_or_empty_string(p.name)
+			if !guest_id_or_empty_string.empty():
+				special_guest = p.player_number
+				special_guest_id = guest_id_or_empty_string
 		if p.device == C.DEVICES.REMOTE:
 			remote_players.append(p.player_number)
 	var names = Loader.random_dict.audio_episode["give_name"]
@@ -176,19 +190,27 @@ func play_intro():
 			])
 		match len(censored_players):
 			0:
-				match len(R.players):
-					1:
-						player_voice = "player_1"
-						voice_lines.append("player_1")
-					2:
-						player_voice = "player_2"
-						voice_lines.append("player_2")
-					3:
-						player_voice = "player_3"
-						voice_lines.append("player_3")
-					_:
-						player_voice = "player_4"
-						voice_lines.append("player_4")
+				if special_guest >= 0:
+					# special guest easter egg lines
+					player_voice = "special_guest"
+					yield(
+						S.preload_guest_voice(special_guest_id),
+						"completed"
+					)
+				else:
+					match len(R.players):
+						1:
+							player_voice = "player_1"
+							voice_lines.append("player_1")
+						2:
+							player_voice = "player_2"
+							voice_lines.append("player_2")
+						3:
+							player_voice = "player_3"
+							voice_lines.append("player_3")
+						_:
+							player_voice = "player_4"
+							voice_lines.append("player_4")
 			1:
 				player_voice = "player_callout_%d" % censored_players[0]
 				global_voice_lines.append(player_voice)
@@ -209,7 +231,7 @@ func play_intro():
 				global_voice_lines.append("give_multiple_names")
 	
 		if episode_data.has("audio") == false:
-			R.crash("Episode data is missing audio data.")
+			R.crash("Episode data is missing the section `audio`. Malformed episode data?")
 			return
 		for key in voice_lines:
 			# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
@@ -304,10 +326,21 @@ func play_intro():
 		hud.slide_playerbar(true); yield(hud.get_node("Tween"), "tween_all_completed")
 		yield(get_tree().create_timer(0.1), "timeout") # allow a bit of extra time for slide out
 		
-		S.play_voice(player_voice); yield(S, "voice_end")
-	
+		# If there are censored players, it calls out the player(s) who got censored
+		# If there are special guests, this does not play
+		# Otherwise, it plays a player count quip
+		if special_guest < 0:
+			S.play_voice(player_voice); yield(S, "voice_end")
+		else:
+			if R.cfg.cutscenes:
+				q_box.hub.highlight_players(special_guest)
+				S.play_sfx("option_highlight")
+				yield(get_tree().create_timer(0.5), "timeout")
+				S.play_voice("special_guest"); yield(S, "voice_end")
+				q_box.hud.reset_playerboxes(special_guest)
+				S.unload_voice("special_guest")
 	match len(censored_players):
-		0:
+		0: # we deal with "more than 3" later
 			pass;
 		1:
 			if R.cfg.cutscenes:
@@ -430,7 +463,6 @@ func play_intro():
 
 func play_intro_2():
 	q_box.show_loading_logo(15)
-	yield(q_box.anim, "animation_finished")
 	
 	q_box.hud.reset_all_playerboxes()
 	var lifesaver_left = false
@@ -495,10 +527,13 @@ func play_intro_2():
 		)
 		yield(S, "voice_preloaded")
 	
+	if q_box.anim.is_playing():
+		yield(q_box.anim, "animation_finished")
 	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
 	
+	c_box.show()
 	S.play_music("new_theme", true)
 	c_box.play_intro(); yield(c_box, "animation_finished")
 	S.play_track(0, 0.4)
@@ -581,6 +616,7 @@ func play_intermission():
 	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
+	c_box.show()
 	
 	S.play_sfx("leaderboard_show")
 	c_box.show_leaderboard()
@@ -615,6 +651,7 @@ func load_next_question():
 
 func load_question(q_name):
 	c_box.set_process(false)
+	c_box.hide()
 	q_box.call_deferred("show_loading_logo")
 	yield(q_box.anim, "animation_finished")
 	q_box.question_number = question_number
@@ -625,7 +662,6 @@ func load_question(q_name):
 	yield(Loader, "loaded")
 #	print("Q_BOX.DATA SHOULD NOW BE THE DICTIONARY ", q_box.data)
 	question_number += 1
-	c_box.hide()
 	q_box.call_deferred("change_stage", "init")
 
 func too_many_pauses():
@@ -668,6 +704,7 @@ func play_outro():
 	$Pause.set_process(false) 
 	revert_scene("")
 	send_scene("gameEnd")
+	c_box.show()
 	c_box.set_radius(0)
 #	intermission_played = false
 	S.preload_music("drum_roll")
@@ -681,10 +718,10 @@ func play_outro():
 		var candidates = Loader.random_dict.audio_episode["outro_game"]
 		var candidates_slam = Loader.random_dict.audio_episode["outro_slam"]
 		var index = 0
-		if len(candidates) == 0:
-			R.crash("No candidate lines for key: " + "outro_game")
-		elif len(candidates_slam) == 0:
-			R.crash("No candidate lines for key: " + "outro_slam")
+		if candidates.empty() == 0 or candidates_slam.empty() == 0:
+			R.crash("There are no random game outro lines! Please check `random_voicelines.json` to see if `outro_game` and `outro_slam` are filled up correctly.")
+		elif len(candidates) != len(candidates_slam):
+			R.crash("The number of random `outro_game` and `outro_slam` lines in `random_voicelines.json` are different: " + str(len(candidates)) + " vs. " + str(len(candidates_slam)) + ".")
 		elif len(candidates) > 1:
 			index = R.rng.randi_range(0, len(candidates) - 1)\
 		# complications arose from preloading too fast
