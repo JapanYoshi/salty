@@ -62,6 +62,8 @@ var audience_list = []
 var audience_snapshot
 var all_audience_ref
 var join_request_ref
+var ts_ref
+var last_update_ref
 # Initialize the Firebase plugin.
 func _init_firebase():
 	db_ready = false
@@ -76,11 +78,11 @@ func _init_firebase():
 	else:
 		db_user = result as FirebaseUser
 		db_ready = true
+		last_update_ref = db.get_reference_lite("lastUpdate")
 	just_finished = "_init_firebase"; emit_signal("finished")
 
 func check_if_connected(call_node: Node, call_function: String):
-	var lastUpdateRef = db.get_reference_lite("lastUpdate")
-	var result = yield(lastUpdateRef.put(Time.get_unix_time_from_system()), "completed")
+	var result = yield(last_update_ref.put(Time.get_unix_time_from_system()), "completed")
 	if result is FirebaseError:
 		if is_instance_valid(call_node):
 			call_node.call(call_function, false)
@@ -89,8 +91,7 @@ func check_if_connected(call_node: Node, call_function: String):
 			call_node.call(call_function, true)
 
 func timestamp_room(call_node: Node, call_function: String):
-	var ref = db.get_reference_lite("rooms/" + room_code + "/lastUpdate")
-	var result = yield(ref.put(Time.get_unix_time_from_system()), "completed")
+	var result = yield(ts_ref.put(Time.get_unix_time_from_system()), "completed")
 	if result is FirebaseError:
 		pass
 #		if is_instance_valid(call_node):
@@ -127,27 +128,29 @@ func try_room(call_node: Node, call_function: String):
 	return false
 
 #func _ready():
-	#_init_firebase()
-	#update_room_list()
-	#while just_finished != "update_room_list":
-	#	yield(self, "finished")
-	#_DEBUG_try_room()
-	#while just_finished != "_DEBUG_try_room":
-	#	yield(self, "finished")
-	# Testing room host functionality
-	#print("Adding scene 1")
-	#add_scene("question", {
-	#	question = "What color is a firetruck?",
-	#	options = ["red", "blue", "yellow", "green"],
-	#})
-	#while just_finished != "add_scene":
-	#	yield(self, "finished")
-	#just_finished = ""
-	#print("Adding scene 2")
-	#add_scene("showOptions")
-	#while just_finished != "add_scene":
-	#	yield(self, "finished")
-	#just_finished = ""
+#	_init_firebase()
+#	while !db_ready:
+#		yield(get_tree(), "idle_frame")
+#	update_room_list()
+#	while just_finished != "update_room_list":
+#		yield(self, "finished")
+#	try_room(null, "")
+#	while just_finished != "try_room":
+#		yield(self, "finished")
+#	# Testing room host functionality
+#	print("Adding scene 1")
+#	add_scene("question", {
+#		question = "What color is a firetruck?",
+#		options = ["red", "blue", "yellow", "green"],
+#	})
+#	while just_finished != "add_scene":
+#		yield(self, "finished")
+#	just_finished = ""
+#	print("Adding scene 2")
+#	add_scene("showOptions")
+#	while just_finished != "add_scene":
+#		yield(self, "finished")
+#	just_finished = ""
 #	pass # Replace with function body.
 
 # Update the settings for the default room. Fired after changing the settings or booting up the game.
@@ -209,7 +212,7 @@ func establish_room() -> bool:
 	var ref = db.get_reference_lite("roomCodes/" + room_code)
 	var result = yield(ref.fetch(), "completed")
 	if result is FirebaseError:
-		printerr("Error on checking roomsCodes/" + room_code + ".")
+		printerr("Error on checking roomCodes/" + room_code + ".")
 		just_finished = "establish_room"; emit_signal("finished")
 		return false
 	if ( # Since I have to account for the value being null, this condition is long
@@ -237,6 +240,7 @@ func establish_room() -> bool:
 		return false
 	print(room_code + "Room established!")
 	scene_ref = db.get_reference_lite("rooms/" + room_code + "/scene")
+	ts_ref = db.get_reference_lite("rooms/" + room_code + "/lastUpdate")
 	# Store reference for the currently joined players list
 	all_players_ref = db.get_reference_lite("rooms/" + room_code + "/players")
 #	# TODO: receive input from players
