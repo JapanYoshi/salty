@@ -181,6 +181,44 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 	emit_signal("voice_preloaded", OK)
 	return
 
+func preload_guest_voice(key):
+	var obj = Loader.random_dict.special_guest.id_to_voice[key]
+	var final_filename = voice_path +\
+		obj.v + ".wav"
+	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(final_filename)
+	if loader == null: # Check for errors.
+		printerr("S.preload_voice - ResourceInteractiveLoader failed to preload %s!" % filename)
+		yield(get_tree().create_timer(0), "timeout")
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	while loader.poll() == OK:
+		yield(get_tree(), "idle_frame")
+	if loader.poll() != ERR_FILE_EOF:
+		printerr("S.preload_ep_voice - ResourceInteractiveLoader got error # %d while preloading %s!" % [loader.poll(), filename])
+		yield(get_tree().create_timer(0), "timeout")
+		emit_signal("voice_preloaded", ERR_PARSE_ERROR)
+		return
+	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
+	if voice == null:
+		printerr("Voice line could not load! File path: " + final_filename)
+		yield(get_tree().create_timer(0), "timeout")
+		emit_signal("voice_preloaded", OK)
+		return
+	print("Voice preloaded: " + filename)
+	var player = AudioStreamPlayer.new()
+	player.set_stream(voice)
+	player.bus = "VOX"
+	# we'll connect when we play it
+#	player.connect("finished", self, "_on_voice_end", [key])
+	add_child(player)
+	voice_list.special_guest = {
+		player = player,
+		subtitle = obj.s
+	}
+	yield(get_tree().create_timer(0), "timeout")
+	emit_signal("voice_preloaded", OK)
+	return
+
 func unload_all_voices():
 	for k in voice_list.keys():
 		unload_voice(k)
