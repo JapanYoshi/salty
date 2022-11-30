@@ -238,6 +238,15 @@ func show_final_leaderboard():
 #			'resultAsText': R.format_currency(a.score),
 #			'comment': comment
 #		}, a.device_name);
+	# High score submission/checking
+	# Find the best accuracy.
+	var best_accuracy: float = NAN
+	for i in range(len(ranking)):
+		if ranking[i].accuracy[1] == 0.0: continue; # prevent division by zero
+		var acc = float(ranking[i].accuarcy[0]) / float(ranking[i].accuracy[1])
+		if is_nan(best_accuracy) or acc > best_accuracy:
+			best_accuracy = acc
+	R.submit_high_score(ranking[0].result, best_accuracy)
 	# actually, load the credits too while we're at it.
 	var credits = ConfigFile.new()
 	var err = credits.load("res://credits.gdcfg")
