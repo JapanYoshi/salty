@@ -2066,7 +2066,7 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
-color = Color( 0.266667, 0.470588, 0.694118, 1 )
+color = Color( 0, 0, 0, 1 )
 
 [node name="ThouBase" type="Node2D" parent="."]
 visible = false

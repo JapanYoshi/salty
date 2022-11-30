@@ -77,10 +77,11 @@ func init_thousand():
 	dollars.set_text(R.format_currency(value, true))
 	dollars.add_color_override("font_color", Color(64/255.0, 36/255.0, 4/255.0, 126/255.0))
 	thou_anim.play("reset")
-	gib_q.set_text("")
+	gib_category.bbcode_text = ""
+	gib_q.bbcode_text = ""
 	for el in gib_clues:
 		el.bbcode_text = ""
-	$GibACont/GibA.bbcode_text = ""
+	gib_a.bbcode_text = ""
 	$ColorRect.modulate = Color.white
 	if !R.cfg.cutscenes:
 		anim.play("thou_logo", -1, 10000)
