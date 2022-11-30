@@ -234,11 +234,13 @@ func _gp_button(input_player, button, pressed):
 							no_answer_audience.erase(player)
 							answers_audience[option].append(player)
 							print("AUDI:",answers_audience,"/",no_answer_audience)
+							# R.audience[player].accuracy[1] += 1
 						else:
 							answers[option].append(player)
 							no_answer.erase(player)
 							print("PLYR:",answers_audience,"/",no_answer_audience)
 							player_buzz_in(player)
+							R.players[player].accuracy[1] += 1
 					elif option == -2 and R.players[player].has_lifesaver:
 						print("Player %d used the Lifesaver!")
 						R.players[player].has_lifesaver = false
@@ -262,13 +264,14 @@ func _gp_button(input_player, button, pressed):
 					if option != -1:
 						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
-						
 						if is_audience:
 							no_answer_audience.erase(player)
+							#R.audience[player].accuracy[1] += 1
 						else:
 							player_buzz_in(player)
 							no_answer.erase(player)
 							print("Players who haven't answered: ", no_answer)
+							R.players[player].accuracy[1] += 1
 							if len(no_answer) == 0:
 								change_stage("reveal")
 				return
@@ -289,6 +292,7 @@ func _gp_button(input_player, button, pressed):
 						bgs.G.gib_typing(true)
 						S.play_track(1, 0)
 						activate_keyboard(player)
+						R.players[player].accuracy[1] += 1
 						yield(get_tree().create_timer(0.75), "timeout")
 						if R.players[player].device == C.DEVICES.REMOTE:
 							Fb.send_to_player(
@@ -311,7 +315,7 @@ func _gp_button(input_player, button, pressed):
 							answers_audience[option].append([player, bgs.G.value])
 							no_answer_audience.erase(player)
 							print("Audience member %d chose option %d for %f points" % [player, option, bgs.G.value])
-							
+							#R.players[audience].accuracy[1] += 1
 							# Don't reveal the option until a player gets it right
 						else:
 							# player
@@ -323,6 +327,7 @@ func _gp_button(input_player, button, pressed):
 							S.stop_voice()
 							bgs.G.countdown_pause(true)
 							S.play_track(0, 0); S.play_track(1, 0)
+							R.players[player].accuracy[1] += 1
 							yield(get_tree().create_timer(0.5), "timeout")
 							reveal_option(option)
 					else:
@@ -442,17 +447,18 @@ func answer_submitted(text):
 		Loader.call_deferred("load_random_voice_line", "buzz_in", "buzz_in")
 #		yield(Loader, "voice_line_loaded")
 		return
-	# cuss word?
+	# correct?
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
 #		print("correct")
 		# Move the person correctly answering to bucket 1
 		answers[1].push_back(answers[0].pop_back())
+		R.players[answers[1][0]].accuracy[0] += 1
 		get_tree().create_timer(remote_buzzin_latency).connect("timeout", self, "stop_remote_buzz_in", [], CONNECT_ONESHOT)
-		
 		change_stage("gib_answer")
 		return
 	matched = R.cuss_regex.search(text)
+	# cuss word?
 	if null != matched:
 		S.play_track(0, 0.0)
 		print("fuck you right back, player")
@@ -609,7 +615,21 @@ func change_stage(next_stage):
 			"N":
 				$BG/Noise.set_process(true)
 				$BG/Noise.show()
-				$BG/Color.modulate = Color("#4a2229")
+				$BG/Color.modulate = [
+					Color("#ffffff"),
+					Color("#ff9514"),
+					Color("#306f18"),
+					Color("#fffdc0"),
+					Color("#363430"),
+					Color("#6ca780"),
+					
+					Color("#d01d27"),
+					Color("#010a31"),
+					Color("#efefee"),
+					Color("#3d4247"),
+					Color("#9e1718"),
+					Color("#f9f3f3"),
+				][question_number]
 				hud.enable_lifesaver(true)
 				$BG/QNum.frame = question_number + 1
 				$BG/QNum.show()
@@ -704,7 +724,7 @@ func change_stage(next_stage):
 			"T":
 				$BG/Noise.set_process(true)
 				$BG/Noise.show()
-				$BG/Color.modulate = Color("#695933")
+				$BG/Color.modulate = Color("#675c49")
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
 				bgs.G.set_process(true)
@@ -1394,15 +1414,20 @@ func _on_voice_end(voice_id):
 					if i == correct_answer:
 						option_boxes[i].right()
 						hud.reward_players(answers[i], point_value)
+						for p in answers[i]:
+							R.players[p].accuracy[0] += 1
 						# keep score of audience
 						if audience_answered > 0:
 							if question_type == "T":
 								# [[index, point value], [index, point value], ...]
 								for kv_pair in answers_audience[i]:
 									hud.reward_players([kv_pair[0]], kv_pair[1])
+									#R.audience[kv_pair[0]].accuracy[0] += 1
 							else:
 								# [indices]
 								hud.reward_players(answers_audience[i], point_value)
+								#for p in answers_audience[i]:
+									#R.audience[p].accuracy[0] += 1
 					elif responses[i] != RESPONSE_USED:
 						# evacuate all unannounced wrong answers
 						option_boxes[i].leave()
@@ -1803,6 +1828,7 @@ func S_show_answer():
 		if data.sort_options.a[i] == j:
 			hud.reward_players(answers[j], point_value)
 			for p in answers[j]:
+				R.players[p].accuracy[0] += 1
 				if p < len(R.players):
 					accuracy[p * 2] += 1
 					accuracy[p * 2 + 1] += 1
@@ -1908,9 +1934,13 @@ func R_show_question():
 		for i in range(len(R.players)):
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
+			R.players[i].accuracy[1] += accuracy[i * 2 + 1]
+			R.players[i].accuracy[0] += accuracy[i * 2]
 		for i in range(len(R.audience)):
 			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
 			R.audience[i].score += gain
+#			R.audience[i].accuracy[1] += accuracy[i * 2 + 1]
+#			R.audience[i].accuracy[0] += accuracy[i * 2]
 		bgs.R.queue_free()
 		emit_signal("question_done")
 	else:
@@ -1970,11 +2000,15 @@ func L_show_question():
 		for i in range(len(R.players)):
 			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
 			R.players[i].score += gain
+			R.players[i].accuracy[1] += accuracy[i * 2 + 1]
+			R.players[i].accuracy[0] += accuracy[i * 2]
 		for i in range(len(R.audience)):
 			if accuracy_audience[i * 2 + 1] == 0:
 				continue # bail out before potential division by zero error on next line
 			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
 			R.audience[i].score += gain
+#			R.audience[i].accuracy[1] += accuracy[i * 2 + 1]
+#			R.audience[i].accuracy[0] += accuracy[i * 2]
 		S.play_music("like_outro", 0.75)
 		bgs.L.end_question()
 		yield(get_tree().create_timer(1.0), "timeout")
