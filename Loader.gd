@@ -211,7 +211,7 @@ func load_question(id, first_question: bool, q_box: Node):
 	print("Trying to load the following file... " + path)
 	err = file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
-		R.crash("Question data for ID '" + id + "' is missing.")
+		R.crash("Question data `_question.gdcfg` for ID '" + id + "' is missing.")
 		return
 	elif err == ERR_PARSE_ERROR:
 		print("Found it, but it could not be parsed")

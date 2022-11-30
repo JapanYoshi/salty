@@ -16,7 +16,7 @@ onready var count_label = $NinePatchRect/Label2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide()
-	ep = get_parent().get_parent()
+	ep = get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
 

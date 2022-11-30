@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 export var v_speed: float = 0.01;
 export var radius: float = 0.0;

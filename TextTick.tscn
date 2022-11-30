@@ -16,7 +16,7 @@
 [ext_resource path="res://images/gib_5.png" type="Texture" id=14]
 [ext_resource path="res://images/thousand_thousand.png" type="Texture" id=15]
 [ext_resource path="res://images/thousand_logo.png" type="Texture" id=16]
-[ext_resource path="res://ThemeRushOption.theme" type="Theme" id=17]
+[ext_resource path="res://gibberish_question.theme" type="Theme" id=17]
 [ext_resource path="res://images/gib_time_0.png" type="Texture" id=18]
 [ext_resource path="res://images/gib_time_1.png" type="Texture" id=19]
 [ext_resource path="res://images/gib_time_2.png" type="Texture" id=20]
@@ -2297,9 +2297,9 @@ rect_min_size = Vector2( 1152, 128 )
 rect_pivot_offset = Vector2( 576, 64 )
 
 [node name="GibQ" type="RichTextLabel" parent="GibQBox"]
-margin_top = 11.0
+margin_top = 3.0
 margin_right = 1152.0
-margin_bottom = 117.0
+margin_bottom = 125.0
 rect_min_size = Vector2( 1152, 0 )
 theme = ExtResource( 17 )
 bbcode_enabled = true

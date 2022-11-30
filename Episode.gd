@@ -29,8 +29,8 @@ func _ready():
 	$ScreenStretch/Shutter/AnimationPlayer.stop()
 	skip_btn.hide()
 	$ScreenStretch/BackButton.hide()
-	c_box.get_node("Circle").color = Color.black
-	c_box.get_node("Circle").modulate = Color.white
+#	c_box.backdrop.modulate = Color.black
+#	c_box.vignette.modulate = Color.white
 	c_box.get_node("TechDiff").hide()
 	c_box.get_node("Final").hide()
 	q_box.connect("question_done", self, "load_next_question")
@@ -462,6 +462,7 @@ func play_intro():
 		load_next_question()
 
 func play_intro_2():
+	c_box.hide()
 	q_box.show_loading_logo(15)
 	
 	q_box.hud.reset_all_playerboxes()
@@ -652,7 +653,8 @@ func load_next_question():
 func load_question(q_name):
 	c_box.set_process(false)
 	c_box.hide()
-	q_box.call_deferred("show_loading_logo")
+	q_box.show_loading_logo()
+	
 	yield(q_box.anim, "animation_finished")
 	q_box.question_number = question_number
 	S.unload_all_voices()
@@ -708,6 +710,12 @@ func play_outro():
 	c_box.set_radius(0)
 #	intermission_played = false
 	S.preload_music("drum_roll")
+	if R.cfg.cutscenes:
+		_load_outro_cutscene()
+	else:
+		_outro_cutscene_0()
+
+func _load_outro_cutscene():
 	# use the same index for both lines
 	var outro_game_v: String
 	var outro_game_s: String
@@ -767,6 +775,10 @@ func _on_outro_voice_load_1(_result: int, v2: String, s2: String, episode):
 # ignore the result and assume it succeeded
 func _on_outro_voice_load_2(_result: int):
 	print("_on_outro_voice_load_2")
+	_outro_cutscene_0()
+
+# called whether or not cutscenes are enabled
+func _outro_cutscene_0():
 	hud.rc_box.hide()
 	c_box.show_final_leaderboard()
 	S.play_music("drum_roll", true)
@@ -774,6 +786,22 @@ func _on_outro_voice_load_2(_result: int):
 	yield(get_tree().create_timer(5.0), "timeout")
 	send_scene("showResult")
 	yield(c_box.anim, "animation_finished")
+	if R.cfg.cutscenes:
+		_outro_cutscene_1()
+	else:
+		c_box.tween.interpolate_property(
+			c_box.get_node("Final"),
+			"modulate:a",
+			1.0, 0.0, 0.5,
+			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
+			2.5
+		)
+		c_box.tween.start()
+		yield(c_box.tween, "tween_all_completed")
+		c_box.hide_final_leaderboard()
+		_outro_cutscene_2()
+
+func _outro_cutscene_1():
 	S.play_music("new_theme", true)
 	yield(get_tree().create_timer(3.5), "timeout")
 	S.play_track(0, 0.4)
@@ -783,6 +811,9 @@ func _on_outro_voice_load_2(_result: int):
 	c_box.hide_final_leaderboard()
 	S.play_voice("outro_slam"); yield(S, "voice_end")
 	yield(get_tree().create_timer(1.0), "timeout")
+	_outro_cutscene_2()
+
+func _outro_cutscene_2():
 	c_box.roll_credits()
 	C.connect("gp_button", self, "_back_button")
 	intermission_played = true

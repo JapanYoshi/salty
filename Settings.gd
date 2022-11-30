@@ -196,7 +196,7 @@ var settings_dict = [
 			{
 				v = false,
 				t = "skip",
-				d = "Skip [i]most[/i] cutscenes and tutorials, and only play the questions.\nExceptions:\n• Candy Trivia joke\n• Sorta Kinda explanation (skippable)\n• Sorta Kinda outro (when it shows you the top accuracy)\n"
+				d = "Skip [i]most[/i] cutscenes and tutorials, and only play the questions.\nExceptions:\n• Candy Trivia joke\n• Sorta Kinda explanation (skippable)\n• Sorta Kinda outro (when it shows you the top accuracy)\n• Ending cutscene"
 			},
 			{
 				v = true,

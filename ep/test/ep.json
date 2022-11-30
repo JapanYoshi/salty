@@ -25,20 +25,20 @@
     "skip": {"v": "default"}
   },
   "question_id": [
-    "g012",
-    "g012",
-    "l003",
+    "n047",
+    "n049",
+    "n052",
+    "n053",
+    "s002",
+    "s004",
+
+    "s005",
+    "RNG_nsctgo",
+    "RNG_nsctgo",
     "RNG_nsctgo",
     "RNG_nsctgo",
     "RNG_nsctgo",
 
-    "RNG_nsctgo",
-    "RNG_nsctgo",
-    "RNG_nsctgo",
-    "RNG_nsctgo",
-    "RNG_nsctgo",
-    "RNG_nsctgo",
-
-    "RNG_lr",
+    "RNG_lr"
   ]
 }

@@ -3,7 +3,8 @@ extends Control
 onready var anim = $AnimationPlayer
 onready var logo = $Logo
 onready var tween = $Tween
-onready var backdrop = $Circle
+onready var backdrop = $Color
+onready var vignette = $Circle
 onready var scroller = $CreditBox/CreditScroller
 onready var scrollerV = scroller.get_child(0)
 
@@ -29,7 +30,6 @@ func _process(delta):
 		scroller.scroll_vertical = credits_scroll
 
 func play_intro():
-	backdrop.color = Color("#365c45");
 	anim.play("intro")
 	logo.play_intro()
 
@@ -45,16 +45,10 @@ func round2_logo(backwards):
 		anim.play("round2")
 
 func open_bg():
-	tween.interpolate_method(
-		self, "set_radius", 0.0, 1.5, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
-	)
-	tween.start()
+	vignette.open()
 
 func close_bg():
-	tween.interpolate_method(
-		self, "set_radius", 1.5, 0.0, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
-	)
-	tween.start()
+	vignette.close()
 
 func show_lifesaver_logo():
 	$Lifesavers.show()
@@ -74,6 +68,7 @@ func lifesaver_tutorial(stage: int):
 	)
 	anim.play("lifesavers_tute%d" % real_stage)
 
+# A class just to pass a function to ranking.sort_custom(..) below
 class LBSorter:
 	static func _sort_players(a, b):
 		if a.score == b.score:
@@ -92,7 +87,7 @@ func rank_players():
 
 func show_leaderboard(hidden: bool = false):
 	rank_players()
-	backdrop.color = Color("#0b3601")
+	backdrop.modulate = Color("#0b3601")
 	var lb = $Leaderboard
 	for i in range(8):
 		var box = lb.get_child(i + 1);
@@ -241,12 +236,12 @@ func show_final_leaderboard():
 	# High score submission/checking
 	# Find the best accuracy.
 	var best_accuracy: float = NAN
-	for i in range(len(ranking)):
-		if ranking[i].accuracy[1] == 0.0: continue; # prevent division by zero
-		var acc = float(ranking[i].accuarcy[0]) / float(ranking[i].accuracy[1])
+	for i in range(len(R.players)):
+		if R.players[i].accuracy[1] == 0: continue; # prevent division by zero
+		var acc = float(R.players[i].accuracy[0]) / float(R.players[i].accuracy[1])
 		if is_nan(best_accuracy) or acc > best_accuracy:
 			best_accuracy = acc
-	R.submit_high_score(ranking[0].result, best_accuracy)
+	R.submit_high_score(ranking[0].score, best_accuracy)
 	# actually, load the credits too while we're at it.
 	var credits = ConfigFile.new()
 	var err = credits.load("res://credits.gdcfg")
@@ -273,23 +268,27 @@ func show_final_leaderboard():
 		scrollerV.add_child(spacer.duplicate())
 #		rtl_title.free(); rtl_body.free()
 	anim.play("final_standings")
+	set_radius(1.5)
 	logo.show_logo()
 
 func hide_final_leaderboard():
-	set_radius(1.5)
+	backdrop.modulate = Color.black
 	$Final.hide()
+	$Leaderboard.show()
+	logo.show_logo()
 
 func roll_credits():
 	anim.play("credits_roll")
 	S.play_music("organ", 1.0)
 
 func set_radius(value):
-	backdrop.set_param("radius", value)
+	vignette.set_radius(value)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	emit_signal("animation_finished")
 
 func show_techdiff():
+	$TechDiff.set_process(true)
 	$TechDiff.show()
 	logo.hide_logo()
 	anim.play("intro", 0.0, 0.01, false)

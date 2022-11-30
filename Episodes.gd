@@ -71,7 +71,7 @@ func focus_shifted(which):
 		if hs.last_played == 0:
 			el_last_played.bbcode_text = "Never played"
 		else:
-			el_last_played.bbcode_text = "Last played on %s" % Time.get_datetime_string_from_unix_time(hs.last_played)
+			el_last_played.bbcode_text = "Last play: %s" % R.format_date(hs.last_played)
 			
 		if hs.high_score_time == 0:
 			el_high_score.bbcode_text = "High score: $0 (never)"
@@ -84,8 +84,8 @@ func focus_shifted(which):
 		if hs.best_accuracy_time == 0:
 			el_best_acc.bbcode_text = "Best accuracy: 0.0% (never)"
 		else:
-			el_best_acc.bbcode_text = "Best accuracy: %s (%s)" % [
-				".1f" % (hs.best_accuracy * 100.0),
+			el_best_acc.bbcode_text = "Best accuracy: %.1f%% (%s)" % [
+				hs.best_accuracy * 100.0,
 				R.format_date(hs.best_accuracy_time)
 			]
 		

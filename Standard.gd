@@ -121,15 +121,15 @@ func _ready():
 # process waiting for the sugar rush phase to start at a measure boundary
 var last_pos
 var measure = (4.0) / (15.0)
-func _process(delta):
-	if stage == "rush_wait":
-		var pos = S.music_dict[S.tracks[0]].get_playback_position()
-		print("music position ", pos * measure)
-		if floor(last_pos * measure + 0.01) != floor(pos * measure + 0.01):
-			stage = "rush_question"
-			R_show_question()
-		else:
-			last_pos = pos
+func _R_wait_to_start():
+	var pos = S.music_dict[S.tracks[0]].get_playback_position()
+	print("music position ", pos * measure)
+	if floor(last_pos * measure + 0.02) != floor(pos * measure + 0.02):
+		stage = "rush_question"
+		R_show_question()
+		get_tree().disconnect("idle_frame", self, "_R_wait_to_start")
+	else:
+		last_pos = pos
 
 func set_buzz_in(enabled):
 	if enabled == can_buzz_in: return
@@ -592,6 +592,7 @@ func show_loading_logo(thumb_id: int = -1):
 	$Loading.show()
 	S.play_music("load_loop", 0)
 	S.play_track(0, 0.6)
+	show()
 
 # Advance to the next stage of the question!
 func change_stage(next_stage):
@@ -627,7 +628,7 @@ func change_stage(next_stage):
 					Color("#010a31"),
 					Color("#efefee"),
 					Color("#3d4247"),
-					Color("#9e1718"),
+					Color("#4d0708"),
 					Color("#f9f3f3"),
 				][question_number]
 				hud.enable_lifesaver(true)
@@ -686,6 +687,7 @@ func change_stage(next_stage):
 			"O":
 				$BG/Noise.set_process(false)
 				$BG/Noise.hide()
+				$BG/Color.modulate = Color.black
 				bgs.O = load("res://Cinematic_Rage.tscn").instance()
 				$BG.add_child(bgs.O)
 				#bgs.O.init() # no init function here
@@ -735,11 +737,15 @@ func change_stage(next_stage):
 				hud.enable_lifesaver(false)
 				$Value.hide()
 			"R":
+				$BG/Noise.set_process(false)
+				$BG/Noise.hide()
+				$BG/Color.modulate = Color.black
 				hud.enable_lifesaver(false)
 				reset_accuracy()
 				question_section_number = 0
 				bgs.R = load("res://RushBG.tscn").instance()
 				$BG.add_child(bgs.R)
+				
 				hud.show_finale_box(1)
 				hud.show_accuracy(accuracy)
 				ep.send_scene("rush", {
@@ -747,6 +753,9 @@ func change_stage(next_stage):
 				})
 				Fb.connect("remote_finale", self, "_on_remote_finale")
 			"L":
+				$BG/Noise.set_process(false)
+				$BG/Noise.hide()
+				$BG/Color.modulate = Color.black
 				hud.enable_lifesaver(false)
 				reset_accuracy()
 				question_section_number = 0
@@ -1082,11 +1091,12 @@ func change_stage(next_stage):
 		yield(S, "voice_end")
 		S.play_voice("explanation")
 		bgs.R.start_question()
-		yield(S, "voice_end")
-		S.play_voice("rush_ready")
+#		yield(S, "voice_end")
+#		S.play_voice("rush_ready")
 		yield(get_tree().create_timer(1.5), "timeout")
 		last_pos = S.music_dict[S.tracks[0]].get_playback_position()
 		stage = "rush_wait"
+		get_tree().connect("idle_frame", self, "_R_wait_to_start")
 	
 	elif stage == "intro_L" and next_stage == "like_clue":
 		stage = "intro_L"
