@@ -157,7 +157,6 @@ tracks/4/keys = {
 }
 
 [node name="KeyboardBox" type="Control"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -0.000244141

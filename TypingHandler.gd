@@ -81,6 +81,8 @@ var config = {
 		["", "", "", ""],
 		["num", "submit"]
 	],
+	KB_WIDTH = 10,
+	KB_HEIGHT = 5,
 	kb_main = [
 		'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'delete',
@@ -93,8 +95,8 @@ var config = {
 		'space', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 		'space', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
 		'space', 'V', 'W', 'X', 'Y', 'Z', '.', ',',
-		'space', '?', '!', '-', '/', "'", '1', '2',
-		'3', '4', '5', '6', '7', '8', '9', '0'
+		'space', '?', '!', '-', "'", '1', '2', '3',
+		'space', '4', '5', '6', '7', '8', '9', '0',
 	],
 	sp_shoulder = [
 		'delete', 'submit'
@@ -172,12 +174,12 @@ func _key_pressed(which: String):
 			sfx_press()
 
 func _kb_focused():
-	if kb_focus_y == 4:
+	if kb_focus_y == config.KB_HEIGHT - 1:
 		if kb_focus_x >= 8:
 			return "submit"
 		if kb_focus_x >= 6:
 			return "space"
-	return config.kb_main[kb_focus_y * 10 + kb_focus_x]
+	return config.kb_main[kb_focus_y * config.KB_WIDTH + kb_focus_x]
 
 func kb_set_page(new_page):
 	if new_page == kb_page:
@@ -229,18 +231,18 @@ func kb_move(margin: int):
 		match margin:
 			MARGIN_RIGHT:
 				if kb_focus_y == 4 and kb_focus_x >= 6:
-					kb_focus_x = (kb_focus_x + 2) % 10
+					kb_focus_x = (kb_focus_x + 2) % config.KB_WIDTH
 				else:
-					kb_focus_x = (kb_focus_x + 1) % 10
+					kb_focus_x = (kb_focus_x + 1) % config.KB_WIDTH
 			MARGIN_LEFT:
 				if kb_focus_y == 4 and (kb_focus_x >= 8 or kb_focus_x == 0):
-					kb_focus_x = posmod(kb_focus_x - 2, 10)
+					kb_focus_x = posmod(kb_focus_x - 2, config.KB_WIDTH)
 				else:
-					kb_focus_x = posmod(kb_focus_x - 1, 10)
+					kb_focus_x = posmod(kb_focus_x - 1, config.KB_WIDTH)
 			MARGIN_BOTTOM:
-				kb_focus_y = (kb_focus_y + 1) % 5
+				kb_focus_y = (kb_focus_y + 1) % config.KB_HEIGHT
 			MARGIN_TOP:
-				kb_focus_y = posmod(kb_focus_y - 1, 5)
+				kb_focus_y = posmod(kb_focus_y - 1, config.KB_HEIGHT)
 		if kb_focus_y == 4:
 			if kb_focus_x == 7:
 				kb_focus_x = 6
@@ -254,9 +256,9 @@ func kb_move(margin: int):
 		elif kb_focus_x >= 6:
 			$KB/KeySpace.grab_focus()
 		else:
-			$KB/Grid.get_child(kb_focus_y * 10 + kb_focus_x).grab_focus()
+			$KB/Grid.get_child(kb_focus_y * config.KB_WIDTH + kb_focus_x).grab_focus()
 	else:
-		$KB/Grid.get_child(kb_focus_y * 10 + kb_focus_x).grab_focus()
+		$KB/Grid.get_child(kb_focus_y * config.KB_WIDTH + kb_focus_x).grab_focus()
 	sfx_move()
 
 func _button_pressed(device, which_button, pressed):
@@ -524,6 +526,8 @@ func _toggle_num():
 				i += 1
 
 func _ready():
+	hide()
+	reset_state()
 	# filtering text
 	text_filter.compile(
 		"[^ 0-9A-Z.,'!?\\-/]+"
