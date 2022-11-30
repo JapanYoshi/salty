@@ -9,14 +9,12 @@ var settings_dict = [
 			{
 				v = 0,
 				t = "potato",
-				d = "Don’t animate background shaders. Render everything at 720p."
+				d = "Don’t animate any background shaders (except for animated textures). Do not scale from 720p."
 			},
 			{
 				v = 1,
 				t = "toaster",
-				d = """Don’t animate intensive background shaders like Perlin noise. Scale, but less smoothly.
-Animated shaders:
-• Sugar Rush rings"""
+				d = "Animate some background shaders. Scale smoothly, but sacrifice text clarity.\nAnimated shaders:\n• Sugar Rush rings"
 			},
 			{
 				v = 2,
@@ -67,7 +65,7 @@ Animated shaders:
 			{
 				v = 7,
 				t = "1 - 8 players",
-				d = "“I’m playing the whole game; I’m gonna use the whole game.”"
+				d = "A standard 8-player game. If you can fill this room up, you’re probably a good streamer."
 			}
 		]
 	},{
@@ -83,7 +81,7 @@ Animated shaders:
 			{
 				v = 1,
 				t = "vetted",
-				d = "Players on their phones must be allowed in one by one. (This doesn’t apply to audience members, by the way.)"
+				d = "Players on their phones must be allowed in one by one. (However, once the room is full, they can join the audience freely, assuming that you’ve left that feature on.)"
 			},
 			{
 				v = 2,
@@ -137,7 +135,11 @@ Animated shaders:
 			{v =  2,	t = "2/15",	d = ""},
 			{v =  3,	t = "3/15",	d = ""},
 			{v =  4,	t = "4/15",	d = ""},
-			{v =  5,	t = "5/15",	d = ""},
+			{
+				v =  5,
+				t = "5/15",
+				d = "Recommended if you’re also, like, on a Zoom call at this very moment, and you don’t want the game being way louder than your participants."
+			},
 			{v =  6,	t = "6/15",	d = ""},
 			{v =  7,	t = "7/15",	d = ""},
 			{v =  8,	t = "8/15",	d = ""},
@@ -160,7 +162,7 @@ Animated shaders:
 			{
 				v = 0,
 				t = "Mute",
-				d = "why"
+				d = "Recommended if music makes you lose control. (We would rather have you under control at all times.)"
 			},
 			{v =  1,	t = "1/15",	d = ""},
 			{v =  2,	t = "2/15",	d = ""},
@@ -171,7 +173,11 @@ Animated shaders:
 			{v =  7,	t = "7/15",	d = ""},
 			{v =  8,	t = "8/15",	d = ""},
 			{v =  9,	t = "9/15",	d = ""},
-			{v = 10,	t = "10/15",	d = ""},
+			{
+				v = 10,
+				t = "10/15",
+				d = "Recommended for those who want to hear the dialogue more clearly."
+			},
 			{v = 11,	t = "11/15",	d = ""},
 			{v = 12,	t = "12/15",	d = ""},
 			{v = 13,	t = "13/15",	d = ""},
@@ -190,12 +196,7 @@ Animated shaders:
 			{
 				v = false,
 				t = "skip",
-				d = """Skip [i]most[/i] cutscenes and tutorials, and only play the questions.
-Exceptions:
-• Candy Trivia joke
-• Sorta Kinda explanation (skippable)
-• Sorta Kinda outro (when it shows you the top accuracy)
-"""
+				d = "Skip [i]most[/i] cutscenes and tutorials, and only play the questions.\nExceptions:\n• Candy Trivia joke\n• Sorta Kinda explanation (skippable)\n• Sorta Kinda outro (when it shows you the top accuracy)\n"
 			},
 			{
 				v = true,
@@ -221,7 +222,7 @@ Exceptions:
 		]
 	},{
 		k = "hide_room_code_ingame",
-		t = "Room code in-game",
+		t = "Hide room code in-game",
 		r = [0, 1],
 		o = [
 			{
@@ -386,8 +387,20 @@ func _on_HSlider_value_changed(value):
 	temp_config[setting_name] = value
 	if typeof(value) == TYPE_REAL and setup_done:
 		var slider = vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider")
-		if slider:
-			S.play_sfx("key_move", 1.0 + ((0.0 + value) / slider.max_value))
+		if is_instance_valid(slider):
+			S.play_sfx(
+				"key_move",
+				range_lerp(
+					# map this...
+					value,
+					# from this range...
+					settings_dict[focus_index].r[0],
+					settings_dict[focus_index].r[1],
+					# to this range
+					1.0,
+					2.0
+				)
+			)
 	match settings_dict[focus_index].k:
 		"graphics_quality":
 			R._set_visual_quality(value)
@@ -423,7 +436,6 @@ func _on_SaveButton_pressed():
 func _on_option_mouse_entered(extra_arg_0):
 	_change_focus(extra_arg_0)
 
-
 func clear_question_cache():
 	Loader.clear_question_cache()
-	S.play_sfx("menu_confirm")
+	S.play_sfx("rush_yes")
