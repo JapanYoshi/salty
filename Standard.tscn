@@ -25,8 +25,8 @@
 [ext_resource path="res://images/touchprism-rays-top.png" type="Texture" id=23]
 
 [sub_resource type="Gradient" id=30]
-offsets = PoolRealArray( 0, 0.31028, 0.562617, 0.809346 )
-colors = PoolColorArray( 1, 1, 1, 1, 0.742188, 0.742188, 0.742188, 1, 0.402344, 0.402344, 0.402344, 1, 0.0703125, 0.0703125, 0.0703125, 1 )
+offsets = PoolRealArray( 0, 0.31028, 0.59633, 0.809346 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.742188, 0.742188, 0.742188, 1, 0.433594, 0.433594, 0.433594, 1, 0.222656, 0.222656, 0.222656, 1 )
 
 [sub_resource type="GradientTexture2D" id=31]
 flags = 4
@@ -41,9 +41,9 @@ fill_to = Vector2( 0, 1 )
 shader = ExtResource( 19 )
 shader_param/offset = null
 shader_param/canvas_size = Vector2( 1280, 720 )
-shader_param/scale = 1.0
+shader_param/scale = 1.5
 shader_param/p_time = 0.0
-shader_param/blend = 2.348
+shader_param/blend = 1.2
 shader_param/txr = ExtResource( 3 )
 
 [sub_resource type="Animation" id=14]
@@ -1267,16 +1267,13 @@ expand_margin_bottom = 32.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BG" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Color" type="TextureRect" parent="BG"]
-modulate = Color( 0.290196, 0.133333, 0.160784, 1 )
+modulate = Color( 0.4, 0.360784, 0.270588, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = SubResource( 31 )
@@ -1284,7 +1281,7 @@ expand = true
 stretch_mode = 7
 
 [node name="QNum" type="Sprite" parent="BG"]
-modulate = Color( 1, 1, 1, 0.188235 )
+modulate = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 position = Vector2( 640, 360 )
 texture = ExtResource( 1 )
 hframes = 4
@@ -1460,7 +1457,6 @@ anims/tick_tens = SubResource( 8 )
 one_shot = true
 
 [node name="Vignette" type="ColorRect" parent="."]
-visible = false
 material = SubResource( 11 )
 anchor_left = 0.5
 anchor_top = 0.5
