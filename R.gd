@@ -20,6 +20,7 @@ var cfg = {
 	graphics_quality = 2,
 	room_size = 7,
 	room_openness = 2,
+	remote_start = true,
 	audience = true,
 	subtitles = true,
 	overall_volume = 15,

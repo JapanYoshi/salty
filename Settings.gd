@@ -106,6 +106,22 @@ var settings_dict = [
 			}
 		]
 	},{
+		k = "remote_start",
+		t = "Start game from remote",
+		r = [0, 1],
+		o = [
+			{
+				v = false,
+				t = "forbid",
+				d = "Only start the game from the host’s PC, not from phones as controllers."
+			},
+			{
+				v = true,
+				t = "allow",
+				d = "When using phones as controllers, allow the game to be started from it."
+			}
+		]
+	},{
 		k = "subtitles",
 		t = "Subtitles",
 		r = [0, 1],

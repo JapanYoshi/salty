@@ -201,6 +201,7 @@ func read_room_code():
 func _gp_button(player: int, button: int, pressed: bool):
 	if len(R.players) > 0\
 	and R.players[0].device == C.DEVICES.REMOTE\
+	and R.cfg.remote_start\
 	and R.players[0].device_index == player\
 	and button == 5:
 		start_game()
@@ -523,10 +524,13 @@ func signup_ended(name, keyboard_type):
 		}
 		print("Appending new player: ", player)
 		if len(R.players) == 0:
-			$Ready/Label2.set_text("Or press Return on the keyboard")
+			if R.cfg.remote_start:
+				$Ready/Label2.set_text("Or press Return on the keyboard")
 			if signup_now.type == C.DEVICES.GAMEPAD:
 				$Ready/Label.set_text("Press ㍝ to start!")
-			elif signup_now.type == C.DEVICES.KEYBOARD:
+			elif signup_now.type == C.DEVICES.KEYBOARD or (
+				signup_now.type == C.DEVICES.REMOTE and !R.cfg.remote_start
+			):
 				$Ready/Label.set_text("Press Return to start!")
 				$Ready/Label2.set_text("")
 			elif signup_now.type == C.DEVICES.TOUCHSCREEN:
