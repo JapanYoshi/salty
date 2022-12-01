@@ -796,6 +796,13 @@ func _outro_cutscene_0():
 			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
 			2.5
 		)
+		c_box.tween.interpolate_property(
+			c_box.get_node("Final"),
+			"modulate:a",
+			0.0, 0.0, 0.5,
+			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
+			3.0
+		)
 		c_box.tween.start()
 		yield(c_box.tween, "tween_all_completed")
 		c_box.hide_final_leaderboard()

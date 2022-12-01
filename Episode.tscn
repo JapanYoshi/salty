@@ -84,7 +84,7 @@ tracks/1/keys = {
 "values": [ Vector2( 640, 360 ), Vector2( 320, 160 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenStretch/Cutscenes/Color:modulate")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Circle:modulate:a")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -93,7 +93,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0.211765, 0.360784, 0.270588, 1 ) ]
+"values": [ 1.0, 0.0 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("ScreenStretch/Cutscenes/Leaderboard:rect_scale")

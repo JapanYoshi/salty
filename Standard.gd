@@ -685,9 +685,9 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"O":
-				$BG/Noise.set_process(false)
-				$BG/Noise.hide()
-				$BG/Color.modulate = Color.black
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("")
 				bgs.O = load("res://Cinematic_Rage.tscn").instance()
 				$BG.add_child(bgs.O)
 				#bgs.O.init() # no init function here
@@ -1158,7 +1158,7 @@ func change_stage(next_stage):
 		if $Vignette.tween.is_active():
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
 #			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
-			yield($Vignette, "tween_finished")
+			yield($Vignette, "tween_all_finished")
 #			if question_number != 5:
 #				show_loading_logo()
 		print("DEBUG PRINT UNLOAD BG")
@@ -1663,6 +1663,8 @@ func intro_C_ended():
 		change_stage("question")
 
 func intro_O_ended():
+	$BG/Noise.set_process(false)
+	$BG/Noise.hide()
 	# question
 	S.play_multitrack("rage_loop", 0.5)
 	S.play_voice("intro")

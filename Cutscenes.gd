@@ -126,6 +126,8 @@ func show_final_leaderboard():
 		flb.get_child(i).init_values(ranking[i])
 	$Final.show()
 	$Leaderboard/Panel/Label.set_text("Final standings")
+	backdrop.modulate = Color("#365c45")
+	vignette.modulate = Color.black
 	# calculate the placement of each player, taking ties into account.
 	for i in range(len(ranking)):
 		var placement = i
