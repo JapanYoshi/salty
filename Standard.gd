@@ -364,6 +364,7 @@ func _gp_button(input_player, button, pressed):
 # Firebase stores the current seletion state as a STRING of '0' and '1'.
 # Correct the selection state locally to match the state on Firebase.
 func _on_remote_finale(value: String, slot: int):
+	if !audience_can_buzz_in: return
 	var player: int = R.slot2player(slot)
 	if player == -1:
 		printerr("_on_remote_finale called for a slot number that does not correspond to a player (%d)" % slot)
