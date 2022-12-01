@@ -582,10 +582,8 @@ func reset_accuracy():
 
 # Called during the unloading of the previous question (unloading used backgrounds)
 # and during the ending of the round intro
-func show_loading_logo(thumb_id: int = -1):
+func show_loading_logo(thumb_id: int):
 	print("show loading logo")
-	if thumb_id == -1:
-		thumb_id = question_number + 1
 
 	$Loading/Thumbnails/Thumbnails.frame = thumb_id
 	loadanim.play("idle", 0, 1.0)
@@ -688,7 +686,7 @@ func change_stage(next_stage):
 			"O":
 				$BG/Noise.set_process(true)
 				$BG/Noise.show()
-				$BG/Color.modulate = Color("")
+				$BG/Color.modulate = Color("#365c45")
 				bgs.O = load("res://Cinematic_Rage.tscn").instance()
 				$BG.add_child(bgs.O)
 				#bgs.O.init() # no init function here
@@ -1156,12 +1154,9 @@ func change_stage(next_stage):
 		for b in option_boxes:
 			b.reset()
 		print("Question is successfully finished!")
-		if $Vignette.tween.is_active():
+		while $Vignette.tween.is_active():
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
-#			$Vignette.disconnect("tween_finished", self, "show_loading_logo")
-			yield($Vignette, "tween_all_finished")
-#			if question_number != 5:
-#				show_loading_logo()
+			yield(get_tree(), "idle_frame")
 		print("DEBUG PRINT UNLOAD BG")
 		if question_type == "T" or question_type == "G":
 			if is_instance_valid(bgs.G):
@@ -1181,7 +1176,6 @@ func change_stage(next_stage):
 		elif question_type == "O":
 			if is_instance_valid(bgs.O):
 				bgs.O.queue_free()
-		question_number += 1
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
 		# just finished revealing lifesaver decoys

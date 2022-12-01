@@ -653,10 +653,10 @@ func load_next_question():
 func load_question(q_name):
 	c_box.set_process(false)
 	c_box.hide()
-	q_box.show_loading_logo()
 	
-	yield(q_box.anim, "animation_finished")
 	q_box.question_number = question_number
+	q_box.show_loading_logo(question_number + 1)
+	yield(q_box.anim, "animation_finished")
 	S.unload_all_voices()
 	Loader.call_deferred("load_question",
 		q_name, question_number == 0, q_box
@@ -669,18 +669,20 @@ func load_question(q_name):
 func too_many_pauses():
 	# freeze frame effect
 	var txr: ImageTexture = ImageTexture.new()
-	# Let frames pass to make sure the screen was captured.
-#	yield(get_tree(), "idle_frame")
+	# stop the music and voice to get rid of the subtitles if visible
+	S.play_music("", 0)
+	S.stop_voice()
+	S.sub_node.clear_contents()
+	
+	yield(get_tree().create_timer(0.1), "timeout")
 	# Retrieve the captured image.
 	var screenshot: Image = get_viewport().get_texture().get_data()
 	txr.create_from_image(screenshot, 0)
-	$ScreenStretch/Screen.set_texture(txr)
-#	$Screen.show()
-	
-	S.play_music("", 0)
-	S.stop_voice()
-	q_box.queue_free()
-	yield(get_tree().create_timer(0.5), "timeout")
+	$ScreenBehindShutter.set_texture(txr)
+	$ScreenBehindShutter.show()
+	q_box.free()
+	c_box.hide()
+	yield(get_tree().create_timer(0.1), "timeout")
 	#S.play_voice("")
 	disqualified()
 

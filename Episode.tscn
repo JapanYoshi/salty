@@ -1254,10 +1254,15 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 2 )
 
+[node name="ScreenBehindShutter" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+flip_v = true
+
 [node name="ScreenStretch" parent="." instance=ExtResource( 43 )]
 
 [node name="Standard" parent="ScreenStretch" instance=ExtResource( 1 )]
-visible = false
 
 [node name="Cutscenes" type="Control" parent="ScreenStretch"]
 anchor_right = 1.0

@@ -89,6 +89,7 @@ func show_leaderboard(hidden: bool = false):
 	rank_players()
 	backdrop.modulate = Color("#0b3601")
 	var lb = $Leaderboard
+	lb.show()
 	for i in range(8):
 		var box = lb.get_child(i + 1);
 		if i >= len(ranking):
