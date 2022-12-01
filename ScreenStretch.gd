@@ -1,6 +1,5 @@
 extends Control
 
-const aspect_ratio = 16.0 / 9.0
 const base_resolution = Vector2(1280, 720)
 
 # Called when the node enters the scene tree for the first time.
@@ -14,12 +13,10 @@ func _ready():
 
 func _on_size_changed():
 	var resolution = get_viewport_rect().size
-	if resolution.x / resolution.y > aspect_ratio:
-		# too wide
-		rect_scale = Vector2.ONE * resolution.y / base_resolution.y
-	else:
-		# too narrow
-		rect_scale = Vector2.ONE * resolution.x / base_resolution.x
+	rect_scale = Vector2.ONE * min(
+		resolution.y / base_resolution.y,
+		resolution.x / base_resolution.x
+	)
 	var parent = get_parent()
 	if parent is Control:
 		parent.rect_pivot_offset = resolution * 0.5

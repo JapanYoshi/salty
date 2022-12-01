@@ -19,6 +19,16 @@ func _ready():
 	ep = get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
+	_on_size_changed() # initialize size
+	get_viewport().connect("size_changed", self, "_on_size_changed")
+
+const base_resolution = Vector2(1280, 720)
+func _on_size_changed():
+	var resolution = get_viewport_rect().size
+	$NinePatchRect.rect_scale = Vector2.ONE * min(
+		resolution.y / base_resolution.y,
+		resolution.x / base_resolution.x
+	)
 
 func _process(delta):
 	if !visible: return
