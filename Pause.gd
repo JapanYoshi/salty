@@ -58,8 +58,8 @@ func pause_modal(player_number, device_index):
 	if ep.penalize_pausing:
 		paused_times += 1
 		if paused_times >= 3:
-			var rand = R.rng.randi() / 4294967296.0
-			var thres = (paused_times - 2) / 8.0
+			var rand = R.rng.randf()
+			var thres = (paused_times - 3) / 5.0
 			if rand < thres:
 				print("too many pauses")
 				ep.too_many_pauses()
