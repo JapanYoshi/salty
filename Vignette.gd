@@ -1,7 +1,7 @@
 extends ColorRect
 
 onready var tween = Tween.new()
-const MAX_RADIUS = 1.00;
+const MAX_RADIUS = 1.01;
 const EASE_TIME = 0.5;
 const EASE_X = 0.23;
 const EASE_Y = 0.18;
