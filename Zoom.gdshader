@@ -19,7 +19,7 @@ void fragment() {
 		(scale / radius) + p_time
 	));
 	rt.y += rt.x;
-	rt.x *= 5.0;
+	rt.x *= 3.0;
 	// center fade effect
 	float l = min(1. - radius * 1.41421356, 1.0);
 	l = 1. - l * l;
