@@ -52,6 +52,10 @@ func _ready():
 #		load_next_question()
 #		return
 	c_box.get_node("Round2").scale = Vector2(0, 1)
+	for i in range(len(R.players)):
+		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
+			$PauseButton.show()
+			break
 	call_deferred("play_intro")
 
 func enable_skip():
@@ -706,6 +710,7 @@ func shutter():
 
 func play_outro():
 	$Pause.set_process(false) 
+	$PauseButton.hide()
 	revert_scene("")
 	send_scene("gameEnd")
 	c_box.show()
@@ -892,3 +897,7 @@ func revert_scene(until: String):
 #			print("reverted scene history:", scene_history)
 			return
 #	print("Cleared all scene events")
+
+
+func _on_PauseButton_pressed():
+	C.inject_button(4, 6, true)

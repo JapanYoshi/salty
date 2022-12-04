@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -47,6 +47,8 @@
 [ext_resource path="res://vignette_shader.material" type="Material" id=45]
 [ext_resource path="res://noise_n_circle.gdshader" type="Shader" id=46]
 [ext_resource path="res://radial_gradient.tres" type="Texture" id=47]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=48]
+[ext_resource path="res://CreditBox.gd" type="Script" id=49]
 
 [sub_resource type="ShaderMaterial" id=30]
 shader = ExtResource( 46 )
@@ -650,7 +652,7 @@ tracks/0/keys = {
 "values": [ 730.0, -6.0, 2.0, -1.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo2:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -662,7 +664,7 @@ tracks/1/keys = {
 "values": [ 0.0, 0.4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -686,7 +688,7 @@ tracks/3/keys = {
 "values": [ Vector2( 0, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("ScreenStretch/Cutscenes/Logo:position")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Logo2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -698,7 +700,7 @@ tracks/4/keys = {
 "values": [ Vector2( 640, 360 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("ScreenStretch/Cutscenes/Logo:rotation_degrees")
+tracks/5/path = NodePath("ScreenStretch/Cutscenes/Logo2:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -726,7 +728,7 @@ tracks/0/keys = {
 "values": [ 0.0, -730.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo:modulate:a")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Logo2:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -738,7 +740,7 @@ tracks/1/keys = {
 "values": [ 0.4, 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo:scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Logo2:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -1369,14 +1371,22 @@ mouse_filter = 2
 theme = ExtResource( 10 )
 bbcode_enabled = true
 
+[node name="Logo2" parent="ScreenStretch/Cutscenes" instance=ExtResource( 3 )]
+visible = true
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 640, 360 )
+rotation = 0.174533
+scale = Vector2( 1.5, 1.5 )
+
 [node name="Leaderboard" type="VBoxContainer" parent="ScreenStretch/Cutscenes"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 268.0
-margin_top = 730.0
-margin_right = -252.0
-margin_bottom = 666.001
+margin_left = 96.0
+margin_top = 284.0
+margin_right = -424.0
+margin_bottom = 220.002
+rect_scale = Vector2( 0.6, 0.6 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1487,6 +1497,12 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 41 )
 
+[node name="Logo" parent="ScreenStretch/Cutscenes" instance=ExtResource( 3 )]
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 320, 160 )
+rotation = 0.174533
+scale = Vector2( 0.25, 0.25 )
+
 [node name="TechDiff" type="ColorRect" parent="ScreenStretch/Cutscenes"]
 visible = false
 material = SubResource( 1 )
@@ -1506,11 +1522,8 @@ position = Vector2( 640, 360 )
 scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 40 )
 
-[node name="Logo" parent="ScreenStretch/Cutscenes" instance=ExtResource( 3 )]
-position = Vector2( 640, 360 )
-scale = Vector2( 0.5, 0.5 )
-
 [node name="Final" type="ColorRect" parent="ScreenStretch/Cutscenes"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -1657,15 +1670,14 @@ margin_left = 620.0
 margin_top = 160.0
 margin_right = -108.0
 margin_bottom = -200.0
-rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( -887, -110 )
 custom_styles/panel = SubResource( 27 )
+script = ExtResource( 49 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="ScreenStretch/Cutscenes/CreditBox"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
@@ -1679,12 +1691,13 @@ custom_constants/separation = 8
 
 [node name="Spacer" type="Control" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
 margin_right = 552.0
+rect_min_size = Vector2( 552, 0 )
 size_flags_horizontal = 3
 
 [node name="Title" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
 margin_top = 8.0
 margin_right = 552.0
-margin_bottom = 36.0
+margin_bottom = 56.0
 custom_fonts/normal_font = ExtResource( 42 )
 bbcode_enabled = true
 bbcode_text = "Salty Trivia with Candy Barre"
@@ -1693,9 +1706,9 @@ fit_content_height = true
 scroll_active = false
 
 [node name="Body" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V"]
-margin_top = 44.0
+margin_top = 64.0
 margin_right = 552.0
-margin_bottom = 73.0
+margin_bottom = 93.0
 bbcode_enabled = true
 bbcode_text = "Presented by [b]hai!touch Studios[/b]"
 text = "Presented by hai!touch Studios"
@@ -1706,11 +1719,11 @@ scroll_active = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -10.0
-margin_bottom = 48.0
+margin_top = -12.0
+margin_bottom = 46.0
 grow_vertical = 0
 custom_fonts/font = ExtResource( 37 )
-text = "visit our site at HAITOUCH.GA"
+text = "Visit our site at haitouch.ga/me"
 align = 2
 valign = 1
 __meta__ = {
@@ -1718,11 +1731,11 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/Cutscenes/CreditBox"]
-margin_left = -22.0
-margin_top = -106.0
-margin_right = 882.0
-margin_bottom = 74.0
-rect_rotation = -2.69042
+margin_left = -18.0
+margin_top = -124.5
+margin_right = 886.0
+margin_bottom = 55.5
+rect_rotation = -1.8
 rect_scale = Vector2( 0.667, 0.667 )
 theme = ExtResource( 14 )
 bbcode_enabled = true
@@ -1734,6 +1747,7 @@ __meta__ = {
 }
 
 [node name="Shutter" type="TextureRect" parent="ScreenStretch"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -720.0
@@ -1798,14 +1812,23 @@ __meta__ = {
 }
 
 [node name="BackButton" parent="ScreenStretch" instance=ExtResource( 38 )]
-visible = false
-margin_left = -222.0
-margin_right = -6.0
 
 [node name="SubManager" parent="." instance=ExtResource( 6 )]
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="PauseButton" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0.156863 )
+margin_right = 117.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 48 )
+custom_styles/hover = ExtResource( 26 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/focus = ExtResource( 26 )
+custom_styles/disabled = ExtResource( 26 )
+custom_styles/normal = ExtResource( 26 )
+text = "Pause"
 
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
@@ -1956,6 +1979,7 @@ __meta__ = {
 [connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
 [connection signal="gui_input" from="ScreenStretch/SkipButton" to="." method="_on_SkipButton_gui_input"]
 [connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_BackButton_back_pressed"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button2" to="Pause" method="quit"]
 [connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button" to="Pause" method="resume"]
