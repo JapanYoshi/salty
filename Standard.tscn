@@ -1103,7 +1103,7 @@ tracks/2/keys = {
 [sub_resource type="ShaderMaterial" id=11]
 shader = ExtResource( 20 )
 shader_param/radius = 0.0
-shader_param/smoothing = 0.0
+shader_param/smoothing = 0.01
 shader_param/resolution = Vector2( 1280, 720 )
 
 [sub_resource type="Animation" id=25]

@@ -539,6 +539,10 @@ func signup_ended(name, keyboard_type):
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
 		R.players.append(player)
+		# Tell mouse/touchscreen player how to pause.
+		if signup_now.type == C.DEVICES.REMOTE:
+			$Ready2/Label4.set_text("%d" % len(R.players))
+			$Ready2/Anim.play("Enter")
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
 		else:

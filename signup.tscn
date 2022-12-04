@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://images/signup_gamepad.png" type="Texture" id=1]
 [ext_resource path="res://images/signup_keyboard.png" type="Texture" id=2]
@@ -38,6 +38,38 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=9]
+resource_name = "Init"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1300.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Enter"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 0.3, -2, 1 ),
+"update": 0,
+"values": [ 1256.0, 816.0, 896.0 ]
+}
+
+[sub_resource type="Animation" id=13]
 resource_name = "Init"
 length = 0.05
 tracks/0/type = "value"
@@ -310,9 +342,6 @@ margin_top = 40.0
 margin_right = 440.0
 margin_bottom = 136.0
 custom_styles/panel = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label3" type="Label" parent="Ready"]
 margin_left = 13.0
@@ -363,6 +392,45 @@ custom_styles/focus = ExtResource( 21 )
 custom_styles/disabled = ExtResource( 21 )
 custom_styles/normal = ExtResource( 21 )
 text = "Play using touch controls?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ready2" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 640.0
+margin_right = 396.0
+margin_bottom = 712.0
+rect_pivot_offset = Vector2( -170, 56 )
+custom_styles/panel = ExtResource( 13 )
+
+[node name="Anim" type="AnimationPlayer" parent="Ready2"]
+autoplay = "Init"
+anims/Enter = SubResource( 12 )
+anims/Init = SubResource( 13 )
+
+[node name="Label4" type="Label" parent="Ready2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 57.0
+margin_top = 7.0
+margin_right = -8.0
+margin_bottom = -7.0
+custom_fonts/font = ExtResource( 10 )
+text = "Click on the options. Click the top-left corner of the screen to pause."
+valign = 1
+autowrap = true
+
+[node name="Label3" type="Label" parent="Ready2"]
+margin_left = 13.0
+margin_top = -12.0
+margin_right = 61.0
+margin_bottom = 52.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 14 )
+text = "6"
 __meta__ = {
 "_edit_use_anchors_": false
 }
