@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://AchievementItem.gd" type="Script" id=3]
+[ext_resource path="res://android-icon-legacy.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.137255, 0.172549, 0.145098, 1 )
+border_width_top = 36
+border_color = Color( 0.215686, 0.309804, 0.235294, 0.501961 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.0431373, 0.521569, 0.180392, 1 )
+border_width_top = 36
+border_color = Color( 0.0745098, 0.717647, 0.372549, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.176471, 0.309804, 0.235294, 1 )
+
+[node name="AchievementItem" type="PanelContainer"]
+margin_right = 540.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 540, 130 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="h" type="HBoxContainer" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 536.0
+margin_bottom = 161.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="h"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="v" type="VBoxContainer" parent="h"]
+margin_left = 132.0
+margin_right = 532.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+
+[node name="name" type="Label" parent="h/v"]
+margin_right = 400.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Achievement name"
+
+[node name="desc" type="Label" parent="h/v"]
+margin_top = 48.0
+margin_right = 400.0
+margin_bottom = 119.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Description description description blah blah blah blah blah blah"
+autowrap = true
+
+[node name="h" type="ProgressBar" parent="h/v"]
+margin_top = 123.0
+margin_right = 400.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+max_value = 1.0
+percent_visible = false
+
+[node name="progress" type="Label" parent="h/v/h"]
+margin_right = 400.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "---"
+align = 1
+valign = 1

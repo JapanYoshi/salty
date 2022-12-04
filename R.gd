@@ -31,14 +31,14 @@ var cfg = {
 	awesomeness = true,
 }
 
-var save_data = {
-	history = {
+const DEFAULT_SAVE = {
+	history = { # default unlocks
 		random = {
 			"last_played": 0,
 			"high_score": -1,
 			"high_score_time": 0,
 			"best_accuracy": -1,
-			"best_accuarcy_time": 0,
+			"best_accuracy_time": 0,
 			"locked": false,
 		},
 		demo = {
@@ -46,7 +46,7 @@ var save_data = {
 			"high_score": -1,
 			"high_score_time": 0,
 			"best_accuracy": -1,
-			"best_accuarcy_time": 0,
+			"best_accuracy_time": 0,
 			"locked": false,
 		},
 		ep_001 = {
@@ -54,18 +54,19 @@ var save_data = {
 			"high_score": -1,
 			"high_score_time": 0,
 			"best_accuracy": -1,
-			"best_accuarcy_time": 0,
+			"best_accuracy_time": 0,
 			"locked": false,
 		},
 	},
 	achievements = {
-		
 	},
 	misc = {
 		cuss_history = [],
 		guests_seen = [],
 	}
 }
+var save_data = DEFAULT_SAVE.duplicate(true)
+
 var unlocks = {
 	ep_001 = ["ep_002"],
 	ep_002 = ["ep_003"],
@@ -160,8 +161,23 @@ func get_save_data_item(section, key, default_value = null):
 		key in save_data[section].keys()
 	) else default_value
 
+
 func set_save_data_item(section, key, value):
 	save_data[section][key] = value
+
+
+func delete_save_data():
+	save_data = DEFAULT_SAVE.duplicate()
+	save_save_data()
+
+
+func save_save_data():
+	var save = ConfigFile.new()
+	for s in save_data.keys():
+		for k in save_data[s].keys():
+			save.set_value(s, k, save_data[s][k])
+	save.save("user://save.cfg")
+
 
 const DEFAULT_HS = {
 	"last_played": 0,
@@ -174,6 +190,7 @@ const DEFAULT_HS = {
 func init_high_score(ep_id: String):
 	save_data.history[ep_id] = DEFAULT_HS.duplicate(true);
 
+
 func get_high_score(ep_id: String):
 	if not (ep_id in save_data.history.keys()):
 		init_high_score(ep_id)
@@ -182,6 +199,7 @@ func get_high_score(ep_id: String):
 			if not (k in save_data.history[ep_id]):
 				save_data.history[ep_id][k] = DEFAULT_HS[k]
 	return save_data.history[ep_id]
+
 
 func submit_high_score(score: int, accuracy: float):
 	if not (pass_between.episode_name in save_data.history.keys()):
@@ -211,13 +229,6 @@ func submit_high_score(score: int, accuracy: float):
 				save_data.history[unlock].locked = false
 	if edited_high_score:
 		save_save_data()
-
-func save_save_data():
-	var save = ConfigFile.new()
-	for s in save_data.keys():
-		for k in save_data[s].keys():
-			save.set_value(s, k, save_data[s][k])
-	save.save("user://save.cfg")
 
 ### currency formatting
 var currency_data = {

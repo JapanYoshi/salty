@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=2]
+[ext_resource path="res://HighScoreItem.gd" type="Script" id=3]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=4]
+[ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.137255, 0.172549, 0.145098, 1 )
+border_width_top = 36
+border_color = Color( 0.215686, 0.309804, 0.235294, 0.501961 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[node name="HighScoreItem" type="PanelContainer"]
+margin_right = 540.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 540, 130 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="v" type="VBoxContainer" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 536.0
+margin_bottom = 126.0
+
+[node name="Split" type="HSplitContainer" parent="v"]
+margin_right = 532.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_constants/separation = 0
+split_offset = 64
+
+[node name="Num" type="Panel" parent="v/Split"]
+margin_right = 64.0
+margin_bottom = 44.0
+mouse_filter = 1
+custom_styles/panel = ExtResource( 5 )
+
+[node name="Text" type="Label" parent="v/Split/Num"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = -8.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 4 )
+text = "RQ"
+align = 1
+
+[node name="name" type="Label" parent="v/Split"]
+margin_left = 72.0
+margin_right = 532.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 2 )
+text = "Episode Name"
+
+[node name="h" type="HBoxContainer" parent="v"]
+margin_top = 48.0
+margin_right = 532.0
+margin_bottom = 120.0
+custom_constants/separation = 16
+
+[node name="title" type="VBoxContainer" parent="v/h"]
+margin_right = 155.0
+margin_bottom = 72.0
+
+[node name="hs" type="Label" parent="v/h/title"]
+margin_right = 155.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "High score"
+
+[node name="acc" type="Label" parent="v/h/title"]
+margin_top = 38.0
+margin_right = 155.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 1 )
+text = "Best accuracy"
+
+[node name="value" type="VBoxContainer" parent="v/h"]
+margin_left = 171.0
+margin_right = 314.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
+
+[node name="hs" type="Label" parent="v/h/value"]
+margin_right = 143.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "---"
+align = 2
+
+[node name="acc" type="Label" parent="v/h/value"]
+margin_top = 38.0
+margin_right = 143.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 1 )
+text = "---%"
+align = 2
+
+[node name="date" type="VBoxContainer" parent="v/h"]
+margin_left = 330.0
+margin_right = 532.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 202, 0 )
+
+[node name="hs" type="Label" parent="v/h/date"]
+margin_right = 202.0
+margin_bottom = 34.0
+custom_colors/font_color = Color( 0.792157, 0.792157, 0.792157, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "2000-00-00 00:00"
+
+[node name="acc" type="Label" parent="v/h/date"]
+margin_top = 38.0
+margin_right = 202.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.792157, 0.792157, 0.792157, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Never played"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://MenuBG.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/bg0.png" type="Texture" id=2]
@@ -10,8 +10,14 @@
 [ext_resource path="res://audio/music/main_theme.ogg" type="AudioStream" id=8]
 [ext_resource path="res://KeyBox.stylebox" type="StyleBox" id=9]
 [ext_resource path="res://ThemeEpisode.tres" type="Theme" id=10]
-[ext_resource path="res://ThemeQuestion.theme" type="Theme" id=11]
+[ext_resource path="res://images/controls.png" type="Texture" id=11]
 [ext_resource path="res://ScreenStretch.gd" type="Script" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+content_margin_left = 16.0
+content_margin_right = 0.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
 
 [node name="Title" type="ColorRect"]
 anchor_right = 1.0
@@ -61,39 +67,46 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -496.0
-margin_top = -425.0
+margin_top = -393.0
 margin_right = -40.0
-margin_bottom = -126.0
+margin_bottom = -37.0
 alignment = 2
 
 [node name="Button" type="Button" parent="ScreenStretch/VBoxContainer"]
-margin_top = 15.0
 margin_right = 456.0
-margin_bottom = 83.0
+margin_bottom = 68.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Play"
 
 [node name="Button2" type="Button" parent="ScreenStretch/VBoxContainer"]
-margin_top = 87.0
+margin_top = 72.0
 margin_right = 456.0
-margin_bottom = 155.0
+margin_bottom = 140.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "About"
 
 [node name="Button3" type="Button" parent="ScreenStretch/VBoxContainer"]
-margin_top = 159.0
+margin_top = 144.0
 margin_right = 456.0
-margin_bottom = 227.0
+margin_bottom = 212.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Settings"
 
 [node name="Button4" type="Button" parent="ScreenStretch/VBoxContainer"]
-margin_top = 231.0
+margin_top = 216.0
 margin_right = 456.0
-margin_bottom = 299.0
+margin_bottom = 284.0
+rect_pivot_offset = Vector2( -1168, 328 )
+theme = ExtResource( 10 )
+text = "Save Data"
+
+[node name="Button5" type="Button" parent="ScreenStretch/VBoxContainer"]
+margin_top = 288.0
+margin_right = 456.0
+margin_bottom = 356.0
 rect_pivot_offset = Vector2( -1168, 328 )
 theme = ExtResource( 10 )
 text = "Exit"
@@ -103,9 +116,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -496.0
-margin_top = -112.0
-margin_right = -40.0
+margin_left = -1238.0
+margin_top = -129.0
+margin_right = -520.0
 margin_bottom = -40.0
 theme = ExtResource( 10 )
 
@@ -129,9 +142,6 @@ margin_top = 64.0
 margin_right = -64.0
 margin_bottom = -56.0
 custom_styles/panel = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ScreenStretch/About/PanelContainer"]
 margin_left = 8.0
@@ -147,23 +157,29 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScreenStretch/About/PanelContainer/ScrollContainer"]
 margin_right = 1136.0
-margin_bottom = 2105.0
+margin_bottom = 688.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Panel" type="TextureRect" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
-margin_right = 1136.0
+margin_right = 1104.0
 margin_bottom = 256.0
 rect_min_size = Vector2( 0, 256 )
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
+[node name="Control" type="PanelContainer" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
 margin_top = 260.0
-margin_right = 1136.0
-margin_bottom = 2060.0
-theme = ExtResource( 11 )
+margin_right = 1104.0
+margin_bottom = 890.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer/Control"]
+margin_left = 16.0
+margin_right = 1104.0
+margin_bottom = 630.0
+theme = ExtResource( 6 )
 bbcode_enabled = true
 bbcode_text = "[b]Salty Trivia with Candy Barre[/b] is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
 Salty Trivia with Candy Barre is a fangame of [i]You Don’t Know Jack,[/i] the original irreverent trivia game by [url=\"https://www.jackboxgames.com\"]Jackbox Games[/url]. This game has no relation with [i]You Don’t Know Jack[/i] in any official capacity.
@@ -172,8 +188,39 @@ Salty Trivia with Candy Barre is a fangame of [i]You Don’t Know Jack,[/i] the 
 You are remote participants of a game show! Answer right to win money, but flub it up and lose potential winnings.
 You each have one [i]Lifesaver[/i] per 12 questions, which can be used to eliminate a choice from a multiple-choice question. Gain an advantage over your competitors with it.
 
-[b]Controls[/b]
-Each player has control of 6 buttons or keys.
+[b]Controls[/b]"
+text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
+Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
+
+Premise
+You are remote participants of a game show! Answer right to win money, but flub it up and lose potential winnings.
+You each have one Lifesaver per 12 questions, which can be used to eliminate a choice from a multiple-choice question. Gain an advantage over your competitors with it.
+
+Controls"
+fit_content_height = true
+
+[node name="Panel2" type="TextureRect" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 894.0
+margin_right = 1104.0
+margin_bottom = 1314.0
+rect_min_size = Vector2( 0, 420 )
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="Control2" type="PanelContainer" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_top = 1318.0
+margin_right = 1104.0
+margin_bottom = 2623.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer/Control2"]
+margin_left = 16.0
+margin_right = 1104.0
+margin_bottom = 1305.0
+theme = ExtResource( 6 )
+bbcode_enabled = true
+bbcode_text = "Each player has control of 7 buttons or keys.
 
 [b]Gamepad:[/b] 2 players can play per gamepad. Each player has control of one joystick and four face buttons or a D-pad.
 There are 3 different input methods:
@@ -188,18 +235,10 @@ There are 3 different input methods:
 • [b]Player 4:[/b] 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-[b]Phone:[/b] Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate ([url]https://haitouch.ga/te[/url]) to test it out.
+[b]Phone:[/b] Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate ([url]https://haitouch.ga/te[/url]), and type in the room code to join a room.
 
 © 2022 hai!touch Studios"
-text = "Salty Trivia with Candy Barre is a sassy trivia video game where the questions are ridiculous, but the answers are serious.
-Salty Trivia with Candy Barre is a fangame of You Don’t Know Jack, the original irreverent trivia game by Jackbox Games. This game has no relation with You Don’t Know Jack in any official capacity.
-
-Premise
-You are remote participants of a game show! Answer right to win money, but flub it up and lose potential winnings.
-You each have one Lifesaver per 12 questions, which can be used to eliminate a choice from a multiple-choice question. Gain an advantage over your competitors with it.
-
-Controls
-Each player has control of 6 buttons or keys.
+text = "Each player has control of 7 buttons or keys.
 
 Gamepad: 2 players can play per gamepad. Each player has control of one joystick and four face buttons or a D-pad.
 There are 3 different input methods:
@@ -214,7 +253,7 @@ Keyboard: 4 players can play on one keyboard. Assuming QWERTY, the keybinds are 
 • Player 4: 789 456 (on numeric keypad)
 For most questions, you will be using the top middle, bottom left, bottom right, and bottom middle buttons as the four face buttons, and the top left and top right buttons will act as the L and R buttons.
 
-Phone: Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate (https://haitouch.ga/te) to test it out.
+Phone: Additional players can connect via a Web browser on a smartphone, tablet, or PC. Go to hai!touch Gate (https://haitouch.ga/te), and type in the room code to join a room.
 
 © 2022 hai!touch Studios"
 fit_content_height = true
@@ -239,5 +278,7 @@ __meta__ = {
 [connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button3" to="." method="_on_Button_mouse_entered" binds= [ 2 ]]
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button3" to="." method="_on_Options_pressed"]
 [connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button4" to="." method="_on_Button_mouse_entered" binds= [ 3 ]]
-[connection signal="pressed" from="ScreenStretch/VBoxContainer/Button4" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="ScreenStretch/VBoxContainer/Button4" to="." method="_on_Save_Data_pressed"]
+[connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Button_mouse_entered" binds= [ 3 ]]
+[connection signal="pressed" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="ScreenStretch/About/Close" to="." method="_on_Close_pressed"]

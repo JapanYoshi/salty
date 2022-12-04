@@ -3,10 +3,11 @@ extends Control
 var now_focused = -1
 var active = true
 const desc = [
-	"Play the game, alone or with friends.",
-	"What the heck is [i]Salty Trivia,[/i] anyway?",
-	"Tweak settings like volume and fullscreen.",
-	"Bye!"
+	"Play the game, alone or with friends. Play the latest episode to unlock the next one in line.",
+	"What the heck is [i]Salty Trivia,[/i] anyway? Read the virtual manual to find out.",
+	"Tweak settings, such as volume, phones-as-controllers capabilities, and cutscenes. (Press F11 to toggle fullscreen, by the way.)",
+	"View your past progress, such as high scores and when you got them.",
+	"Close the game. Bye!",
 ]
 onready var tween = Tween.new()
 
@@ -30,29 +31,40 @@ func change_focus_to(i):
 		$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc[i]
 		now_focused = i
 
+const SCROLL_SPEED: float = 512.0
+var current_scroll_speed: float = 0.0
+
+func _process(delta):
+	$ScreenStretch/About/PanelContainer/ScrollContainer.scroll_vertical += delta * current_scroll_speed
+
+
 func _input(e):
 	if e.is_action_pressed("ui_down"):
 		if $ScreenStretch/About.visible:
-			$ScreenStretch/About/PanelContainer/ScrollContainer.scroll_vertical += 32
+			current_scroll_speed = SCROLL_SPEED
 		else:
 			change_focus_to((now_focused + 1) % len(desc))
 		accept_event()
 	elif e.is_action_pressed("ui_up"):
 		if $ScreenStretch/About.visible:
-			$ScreenStretch/About/PanelContainer/ScrollContainer.scroll_vertical -= 32
+			current_scroll_speed = -SCROLL_SPEED
 		else:
 			change_focus_to(posmod(now_focused - 1, len(desc)))
+		accept_event()
+	elif $ScreenStretch/About.visible and (
+		e.is_action_released("ui_down") or e.is_action_released("ui_up")
+	):
+		current_scroll_speed = 0
 		accept_event()
 	elif e.is_action_pressed("ui_cancel"):
 		if $ScreenStretch/About.visible:
 			_on_Close_pressed()
 			accept_event()
 
-func _on_Play_pressed():
-	if not active: return
-	active = false
-	S.play_sfx("menu_confirm")
+
+func _scene_transition(path: String):
 	release_focus()
+	S.play_sfx("menu_confirm")
 	tween.interpolate_property(
 		self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0
 	)
@@ -62,8 +74,14 @@ func _on_Play_pressed():
 	tween.start()
 	yield(tween, "tween_all_completed")
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://MenuRoot.tscn")
-	pass # Replace with function body.
+	get_tree().change_scene(path)
+
+
+func _on_Play_pressed():
+	if not active: return
+	active = false
+	_scene_transition("res://MenuRoot.tscn")
+
 
 func _on_About_pressed():
 	S.play_sfx("menu_confirm")
@@ -71,17 +89,15 @@ func _on_About_pressed():
 	$ScreenStretch/About/Close.grab_focus()
 	pass # Replace with function body.
 
+
 func _on_Options_pressed():
 	S.play_sfx("menu_confirm")
-	release_focus()
-	tween.interpolate_property(
-		self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0
-	)
-	tween.start()
-	yield(tween, "tween_all_completed")
-# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Settings.tscn")
-	pass # Replace with function body.
+	_scene_transition("res://Settings.tscn")
+
+
+func _on_Save_Data_pressed():
+	_scene_transition("res://SaveData.tscn")
+
 
 func _on_Exit_pressed():
 	get_tree().quit()
@@ -89,5 +105,4 @@ func _on_Exit_pressed():
 
 func _on_Close_pressed():
 	$ScreenStretch/About.hide()
-
-
+	$ScreenStretch/VBoxContainer.get_child(1).grab_focus()
