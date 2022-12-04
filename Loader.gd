@@ -75,10 +75,32 @@ func save_question_cache():
 	if file.open(q_cache_path + "q_list.csv", File.WRITE) == OK:
 		file.store_csv_line(cached_questions)
 
+
+func remove_jsonc_comments(text: String) -> String:
+	# remove block comments
+	var start: int = text.find("/*"); var end: int = text.find("*/", start)
+	while start != -1:
+		if end == -1:
+			return "// Parse error in remove_jsonc_comments: Unterminated block comment."
+		text.erase(start, end - start + 2)
+		start = text.find("/*"); end = text.find("*/", start)
+	# remove line comments
+	start = text.find("//"); end = text.find("\n", start)
+	while start != -1:
+		if end == -1:
+			# delete until EOF
+			text = text.left(start)
+		else:
+			text.erase(start, end)
+		start = text.find("//"); end = text.find("\n", start)
+	return text
+
+
 func load_random_voice_lines():
 	var file = File.new()
-	if file.open("res://random_voicelines.json", File.READ) == OK:
-		var json = JSON.parse(file.get_as_text())
+	if file.open("res://random_voicelines.jsonc", File.READ) == OK:
+		var json_text = remove_jsonc_comments(file.get_as_text())
+		var json = JSON.parse(json_text)
 		if json.error == OK:
 			random_dict = json.result
 			# Do not greet the same special guest twice.
@@ -96,8 +118,9 @@ func load_random_voice_lines():
 
 func load_random_questions():
 	var file = File.new()
-	if file.open("res://random_questions.json", File.READ) == OK:
-		var json = JSON.parse(file.get_as_text())
+	if file.open("res://random_questions.jsonc", File.READ) == OK:
+		var json_text = remove_jsonc_comments(file.get_as_text())
+		var json = JSON.parse(json_text)
 		if json.error == OK:
 			random_questions = json.result
 

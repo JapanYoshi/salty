@@ -1,0 +1,94 @@
+/*
+This document stores the IDs of the random questions accessible through the "random questions" episode.
+NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded in a simple comment removal function in Loader.gd.
+*/
+{
+  "n": [ // Normal questions
+    // Demo version
+    "n001",
+    "n002",
+    "n003",
+    "n004",
+    "n005",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
+    "n010",
+    "n011",
+    "n012",
+    "n013",
+    "n014",
+    "n015",
+    // Episode Pack 1
+    "n040",
+    "n042",
+    "n043",
+    "n044",
+    "n045",
+    "n046",
+    "n047",
+    "n048",
+    "n049",
+    "n050",
+    "n052",
+    "n053",
+    "n055",
+    "n056",
+    "n057",
+  ],
+  "s": [ // Sorta Kinda
+    // Demo version
+    "s001",
+    "s002",
+    // Episode Pack 1
+    "s006",
+    "s007",
+    "s008",
+  ],
+  "c": [ // Candy Trivia
+    // Demo Version
+    "c001",
+    // Episode Pack 1
+    "c005",
+    "c006",
+    "c007",
+    "c008",
+    "c009",
+    "c010",
+    "c011",
+    "c012",
+    "c013",
+    "c014",
+  ],
+  "g": [ // All Outta Salt
+    // Demo version
+    "g001",
+    // Episode Pack 1
+    "g005",
+    "g006",
+    "g007",
+    "g008",
+    "g009",
+    "g010",
+    "g011",
+    "g012",
+  ],
+  "t": [ // Thousand-Question Question
+    // Demo version
+    "t001",
+    // Episode Pack 1
+  ],
+  "l": [ // Like It or Leave It
+    // Demo version
+    "l001",
+    // Episode Pack 1
+    "l002",
+    "l003",
+  ],
+  "r": [ // Sugar Rush
+    // Demo version
+    "r001",
+    // Episode Pack 1
+  ]
+}
