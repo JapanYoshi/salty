@@ -372,7 +372,8 @@ func stop_voice(should_be_playing = ""):
 	if (
 		last_voice in voice_list
 	) and voice_list[last_voice].player.is_playing():
-		sub_node.clear_contents()
+		if is_instance_valid(sub_node):
+			sub_node.clear_contents()
 		voice_list[last_voice].player.disconnect("finished", self, "_on_voice_end")
 		voice_list[last_voice].player.stop()
 		_log("Manually stopped voice ", last_voice, voice_list[last_voice].player.get_playback_position())

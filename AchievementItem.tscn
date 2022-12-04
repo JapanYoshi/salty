@@ -4,41 +4,27 @@
 [ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=2]
 [ext_resource path="res://AchievementItem.gd" type="Script" id=3]
 [ext_resource path="res://android-icon-legacy.png" type="Texture" id=4]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color( 0.137255, 0.172549, 0.145098, 1 )
-border_width_top = 36
-border_color = Color( 0.215686, 0.309804, 0.235294, 0.501961 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 6
+[ext_resource path="res://HighScoreItem.stylebox" type="StyleBox" id=5]
 
 [sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 4.0
 content_margin_right = 4.0
 content_margin_top = 4.0
 content_margin_bottom = 4.0
-bg_color = Color( 0.0431373, 0.521569, 0.180392, 1 )
+bg_color = Color( 0.917647, 0.290196, 0.188235, 1 )
 border_width_top = 36
-border_color = Color( 0.0745098, 0.717647, 0.372549, 1 )
+border_color = Color( 0.972549, 0.227451, 0.443137, 1 )
 border_blend = true
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.176471, 0.309804, 0.235294, 1 )
+bg_color = Color( 0.309804, 0.176471, 0.305882, 0.501961 )
 
 [node name="AchievementItem" type="PanelContainer"]
 margin_right = 540.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 540, 130 )
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 5 )
 script = ExtResource( 3 )
 
 [node name="h" type="HBoxContainer" parent="."]
