@@ -6,8 +6,8 @@
 [ext_resource path="res://logo/hand1.png" type="Texture" id=4]
 [ext_resource path="res://logo/splash.wav" type="AudioStream" id=5]
 [ext_resource path="res://logo/DrawCircle.gd" type="Script" id=6]
-[ext_resource path="res://images/jackbox.png" type="Texture" id=7]
-[ext_resource path="res://logo/jackbox.wav" type="AudioStream" id=8]
+[ext_resource path="res://logo/godot.png" type="Texture" id=7]
+[ext_resource path="res://logo/godot.ogg" type="AudioStream" id=8]
 [ext_resource path="res://logo/rating.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=4]
@@ -109,6 +109,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("DrawCircle:radius_scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "fadeout"
@@ -124,6 +136,106 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "godot"
+length = 3.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CoverRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 2.3, 3 ),
+"transitions": PoolRealArray( 0.241484, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DrawCircle:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.141176, 0.137255, 0.384314, 1 ), Color( 0.141176, 0.137255, 0.384314, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("TextureRect:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 3 ),
+"transitions": PoolRealArray( 0.3, 3, 3 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("TextureRect:rect_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
+"update": 0,
+"values": [ 106.9, -2.0, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../Rating:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("DrawCircle:radius_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, 0, 0, 0.02, 0.3, 0.75, -0.2, -0.16, 0, 0, 2.5, 0, 0, 0, 0 ),
+"times": PoolRealArray( 0, 0.3, 3 )
 }
 
 [sub_resource type="Animation" id=1]
@@ -227,16 +339,16 @@ tracks/7/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("DrawCircle:rect_scale")
+tracks/8/path = NodePath("DrawCircle:radius_scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 1.003, 2.006 ),
-"transitions": PoolRealArray( 1, 0.329877, 1 ),
+"times": PoolRealArray( 0, 1.003, 2.006, 2.193 ),
+"transitions": PoolRealArray( 1, 0.329877, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1e-05, 1e-05 ), Vector2( 2.5, 2.5 ) ]
+"values": [ 0.0, 0.0, 2.5, 2.5 ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("../CoverRect:color")
@@ -257,10 +369,10 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.204 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 0.337255, 0.25098, 0.360784, 1 ) ]
+"values": [ Color( 0.337255, 0.25098, 0.360784, 1 ), Color( 0.337255, 0.25098, 0.360784, 1 ) ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("TextureRect:visible")
@@ -313,108 +425,6 @@ tracks/14/keys = {
 "values": [ Color( 0.227451, 0.168627, 0.247059, 1 ), Color( 0.227451, 0.168627, 0.247059, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "ydkj"
-length = 3.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("../CoverRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 2.3, 3 ),
-"transitions": PoolRealArray( 0.241484, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DrawCircle:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0.141176, 0.137255, 0.384314, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("TextureRect:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/3/type = "audio"
-tracks/3/path = NodePath("AudioStreamPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 8 )
-} ],
-"times": PoolRealArray( 0 )
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("TextureRect:rect_scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.3, 3 ),
-"transitions": PoolRealArray( 0.3, 3, 3 ),
-"update": 0,
-"values": [ Vector2( 0.25, 0.25 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("DrawCircle:rect_scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.5, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.75, 0.75 ), Vector2( 2.5, 2.5 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("TextureRect:rect_rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.3, 1 ),
-"transitions": PoolRealArray( 0.5, -2, 1 ),
-"update": 0,
-"values": [ 106.9, -2.0, 0.0 ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("../Rating:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-
 [node name="SplashScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -452,20 +462,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 540, 540 )
 script = ExtResource( 6 )
-color = Color( 0.337255, 0.25098, 0.360784, 1 )
 
 [node name="BackHand" type="TextureRect" parent="LogoContainer"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -108.0
-margin_right = -108.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_rotation = -5.0
 rect_pivot_offset = Vector2( 600, 960 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -479,9 +484,6 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 108.0
-margin_right = 108.0
-rect_rotation = 5.0
 rect_pivot_offset = Vector2( 500, 1080 )
 texture = ExtResource( 4 )
 __meta__ = {
@@ -492,7 +494,6 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 540, 540 )
 texture = ExtResource( 3 )
 __meta__ = {
@@ -510,6 +511,7 @@ margin_top = -384.0
 margin_right = 384.0
 margin_bottom = 384.0
 rect_min_size = Vector2( 768, 768 )
+rect_rotation = -2.0
 rect_pivot_offset = Vector2( 384, 384 )
 texture = ExtResource( 7 )
 expand = true
@@ -518,11 +520,11 @@ expand = true
 autoplay = "RESET"
 anims/RESET = SubResource( 4 )
 anims/fadeout = SubResource( 3 )
+anims/godot = SubResource( 2 )
 anims/haitouch = SubResource( 1 )
-anims/ydkj = SubResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LogoContainer"]
-stream = ExtResource( 5 )
+stream = ExtResource( 8 )
 volume_db = -3.0
 bus = "BGM"
 

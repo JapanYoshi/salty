@@ -23,8 +23,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "fadeout":
 		anim.play("haitouch")
 	elif anim_name == "haitouch":
-		anim.play("ydkj")
-	elif anim_name == "ydkj":
+		anim.play("godot")
+	elif anim_name == "godot":
 		get_tree().change_scene_to(title)
 
 # Called when the user skips the logo.
