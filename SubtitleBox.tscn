@@ -73,6 +73,7 @@ margin_left = -450.0
 margin_top = 200.0
 margin_right = 450.0
 margin_bottom = 296.0
+mouse_filter = 2
 texture = SubResource( 3 )
 expand = true
 flip_v = true
