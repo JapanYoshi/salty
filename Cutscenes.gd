@@ -5,8 +5,6 @@ onready var logo = $Logo
 onready var tween = $Tween
 onready var backdrop = $Color
 onready var vignette = $Circle
-onready var scroller = $CreditBox/CreditScroller
-onready var scrollerV = scroller.get_child(0)
 
 var ranking
 
@@ -17,17 +15,7 @@ func _ready():
 	var pb = $Leaderboard/PC
 	for i in range(1, 8):
 		$Leaderboard.add_child(pb.duplicate())
-	scroller.hide()
 
-const credits_speed = 48
-var credits_scroll = 0.0
-
-func _process(delta):
-	if scroller.visible:
-		credits_scroll += delta * credits_speed
-		if credits_scroll > scrollerV.rect_size.y - scroller.rect_size.y:
-			credits_scroll = 0
-		scroller.scroll_vertical = credits_scroll
 
 func play_intro():
 	anim.play("intro")
@@ -127,7 +115,7 @@ func show_final_leaderboard():
 		flb.get_child(i).init_values(ranking[i])
 	$Final.show()
 	$Leaderboard/Panel/Label.set_text("Final standings")
-	backdrop.modulate = Color("#365c45")
+	
 	vignette.modulate = Color.black
 	# calculate the placement of each player, taking ties into account.
 	for i in range(len(ranking)):
@@ -245,37 +233,12 @@ func show_final_leaderboard():
 		if is_nan(best_accuracy) or acc > best_accuracy:
 			best_accuracy = acc
 	R.submit_high_score(ranking[0].score, best_accuracy)
-	# actually, load the credits too while we're at it.
-	var credits = ConfigFile.new()
-	var err = credits.load("res://credits.gdcfg")
-	if err != OK:
-		printerr("Could not load credits.")
-	else:
-		var spacer = scrollerV.get_child(0)
-		spacer.get_custom_minimum_size().y = scroller.rect_size.y
-		var rtl_title: RichTextLabel = scrollerV.get_child(1)
-		var rtl_body: RichTextLabel = scrollerV.get_child(2)
-		for sect in credits.get_sections():
-			var new_rtl = rtl_title.duplicate(7) # don't use instancing so we can edit the text
-			new_rtl.set_bbcode(
-				credits.get_value(sect, "h")
-			)
-			new_rtl.name = sect
-			scrollerV.add_child(new_rtl)
-			var items = credits.get_value(sect, "b")
-			for i in len(items):
-				new_rtl = rtl_body.duplicate(7)
-				new_rtl.set_bbcode(items[i])
-				new_rtl.name = sect + "_%02d" % i
-				scrollerV.add_child(new_rtl)
-		scrollerV.add_child(spacer.duplicate())
-#		rtl_title.free(); rtl_body.free()
+	$CreditBox.load_credits()
 	anim.play("final_standings")
 	set_radius(1.5)
 	logo.show_logo()
 
 func hide_final_leaderboard():
-	backdrop.modulate = Color.black
 	$Final.hide()
 	$Leaderboard.show()
 	logo.show_logo()
@@ -283,6 +246,7 @@ func hide_final_leaderboard():
 func roll_credits():
 	anim.play("credits_roll")
 	S.play_music("organ", 1.0)
+	backdrop.modulate = Color("#365c45")
 
 func set_radius(value):
 	vignette.set_radius(value)
@@ -291,12 +255,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	emit_signal("animation_finished")
 
 func show_techdiff():
-	$TechDiff.set_process(true)
-	$TechDiff.show()
-	logo.hide_logo()
 	anim.play("intro", 0.0, 0.01, false)
 	anim.stop() # resets playback position to 0
+	logo.hide_logo()
 	set_radius(0.0)
+	$TechDiff.set_process(true)
+	$TechDiff.show()
 
 func hide_techdiff():
 	$TechDiff.hide()
