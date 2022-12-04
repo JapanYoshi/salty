@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://ThemeEpisode.tres" type="Theme" id=1]
-[ext_resource path="res://optionBox.tres" type="StyleBox" id=2]
+[ext_resource path="res://images/bg2.png" type="Texture" id=2]
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=4]
 [ext_resource path="res://MenuBG.tscn" type="PackedScene" id=5]
@@ -15,6 +15,8 @@
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=13]
 [ext_resource path="res://themeTyping.tres" type="Theme" id=14]
 [ext_resource path="res://fonts/gibberish_big_font.tres" type="DynamicFont" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -225,6 +227,7 @@ margin_left = 0.0
 margin_top = 0.0
 margin_right = 0.0
 margin_bottom = 0.0
+texture = ExtResource( 2 )
 
 [node name="TabContainer" type="TabContainer" parent="ScreenStretch/r"]
 anchor_right = 1.0
@@ -234,22 +237,18 @@ margin_top = 150.0
 margin_right = -80.0
 margin_bottom = -40.0
 rect_clip_content = true
-custom_styles/panel = ExtResource( 2 )
+custom_styles/panel = SubResource( 4 )
 tabs_visible = false
 
 [node name="HighScore" type="ScrollContainer" parent="ScreenStretch/r/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
 theme = ExtResource( 1 )
 scroll_horizontal_enabled = false
 
 [node name="Grid" type="GridContainer" parent="ScreenStretch/r/TabContainer/HighScore"]
-margin_left = 556.0
-margin_right = 556.0
+margin_left = 560.0
+margin_right = 560.0
 size_flags_horizontal = 6
 custom_constants/vseparation = 8
 custom_constants/hseparation = 8
@@ -407,7 +406,7 @@ text = "㍞ Delete save data"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.898039, 0.0470588, 0.266667, 0.501961 )
+color = Color( 0.898039, 0.0470588, 0.0470588, 0.862745 )
 
 [node name="Panel" type="Panel" parent="ScreenStretch/r/DeleteModal"]
 anchor_left = 0.5

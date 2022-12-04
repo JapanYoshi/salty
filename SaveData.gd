@@ -41,6 +41,9 @@ func _ready():
 	_load_achievements()
 	delete_modal.hide()
 	S.play_music("load_loop", 0.5)
+	
+	S.preload_voice("confirm_delete_00", "confirm_delete_00")
+	S.preload_voice("confirm_delete_01", "confirm_delete_01")
 
 
 func _process(delta):
@@ -115,11 +118,14 @@ func _back():
 	tween.interpolate_property($ScreenStretch/r, "rect_scale", Vector2.ONE, Vector2.ONE * 1.2, 0.5)
 	tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
+	S.unload_voice("confirm_delete_00")
+	S.unload_voice("confirm_delete_01")
 	yield(tween, "tween_all_completed")
 	get_tree().change_scene("res://Title.tscn")
 
 
 func _confirm_delete():
+	S.play_voice("confirm_delete_00")
 	S.play_track(0, 0)
 	delete_modal.show()
 	delete_title.text = "Are you sure?"
@@ -134,6 +140,8 @@ func _confirm_delete():
 
 
 func _confirm_delete_again():
+	S.stop_voice("confirm_delete_00")
+	S.play_voice("confirm_delete_01")
 	delete_title.text = "Are you DAMN sure?"
 	delete_desc.text = "Nobody, not even I, can restore your save data once it’s been deleted. Are you really, really sure you want to yeet your progress out of existence?!"
 	delete_yes.text = "Yep. To heck with my save file."
@@ -146,6 +154,10 @@ func _confirm_delete_again():
 
 
 func _on_delete_cancel():
+	if delete_confirm_state == 1:
+		S.stop_voice("confirm_delete_00")
+	else:
+		S.stop_voice("confirm_delete_01")
 	delete_modal.hide()
 	delete_confirm_state = 0
 	S.play_track(0, 0.5)
