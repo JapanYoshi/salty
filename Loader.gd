@@ -91,7 +91,7 @@ func remove_jsonc_comments(text: String) -> String:
 			# delete until EOF
 			text = text.left(start)
 		else:
-			text.erase(start, end)
+			text.erase(start, end - start + 1)
 		start = text.find("//"); end = text.find("\n", start)
 	return text
 
@@ -114,7 +114,7 @@ func load_random_voice_lines():
 				special_guest_keys = random_dict.special_guest.id_to_voice.keys()
 				R.set_save_data_item("misc", "guests_seen", [])
 		else:
-			R.crash("random_voicelines.json could not be parsed.")
+			R.crash("random_voicelines.jsonc could not be parsed. Error code: %d" % json.error)
 
 func load_random_questions():
 	var file = File.new()
@@ -123,6 +123,8 @@ func load_random_questions():
 		var json = JSON.parse(json_text)
 		if json.error == OK:
 			random_questions = json.result
+		else:
+			R.crash("random_questions.jsonc could not be parsed. Error code: %d" % json.error)
 
 func random_questions_of_type(type, count):
 	var questions = []
@@ -153,38 +155,7 @@ func load_episodes_list():
 				episodes[ep_name] = result.result
 			else:
 				print("Couldn't load episode: " + ep_name)
-	# old directory-based option
-#	var dir = Directory.new()
-#	if dir.open(episode_path) == OK:
-#		episodes = {}
-#		dir.list_dir_begin(true, true)
-#		var file_name = dir.get_next()
-#		while file_name != "":
-#			if dir.current_is_dir():
-#				print("Found directory: " + file_name)
-#				var file = File.new()
-#				file.open(dir.get_current_dir() + "/" + file_name + "/" + file_name + ".json", File.READ)
-#				var result = JSON.parse(file.get_as_text())
-#				if result.error == OK:
-#					episodes[file_name] = result.result
-#				else:
-#					print("Couldn't load file: " + dir.get_current_dir() + "/" + file_name)
-#			else:
-#				print("Found file: " + file_name)
-#			file_name = dir.get_next()
-#	else:
-#		printerr("Could not open episodes folder.")
-	### TEST: Simulate lots more episodes
-#	for i in range(2, 12):
-#		episodes["%03d.json" % i] = {
-#			episode_name = "Episode %d" % i,
-#			episode_desc = "Episode %d is unavailable. Stay tuned!" % i
-#		}
-	### END TEST
 	print("Loader: Episode data loaded.")
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func load_episode(id):
 	var file = File.new()
@@ -549,3 +520,18 @@ func guest_id_or_empty_string(nick: String) -> String:
 		)
 		return guest_id
 	return ""
+
+
+func get_achievement_list() -> Dictionary:
+	var file = File.new()
+	if file.open("res://achievements/achievements.jsonc", File.READ) == OK:
+		var json_text = remove_jsonc_comments(file.get_as_text())
+		var json = JSON.parse(json_text)
+		if json.error == OK:
+			return json.result
+		else:
+			R.crash("achievements.jsonc could not be parsed. Error code: %d" % json.error)
+			return {};
+	else:
+		R.crash("achievements.jsonc could not be opened. Please make sure that the file exists.")
+		return {};

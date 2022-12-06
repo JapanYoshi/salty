@@ -1,0 +1,92 @@
+{
+  "episode_01": {
+    "title": "I Survived Salty Trivia T-shirt",
+    "description": "Complete Episode 1 “Pilot”.",
+    "steps": 1,
+  },
+  "episode_02": {
+    "title": "Candy Basket",
+    "description": "Complete Episode 2 “Candy Drops”.",
+    "steps": 1,
+  },
+  "episode_03": {
+    "title": "Fart Sound Effect Library",
+    "description": "Complete Episode 3 “Give Me Your Answers Do”.",
+    "steps": 1,
+  },
+  "special_guest": {
+    "title": "Very Important Player",
+    "description": "Use a name that gets a special welcome.",
+    "steps": 1,
+  },
+  "cuss_1": {
+    "title": "F.U. Right Back",
+    "description": "Upset the host by swearing at her.",
+    "steps": 1,
+  },
+  "cuss_3": {
+    "title": "You’re All Babies",
+    "description": "Have three players upset the host in one question.",
+    "steps": 1,
+  },
+  "cuss_name_1": {
+    "title": "Definitely Not Your Real Name",
+    "description": "Upset the host with your name.",
+    "steps": 1,
+  },
+  "cuss_name_3": {
+    "title": "The Three Stooges",
+    "description": "Have three players upset the host with their names.",
+    "steps": 1,
+  },
+  "ragequit": {
+    "title": "This Episode is Canceled",
+    "description": "Make the host cut the game short.",
+    "steps": 1,
+  },
+  "score_zero": {
+    "title": "Like Nothing Ever Happened",
+    "description": "Get a score of 0.",
+    "steps": 1,
+  },
+  "score_sort_1": {
+    "title": "Lucky Seven",
+    "description": "Get a perfect score on a Sorta Kinda.",
+    "steps": 1,
+  },
+  "score_sort_7": {
+    "title": "Seven Sevens",
+    "description": "Get a perfect score on a Sorta Kinda seven times.",
+    "steps": 7,
+  },
+  "score_thou": {
+    "title": "It’s Never Worth a Thousand",
+    "description": "Win at least $1000 on a Thousand-Question Question.",
+    "steps": 1,
+  },
+  "score_gib": {
+    "title": "The Hero of Rhyme",
+    "description": "Answer an All Outta Salt correctly.",
+    "steps": 1,
+  },
+  "score_perfect": {
+    "title": "Kemo-Savvy the Lone Brainger",
+    "description": "Get 100% accuracy on a singleplayer game.",
+    "steps": 1,
+  },
+  "lifesaver_3": {
+    "title": "Lifesavers Save Lives",
+    "description": "Answer 3 questions correctly with the help of a Lifesaver.",
+    "steps": 3,
+  },
+  "score_1000000": {
+    "title": "Big Booty (YARRR!)",
+    "description": "Earn a cumulative $1,000,000. (Only positive scores are counted.)",
+    "steps": 1000000,
+  },
+  "audience_3": {
+    "title": "Play Along!",
+    "description": "Start a game with at least 3 audience members.",
+    "steps": 1,
+  },
+}
