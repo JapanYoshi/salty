@@ -8,16 +8,16 @@ func _ready():
 func init():
 	$AnimationPlayer.play("intro")
 	$AnimationPlayer.stop()
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		$AnimationPlayer.seek(0, true)
 		hide()
-	if R.cfg.graphics_quality < 1:
+	if R.get_settings_value("graphics_quality") < 1:
 		$Particles.hide()
 	else:
 		$Particles.show()
 
 func intro():
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		$AnimationPlayer.play("intro")
 		S.play_music("candy_intro", true)
 	else:

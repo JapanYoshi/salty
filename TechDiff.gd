@@ -12,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if !self.visible or R.cfg.graphics_quality < 2:
+	if !self.visible or R.get_settings_value("graphics_quality") < 2:
 		self.set_process(false)
 		return
 	t = fposmod(t + delta * shader_speed, 1.0)

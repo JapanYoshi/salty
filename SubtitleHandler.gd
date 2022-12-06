@@ -26,7 +26,7 @@ func clear_contents():
 # Queues timed subtitles.
 func queue_subtitles(contents = ""):
 #	print("SUB QUEUE_SUBTITLES ", contents)
-	if !R.cfg.subtitles: return
+	if !R.get_settings_value("subtitles"): return
 	queue = Loader.parse_time_markers(contents)
 	show_queued()
 
@@ -62,7 +62,7 @@ func show_queued():
 # displaying the subtitle until interrupted by a different subtitle.
 func show_subtitle(contents = "", time = 0):
 #	print("SUB SHOW_SUBTITLE ", contents, " ", time)
-	if !R.cfg.subtitles: return
+	if !R.get_settings_value("subtitles"): return
 	if time == 0:
 		clear_contents()
 	else:

@@ -13,10 +13,12 @@ var audience = []
 var audience_keys = []
 var censor_regex = RegEx.new()
 var cuss_regex = RegEx.new()
+
+var cfg = ConfigFile.new()
 # 0: Render at 1280x720. Disable most shader animations.
 # 1: Stretch to window size. Disable most shader animations.
 # 2: Stretch to window size. Enable all shader animations.
-var cfg = {
+const DEFAULT_CFG = {
 	graphics_quality = 2,
 	room_size = 7,
 	room_openness = 2,
@@ -84,7 +86,7 @@ func _ready():
 		print("Could not compile censor RegEx: error code %d" % result)
 	load_settings()
 	load_save_data()
-	_set_visual_quality(cfg.graphics_quality)
+	_set_visual_quality(get_settings_value("graphics_quality"))
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
 ### Windowed/fullscreen
@@ -120,28 +122,24 @@ func grawlix(length: int) -> String:
 ### Configuration
 
 func save_settings():
-	# Create new ConfigFile object.
-	var config = ConfigFile.new()
-	# Store some values.
-	for k in cfg.keys():
-		config.set_value("config", k, cfg[k])
 	# Save it to a file (overwrite if already exists).
-	config.save("user://config.cfg")
+	cfg.save("user://config.cfg")
 
 func load_settings():
-	var config = ConfigFile.new()
 	# Load data from a file.
-	var err = config.load("user://config.cfg")
+	var err = cfg.load("user://config.cfg")
 	# If the file didn't load, ignore it.
 	if err != OK:
 		return
-	# Don't reset; Make sure every option is present,
-	# by starting with a copy of the default config.
-	#cfg = {}
-	# Iterate over all sections.
-	for k in config.get_section_keys("config"):
-		# Fetch the data for each section.
-		cfg[k] = config.get_value("config", k)
+
+
+func get_settings_value(key: String):
+	return cfg.get_value("config", key, DEFAULT_CFG[key])
+
+
+func set_settings_value(key: String, value):
+	return cfg.set_value("config", key, value)
+
 
 ### save data
 func load_save_data():
@@ -298,9 +296,12 @@ func format_date(unix_timestamp: int) -> String:
 		dict.hour, dict.minute
 	]
 
-func _set_visual_quality(quality):
-	cfg.graphics_quality = quality
-	if cfg.graphics_quality == 0:
+func _set_visual_quality(quality: int = -1):
+	if quality != -1:
+		set_settings_value("graphics_quality", quality)
+	else:
+		quality = get_settings_value("graphics_quality")
+	if quality == 0:
 		get_tree().set_screen_stretch(
 			SceneTree.STRETCH_MODE_VIEWPORT,
 			SceneTree.STRETCH_ASPECT_KEEP,
@@ -308,7 +309,7 @@ func _set_visual_quality(quality):
 			1
 		)
 		get_tree().use_font_oversampling = false
-	elif cfg.graphics_quality == 1:
+	elif quality == 1:
 		get_tree().set_screen_stretch(
 			SceneTree.STRETCH_MODE_DISABLED,
 			SceneTree.STRETCH_ASPECT_KEEP,
@@ -374,7 +375,7 @@ func uuid_reset():
 
 func listen_for_audience_join():
 	pass
-	if cfg.room_openness != 0 and cfg.audience:
+	if get_settings_value("room_openness") != 0 and get_settings_value("audience"):
 #		Ws.connect("player_joined", self, 'audience_join')
 		Fb.connect("player_joined", self, 'audience_join')
 #		Ws.connect('player_requested_nick', self, "give_audience_nick")
@@ -387,14 +388,14 @@ func stop_listening_for_audience_join():
 
 func audience_join(data):
 	# join as audience if permitted
-	if R.cfg.audience:
+	if get_settings_value("audience"):
 		# accept
 		if not(data.name in audience_keys):
 			var player = {
 				name = ("AUDIENCE %d" % (len(audience_keys) + 1)) if data.nick == "" else data.nick,
 				score = 0,
 				device_name = data.name,
-				player_number = cfg.room_size + len(audience),
+				player_number = get_settings_value("room_size") + len(audience),
 			}
 			Fb.add_remote_audience(player.device_name, player.name, len(audience))
 			audience.push_back(player)

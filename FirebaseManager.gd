@@ -155,8 +155,8 @@ func try_room(call_node: Node, call_function: String):
 
 # Update the settings for the default room. Fired after changing the settings or booting up the game.
 func update_default_room_settings():
-	default_room.maxPlayers = R.cfg.room_size + 1
-	default_room.maxAudience = 100 if R.cfg.audience else 0
+	default_room.maxPlayers = R.get_settings_value("room_size") + 1
+	default_room.maxAudience = 100 if R.get_settings_value("audience") else 0
 
 # Checks the Realtime Database to see which room codes are currently in use.
 func update_room_list():
@@ -485,7 +485,7 @@ func reset_finale_input(digits: int = 6):
 
 # Update the player count online.
 func update_player_count(new_player_count: int):
-	if connected_to_room and R.cfg.room_openness > 0:
+	if connected_to_room and R.get_settings_value("room_openness") > 0:
 		var player_count_ref = db.get_reference_lite("rooms/" + room_code + "/playerCount")
 		player_count_ref.put(new_player_count)
 

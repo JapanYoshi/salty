@@ -21,7 +21,7 @@ func _ready():
 	q_box.ep = self
 	q_box.kb = $ScreenStretch/TypingHandler
 	q_box.set_process(false)
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		c_box.show()
 	else:
 		c_box.hide()
@@ -166,7 +166,7 @@ func play_intro():
 	var voice_lines = [
 		"welcome"
 	]
-	if R.cfg.cutscenes and episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
+	if R.get_settings_value("cutscenes") and episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
 		show_tech_diff = true
 		voice_lines.append_array(
 			[
@@ -180,7 +180,7 @@ func play_intro():
 	while S.music_dict[S.tracks[0]].get_volume_db() > -80.0:
 #		print("Episode.gd waiting for the volume to fade: ", S.music_dict[S.tracks[0]].get_volume_db())
 		yield(get_tree(), "idle_frame")
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 #		Ws.scene("intro")
 		send_scene("intro")
 		# preload the voice lines we need
@@ -336,7 +336,7 @@ func play_intro():
 		if special_guest < 0:
 			S.play_voice(player_voice); yield(S, "voice_end")
 		else:
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				q_box.hub.highlight_players(special_guest)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -347,7 +347,7 @@ func play_intro():
 		0: # we deal with "more than 3" later
 			pass;
 		1:
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -362,13 +362,13 @@ func play_intro():
 #					'playerIndex': R.players[censored_players[0]].player_number,
 #					'isVip': false
 #				});
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				q_box.hud.reset_playerboxes(censored_players)
 				S.play_voice("give_name"); yield(S, "voice_end")
 		2, 3:
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -412,7 +412,7 @@ func play_intro():
 #						'playerIndex': R.players[censored_players[i]].player_number,
 #						'isVip': false
 #					});
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
@@ -430,13 +430,13 @@ func play_intro():
 #						'isVip': false
 #					});
 			q_box.hud.punish_players(range(len(R.players)), 50001)
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("naughty")
 				yield(get_tree().create_timer(1.0), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
 			q_box.hud.reset_all_playerboxes()
 	
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		if lifesaver_left:
 			send_scene("lifesaver")
 			enable_skip()
@@ -641,7 +641,7 @@ func load_next_question():
 	revert_scene("")
 	send_scene()
 	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
-	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
+	if question_number == 6 and R.get_settings_value("cutscenes") and intermission_played == false:
 		intermission_played = true
 		play_intermission()
 		#load_question(episode_data.question_id[question_number])
@@ -717,7 +717,7 @@ func play_outro():
 	c_box.set_radius(0)
 #	intermission_played = false
 	S.preload_music("drum_roll")
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		_load_outro_cutscene()
 	else:
 		_outro_cutscene_0()
@@ -793,7 +793,7 @@ func _outro_cutscene_0():
 	yield(get_tree().create_timer(5.0), "timeout")
 	send_scene("showResult")
 	yield(c_box.anim, "animation_finished")
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		_outro_cutscene_1()
 	else:
 		c_box.tween.interpolate_property(

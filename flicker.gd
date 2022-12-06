@@ -9,7 +9,7 @@ var last_time: int = 0
 # don't worry we don't need our rng to be secure
 # just based on hash
 func _process(delta):
-	if R.cfg.graphics_quality <= 1: return
+	if R.get_settings_value("graphics_quality") <= 1: return
 	time += delta * 10
 	if last_time < int(time):
 		last_time = int(time)

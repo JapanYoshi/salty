@@ -22,7 +22,7 @@ func _ready():
 func init():
 	$AnimationPlayer.play("initialize")
 	$Screen3D/jiggle.stop()
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		$AnimationPlayer.set_current_animation("intro")
 		$AnimationPlayer.seek(100, true)
 	_on_size_changed()
@@ -30,7 +30,7 @@ func init():
 
 func intro():
 	show()
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		$AnimationPlayer.play("intro")
 		S.play_music("sort_intro", true)
 	else:

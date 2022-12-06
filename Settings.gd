@@ -440,13 +440,13 @@ func _on_check_toggled(button_pressed):
 	_on_HSlider_value_changed(button_pressed)
 
 func _on_BackButton_back_pressed():
-	R._set_visual_quality(R.cfg.graphics_quality)
+	R._set_visual_quality(-1)
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_SaveButton_pressed():
 	R.cfg = temp_config
 	R.save_settings()
-	R._set_visual_quality(R.cfg.graphics_quality)
+	R._set_visual_quality(-1)
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_option_mouse_entered(extra_arg_0):

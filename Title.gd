@@ -13,7 +13,7 @@ onready var tween = Tween.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	R._set_visual_quality(R.cfg.graphics_quality)
+	R._set_visual_quality(-1)
 	add_child(tween)
 	$ScreenStretch/Logo.play_intro()
 	S.play_music("hiphop", 1.0)

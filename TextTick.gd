@@ -83,7 +83,7 @@ func init_thousand():
 		el.bbcode_text = ""
 	gib_a.bbcode_text = ""
 	$ColorRect.modulate = Color.white
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		anim.play("thou_logo", -1, 10000)
 
 func init_gibberish(category, question, clue1, clue2, clue3, answer, is_round2):
@@ -118,25 +118,25 @@ func init_gibberish(category, question, clue1, clue2, clue3, answer, is_round2):
 	gib_a_box.rect_scale.y = 0
 	gib_a_box.rect_position.y = question_y
 	$ColorRect.modulate = Color.transparent
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		anim.play("gib_logo", -1, 10000)
 
 func intro_gibberish():
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		anim.play("gib_logo")
 		S.play_music("gibberish_intro", 1)
 	else:
 		emit_signal("intro_ended")
 
 func intro_thou():
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		anim.play("thou_logo")
 		S.play_music("thousand_intro", 1)
 	else:
 		emit_signal("intro_ended")
 
 func show_price():
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		if mode == "T":
 			thou_anim.play("3", -1, 8)
 		else:

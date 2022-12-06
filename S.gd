@@ -71,7 +71,7 @@ func preload_music(name):
 	music_dict[name] = player
 
 func unload_music(name):
-	if R.cfg.music_volume > 0 or music_dict.has(name):
+	if music_dict.has(name):
 		music_dict[name].queue_free()
 	music_dict.erase(name)
 
@@ -298,7 +298,7 @@ func play_multitrack(
 	_stop_music(tracks[0])
 	_stop_music(tracks[1])
 	_stop_music(tracks[2])
-	if R.cfg.music_volume == 0: return
+	if R.get_settings_value("music_volume") == 0: return
 	tracks[0] = name0
 	tracks[1] = name1
 	tracks[2] = name2
@@ -314,13 +314,13 @@ func play_multitrack(
 #	print("play_multitrack finished")
 
 func seek_multitrack(time):
-	if !R.cfg.music_volume == 0: return
+	if !R.get_settings_value("music_volume") == 0: return
 	for i in range(3):
 		if is_instance_valid(music_dict[tracks[i]]):
 			music_dict[tracks[i]].seek(time)
 
 func play_track(track = 0, volume: float = 1.0, dont_tween = false):
-	if R.cfg.music_volume == 0: return
+	if R.get_settings_value("music_volume") == 0: return
 	if tracks[track] != "":
 		_set_music_vol(track, volume, dont_tween)
 		if track != 0:

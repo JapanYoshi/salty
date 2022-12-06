@@ -86,7 +86,7 @@ func _ready():
 	player_bar_is_in = false
 	player_bar.rect_position.y = player_bar_default_y + player_bar_slide_distance
 	# If we (potentially) have an audience, connect the signal from Root.
-	if R.cfg.audience:
+	if R.get_settings_value("audience"):
 		rc_box.show_room_code(Fb.room_code)
 		R.connect("change_audience_count", rc_box, "show_count")
 		rc_box.show_count(len(R.audience_keys))

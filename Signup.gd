@@ -24,7 +24,7 @@ func _ready():
 	$Instructions/SignupOnline/ReadAloud.set_text("")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 	$Instructions/SignupOnline/ShowHide.set_text("")
-	if R.cfg.room_openness != 0:
+	if R.get_settings_value("room_openness") != 0:
 		$Instructions/SignupOnline/host.set_text("Connecting to server...")
 #		Ws.connect('connected', self, "server_connected", [], CONNECT_ONESHOT)
 #		Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
@@ -65,7 +65,7 @@ func room_tried(success: bool):
 #		self.connect("tree_exited", Ws, "close_room")
 		$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 1.0)
 		$Instructions/SignupOnline/RoomCode2.set_text("and enter the room code:")
-		room_code_hidden = !R.cfg.hide_room_code
+		room_code_hidden = !R.get_settings_value("hide_room_code")
 		toggle_show_room_code()
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 		Fb.connect("player_joined", self, 'remote_queue')
@@ -201,7 +201,7 @@ func read_room_code():
 func _gp_button(player: int, button: int, pressed: bool):
 	if len(R.players) > 0\
 	and R.players[0].device == C.DEVICES.REMOTE\
-	and R.cfg.remote_start\
+	and R.get_settings_value("remote_start")\
 	and R.players[0].device_index == player\
 	and button == 5:
 		start_game()
@@ -361,13 +361,13 @@ func remote_queue(data):
 		R.audience_join(data)
 
 func check_full():
-	# R.cfg.room_size is in range 0 - 7. Add 1 to get the actual player count.
+	# R.get_settings_value("room_size") is in range 0 - 7. Add 1 to get the actual player count.
 	var total_players: int = len(R.players) + len(signup_now) + len(signup_queue);
-	print("DEBUG Player Count Check", total_players, "/", R.cfg.room_size + 1)
-	if total_players >= R.cfg.room_size + 1:
+	print("DEBUG Player Count Check", total_players, "/", R.get_settings_value("room_size") + 1)
+	if total_players >= R.get_settings_value("room_size") + 1:
 		# this is done server-side
 #		Ws.send_to_room('editRoom', {
-#			"status": "FULL_AUDI" if R.cfg.audience else "FULL"
+#			"status": "FULL_AUDI" if R.get_settings_value("audience") else "FULL"
 #		});
 		$TouchButton.hide()
 		room_full = true;
@@ -384,7 +384,7 @@ func _process(delta):
 		start_signup()
 
 func start_signup():
-	if len(R.players) > R.cfg.room_size:
+	if len(R.players) > R.get_settings_value("room_size"):
 		return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
@@ -423,11 +423,11 @@ func start_signup():
 		if null != matched:
 			signup_now.censored = true
 			signup_now.name = R.grawlix(len(signup_now.name))
-		if R.cfg.room_openness == 2:
+		if R.get_settings_value("room_openness") == 2:
 			signup_ended(
 				signup_now.name, 0
 			)
-		elif R.cfg.room_openness == 1:
+		elif R.get_settings_value("room_openness") == 1:
 			signup_modal.start_setup_remote(
 				signup_now.name
 			)
@@ -524,12 +524,12 @@ func signup_ended(name, keyboard_type):
 		}
 		print("Appending new player: ", player)
 		if len(R.players) == 0:
-			if R.cfg.remote_start:
+			if R.get_settings_value("remote_start"):
 				$Ready/Label2.set_text("Or press Return on the keyboard")
 			if signup_now.type == C.DEVICES.GAMEPAD:
 				$Ready/Label.set_text("Press ㍝ to start!")
 			elif signup_now.type == C.DEVICES.KEYBOARD or (
-				signup_now.type == C.DEVICES.REMOTE and !R.cfg.remote_start
+				signup_now.type == C.DEVICES.REMOTE and !R.get_settings_value("remote_start")
 			):
 				$Ready/Label.set_text("Press Return to start!")
 				$Ready/Label2.set_text("")

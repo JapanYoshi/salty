@@ -853,7 +853,7 @@ func change_stage(next_stage):
 	elif stage == "init" and next_stage == "intro_R":
 		stage = "intro_R"
 		anim.play("finale_out")
-		if R.cfg.cutscenes:
+		if R.get_settings_value("cutscenes"):
 			enable_skip()
 			S.play_voice("rush_intro")
 			yield(S, "voice_end"); if !can_skip: return
@@ -882,7 +882,7 @@ func change_stage(next_stage):
 		S.play_track(0, 0.75)
 		S.play_voice("like_intro")
 		yield(S, "voice_end")
-		if R.cfg.cutscenes:
+		if R.get_settings_value("cutscenes"):
 			enable_skip()
 			bgs.L.tute(0)
 			S.play_voice("like_tute0")
@@ -1013,7 +1013,7 @@ func change_stage(next_stage):
 		stage = "gib_question"
 		ep.set_pause_penalty(true)
 		set_buzz_in(true)
-		if R.cfg.cutscenes:
+		if R.get_settings_value("cutscenes"):
 			#S.seek_multitrack(0)
 			S.play_track(0, 0.5)
 			S.play_track(1, 0.5)
@@ -1052,7 +1052,7 @@ func change_stage(next_stage):
 		stage = "thou_setup"
 		S.play_multitrack("thousand_loop", 0, "tick_loop", 0)
 		S.play_track(0, 0.5)
-		if R.cfg.cutscenes:
+		if R.get_settings_value("cutscenes"):
 			enable_skip()
 			S.play_voice("thou_tute0")
 			bgs.G.thou_tute(0)
@@ -1648,7 +1648,7 @@ func intro_C_ended():
 	# question
 	S.play_multitrack("candy_base", true, "candy_extra", false, "candy_extra2", false)
 	if data.has("intro"):
-		if R.cfg.cutscenes:
+		if R.get_settings_value("cutscenes"):
 			S.play_voice("intro")
 		else:
 			stage = "candy_setup"
@@ -1678,7 +1678,7 @@ func outro_S_ended():
 	S.play_voice("outro")
 
 func intro_G_ended():
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		change_stage("gib_setup")
 	else:
 		stage = "gib_setup"

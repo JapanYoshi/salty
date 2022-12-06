@@ -17,7 +17,7 @@ func _ready():
 	pass # Replace with function body.
 
 func show_room_code(room_code: String):
-	if room_code != "" and !R.cfg.hide_room_code_ingame:
+	if room_code != "" and !R.get_settings_value("hide_room_code_ingame"):
 		n_joinat.bbcode_text = joinat_template % room_code
 	else:
 		n_joinat.bbcode_text = ""

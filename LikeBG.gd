@@ -14,14 +14,14 @@ var answers = []
 func _ready():
 	screen.bg_elem = self
 	anim.play("logo"); anim.stop()
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		tutorial = false
 
 var t = 0
 var shader_speed = 1/16.0
 
 func _process(delta):
-	if R.cfg.graphics_quality > 0:
+	if R.get_settings_value("graphics_quality") > 0:
 		t = fmod(t + delta * shader_speed, 1)
 		$Rings.material.set_shader_param("offset", t)
 

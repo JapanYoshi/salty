@@ -14,7 +14,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if !self.visible or R.cfg.graphics_quality == 0:
+	if !self.visible or R.get_settings_value("graphics_quality") == 0:
 		self.set_process(false)
 		return
 	self.material.set_shader_param(
@@ -28,7 +28,7 @@ func _process(delta):
 	)
 
 func set_param(key, value):
-	if key == "radius" and R.cfg.graphics_quality >= 2:
+	if key == "radius" and R.get_settings_value("graphics_quality") >= 2:
 		radius = value;
 	else:
 		self.material.set_shader_param(

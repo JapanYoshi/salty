@@ -16,7 +16,7 @@ func _ready():
 #	init()
 
 func _process(delta):
-	if R.cfg.graphics_quality <= 1: return
+	if R.get_settings_value("graphics_quality") <= 1: return
 	shader_time += delta
 	var shader_frame: int = int(shader_time * shader_fps)
 	if shader_last_time != shader_frame:
@@ -31,12 +31,12 @@ func _process(delta):
 #func init():
 #	$AnimationPlayer.play("intro")
 #	$AnimationPlayer.stop()
-#	if R.cfg.cutscenes:
+#	if R.get_settings_value("cutscenes"):
 #		$AnimationPlayer.seek(0, true)
 #		hide()
 
 func intro():
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		$AnimationPlayer.play("intro")
 		S.play_music("rage_intro", 1.0)
 	else:

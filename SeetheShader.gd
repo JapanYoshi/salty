@@ -9,7 +9,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if R.cfg.graphics_quality == 0:
+	if R.get_settings_value("graphics_quality") == 0:
 		return
 	offset += offset_speed * delta
 	p_time += time_speed * delta

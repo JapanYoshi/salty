@@ -1664,6 +1664,7 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="ScreenStretch/Cutscenes"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0
@@ -1813,12 +1814,7 @@ __meta__ = {
 
 [node name="BackButton" parent="ScreenStretch" instance=ExtResource( 38 )]
 
-[node name="SubManager" parent="." instance=ExtResource( 6 )]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="PauseButton" type="Button" parent="."]
+[node name="PauseButton" type="Button" parent="ScreenStretch"]
 modulate = Color( 1, 1, 1, 0.156863 )
 margin_right = 117.0
 margin_bottom = 48.0
@@ -1829,6 +1825,11 @@ custom_styles/focus = ExtResource( 26 )
 custom_styles/disabled = ExtResource( 26 )
 custom_styles/normal = ExtResource( 26 )
 text = "Pause"
+
+[node name="SubManager" parent="." instance=ExtResource( 6 )]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
@@ -1979,7 +1980,7 @@ __meta__ = {
 [connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
 [connection signal="gui_input" from="ScreenStretch/SkipButton" to="." method="_on_SkipButton_gui_input"]
 [connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_BackButton_back_pressed"]
-[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="ScreenStretch/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button2" to="Pause" method="quit"]
 [connection signal="pressed" from="Pause/NinePatchRect/HBoxContainer/Button" to="Pause" method="resume"]
