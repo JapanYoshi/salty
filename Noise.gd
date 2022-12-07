@@ -2,6 +2,7 @@ extends Control
 
 export var v_speed: float = 0.01;
 export var radius: float = 0.0;
+var p_time: float = 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,8 +20,7 @@ func _process(delta):
 		return
 	self.material.set_shader_param(
 		"p_time",
-		self.material.get_shader_param("p_time")
-		+ delta * v_speed
+		fmod(p_time + delta * v_speed, 1.0)
 	)
 	self.material.set_shader_param(
 		"radius",
