@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themeTyping.tres" type="Theme" id=1]
 [ext_resource path="res://ThemeEpisode.tres" type="Theme" id=2]
 [ext_resource path="res://Error.gd" type="Script" id=3]
 [ext_resource path="res://ThemeBigText.tres" type="Theme" id=4]
+[ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=5]
 
 [node name="Error" type="ColorRect"]
 anchor_right = 1.0
@@ -11,7 +12,9 @@ anchor_bottom = 1.0
 color = Color( 0.533333, 0, 0, 1 )
 script = ExtResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ScreenStretch" parent="." instance=ExtResource( 5 )]
+
+[node name="ColorRect" type="ColorRect" parent="ScreenStretch"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -22,42 +25,46 @@ margin_right = 608.0
 margin_bottom = 328.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenStretch/ColorRect"]
 anchor_right = 1.0
-margin_bottom = 77.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Label" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
+margin_right = 1200.0
+margin_bottom = 56.0
 theme = ExtResource( 4 )
 text = "Fatal error"
 align = 1
 valign = 1
 
-[node name="Reason" type="Label" parent="ColorRect"]
-anchor_right = 1.0
-margin_left = 32.0
-margin_top = 80.0
-margin_right = -32.0
-margin_bottom = 385.0
+[node name="Reason" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
+margin_top = 60.0
+margin_right = 1200.0
+margin_bottom = 104.0
+size_flags_vertical = 2
 theme = ExtResource( 2 )
 autowrap = true
 
-[node name="Reason2" type="Label" parent="ColorRect"]
-anchor_right = 1.0
-margin_left = 32.0
-margin_top = 403.0
-margin_right = -32.0
-margin_bottom = 541.0
+[node name="Footer" type="RichTextLabel" parent="ScreenStretch/ColorRect/VBoxContainer"]
+margin_top = 508.0
+margin_right = 1200.0
+margin_bottom = 564.0
 theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "If this issue persists, please report the error to the GitHub repo ([url]https://github.com/JapanYoshi/salty/issues[/url]) or the official Discord server ([url]https://discord.gg/Mp89KdZ75N[/url])."
 text = "If this issue persists, please report the error to the GitHub repo (https://github.com/JapanYoshi/salty/issues) or the official Discord server (https://discord.gg/Mp89KdZ75N)."
-autowrap = true
+fit_content_height = true
 
-[node name="Button" type="Button" parent="ColorRect"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = -104.0
-margin_right = -32.0
-margin_bottom = -32.0
+[node name="Button" type="Button" parent="ScreenStretch/ColorRect/VBoxContainer"]
+margin_top = 568.0
+margin_right = 1200.0
+margin_bottom = 640.0
 theme = ExtResource( 1 )
 text = "Return to title"
 
-[connection signal="pressed" from="ColorRect/Button" to="." method="_on_Button_pressed"]
+[connection signal="meta_clicked" from="ScreenStretch/ColorRect/VBoxContainer/Footer" to="." method="_on_Footer_meta_clicked"]
+[connection signal="pressed" from="ScreenStretch/ColorRect/VBoxContainer/Button" to="." method="_on_Button_pressed"]
