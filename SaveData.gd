@@ -21,7 +21,7 @@ const tab_names = {
 var high_score_item = preload("res://HighScoreItem.tscn")
 onready var high_score_grid = $ScreenStretch/r/TabContainer/HighScore/Grid
 
-var achievement_item = preload("res://AchievementItem.tscn")
+var achievement_item = preload("res://achievements/AchievementItem.tscn")
 onready var achievement_label = $ScreenStretch/r/TabContainer/Achievements/v/Label
 onready var achievement_grid = $ScreenStretch/r/TabContainer/Achievements/v/Grid
 
@@ -169,3 +169,13 @@ func _on_delete_confirm():
 	else:
 		R.delete_save_data()
 		_back()
+
+
+func _on_Left_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and (event.button_index == 1):
+		_tabulate(false)
+
+
+func _on_Right_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and (event.button_index == 1):
+		_tabulate(true)
