@@ -270,11 +270,12 @@ func _http_request_completed(result, response_code, headers, body, q):
 func _load_question(q):
 	# not sure what to do when loaded...
 	# check file existence
-	var file = File.new()
-	if file.file_exists(Loader.q_cache_path + "/%s.pck" % q):
-		var success: bool = ProjectSettings.load_resource_pack(ProjectSettings.globalize_path("user://%s.pck" % q), true)
+	if Loader.is_question_cached(q):
+		var file = File.new()
+		var success: bool = Loader.load_cached_question(q)
 		if !success:
-			R.crash("Could not load resource pack for question ID %s. The file appears to not have been saved." % q)
+			Loader.remove_from_question_cache(q)
+			R.crash("Could not load resource pack for question ID %s. The file appears to be corrupted, so it has been removed from the cache." % q)
 		# check this file
 		# if !file.file_exists("res://q/%s/title.wav.import" % q):
 		# 	R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)

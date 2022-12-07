@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://images/signup_gamepad.png" type="Texture" id=1]
 [ext_resource path="res://images/signup_keyboard.png" type="Texture" id=2]
@@ -6,10 +6,12 @@
 [ext_resource path="res://fonts/display_code.tres" type="DynamicFont" id=4]
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=5]
 [ext_resource path="res://fonts/gibberish_answer_regular.tres" type="DynamicFont" id=6]
+[ext_resource path="res://optionBox.tres" type="StyleBox" id=7]
 [ext_resource path="res://Signup.gd" type="Script" id=8]
 [ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=9]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=10]
 [ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=11]
+[ext_resource path="res://SignupMarquee.gd" type="Script" id=12]
 [ext_resource path="res://green.stylebox" type="StyleBox" id=13]
 [ext_resource path="res://fonts/player_number_font.tres" type="DynamicFont" id=14]
 [ext_resource path="res://TypingHandler.tscn" type="PackedScene" id=15]
@@ -20,6 +22,8 @@
 [ext_resource path="res://SignupModal.gd" type="Script" id=20]
 [ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=21]
 [ext_resource path="res://control_type_icon.tres" type="SpriteFrames" id=22]
+[ext_resource path="res://no_h_scrollbar.theme" type="Theme" id=23]
+[ext_resource path="res://images/signup_pointer.png.png" type="Texture" id=24]
 
 [sub_resource type="Animation" id=8]
 resource_name = "Enter"
@@ -56,24 +60,25 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=12]
 resource_name = "Enter"
 length = 0.2
+step = 0.0333333
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/path = NodePath(".:rect_position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 0.3, -2, 1 ),
+"times": PoolRealArray( 0, 0.0666667, 0.2 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
 "update": 0,
-"values": [ 1256.0, 816.0, 896.0 ]
+"values": [ 720.0, 634.0, 638.0 ]
 }
 
 [sub_resource type="Animation" id=13]
 resource_name = "Init"
 length = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/path = NodePath(".:rect_position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -82,7 +87,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1300.0 ]
+"values": [ 720.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -298,29 +303,52 @@ text = "WWWW"
 align = 1
 valign = 1
 
-[node name="SignupGamepad" type="TextureRect" parent="Instructions"]
-margin_top = 111.0
+[node name="ScrollContainer" type="ScrollContainer" parent="Instructions"]
+margin_top = 148.0
 margin_right = 880.0
-margin_bottom = 351.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 880, 240 )
+mouse_filter = 2
+theme = ExtResource( 23 )
+scroll_vertical_enabled = false
+script = ExtResource( 12 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Instructions/ScrollContainer"]
+margin_right = 2704.0
+margin_bottom = 240.0
+custom_constants/separation = 32
+
+[node name="SignupGamepad" type="TextureRect" parent="Instructions/ScrollContainer/HBoxContainer"]
+margin_right = 880.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 880, 240 )
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SignupKeyboard" type="TextureRect" parent="Instructions"]
-margin_top = 359.0
-margin_right = 880.0
-margin_bottom = 599.0
+[node name="SignupKeyboard" type="TextureRect" parent="Instructions/ScrollContainer/HBoxContainer"]
+margin_left = 912.0
+margin_right = 1792.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 880, 240 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="SignupPointer" type="TextureRect" parent="Instructions/ScrollContainer/HBoxContainer"]
+margin_left = 1824.0
+margin_right = 2704.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 880, 240 )
+texture = ExtResource( 24 )
+expand = true
+stretch_mode = 5
+
+[node name="Timer" type="Timer" parent="Instructions/ScrollContainer"]
+wait_time = 5.0
+autostart = true
+
+[node name="Tween" type="Tween" parent="Instructions/ScrollContainer"]
 
 [node name="Players" type="VBoxContainer" parent="."]
 anchor_left = 1.0
@@ -399,12 +427,12 @@ __meta__ = {
 [node name="Ready2" type="Panel" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = 20.0
-margin_top = 640.0
-margin_right = 396.0
-margin_bottom = 712.0
+margin_left = -384.0
+margin_top = 720.0
+margin_right = -8.0
+margin_bottom = 796.0
 rect_pivot_offset = Vector2( -170, 56 )
-custom_styles/panel = ExtResource( 13 )
+custom_styles/panel = ExtResource( 7 )
 
 [node name="Anim" type="AnimationPlayer" parent="Ready2"]
 autoplay = "Init"
@@ -414,25 +442,17 @@ anims/Init = SubResource( 13 )
 [node name="Label4" type="Label" parent="Ready2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 57.0
+margin_left = 9.0
 margin_top = 7.0
 margin_right = -8.0
 margin_bottom = -7.0
 custom_fonts/font = ExtResource( 10 )
-text = "Click on the options. Click the top-left corner of the screen to pause."
+text = "The room is full!"
+align = 1
 valign = 1
 autowrap = true
-
-[node name="Label3" type="Label" parent="Ready2"]
-margin_left = 13.0
-margin_top = -12.0
-margin_right = 61.0
-margin_bottom = 52.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 14 )
-text = "6"
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_lock_": true
 }
 
 [node name="SignupModal" type="ColorRect" parent="."]
@@ -511,9 +531,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_fonts/font = ExtResource( 5 )
 text = "(or leave it blank, your choice)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="List" type="HBoxContainer" parent="SignupModal/Panel"]
 visible = false
@@ -843,6 +860,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="timeout" from="Instructions/ScrollContainer/Timer" to="Instructions/ScrollContainer" method="_on_Timer_timeout"]
 [connection signal="gui_input" from="Ready" to="." method="_on_Ready_gui_input"]
 [connection signal="pressed" from="TouchButton" to="." method="_on_TouchButton_pressed"]
 [connection signal="pressed" from="SignupModal/Panel/Name/Button" to="SignupModal" method="_on_Button_pressed"]

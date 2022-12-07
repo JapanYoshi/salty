@@ -7,14 +7,14 @@ signal voice_line_loaded(result)
 
 # Loads episode data.
 # Also parses question structure and timing markers in text.
-const episode_path = "res://ep"
+const episode_path = "res://ep/"
 var episodes = {}
 
-const question_path = "res://q"
+const question_path = "res://q/"
 var random_questions = {}
 
-const q_cache_path = "user://"
-var cached_questions = []
+const q_cache_path = "user://q/"
+var cached = {}
 
 var random_dict = {}
 
@@ -35,7 +35,6 @@ var special_guest_keys = []
 func _ready():
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
-	load_question_cache()
 	load_random_voice_lines()
 	load_random_questions()
 	load_episodes_list()
@@ -43,37 +42,44 @@ func _ready():
 #	load_question("n001")
 	### End testing
 
-func load_question_cache():
-	var file = File.new()
-	if file.open(q_cache_path + "q_list.csv", File.READ) == OK:
-		cached_questions = file.get_csv_line()
 
+const MAGIC_NUMBER = PoolByteArray([0x47, 0x44, 0x50, 0x43])
 func is_question_cached(id):
-	if id in cached_questions:
-		return true
-	else:
-#		var file = File.new()
-#		if file.file_exists(q_cache_path + "%s.pck" % id):
-#			cached_questions.push_back(id)
-#			return true
-#		else:
+	var file: File = File.new()
+	if !file.file_exists(q_cache_path + "%s.pck" % id):
+		return false
+	file.open(q_cache_path + "%s.pck" % id, File.READ)
+	for i in range(4):
+		if file.get_8() != MAGIC_NUMBER[i]:
+			# Corrupted file.
+			printerr(q_cache_path + "%s.pck" % id, " exists, but does not start with GDPC. Removing.")
+			remove_from_question_cache(id)
 			return false
+	file.close()
+	return true
+
 
 func append_question_cache(id):
-	cached_questions.push_back(id)
-	save_question_cache()
+	cached[id] = true
+
+
+func remove_from_question_cache(id):
+	cached[id] = false
+	var dir = Directory.new()
+	dir.remove(q_cache_path + "%s.pck" % id)
+
 
 func clear_question_cache():
-	for id in cached_questions:
+	for id in cached:
 		var dir = Directory.new()
 		dir.remove(q_cache_path + "%s.pck" % id)
-	cached_questions.resize(0)
-	save_question_cache()
 
-func save_question_cache():
-	var file = File.new()
-	if file.open(q_cache_path + "q_list.csv", File.WRITE) == OK:
-		file.store_csv_line(cached_questions)
+
+func load_cached_question(id):
+	return ProjectSettings.load_resource_pack(
+		ProjectSettings.globalize_path(q_cache_path + "%s.pck" % id),
+		true
+	)
 
 
 func remove_jsonc_comments(text: String) -> String:
@@ -142,14 +148,14 @@ func random_questions_of_type(type, count):
 func load_episodes_list():
 	# new option with list file
 	var file = File.new()
-	var err = file.open(episode_path + "/list.txt", File.READ)
+	var err = file.open(episode_path + "list.txt", File.READ)
 	if err == OK:
 		episodes = {}
 		var names = file.get_as_text().split(",")
 		for ep_name in names:
 			ep_name = ep_name.strip_edges()
 			var ep_file = File.new()
-			ep_file.open(episode_path + "/" + ep_name + "/ep.json", File.READ)
+			ep_file.open(episode_path + ep_name + "/ep.json", File.READ)
 			var result = JSON.parse(ep_file.get_as_text())
 			if result.error == OK:
 				episodes[ep_name] = result.result
@@ -159,13 +165,13 @@ func load_episodes_list():
 
 func load_episode(id):
 	var file = File.new()
-	var err = file.open(episode_path + "/" + id + "/ep.json", File.READ)
+	var err = file.open(episode_path + id + "/ep.json", File.READ)
 	var data = {}
 	var result = JSON.parse(file.get_as_text())
 	if err == OK and result.error == OK:
 		data = result.result
 	else:
-		R.crash("Episode data for ID '" + id + "' is missing. Please make sure that the following file exists:\n" + episode_path + "/" + id + "/ep.json")
+		R.crash("Episode data for ID '" + id + "' is missing. Please make sure that the following file exists:\n" + episode_path + id + "/ep.json")
 	return data
 
 const random_voice_line_keys = [
@@ -201,7 +207,7 @@ func load_question(id, first_question: bool, q_box: Node):
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
 	var err = ERR_FILE_NOT_FOUND
-	var path = question_path + "/" + id + "/_question.gdcfg"
+	var path = question_path + id + "/_question.gdcfg"
 	print("Trying to load the following file... " + path)
 	err = file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
@@ -216,7 +222,8 @@ func load_question(id, first_question: bool, q_box: Node):
 		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
 		return
 	else:
-		print("OK")
+#		print("OK")
+		pass
 	var data = {}
 	for section in file.get_sections():
 		if section == "root":

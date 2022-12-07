@@ -365,11 +365,9 @@ func check_full():
 	var total_players: int = len(R.players) + len(signup_now) + len(signup_queue);
 	print("DEBUG Player Count Check", total_players, "/", R.get_settings_value("room_size") + 1)
 	if total_players >= R.get_settings_value("room_size") + 1:
-		# this is done server-side
-#		Ws.send_to_room('editRoom', {
-#			"status": "FULL_AUDI" if R.get_settings_value("audience") else "FULL"
-#		});
 		$TouchButton.hide()
+		# Full room indicator.
+		$Ready2/Anim.play("Enter")
 		room_full = true;
 	else:
 		room_full = false;
@@ -539,10 +537,7 @@ func signup_ended(name, keyboard_type):
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
 		R.players.append(player)
-		# Tell mouse/touchscreen player how to pause.
-		if signup_now.type == C.DEVICES.REMOTE:
-			$Ready2/Label4.set_text("%d" % len(R.players))
-			$Ready2/Anim.play("Enter")
+
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
 		else:
