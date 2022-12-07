@@ -251,7 +251,7 @@ func load_question(id, first_question: bool, q_box: Node):
 	# "outro": {"v", "s"}
 	var keys = [];
 	if not(data.has("type")):
-		R.crash("Question data for ID " + id + " is missing the question type. Please make sure it has the key `type` inside the section `[root]`.")
+		R.crash("Question data for ID " + id + " is missing the question type. Please make sure it has the key `type` inside the section `[root]`.\nlen(data.keys()) = " + str(len(data.keys())))
 		return
 	match data.type:
 		"N":
