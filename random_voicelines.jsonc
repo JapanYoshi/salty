@@ -2618,35 +2618,34 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
   // Special Guest Easter Eggs are unique host reactions for players with specific usernames.
   "special_guest": {
     // To accommodate multiple alternate spellings, possible names are stored here, with a different ID that corresponds to the special voice line.
-    "name_to_id": [
+    "name_to_id": {
       // Spaced to emphasize the 12-character limit
-      ["CANDY"       ,"candy"],
-      ["CANDY BAR"   ,"candy"],
-      ["CANDY BARR"  ,"candy"],
-      ["CANDY BARRE" ,"candy"],
-      ["CANDY BARRE" ,"candy"],
-      ["DAISY"       ,"daisy"],
-      ["DAISY CHAIN" ,"daisy"],
-      ["DAISY CHAINE","daisy"],
-      ["MILES"       ,"miles"],
-      ["MILES STONE" ,"miles"],
-      ["OZZY"        ,"ozzy"],
+      "CANDY"       : "candy",
+      "CANDY BAR"   : "candy",
+      "CANDY BARR"  : "candy",
+      "CANDY BARRE" : "candy",
+      "DAISY"       : "daisy",
+      "DAISY CHAIN" : "daisy",
+      "DAISY CHAINE": "daisy",
+      "MILES"       : "miles",
+      "MILES STONE" : "miles",
+      "OZZY"        : "ozzy",
       // YDKJ references
-      ["COOKIE"      ,"cookie"],
-      ["C. MASTERSON","cookie"],
-      ["SCHMITTY"    ,"schmitty"],
-      ["NATE SHAPIRO","nate"],
-      ["BUZZ"        ,"buzz"],
-      ["BUZZ LIPPMAN","buzz"],
-      ["BUZZ LIPMAN" ,"buzz"],
-      ["BUZZ LIPMANN","buzz"],
-      ["GUY TOWERS"  ,"guy"],
-      ["GUY"         ,"guy"],
-      ["JACK CAKE"   ,"jackcake"],
+      "COOKIE"      : "cookie",
+      "C. MASTERSON": "cookie",
+      "SCHMITTY"    : "schmitty",
+      "NATE SHAPIRO": "nate",
+      "BUZZ"        : "buzz",
+      "BUZZ LIPPMAN": "buzz",
+      "BUZZ LIPMAN" : "buzz",
+      "BUZZ LIPMANN": "buzz",
+      "GUY TOWERS"  : "guy",
+      "GUY"         : "guy",
+      "JACK CAKE"   : "jackcake",
       // ST staff
-      ["HALEYHALCYON","haleyhalcyon"],
-      ["RIVERKATH"   ,"riverkath"],
-    ],
+      "HALEYHALCYON": "haleyhalcyon",
+      "RIVERKATH"   : "riverkath",
+    },
     "id_to_voice": {
       // ST characters
       "candy": [

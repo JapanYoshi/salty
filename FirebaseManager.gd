@@ -629,9 +629,11 @@ func scene(scene_history):
 
 
 func close_room():
-	join_request_ref.disconnect("child_added", self, "_new_player_entry")
-	join_request_ref.disconnect("child_changed", self, "_player_rejoin")
-	var ref = db.get_reference_lite("roomCodes/" + room_code)
-	var result = yield(ref.remove(), "completed")
+	if is_instance_valid(join_request_ref):
+		join_request_ref.disconnect("child_added", self, "_new_player_entry")
+		join_request_ref.disconnect("child_changed", self, "_player_rejoin")
+	if is_instance_valid(db):
+		var ref = db.get_reference_lite("roomCodes/" + room_code)
+		var result = yield(ref.remove(), "completed")
 	room_code = ""
 	connected_to_room = false

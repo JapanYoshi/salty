@@ -131,10 +131,10 @@ func play_intro():
 	var special_guest: int = (
 		# -1 is sentinel for "none yet",
 		# -2 for "this episode can't do that"
-		-2 if (
+		-1 if (
 			!episode_data.has("no_special_guest")
 			or episode_data.no_special_guest == false
-		) else -1
+		) else -2
 	)
 	var special_guest_id: String = ""
 	for p in R.players:
@@ -341,11 +341,25 @@ func play_intro():
 			S.play_voice(player_voice); yield(S, "voice_end")
 		else:
 			if R.get_settings_value("cutscenes"):
-				q_box.hub.highlight_players(special_guest)
+				q_box.hud.highlight_players([special_guest])
+				# TODO: give achievement
+				# remove already seen character
+				var new_progress: Array = R.get_save_data_item(
+					"misc", "guests_seen", []
+				)
+				new_progress.push_back(
+					special_guest_id
+				)
+				R.set_save_data_item(
+					"misc", "guests_seen",
+					new_progress
+				)
+				R.save_save_data()
+				Loader.load_special_guests()
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("special_guest"); yield(S, "voice_end")
-				q_box.hud.reset_playerboxes(special_guest)
+				q_box.hud.reset_playerboxes([special_guest])
 				S.unload_voice("special_guest")
 	match len(censored_players):
 		0: # we deal with "more than 3" later

@@ -182,7 +182,7 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 	return
 
 func preload_guest_voice(key):
-	var obj = Loader.random_dict.special_guest.id_to_voice[key]
+	var obj = Loader.random_dict.special_guest.id_to_voice[key][0] # multiple patterns? nah
 	var final_filename = voice_path +\
 		obj.v + ".wav"
 	var loader: ResourceInteractiveLoader = ResourceLoader.load_interactive(final_filename)

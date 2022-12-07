@@ -29,7 +29,8 @@ var rng = RandomNumberGenerator.new()
 # until interrupted by another subtitle command.
 var r_separator = RegEx.new()
 
-var special_guest_keys = []
+var special_guest_names = []
+var special_guest_ids = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -112,16 +113,7 @@ func load_random_voice_lines():
 		var json = JSON.parse(json_text)
 		if json.error == OK:
 			random_dict = json.result
-			# Do not greet the same special guest twice.
-			special_guest_keys = random_dict.special_guest.id_to_voice.keys()
-			var already_seen = R.get_save_data_item("misc", "guests_seen", [])
-			if !already_seen.empty():
-				for v in already_seen:
-					special_guest_keys.erase(v)
-			# If you've seen all the special guests, reset progress.
-			if already_seen.empty():
-				special_guest_keys = random_dict.special_guest.id_to_voice.keys()
-				R.set_save_data_item("misc", "guests_seen", [])
+			load_special_guests()
 		else:
 			R.crash("random_voicelines.jsonc could not be parsed. Error code: %d" % json.error)
 
@@ -518,18 +510,26 @@ func load_random_voice_line(key, pool = "", episode = false):
 	emit_signal("voice_line_loaded", result)
 
 func guest_id_or_empty_string(nick: String) -> String:
-	if nick in special_guest_keys:
+	if nick in special_guest_names:
 		var guest_id = random_dict.special_guest.name_to_id[nick]
-		R.set_save_data_item(
-			"misc", "guests_seen",
-			R.get_save_data_item(
-				"misc", "guests_seen", []
-			).push_back(
-				guest_id
-			)
-		)
+		if !(guest_id in special_guest_ids): return "" # we deleted seen guests beforehand
+		
 		return guest_id
 	return ""
+
+
+func load_special_guests():
+	# Do not greet the same special guest twice.
+	special_guest_names = random_dict.special_guest.name_to_id.keys()
+	special_guest_ids = random_dict.special_guest.id_to_voice.keys()
+	var already_seen = R.get_save_data_item("misc", "guests_seen", [])
+	if !already_seen.empty():
+		for v in already_seen:
+			special_guest_ids.erase(v)
+	# If you've seen all the special guests, reset progress.
+	if special_guest_ids.empty():
+		special_guest_ids = random_dict.special_guest.id_to_voice.keys()
+		R.set_save_data_item("misc", "guests_seen", [])
 
 
 func get_achievement_list() -> Dictionary:
