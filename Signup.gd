@@ -363,11 +363,10 @@ func remote_queue(data):
 func check_full():
 	# R.get_settings_value("room_size") is in range 0 - 7. Add 1 to get the actual player count.
 	var total_players: int = len(R.players) + len(signup_now) + len(signup_queue);
+#	var total_players: int = len(R.players) + len(signup_queue);
 	print("DEBUG Player Count Check", total_players, "/", R.get_settings_value("room_size") + 1)
 	if total_players >= R.get_settings_value("room_size") + 1:
 		$TouchButton.hide()
-		# Full room indicator.
-		$Ready2/Anim.play("Enter")
 		room_full = true;
 	else:
 		room_full = false;
@@ -382,7 +381,7 @@ func _process(delta):
 		start_signup()
 
 func start_signup():
-	if len(R.players) > R.get_settings_value("room_size"):
+	if len(R.players) >= 1 + R.get_settings_value("room_size"):
 		return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
@@ -537,6 +536,10 @@ func signup_ended(name, keyboard_type):
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
 		R.players.append(player)
+		if len(R.players) >= 1 + R.get_settings_value("room_size"):
+			# Full room indicator.
+			$Ready2/Anim.play("Enter")
+
 
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)

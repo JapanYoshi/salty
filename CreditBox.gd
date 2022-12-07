@@ -23,7 +23,9 @@ func load_credits():
 		printerr("Could not load credits.")
 	else:
 		var spacer = scrollerV.get_child(0)
-		spacer.custom_minimum_size.y = scroller.rect_size.y
+		spacer.set_custom_minimum_size(
+			Vector2(1, scroller.rect_size.y)
+		)
 		var rtl_title: RichTextLabel = scrollerV.get_child(1)
 		var rtl_body: RichTextLabel = scrollerV.get_child(2)
 		for sect in credits.get_sections():

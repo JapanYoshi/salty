@@ -38,6 +38,9 @@ func _ready():
 	load_random_voice_lines()
 	load_random_questions()
 	load_episodes_list()
+	var dir: Directory = Directory.new()
+	if !(dir.dir_exists(q_cache_path)):
+		dir.make_dir_recursive(q_cache_path)
 	### Testing
 #	load_question("n001")
 	### End testing

@@ -168,13 +168,6 @@ func show_final_leaderboard():
 					comment = comment,
 				}
 			)
-#			Ws.send('message', {
-#				'action': 'changeScene',
-#				'sceneName': 'finalResult',
-#				'result': p.score,
-#				'resultAsText': R.format_currency(p.score),
-#				'comment': comment
-#			}, p.device_name);
 	for a in R.audience:
 		# Calculate how many players you beat.
 #		ranking[i].score
@@ -184,8 +177,8 @@ func show_final_leaderboard():
 		if len(ranking) > 1:
 			var players_beaten: int = 0
 			var tied: bool = false
-			for j in range(len(ranking)):
-				match sign(a.score - ranking[len(ranking) - j - 1]):
+			for j in range(len(ranking) - 1, -1, -1):
+				match sign(a.score - ranking[j].score):
 					1.0:
 						players_beaten += 1
 					0.0:
@@ -193,13 +186,15 @@ func show_final_leaderboard():
 						break
 					-1.0:
 						break
-			if players_beaten == 1:
-				comment = "You beat one single player... Better than losing to everyone."
-			elif players_beaten > 1:
+			if players_beaten >= 1:
 				if players_beaten == len(ranking):
 					comment = "You beat all %d players! Great work, Galaxy Brain!" % players_beaten
-				else:
+				elif players_beaten > 1:
 					comment = "You beat %d players! Maybe next time you can beat all of them." % players_beaten
+				else:
+					comment = "You beat one single player... Better than losing to everyone."
+			elif tied:
+				comment = "You tied with the top player, but you didn’t beat any. Big whoop."
 			else:
 				comment = "You didn’t beat any players. See, this is why you can’t play."
 		else:
@@ -215,7 +210,7 @@ func show_final_leaderboard():
 				result = a.score,
 				resultAsText = R.format_currency(a.score),
 				comment = comment,
-			}
+			}, true
 		)
 #		Ws.send('message', {
 #			'action': 'changeScene',
@@ -234,14 +229,16 @@ func show_final_leaderboard():
 			best_accuracy = acc
 	R.submit_high_score(ranking[0].score, best_accuracy)
 	$CreditBox.load_credits()
+#	anim.play("credits_roll", 0, 0.001, false)
+#	anim.stop()
 	anim.play("final_standings")
-	set_radius(1.5)
+	set_radius(0.0)
 	logo.show_logo()
 
 func hide_final_leaderboard():
 	$Final.hide()
 	$Leaderboard.show()
-	logo.show_logo()
+#	logo.show_logo()
 
 func roll_credits():
 	anim.play("credits_roll")

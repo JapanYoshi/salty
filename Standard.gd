@@ -203,21 +203,21 @@ func skip():
 
 func _gp_button(input_player, button, pressed):
 	# Is this an audience member or an actual player?
-	var player: int = input_player
-	var is_audience: bool = input_player >= len(C.ctrl)
-	if !is_audience:
-		for i in range(len(R.players)):
-			if R.players[i].device_index == input_player:
-				player = i
-				break
-	else:
-		player += len(R.players) - len(C.ctrl)
-	if player == -1 or button == -1:
-		return
+	var is_audience: bool = false
+	var player: int = -1
+	for i in len(R.players):
+		if R.players[i].device_index == input_player:
+			player = i; break
+	if player == -1:
+		is_audience = true
+		for i in len(R.audience):
+			if R.audience[i].device_index == input_player:
+				player = i; break # is this true?
+	if player == -1: return;
 	if (
-		!is_audience and can_buzz_in
-	) or (
 		is_audience and audience_can_buzz_in
+	) or (
+		!is_audience and can_buzz_in
 	):
 		match question_type:
 			"N", "C", "O":
@@ -364,22 +364,35 @@ func _gp_button(input_player, button, pressed):
 # Firebase stores the current seletion state as a STRING of '0' and '1'.
 # Correct the selection state locally to match the state on Firebase.
 func _on_remote_finale(value: String, slot: int):
-	if !audience_can_buzz_in: return
 	var player: int = R.slot2player(slot)
 	if player == -1:
 		printerr("_on_remote_finale called for a slot number that does not correspond to a player (%d)" % slot)
 		return
+	var is_audience = player >= 1 + R.get_settings_value("room_size")
+	if (
+		is_audience and !audience_can_buzz_in
+	) or (
+		!is_audience and !can_buzz_in
+	): return
+	if is_audience:
+		player -= 1 + R.get_settings_value("room_size")
 	var rush: bool = question_type == "R"
 	for i in range(6 if rush else 4):
+		var bucket = (
+			answers_audience[i] if is_audience else answers[i]
+		)
 		var new_state: bool = (value[i] == "1")
-		var old_state: bool = answers[i].has(player)
+		var old_state: bool = bucket.has(player)
 		if new_state == old_state: continue
 		if new_state:
-			answers[i].push_back(player)
-			S.play_sfx("rush_on")
+			bucket.push_back(player)
+			if !is_audience:
+				S.play_sfx("rush_on")
 		else:
-			answers[i].erase(player)
-			S.play_sfx("rush_off")
+			bucket.erase(player)
+			if !is_audience:
+				S.play_sfx("rush_off")
+		if is_audience: return
 		if rush:
 			hud.set_finale_answer(player, i, new_state)
 		else:
@@ -750,6 +763,7 @@ func change_stage(next_stage):
 				ep.send_scene("rush", {
 					'title': data.title.t
 				})
+				point_value = 36000 / (6 * 6)
 				Fb.connect("remote_finale", self, "_on_remote_finale")
 			"L":
 				$BG/Noise.set_process(false)
@@ -765,6 +779,7 @@ func change_stage(next_stage):
 				ep.send_scene("like", {
 					'title': data.title.t,
 				})
+				point_value = 36000 / (4 * 5)
 				Fb.connect("remote_finale", self, "_on_remote_finale")
 		if question_type in ["N", "C", "O", "T"]:
 			question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
@@ -1092,7 +1107,8 @@ func change_stage(next_stage):
 		bgs.R.start_question()
 #		yield(S, "voice_end")
 #		S.play_voice("rush_ready")
-		yield(get_tree().create_timer(1.5), "timeout")
+		# find out how long the voice line "explanation" is. then subtract 2 seconds from it
+		yield(get_tree().create_timer(S.get_voice_length("explanation") - 2.0), "timeout")
 		last_pos = S.music_dict[S.tracks[0]].get_playback_position()
 		stage = "rush_wait"
 		get_tree().connect("idle_frame", self, "_R_wait_to_start")
@@ -1939,12 +1955,12 @@ func R_show_question():
 		hud.slide_playerbar(false)
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
+			var gain = point_value * (accuracy[i * 2] - accuracy[i * 2 + 1] / 2)
 			R.players[i].score += gain
 			R.players[i].accuracy[1] += accuracy[i * 2 + 1]
 			R.players[i].accuracy[0] += accuracy[i * 2]
 		for i in range(len(R.audience)):
-			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
+			var gain = point_value * (accuracy_audience[i * 2] - accuracy_audience[i * 2 + 1] / 2)
 			R.audience[i].score += gain
 #			R.audience[i].accuracy[1] += accuracy[i * 2 + 1]
 #			R.audience[i].accuracy[0] += accuracy[i * 2]
@@ -1980,6 +1996,7 @@ func R_show_answers():
 		'answers': solutions
 	})
 	yield(get_tree().create_timer(0.7), "timeout")
+	var audience_right: int = 0; var audience_total: int = 0
 	for i in range(6):
 		bgs.R.reveal_option(
 			i, bool(solutions[i])
@@ -1993,10 +2010,19 @@ func R_show_answers():
 			accuracy[j * 2 + 1] += 1
 		hud.show_accuracy(accuracy)
 		hud.confirm_finale_answer(i, bool(solutions[i]))
+		for j in range(len(R.audience)):
+			if answers_audience[i].has(j) == bool(solutions[i]):
+				accuracy_audience[j * 2] += 1
+				audience_right += 1
+			accuracy_audience[j * 2 + 1] += 1
+			audience_total += 1
 		yield(get_tree().create_timer(0.35), "timeout")
+	if audience_total > 0:
+		hud.show_accuracy_audience(float(100 * audience_right) / float(audience_total))
 	yield(get_tree().create_timer(0.75), "timeout")
 	bgs.R.time_up(false)
 	yield(get_tree().create_timer(0.5), "timeout")
+	hud.hide_accuracy_audience()
 	question_section_number += 1
 	R_show_question()
 
@@ -2005,14 +2031,14 @@ func L_show_question():
 		# Question end!
 		# maximum 18000 dollars for final round
 		for i in range(len(R.players)):
-			var gain = 18000 * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2)) / accuracy[i * 2 + 1]
+			var gain = point_value * (accuracy[i * 2] - (accuracy[i * 2 + 1] / 2))
 			R.players[i].score += gain
 			R.players[i].accuracy[1] += accuracy[i * 2 + 1]
 			R.players[i].accuracy[0] += accuracy[i * 2]
 		for i in range(len(R.audience)):
 			if accuracy_audience[i * 2 + 1] == 0:
 				continue # bail out before potential division by zero error on next line
-			var gain = 18000 * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2)) / accuracy_audience[i * 2 + 1]
+			var gain = point_value * (accuracy_audience[i * 2] - (accuracy_audience[i * 2 + 1] / 2))
 			R.audience[i].score += gain
 #			R.audience[i].accuracy[1] += accuracy[i * 2 + 1]
 #			R.audience[i].accuracy[0] += accuracy[i * 2]

@@ -272,13 +272,19 @@ var settings_dict = [
 ]
 var ring_speed = 1
 var focus_index = 0
-onready var temp_config = R.cfg.duplicate()
+onready var temp_config = ConfigFile.new()
 onready var vbox = $ScreenStretch/Scroll/VBoxContainer
-onready var title = $ScreenStretch/Details/Name
-onready var desc = $ScreenStretch/Details/Desc
+onready var title = $ScreenStretch/Details/V/Name
+onready var desc = $ScreenStretch/Details/V/Desc
 var setting_elements = []
 var setting_is_bool = []
 var setup_done = false
+
+func _set_temp_config(key: String, value):
+	temp_config.set_value("config", key, value)
+
+func _get_temp_config(key: String):
+	return temp_config.get_value("config", key)
 
 func _ready():
 	S.play_music("house", 1)
@@ -291,7 +297,8 @@ func _ready():
 		var s = settings_dict[i]
 		var is_a_boolean = (s.r[0] == 0 and s.r[1] == 1)
 		setting_is_bool.push_back(is_a_boolean)
-		var headline_text = settings_dict[i].t
+		var headline_text = s.t
+		_set_temp_config(s.k, R.get_settings_value(s.k))
 		if is_a_boolean:
 			element = vbox.get_node("Bool")
 			if bool_used:
@@ -299,7 +306,7 @@ func _ready():
 				vbox.add_child(element)
 			else:
 				bool_used = true
-			element.get_node("VBox/HSplit/SBox").set_pressed_no_signal(temp_config[s.k])
+			element.get_node("VBox/HSplit/SBox").set_pressed_no_signal(_get_temp_config(s.k))
 			element.connect("toggled", self, "_on_check_toggled")
 		else:
 			element = vbox.get_node("Range")
@@ -310,12 +317,12 @@ func _ready():
 				range_used = true
 			element.get_node("VBox/HBoxContainer/HSlider").min_value = s.r[0]
 			element.get_node("VBox/HBoxContainer/HSlider").max_value = s.r[1]
-			element.get_node("VBox/HBoxContainer/HSlider").value = temp_config[s.k]
+			element.get_node("VBox/HBoxContainer/HSlider").value = _get_temp_config(s.k)
 			element.connect("value_changed", self, "_on_HSlider_value_changed")
 
 		vbox.move_child(element, i + 1)
 		element.get_node("VBox/HSplit/Label").set_text(headline_text)
-		element.get_node("VBox/HSplit/value").text = s.o[int(temp_config[s.k])].t
+		element.get_node("VBox/HSplit/value").text = s.o[int(_get_temp_config(s.k))].t
 		setting_elements.push_back(element)
 #	for i in range(len(temp_config)):
 #		focus_index = i
@@ -349,6 +356,9 @@ func _ready():
 		vbox.get_child(1).get_node("VBox/HSplit/SBox").grab_focus()
 	else:
 		vbox.get_child(1).get_node("VBox/HBoxContainer/HSlider").grab_focus()
+	change_title()
+	change_desc()
+	scroll_scroller()
 	setup_done = true
 
 func _input(event):
@@ -361,11 +371,10 @@ func change_title():
 	title.text = settings_dict[focus_index].t
 
 func change_desc(backwards: bool = true):
-	print (temp_config)
 	var set = settings_dict[focus_index]
 	var setting_name = set.k
 	var options = set.o
-	var val = int(temp_config[set.k])
+	var val = int(_get_temp_config(set.k))
 	desc.bbcode_text = "[i]" + options[val].t + "[/i]"
 	if options[val].d != "":
 		desc.append_bbcode(" - " + options[val].d)
@@ -400,7 +409,7 @@ func scroll_scroller():
 
 func _on_HSlider_value_changed(value):
 	var setting_name = settings_dict[focus_index].k
-	temp_config[setting_name] = value
+	_set_temp_config(setting_name, value)
 	if typeof(value) == TYPE_REAL and setup_done:
 		var slider = vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider")
 		if is_instance_valid(slider):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -447,7 +447,7 @@ tracks/16/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 0, 0, 0, 1 ) ]
 }
 tracks/17/type = "value"
 tracks/17/path = NodePath("ScreenStretch/Cutscenes/Color:color")
@@ -460,6 +460,18 @@ tracks/17/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 0.211765, 0.360784, 0.270588, 1 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("ScreenStretch/Cutscenes/Logo:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 640, 360 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -1141,6 +1153,21 @@ tracks/1/keys = {
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0, 0, 0, 1 )
 
+[sub_resource type="Animation" id=31]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
 [sub_resource type="Animation" id=12]
 resource_name = "hide"
 length = 0.5
@@ -1152,7 +1179,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"transitions": PoolRealArray( 1, 1e+06, 1 ),
 "update": 0,
 "values": [ 1.0, 1.0, 0.0 ]
 }
@@ -1193,6 +1220,18 @@ tracks/3/keys = {
 "stream": ExtResource( 24 )
 } ],
 "times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -1382,11 +1421,10 @@ scale = Vector2( 1.5, 1.5 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 96.0
-margin_top = 284.0
-margin_right = -424.0
-margin_bottom = 220.002
-rect_scale = Vector2( 0.6, 0.6 )
+margin_left = 268.0
+margin_top = 730.0
+margin_right = -252.0
+margin_bottom = 666.002
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1487,7 +1525,7 @@ __meta__ = {
 }
 
 [node name="Circle" type="ColorRect" parent="ScreenStretch/Cutscenes"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 0, 0, 0, 1 )
 material = ExtResource( 45 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1498,10 +1536,8 @@ color = Color( 0, 0, 0, 1 )
 script = ExtResource( 41 )
 
 [node name="Logo" parent="ScreenStretch/Cutscenes" instance=ExtResource( 3 )]
-modulate = Color( 1, 1, 1, 0.4 )
-position = Vector2( 320, 160 )
-rotation = 0.174533
-scale = Vector2( 0.25, 0.25 )
+position = Vector2( 640, 360 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="TechDiff" type="ColorRect" parent="ScreenStretch/Cutscenes"]
 visible = false
@@ -1523,7 +1559,6 @@ scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 40 )
 
 [node name="Final" type="ColorRect" parent="ScreenStretch/Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -1664,13 +1699,13 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="ScreenStretch/Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0
 margin_top = 160.0
 margin_right = -108.0
 margin_bottom = -200.0
+rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( -887, -110 )
 custom_styles/panel = SubResource( 27 )
 script = ExtResource( 49 )
@@ -1679,6 +1714,7 @@ __meta__ = {
 }
 
 [node name="CreditScroller" type="ScrollContainer" parent="ScreenStretch/Cutscenes/CreditBox"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 36 )
@@ -1813,6 +1849,9 @@ __meta__ = {
 }
 
 [node name="BackButton" parent="ScreenStretch" instance=ExtResource( 38 )]
+visible = false
+margin_left = -222.0
+margin_right = -6.0
 
 [node name="PauseButton" type="Button" parent="ScreenStretch"]
 modulate = Color( 1, 1, 1, 0.156863 )
@@ -1834,6 +1873,7 @@ __meta__ = {
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1857,6 +1897,7 @@ stretch_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Pause"]
 reset_on_save = false
+anims/RESET = SubResource( 31 )
 anims/hide = SubResource( 12 )
 anims/show = SubResource( 13 )
 
@@ -1872,7 +1913,8 @@ margin_left = -360.0
 margin_top = -216.0
 margin_right = 408.0
 margin_bottom = 200.0
-rect_rotation = 5.0
+rect_rotation = -10.0
+rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 384, 208 )
 texture = ExtResource( 21 )
 patch_margin_left = 128

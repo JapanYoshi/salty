@@ -22,6 +22,7 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "n015",
     // Episode Pack 1
     "n040",
+    //"n041", waiting for Daisy line
     "n042",
     "n043",
     "n044",
@@ -31,8 +32,10 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "n048",
     "n049",
     "n050",
+    //"n051", waiting for Daisy line
     "n052",
     "n053",
+    //"n054", waiting for Daisy line
     "n055",
     "n056",
     "n057",
@@ -45,6 +48,7 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "s006",
     "s007",
     "s008",
+    //"s009", waiting for Daisy line, record hushed intro and skip
   ],
   "c": [ // Candy Trivia
     // Demo Version
@@ -60,6 +64,11 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "c012",
     "c013",
     "c014",
+  ],
+  "o": [ // Rage Against the Times
+    // Episode Pack 1
+    //"o002", record my lines and edit
+    //"o003", record my lines and edit
   ],
   "g": [ // All Outta Salt
     // Demo version
@@ -78,6 +87,9 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     // Demo version
     "t001",
     // Episode Pack 1
+    // we need some new ones
+    //"t004",
+    //"t005",
   ],
   "l": [ // Like It or Leave It
     // Demo version
@@ -85,10 +97,14 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     // Episode Pack 1
     "l002",
     "l003",
+    //"l004",
   ],
   "r": [ // Sugar Rush
     // Demo version
     "r001",
     // Episode Pack 1
-  ]
+    // we need some new ones
+    //"r004",
+    //"r005",
+  ],
 }

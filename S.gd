@@ -390,6 +390,12 @@ func get_voice_time() -> float:
 	print("Last_voice is ", last_voice, " whose progress is ", voice_list[last_voice].player.get_playback_position())
 	return voice_list[last_voice].player.get_playback_position()
 
+## literally just used once which is Rush intro
+func get_voice_length(voice_id) -> float:
+	if !voice_list.has(voice_id):
+		return 0.0
+	return voice_list[voice_id].player.stream.get_length()
+
 func _on_voice_end(voice_id):
 	_log("Naturally finished playing voice ", voice_id, 9999)
 	if is_instance_valid(sub_node):

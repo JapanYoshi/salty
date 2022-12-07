@@ -419,17 +419,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="ScreenStretch/Details"]
+[node name="V" type="VBoxContainer" parent="ScreenStretch/Details"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 376.0
-margin_bottom = 64.0
+margin_right = -8.0
+margin_bottom = -8.0
 
-[node name="Desc" type="RichTextLabel" parent="ScreenStretch/Details"]
-margin_left = 8.0
-margin_top = 56.0
-margin_right = 376.0
-margin_bottom = 328.0
+[node name="Name" type="Label" parent="ScreenStretch/Details/V"]
+margin_right = 368.0
+margin_bottom = 44.0
+autowrap = true
+
+[node name="Desc" type="RichTextLabel" parent="ScreenStretch/Details/V"]
+margin_top = 48.0
+margin_right = 368.0
+margin_bottom = 76.0
 theme = ExtResource( 17 )
 bbcode_enabled = true
 fit_content_height = true

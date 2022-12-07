@@ -256,10 +256,36 @@ func _update_loading_progress(partial, load_count):
 
 # Called when the HTTP request is completed.
 func _http_request_completed(result, response_code, headers, body, q):
-	prints("MenuRoot._http_request_completed(", result, response_code, headers, body, ")")
+	prints("MenuRoot._http_request_completed(", result, response_code, ")")
 	http_request.disconnect("request_completed", self, "_http_request_completed")
 	if result != HTTPRequest.RESULT_SUCCESS:
-		R.crash("The HTTP request for question ID %s did not succeed. Error code: %d\nThis is probably due to a bad Internet connection." % [q, result])
+		var error_message = "The HTTP request for question ID %s did not succeed. Error code: %d — " % [q, result]
+		match result:
+			HTTPRequest.RESULT_CHUNKED_BODY_SIZE_MISMATCH:
+				error_message += "Chunked body size mismatch."
+			HTTPRequest.RESULT_CANT_CONNECT:
+				error_message += "Request failed while connecting."
+			HTTPRequest.RESULT_CANT_RESOLVE:
+				error_message += "Request failed while resolving."
+			HTTPRequest.RESULT_CONNECTION_ERROR:
+				error_message += "Request failed due to connection (read/write) error."
+			HTTPRequest.RESULT_SSL_HANDSHAKE_ERROR:
+				error_message += "Request failed on SSL handshake."
+			HTTPRequest.RESULT_NO_RESPONSE:
+				error_message += "No response."
+			HTTPRequest.RESULT_BODY_SIZE_LIMIT_EXCEEDED:
+				error_message += "Request exceeded its maximum body size limit."
+			HTTPRequest.RESULT_REQUEST_FAILED:
+				error_message += "Request failed."
+			HTTPRequest.RESULT_DOWNLOAD_FILE_CANT_OPEN:
+				error_message += "HTTPRequest couldn't open the download file."
+			HTTPRequest.RESULT_DOWNLOAD_FILE_WRITE_ERROR:
+				error_message += "HTTPRequest couldn't write to the download file."
+			HTTPRequest.RESULT_REDIRECT_LIMIT_REACHED:
+				error_message += "Request reached its maximum redirect limit."
+			HTTPRequest.RESULT_TIMEOUT:
+				error_message += "Request timed out."
+		R.crash(error_message)
 		return
 	elif response_code >= 400:
 		R.crash("Tried to load question ID %s, but the Web request did not succeed. The HTTP response code was %d." % [q, response_code])

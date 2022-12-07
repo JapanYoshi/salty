@@ -364,6 +364,10 @@ func slot2player(slot) -> int:
 			if players[i].device_index == slot:
 				slot_dict[slot] = i
 				return i
+		for i in len(audience):
+			if audience[i].device_index == slot:
+				slot_dict[slot] = i + get_settings_value("room_size") + 1
+				return slot_dict[slot]
 		slot_dict[slot] = -1
 		return -1
 
@@ -391,11 +395,13 @@ func audience_join(data):
 	if get_settings_value("audience"):
 		# accept
 		if not(data.name in audience_keys):
+			var device_number = C.add_controller(C.DEVICES.REMOTE, data.name)
 			var player = {
 				name = ("AUDIENCE %d" % (len(audience_keys) + 1)) if data.nick == "" else data.nick,
 				score = 0,
 				device_name = data.name,
-				player_number = get_settings_value("room_size") + len(audience),
+				device_index = device_number,
+				player_number = get_settings_value("room_size") + 1 + len(audience),
 			}
 			Fb.add_remote_audience(player.device_name, player.name, len(audience))
 			audience.push_back(player)

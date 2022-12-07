@@ -139,7 +139,7 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       },
       {
         "v": "intro_32",
-        "s": "[i][fake British accent][/i] Good afternoon and welcome to Salty Trivia, the game show that simply everyone.[#4743#]]Let’s meet our contestants."
+        "s": "[i][fake British accent][/i] Good afternoon and welcome to Salty Trivia, the game show that simply everyone.[#4743#]Let’s meet our contestants."
       },
       {
         "v": "intro_33",

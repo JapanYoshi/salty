@@ -79,6 +79,7 @@ func _init_firebase():
 		db_user = result as FirebaseUser
 		db_ready = true
 		last_update_ref = db.get_reference_lite("lastUpdate")
+		update_room_list()
 	just_finished = "_init_firebase"; emit_signal("finished")
 
 func check_if_connected(call_node: Node, call_function: String):
@@ -173,8 +174,27 @@ func update_room_list():
 			if kv[k]:
 				room_codes.push_back(k)
 	print("Room list fetched. ", room_codes)
+	if len(room_codes) > 16:
+		remove_unused_rooms()
 	just_finished = "update_room_list"; emit_signal("finished")
 	return result
+
+func remove_unused_rooms():
+	var now = Time.get_unix_time_from_system()
+	for r in room_codes:
+		var ref: FirebaseReference = db.get_reference_lite("rooms/%s" % r)
+		var result = yield(ref.fetch(), "completed")
+		if result is FirebaseError: continue
+		var kv = result.value()
+		if typeof(kv) != TYPE_DICTIONARY: continue
+		if kv.lastUpdate + 5 * 60 < now:
+			# unused room.
+			print("%s is unused for at least 5 minutes. Deleting." % r)
+			yield(ref.remove(), "completed")
+			var rc_ref: FirebaseReference = db.get_reference_lite("roomCodes/%s" % r)
+			yield(rc_ref.remove(), "completed")
+		else:
+			print("%s is possibly still in use." % r)
 
 # Checks if a room is free. DOES NOT check the Realtime Database!
 # Set the variable `room_code` beforehand
@@ -233,6 +253,8 @@ func establish_room() -> bool:
 	ref = db.get_reference_lite("rooms/" + room_code)
 	var room = default_room.duplicate(true)
 	room.lastUpdate = Time.get_unix_time_from_system()
+	room.maxPlayers = R.get_settings_value("room_size") + 1
+	room.playerCount = len(R.players)
 	result = yield(ref.update(room), "completed")
 	if result is FirebaseError:
 		printerr("Could not establish rooms/" + room_code + ". Aborted.")
@@ -457,18 +479,26 @@ func update_lifesaver(uuid, has_lifesaver: bool = false):
 		lifesaver = has_lifesaver
 	})
 
-func send_to_player(uuid, data):
-	if !(uuid in players_list):
+func send_to_player(uuid, data, audience: bool = false):
+	if (
+		audience and not(uuid in audience_list)
+	) or (
+		!audience and not(uuid in players_list)
+	):
 		return
 	var this_guy_in_particular = db.get_reference_lite(
-		"rooms/" + room_code + "/players/" + uuid
+		"rooms/" + room_code + (
+			"/audience/" if audience else "/players/"
+		) + uuid
 	)
 	data.time = Time.get_ticks_usec()
 	var result = yield(this_guy_in_particular.update({
 		messages = data
 	}), "completed")
 	if result is FirebaseError:
-		printerr("Could not send message to Player " + uuid + ".")
+		printerr("Could not send message to " + (
+			"Audience member" if audience else "Player"
+		) + " " + uuid + ".")
 		just_finished = "send_to_player"; emit_signal("finished")
 		return false
 	just_finished = "send_to_player"; emit_signal("finished")
@@ -517,14 +547,17 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 			old_value[p] = {}
 		if new_value[p] is Dictionary:
 			for k in new_value[p].keys():
-				if !old_value[p].has(k):
-					print(p, " ", k, " (nothing) -> ", new_value[p][k])
-					#old_value[p][k] = new_value[p][k] # not necessary
-				elif old_value[p][k] != new_value[p][k]:
-					# messages
-					print(p, " ", k, " ", old_value[p][k], " -> ", new_value[p][k])
-				else:
-					continue # no change
+				if (old_value[p].has(k) and old_value[p][k] == new_value[p][k]):
+					continue
+#				if !old_value[p].has(k):
+##					print(p, " ", k, " (nothing) -> ", new_value[p][k])
+#					pass
+#					#old_value[p][k] = new_value[p][k] # not necessary
+#				elif old_value[p][k] != new_value[p][k]:
+#					# messages
+#					print(p, " ", k, " ", old_value[p][k], " -> ", new_value[p][k])
+#				else:
+#					continue # no change
 				# input
 				# inputText
 				match k:
@@ -593,3 +626,12 @@ func _all_audience_ref_changed(snapshot: FirebaseDataSnapshot):
 func scene(scene_history):
 	if connected_to_room:
 		scene_ref.put(scene_history)
+
+
+func close_room():
+	join_request_ref.disconnect("child_added", self, "_new_player_entry")
+	join_request_ref.disconnect("child_changed", self, "_player_rejoin")
+	var ref = db.get_reference_lite("roomCodes/" + room_code)
+	var result = yield(ref.remove(), "completed")
+	room_code = ""
+	connected_to_room = false

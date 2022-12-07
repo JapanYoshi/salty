@@ -52,11 +52,15 @@ func _ready():
 #		load_next_question()
 #		return
 	c_box.get_node("Round2").scale = Vector2(0, 1)
+	$ScreenStretch/PauseButton.hide()
 	for i in range(len(R.players)):
 		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
 			$ScreenStretch/PauseButton.show()
 			break
 	call_deferred("play_intro")
+
+func _exit_tree():
+	Fb.close_room()
 
 func enable_skip():
 	C.connect("gp_button", self, "_gp_button")
@@ -709,8 +713,9 @@ func shutter():
 	get_tree().change_scene("res://Title.tscn")
 
 func play_outro():
-	$Pause.set_process(false) 
-	$PauseButton.hide()
+	$Pause.set_process(false)
+	$Pause.ending = true
+	$ScreenStretch/PauseButton.hide()
 	revert_scene("")
 	send_scene("gameEnd")
 	c_box.show()

@@ -1,10 +1,11 @@
 extends ColorRect
 
-var frame = 0
-var delta_cumul = 0.0
-var paused_times = 0
-var device = -1
+var frame: int = 0
+var delta_cumul: float = 0.0
+var paused_times: int = 0
+var device: int = -1
 const framerate = 30.0
+var ending: bool = false
 
 var ep: Control
 onready var bg = $Bg
@@ -33,7 +34,7 @@ func _on_size_changed():
 func _process(delta):
 	if !visible: return
 	_move_randomly(delta)
-#	_update_shader(delta)
+
 
 func _move_randomly(delta):
 	delta_cumul += delta * framerate
@@ -42,17 +43,6 @@ func _move_randomly(delta):
 		frame += 1
 		bg.rect_position = -256 * Vector2(fmod(frame * 355 / 113.0, 1.0), fmod(frame * 127 / 360.0, 1))
 
-func _update_shader(delta):
-	delta_cumul += delta * framerate
-	if delta_cumul >= 1.0:
-		delta_cumul -= 1.0
-		frame += 1
-		bg.material.set_shader_param(
-			"p_time", fmod(frame * 92.4, 1.0)
-		)
-		bg.material.set_shader_param(
-			"offset", Vector2(fmod(frame * 355 / 113.0, 1.0), fmod(frame * 127 / 360.0, 1))
-		)
 
 func pause_modal(player_number, device_index):
 	if ep.penalize_pausing:
@@ -104,6 +94,7 @@ func quit():
 	get_tree().paused = false
 
 func _gp_button(index, button, pressed):
+	if ending: return;
 	# dont accept during an animation
 	if anim.get_playing_speed(): return
 	# pause button?
@@ -122,7 +113,6 @@ func _gp_button(index, button, pressed):
 
 func _gp_button_paused(index, button, pressed):
 	# other buttons?
-	if !self.visible: return
 	if index != device: return
 	if button == 5 or button == 6:
 		accept_event()

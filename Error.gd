@@ -1,5 +1,8 @@
 extends ColorRect
 
+func _ready():
+	$ScreenStretch/ColorRect/VBoxContainer/Button.grab_focus()
+
 func set_reason(text):
 	$ScreenStretch/ColorRect/VBoxContainer/Reason.set_text(text)
 
