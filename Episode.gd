@@ -54,7 +54,7 @@ func _ready():
 	c_box.get_node("Round2").scale = Vector2(0, 1)
 	for i in range(len(R.players)):
 		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
-			$PauseButton.show()
+			$ScreenStretch/PauseButton.show()
 			break
 	call_deferred("play_intro")
 
