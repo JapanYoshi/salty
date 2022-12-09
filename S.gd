@@ -18,6 +18,8 @@ const voice_path = "res://audio/voice/"
 const questions_path = "res://q/"
 const episode_path = "res://ep/"
 
+var bgm_bus = null
+
 const max_music_db = -3;
 
 var sub_node: Node
@@ -32,7 +34,7 @@ var last_voice = ""
 func _ready():
 	for t in tweens:
 		add_child(t)
-
+	
 	var f = File.new()
 	var r = f.open(sfx_path + "_.json", File.READ)
 	if r != OK:
@@ -60,6 +62,11 @@ func _ready():
 #		"signup_extra2", false
 #	)
 	### End testing
+	while bgm_bus == null:
+		bgm_bus = AudioServer.get_bus_index("BGM")
+		yield(get_tree(), "idle_frame")
+	set_music_volume(  R.get_settings_value("music_volume"  ) / 15.0)
+	set_overall_volume(R.get_settings_value("overall_volume") / 15.0)
 
 func preload_music(name):
 	if music_dict.has(name): return
@@ -403,8 +410,6 @@ func _on_voice_end(voice_id):
 #	if voice_id == last_voice:
 	last_voice = ""
 	emit_signal("voice_end", voice_id)
-
-onready var bgm_bus: int = AudioServer.get_bus_index("BGM")
 
 func set_music_volume(percentage: float):
 	AudioServer.set_bus_volume_db(bgm_bus, linear2db(percentage * percentage))
