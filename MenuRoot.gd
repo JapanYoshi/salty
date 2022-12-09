@@ -17,6 +17,7 @@ func _ready():
 	print("MenuRoot readying...")
 	S.play_multitrack("signup_base", 1, "signup_extra", 0, "signup_extra2", 0)
 	click_mask.hide()
+	R.pass_between.clear()
 	print("MenuRoot readied.")
 	pass # Replace with function body.
 
@@ -75,9 +76,9 @@ const RAND_PREFIX = "RNG_"
 var load_order = []
 
 func load_episode(ep):
-	var LOG_FILE = File.new()
-	LOG_FILE.open("user://LOG.txt", File.WRITE)
-	LOG_FILE.close()
+#	var LOG_FILE = File.new()
+#	LOG_FILE.open("user://LOG.txt", File.WRITE)
+#	LOG_FILE.close()
 	cancel_loading = false
 	# Get question list.
 	R.pass_between.episode_data = Loader.episodes[ep].duplicate(true)
@@ -96,6 +97,7 @@ func load_episode(ep):
 	var question_types = {
 		"n": 0, "s": 0, "c": 0, "t": 0, "g": 0, "o": 0, "l": 0, "r": 0
 	}
+	R.rng.randomize()
 	# If the last question ID is blank or begins with "RNG_",
 	# choose 1 random question that is either Like/Leave ("l") or Sugar Rush ("r").
 	if q_id[QUESTION_COUNT-1] == "" or\
@@ -305,8 +307,8 @@ func _load_question(q):
 		# check this file
 		# if !file.file_exists("res://q/%s/title.wav.import" % q):
 		# 	R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
-		# if !file.file_exists("res://q/%s/_question.gdcfg" % q):
-		# 	R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
+		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+			R.crash("Loaded resource pack for question ID %s, but it seems to be incomplete." % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
 		# else:
 		# 	file.open("res://q/%s/_question.gdcfg" % q, File.READ)
 		# 	file.close()
