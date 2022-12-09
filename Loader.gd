@@ -13,7 +13,8 @@ var episodes = {}
 const question_path = "res://q/"
 var random_questions = {}
 
-const q_cache_path = "user://q/"
+# ProjectSettings.globalize_path forbids this from being a const
+var q_cache_path = ProjectSettings.globalize_path("user://")
 var cached = {}
 
 var random_dict = {}
@@ -39,9 +40,9 @@ func _ready():
 	load_random_voice_lines()
 	load_random_questions()
 	load_episodes_list()
-	var dir: Directory = Directory.new()
-	if !(dir.dir_exists(q_cache_path)):
-		dir.make_dir_recursive(q_cache_path)
+	# var dir: Directory = Directory.new()
+	# if !(dir.dir_exists(q_cache_path)):
+	# 	dir.make_dir_recursive(q_cache_path)
 	### Testing
 #	load_question("n001")
 	### End testing
@@ -52,7 +53,10 @@ func is_question_cached(id):
 	var file: File = File.new()
 	if !file.file_exists(q_cache_path + "%s.pck" % id):
 		return false
-	file.open(q_cache_path + "%s.pck" % id, File.READ)
+	var error: int = file.open(q_cache_path + "%s.pck" % id, File.READ)
+	if error:
+		printerr("Loading ", q_cache_path, "%s.pck" % id, " resulted in error %d." % error)
+		return false
 	for i in range(4):
 		if file.get_8() != MAGIC_NUMBER[i]:
 			# Corrupted file.
@@ -81,8 +85,7 @@ func clear_question_cache():
 
 func load_cached_question(id):
 	return ProjectSettings.load_resource_pack(
-		ProjectSettings.globalize_path(q_cache_path + "%s.pck" % id),
-		true
+		q_cache_path + "%s.pck" % id
 	)
 
 
@@ -198,13 +201,19 @@ const random_voice_line_keys = [
 ];
 
 func load_question(id, first_question: bool, q_box: Node):
-	var failed = []
+	var failed_count: int = 5
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
 	var err = ERR_FILE_NOT_FOUND
 	var path = question_path + id + "/_question.gdcfg"
 	print("Trying to load the following file... " + path)
-	err = file.load(path)
+	while failed_count:
+		err = file.load(path)
+		if !err:
+			break
+		failed_count -= 1
+		printerr("Load failed: ", err)
+		yield(get_tree().create_timer(0.2), "timeout")
 	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data `_question.gdcfg` for ID '" + id + "' is missing.")
 		return
@@ -216,9 +225,15 @@ func load_question(id, first_question: bool, q_box: Node):
 		textfile.close()
 		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
 		return
-	else:
-#		print("OK")
-		pass
+	elif err != OK:
+		R.crash("Loading question data `_question.gdcfg` for ID '" + id + "' resulted in error code %d." % err)
+		return
+	if len(file.get_sections()) == 0:
+		var textfile = File.new()
+		textfile.open(path, File.READ)
+		R.crash("Question data for ID '" + id + "' turned out empty. Text content:\n" + textfile.get_as_text())
+		textfile.close()
+		return
 	var data = {}
 	for section in file.get_sections():
 		if section == "root":
@@ -330,6 +345,7 @@ func load_question(id, first_question: bool, q_box: Node):
 		_:
 			printerr("Question type can't be parsed yet: " + data.type)
 			R.crash("Question data for ID " + id + " has an invalid or unsupported question type code `" + data.type + "`.")
+	var failed: Array = []
 	for key in keys:
 		# Sorta Kinda option voice lines.
 		if key == "sort_options":
