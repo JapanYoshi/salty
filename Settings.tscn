@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://flicker.gd" type="Script" id=1]
 [ext_resource path="res://radial.tres" type="Shader" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://RingsContainer.gd" type="Script" id=25]
 [ext_resource path="res://ButtonPromptHover.stylebox" type="StyleBox" id=26]
 [ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=27]
+[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=28]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -483,18 +484,47 @@ custom_styles/disabled = ExtResource( 16 )
 custom_styles/normal = ExtResource( 16 )
 text = "Space/㍙"
 
+[node name="ButtonAsset" type="Button" parent="ScreenStretch"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 221.0
+margin_top = -67.0
+margin_right = 419.0
+margin_bottom = -16.0
+grow_vertical = 0
+theme = ExtResource( 21 )
+text = "Clear asset cache"
+
 [node name="Button" type="Button" parent="ScreenStretch"]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
-margin_top = -36.0
-margin_right = 161.0
+margin_top = -67.0
+margin_right = 214.0
 margin_bottom = -16.0
 grow_vertical = 0
 theme = ExtResource( 21 )
 text = "Clear question cache"
 
+[node name="AssetDeleted" type="ColorRect" parent="ScreenStretch"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 98, 400 )
+color = Color( 0.102386, 0.214844, 0.170037, 0.752941 )
+
+[node name="Label" type="Label" parent="ScreenStretch/AssetDeleted"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 28 )
+text = "Asset file cache has been deleted.
+Please reload the page to download it again!"
+align = 1
+valign = 1
+
 [connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_BackButton_back_pressed"]
 [connection signal="back_pressed" from="ScreenStretch/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="ScreenStretch/SaveButton/Panel" to="ScreenStretch/SaveButton" method="_on_Panel_pressed"]
+[connection signal="pressed" from="ScreenStretch/ButtonAsset" to="." method="clear_asset_cache"]
 [connection signal="pressed" from="ScreenStretch/Button" to="." method="clear_question_cache"]

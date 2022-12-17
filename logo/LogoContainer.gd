@@ -9,27 +9,32 @@ func _ready():
 	print("SplashScreen ready")
 	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
-	if R.html and !Loader.are_assets_cached():
-		$Label.show()
-		update_download_progress(-1, -1)
-		Loader.download_assets(self, "update_download_progress")
+	if R.html:
+		if !Loader.are_assets_cached():
+			$Label.show()
+			update_download_progress(-1)
+			print("LogoContainer._ready(): Asking Loader to download assets from the Internet.")
+			Loader.download_assets(self, "update_download_progress")
+			yield(Loader, "loaded")
+		print("LogoContainer._ready(): Asking Loader to load assets.")
+		Loader.load_assets()
 		yield(Loader, "loaded")
-	Loader.load_assets()
-	yield(Loader, "loaded")
+	print("LogoContainer._ready(): Asking S to preload sounds.")
 	S.preload_sounds()
 	_assets_loaded()
+	return
 
 
-func update_download_progress(bytes_downloaded: int, bytes_total: int):
+func update_download_progress(bytes_downloaded: int):
+	print("LogoContainer.update_download_progress(", bytes_downloaded, ")")
 	if bytes_downloaded == -1:
 		$Label.text = "Downloading resource files.\nContacting server..."
-	elif bytes_downloaded == bytes_total:
-		$Label.text = "Resource files have been downloaded."
 	else:
-		$Label.text = "Downloading resource files.\n%d of %d bytes (%4.1f) downloaded" % [bytes_downloaded, bytes_total, 100.0 * float(bytes_downloaded) / float(bytes_total)]
+		$Label.text = "Downloading resource files.\n%4f MB downloaded" % (float(bytes_downloaded) / 1048576)
 
 
 func _assets_loaded():
+	print("LogoContainer._assets_loaded()")
 	$Label.hide()
 	anim.play("rating_fadein")
 
@@ -68,7 +73,7 @@ func skip():
 			_on_AnimationPlayer_animation_finished(anim_name)
 
 func _input(event):
-	if "pressed" in event and event.pressed:
+	if ready_to_play_intro and "pressed" in event and event.pressed:
 		if Input.is_action_pressed("ui_accept"):
 			skip()
 		elif event is InputEventMouseButton:

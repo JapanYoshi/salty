@@ -287,6 +287,8 @@ func _get_temp_config(key: String):
 	return temp_config.get_value("config", key)
 
 func _ready():
+	if R.html:
+		$ButtonAsset.show()
 	S.play_music("house", 1)
 	# Set up the options. Finally automate this sucker.
 	var range_used: bool = false
@@ -464,3 +466,9 @@ func _on_option_mouse_entered(extra_arg_0):
 func clear_question_cache():
 	Loader.clear_question_cache()
 	S.play_sfx("rush_yes")
+
+func clear_asset_cache():
+	S.play_music("", 0.0)
+	Loader.clear_asset_cache()
+	$AssetDeleted.show()
+	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

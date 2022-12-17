@@ -85,8 +85,8 @@ func remove_from_question_cache(id):
 
 
 func clear_question_cache():
+	var dir = Directory.new()
 	for id in cached:
-		var dir = Directory.new()
 		dir.remove(q_cache_path + "%s.pck" % id)
 
 
@@ -104,11 +104,15 @@ func are_assets_cached():
 	var error: int = file.open(asset_cache_path + asset_cache_filename, File.READ)
 	if error:
 		printerr("Loading ", asset_cache_path + asset_cache_filename, " resulted in error %d." % error)
+		var dir = Directory.new()
+		dir.remove(asset_cache_path + asset_cache_filename)
 		return false
 	for i in range(4):
 		if file.get_8() != MAGIC_NUMBER[i]:
 			# Corrupted file.
 			print("Loader: Asset cache is saved, but invalid.")
+			var dir = Directory.new()
+			dir.remove(asset_cache_path + asset_cache_filename)
 			return false
 	file.close()
 	return true
@@ -127,10 +131,11 @@ func download_assets(callback_node: Node, callback_function_name: String):
 	if error != OK:
 		push_error("Loader.download_assets(): An error occurred while making the HTTP request: %d." % error)
 		return
-	print("Loader.download_assets(): Successfully sent HTTP request.\n", http_request.get_downloaded_bytes(), "/", http_request.get_body_size());
-	while http_request.get_downloaded_bytes() < http_request.get_body_size():
-		callback_node.call(callback_function_name, http_request.get_downloaded_bytes(), http_request.get_body_size())
-		yield(get_tree().create_timer(1.0), "timeout")
+	print("Loader.download_assets(): Successfully sent HTTP request. ", http_request.get_downloaded_bytes(), "/", http_request.get_body_size());
+	while http_request.get_downloaded_bytes() != http_request.get_body_size():
+		if is_instance_valid(callback_node):
+			callback_node.call(callback_function_name, http_request.get_downloaded_bytes(), http_request.get_body_size())
+			yield(get_tree().create_timer(1.0), "timeout")
 
 
 func _download_assets_request_completed(result, response_code, headers, body):
@@ -173,7 +178,9 @@ func _download_assets_request_completed(result, response_code, headers, body):
 
 func load_assets():
 	ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
+	yield(get_tree().create_timer(0.05), "timeout")
 	emit_signal("loaded")
+	return
 
 
 func remove_jsonc_comments(text: String) -> String:

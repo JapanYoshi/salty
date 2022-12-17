@@ -37,6 +37,7 @@ func _ready():
 
 
 func preload_sounds():
+	print("S.preload_sounds()")
 	var f = File.new()
 	var r = f.open(sfx_path + "_.json", File.READ)
 	if r != OK:
@@ -44,6 +45,7 @@ func preload_sounds():
 	sfx_list = JSON.parse(f.get_as_text()).result
 	for k in sfx_list.keys():
 		preload_sfx(k)
+	print("S.preload_sounds(): Preloaded SFX.")
 	for k in [
 		"answer_now", "answer_now_2", "answer_now_3", "answer_now_4", "answer_now_5",
 		"hiphop", "house",
@@ -53,6 +55,7 @@ func preload_sounds():
 		"signup_base", "signup_extra", "signup_extra2",
 	]:
 		preload_music(k)
+	print("S.preload_sounds(): Preloaded music.")
 	### Testing
 #	preload_music("signup_base")
 #	preload_music("signup_extra")
@@ -68,6 +71,7 @@ func preload_sounds():
 		yield(get_tree(), "idle_frame")
 	set_music_volume(  R.get_settings_value("music_volume"  ) / 15.0)
 	set_overall_volume(R.get_settings_value("overall_volume") / 15.0)
+	print("S.preload_sounds(): Set volume.")
 
 func preload_music(name):
 	if music_dict.has(name): return
