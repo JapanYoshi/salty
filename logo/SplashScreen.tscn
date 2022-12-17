@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://logo/LogoContainer.gd" type="Script" id=1]
 [ext_resource path="res://logo/hand0.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://logo/godot.png" type="Texture" id=7]
 [ext_resource path="res://logo/godot.ogg" type="AudioStream" id=8]
 [ext_resource path="res://logo/rating.png" type="Texture" id=9]
+[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=10]
 
 [sub_resource type="Animation" id=4]
 resource_name = "RESET"
@@ -47,7 +48,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("../CoverRect:color")
@@ -425,6 +426,22 @@ tracks/14/keys = {
 "values": [ Color( 0.227451, 0.168627, 0.247059, 1 ), Color( 0.227451, 0.168627, 0.247059, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "rating_fadein"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Rating:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="SplashScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -435,14 +452,12 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Rating" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LogoContainer" type="Control" parent="."]
 anchor_left = 0.5
@@ -522,11 +537,21 @@ anims/RESET = SubResource( 4 )
 anims/fadeout = SubResource( 3 )
 anims/godot = SubResource( 2 )
 anims/haitouch = SubResource( 1 )
+anims/rating_fadein = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LogoContainer"]
 stream = ExtResource( 8 )
 volume_db = -3.0
 bus = "BGM"
+
+[node name="Label" type="Label" parent="LogoContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 10 )
+text = "Loading resource files..."
+align = 1
+valign = 1
 
 [node name="CoverRect" type="ColorRect" parent="."]
 anchor_right = 1.0

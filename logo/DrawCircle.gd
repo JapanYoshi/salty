@@ -1,6 +1,6 @@
 extends Control
 const radius: float = 540.0
-var radius_scale: float = 0.0
+export var radius_scale: float = 0.0
 var color: Color = Color("#56405c")
 var maxerror = 0.25
 var last_radius_scale: float = 0.0
