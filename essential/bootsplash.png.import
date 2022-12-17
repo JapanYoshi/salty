@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bootsplash.png-95691ac509a356a824f97cb2a87bccfc.stex"
+path="res://.import/bootsplash.png-062fd8b579fd5fcaf2f379e8f36a3ef7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/bootsplash.png"
-dest_files=[ "res://.import/bootsplash.png-95691ac509a356a824f97cb2a87bccfc.stex" ]
+source_file="res://essential/bootsplash.png"
+dest_files=[ "res://.import/bootsplash.png-062fd8b579fd5fcaf2f379e8f36a3ef7.stex" ]
 
 [params]
 

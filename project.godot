@@ -82,18 +82,22 @@ _global_script_class_icons={
 
 config/name="Salty"
 run/main_scene="res://logo/SplashScreen.tscn"
-boot_splash/image="res://images/bootsplash.png"
+boot_splash/image="res://essential/bootsplash.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://essential/icon.png"
+
+[audio]
+
+default_bus_layout="res://essential/default_bus_layout.tres"
 
 [autoload]
 
-R="*res://R.gd"
-C="*res://C.gd"
-S="*res://S.gd"
-Loader="*res://Loader.gd"
+R="*res://essential/R.gd"
+C="*res://essential/C.gd"
+S="*res://essential/S.gd"
+Loader="*res://essential/Loader.gd"
 firebase="*res://firebase_app_lite/firebase.gd"
-Fb="*res://FirebaseManager.tscn"
+Fb="*res://essential/FirebaseManager.tscn"
 
 [display]
 
@@ -238,4 +242,4 @@ vram_compression/import_etc2=false
 quality/shadows/filter_mode=0
 quality/filters/anisotropic_filter_level=2
 quality/depth/hdr=false
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://essential/default_env.tres"

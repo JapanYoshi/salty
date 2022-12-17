@@ -6,6 +6,7 @@ signal change_audience_count(audience_count)
 # var a = 2
 # var b = "text"
 onready var rng = RandomNumberGenerator.new()
+var html: bool = false
 var pass_between = {}
 var players = []
 var audience = []
@@ -26,7 +27,7 @@ const DEFAULT_CFG = {
 	audience = true,
 	subtitles = true,
 	overall_volume = 15,
-	music_volume = 15,
+	music_volume = 10,
 	cutscenes = true,
 	hide_room_code = false,
 	hide_room_code_ingame = false,
@@ -52,6 +53,14 @@ const DEFAULT_SAVE = {
 			"locked": false,
 		},
 		ep_001 = {
+			"last_played": 0,
+			"high_score": -1,
+			"high_score_time": 0,
+			"best_accuracy": -1,
+			"best_accuracy_time": 0,
+			"locked": false,
+		},
+		test = {
 			"last_played": 0,
 			"high_score": -1,
 			"high_score_time": 0,
@@ -88,6 +97,8 @@ func _ready():
 	load_save_data()
 	_set_visual_quality(get_settings_value("graphics_quality"))
 	pause_mode = Node.PAUSE_MODE_PROCESS
+	if OS.has_feature("HTML5"):
+		html = true
 
 ### Windowed/fullscreen
 func _input(event):
@@ -334,7 +345,7 @@ func crash(reason):
 	S.play_music("", 0)
 	audience_keys = []
 	
-	get_tree().change_scene('res://Error.tscn')
+	get_tree().change_scene('res://essential/Error.tscn')
 	call_deferred(
 		"_deferred_crash", reason
 	)

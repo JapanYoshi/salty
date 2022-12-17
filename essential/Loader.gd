@@ -17,6 +17,12 @@ var random_questions = {}
 var q_cache_path = ProjectSettings.globalize_path("user://")
 var cached = {}
 
+var asset_cache_path = ProjectSettings.globalize_path("user://")
+var asset_cache_url = "https://haitouch-9320f.web.app/salty/"
+var asset_cache_filename = "_assets.pck"
+onready var http_request = HTTPRequest.new()
+
+
 var random_dict = {}
 
 var rng = RandomNumberGenerator.new()
@@ -35,6 +41,7 @@ var special_guest_ids = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_child(http_request)
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
 	load_random_voice_lines()
@@ -87,6 +94,86 @@ func load_cached_question(id):
 	return ProjectSettings.load_resource_pack(
 		q_cache_path + "%s.pck" % id
 	)
+
+
+func are_assets_cached():
+	var file: File = File.new()
+	if !file.file_exists(asset_cache_path + asset_cache_filename):
+		print("Loader: Asset cache is not saved.")
+		return false
+	var error: int = file.open(asset_cache_path + asset_cache_filename, File.READ)
+	if error:
+		printerr("Loading ", asset_cache_path + asset_cache_filename, " resulted in error %d." % error)
+		return false
+	for i in range(4):
+		if file.get_8() != MAGIC_NUMBER[i]:
+			# Corrupted file.
+			print("Loader: Asset cache is saved, but invalid.")
+			return false
+	file.close()
+	return true
+
+
+func download_assets(callback_node: Node, callback_function_name: String):
+	var url = asset_cache_url + asset_cache_filename
+	print("Loader.download_assets(): Getting ready to contact this url: ", asset_cache_url + asset_cache_filename)
+	# Create an HTTP request node and connect its completion signal.
+	http_request.set_download_file(asset_cache_path + asset_cache_filename)
+	http_request.download_chunk_size = 262144
+	http_request.connect("request_completed", self, "_download_assets_request_completed")
+	# Perform the HTTP request.
+	print("Loader.download_assets(): About to send the request to download the file as: ", asset_cache_path + asset_cache_filename)
+	var error = http_request.request(url)
+	if error != OK:
+		push_error("Loader.download_assets(): An error occurred while making the HTTP request: %d." % error)
+		return
+	print("Loader.download_assets(): Successfully sent HTTP request.\n", http_request.get_downloaded_bytes(), "/", http_request.get_body_size());
+	while http_request.get_downloaded_bytes() < http_request.get_body_size():
+		callback_node.call(callback_function_name, http_request.get_downloaded_bytes(), http_request.get_body_size())
+		yield(get_tree().create_timer(1.0), "timeout")
+
+
+func _download_assets_request_completed(result, response_code, headers, body):
+	http_request.disconnect("request_completed", self, "_download_assets_request_completed")
+	if result != HTTPRequest.RESULT_SUCCESS:
+		var error_message = "The HTTP request for the asset pack did not succeed. Error code: %d — " % [result]
+		match result:
+			HTTPRequest.RESULT_CHUNKED_BODY_SIZE_MISMATCH:
+				error_message += "Chunked body size mismatch."
+			HTTPRequest.RESULT_CANT_CONNECT:
+				error_message += "Request failed while connecting."
+			HTTPRequest.RESULT_CANT_RESOLVE:
+				error_message += "Request failed while resolving."
+			HTTPRequest.RESULT_CONNECTION_ERROR:
+				error_message += "Request failed due to connection (read/write) error."
+			HTTPRequest.RESULT_SSL_HANDSHAKE_ERROR:
+				error_message += "Request failed on SSL handshake."
+			HTTPRequest.RESULT_NO_RESPONSE:
+				error_message += "No response."
+			HTTPRequest.RESULT_BODY_SIZE_LIMIT_EXCEEDED:
+				error_message += "Request exceeded its maximum body size limit."
+			HTTPRequest.RESULT_REQUEST_FAILED:
+				error_message += "Request failed."
+			HTTPRequest.RESULT_DOWNLOAD_FILE_CANT_OPEN:
+				error_message += "HTTPRequest couldn't open the download file."
+			HTTPRequest.RESULT_DOWNLOAD_FILE_WRITE_ERROR:
+				error_message += "HTTPRequest couldn't write to the download file."
+			HTTPRequest.RESULT_REDIRECT_LIMIT_REACHED:
+				error_message += "Request reached its maximum redirect limit."
+			HTTPRequest.RESULT_TIMEOUT:
+				error_message += "Request timed out."
+		R.crash(error_message + "\nPressing the “Return to title” button below will not work correctly.")
+		return
+	elif response_code >= 400:
+		R.crash("Tried to download the asset pack, but the Web request did not succeed. The HTTP response code was %d." % [response_code] + "\nPressing the “Return to title” button below will not work correctly.")
+		return
+	emit_signal("loaded")
+	return
+
+
+func load_assets():
+	ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
+	emit_signal("loaded")
 
 
 func remove_jsonc_comments(text: String) -> String:

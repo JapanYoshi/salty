@@ -34,7 +34,9 @@ var last_voice = ""
 func _ready():
 	for t in tweens:
 		add_child(t)
-	
+
+
+func preload_sounds():
 	var f = File.new()
 	var r = f.open(sfx_path + "_.json", File.READ)
 	if r != OK:
@@ -46,8 +48,7 @@ func _ready():
 		"answer_now", "answer_now_2", "answer_now_3", "answer_now_4", "answer_now_5",
 		"hiphop", "house",
 		"load_loop", "main_theme", "new_theme",
-		"organ", "outro",
-		"placeholder",
+		"organ", "outro_1", "outro_2", "outro_3",
 		"reading_question_base", "reading_question_extra",
 		"signup_base", "signup_extra", "signup_extra2",
 	]:

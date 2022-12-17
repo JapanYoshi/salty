@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://FirebaseManager.gd" type="Script" id=1]
+[ext_resource path="res://essential/FirebaseManager.gd" type="Script" id=1]
 
 [node name="FirebaseManager" type="Node"]
 pause_mode = 2
