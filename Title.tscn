@@ -279,6 +279,6 @@ __meta__ = {
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button3" to="." method="_on_Options_pressed"]
 [connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button4" to="." method="_on_Button_mouse_entered" binds= [ 3 ]]
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button4" to="." method="_on_Save_Data_pressed"]
-[connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Button_mouse_entered" binds= [ 3 ]]
+[connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Button_mouse_entered" binds= [ 4 ]]
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="ScreenStretch/About/Close" to="." method="_on_Close_pressed"]

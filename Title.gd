@@ -9,6 +9,7 @@ const desc = [
 	"View your past progress, such as high scores and when you got them.",
 	"Close the game. Bye!",
 ]
+const desc_webpage = "Take a look at our webpage, haitouch.ga."
 onready var tween = Tween.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +20,8 @@ func _ready():
 	S.play_music("hiphop", 1.0)
 	now_focused = -1
 	change_focus_to(0)
+	if R.html:
+		$ScreenStretch/VBoxContainer/Button5.text = "Open webpage"
 
 func _on_Button_mouse_entered(i):
 	change_focus_to(i)
@@ -28,7 +31,10 @@ func change_focus_to(i):
 	if now_focused != i: # changing focus
 		if now_focused != -1: # not first time
 			S.play_sfx("menu_move")
-		$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc[i]
+		if R.html and i == len(desc) - 1:
+			$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc_webpage
+		else:
+			$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc[i]
 		now_focused = i
 
 const SCROLL_SPEED: float = 512.0
@@ -100,7 +106,11 @@ func _on_Save_Data_pressed():
 
 
 func _on_Exit_pressed():
-	get_tree().quit()
+	# "quit" just freezes the game on html5, open the webpage instead
+	if R.html:
+		OS.shell_open("https://haitouch.ga")
+	else:
+		get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 
 func _on_Close_pressed():
