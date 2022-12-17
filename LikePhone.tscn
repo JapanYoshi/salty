@@ -72,7 +72,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"points": PoolRealArray( 20, 0, 0, 0.1, 0, -430, -0.2, 0, 0.25, 0 ),
+"points": PoolRealArray( 12, 0, 0, 0.1, 0, -430, -0.2, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.3 )
 }
 tracks/3/type = "value"
@@ -167,7 +167,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 20.0 ]
+"values": [ 12.0 ]
 }
 
 [sub_resource type="StyleBoxFlat" id=10]
@@ -191,22 +191,21 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id=44]
-content_margin_left = 0.0
-content_margin_right = 16.0
-content_margin_top = 16.0
-content_margin_bottom = 16.0
-bg_color = Color( 0.811765, 0.211765, 0.521569, 1 )
+[sub_resource type="StyleBoxFlat" id=46]
+bg_color = Color( 0.831373, 0.160784, 0.490196, 1 )
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color( 0.584314, 0, 0, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_color = Color( 0.352941, 0.0313726, 0.192157, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 expand_margin_left = 8.0
+expand_margin_right = 8.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 8.0
@@ -1906,8 +1905,8 @@ __meta__ = {
 
 [node name="Head" type="ColorRect" parent="LikeScreen/Content"]
 margin_right = 448.0
-margin_bottom = 856.0
-rect_min_size = Vector2( 0, 856 )
+margin_bottom = 850.0
+rect_min_size = Vector2( 0, 850 )
 color = Color( 0.12549, 0.372549, 0.823529, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="LikeScreen/Content/Head"]
@@ -1920,7 +1919,7 @@ margin_top = -64.0
 margin_right = 256.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 512, 128 )
-rect_scale = Vector2( 0.5, 0.5 )
+rect_scale = Vector2( 0.75, 0.75 )
 rect_pivot_offset = Vector2( 256, 64 )
 texture = ExtResource( 6 )
 expand = true
@@ -1930,7 +1929,7 @@ __meta__ = {
 }
 
 [node name="Body" type="ColorRect" parent="LikeScreen/Content"]
-margin_top = 856.0
+margin_top = 850.0
 margin_right = 448.0
 margin_bottom = 856.0
 size_flags_horizontal = 3
@@ -1961,8 +1960,9 @@ anims/title = SubResource( 43 )
 [node name="CenterContainer" type="CenterContainer" parent="LikeScreen/Content/Body/VBox/Question"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 8.0
+margin_left = 480.0
 margin_top = 4.0
+margin_right = 472.0
 margin_bottom = -4.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -2019,53 +2019,51 @@ bbcode_text = "the name of a K-pop song"
 text = "the name of a K-pop song"
 fit_content_height = true
 
-[node name="Ttl" type="PanelContainer" parent="LikeScreen/Content/Body/VBox/Question"]
+[node name="Ttl" type="CenterContainer" parent="LikeScreen/Content/Body/VBox/Question"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 20.0
-margin_top = 118.0
+margin_left = 12.0
+margin_top = 12.0
 margin_right = 436.0
-margin_bottom = 219.0
+margin_bottom = 330.0
 rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 203, -60 )
-custom_styles/panel = SubResource( 44 )
 
-[node name="Center" type="Panel" parent="LikeScreen/Content/Body/VBox/Question/Ttl"]
-margin_top = 16.0
-margin_right = 400.0
-margin_bottom = 85.0
-rect_min_size = Vector2( 48, 48 )
-custom_styles/panel = SubResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PanelContainer" type="PanelContainer" parent="LikeScreen/Content/Body/VBox/Question/Ttl"]
+margin_left = 208.0
+margin_top = 155.0
+margin_right = 216.0
+margin_bottom = 163.0
+custom_styles/panel = SubResource( 46 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LikeScreen/Content/Body/VBox/Question/Ttl"]
-margin_top = 16.0
-margin_right = 400.0
-margin_bottom = 85.0
+[node name="RichTextLabel" type="RichTextLabel" parent="LikeScreen/Content/Body/VBox/Question/Ttl/PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 404.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
 theme = ExtResource( 15 )
 bbcode_enabled = true
-bbcode_text = "[center]Flying Colors[/center]"
-text = "Flying Colors"
+bbcode_text = "[center]Flying Colors aoeuaoeuaoe uaoeuao[/center]"
+text = "Flying Colors aoeuaoeuaoe uaoeuao"
 fit_content_height = true
 
 [node name="CenterContainer2" type="CenterContainer" parent="LikeScreen/Content/Body/VBox/Question"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 480.0
+margin_left = 488.0
 margin_top = 4.0
-margin_right = 472.0
+margin_right = 480.0
 margin_bottom = -4.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bg" type="PanelContainer" parent="LikeScreen/Content/Body/VBox/Question/CenterContainer2"]
-margin_left = 20.0
+margin_left = 19.0
 margin_top = 88.0
-margin_right = 420.0
+margin_right = 419.0
 margin_bottom = 242.0
 custom_styles/panel = SubResource( 10 )
 
