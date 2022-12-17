@@ -10,9 +10,9 @@ var ending: bool = false
 var ep: Control
 onready var bg = $Bg
 onready var anim = $AnimationPlayer
-onready var number_label = $NinePatchRect/Sprite/Label
-onready var title_label = $NinePatchRect/Label
-onready var count_label = $NinePatchRect/Label2
+onready var number_label = $NprContainer/NinePatchRect/Sprite/Label
+onready var title_label = $NprContainer/NinePatchRect/Label
+onready var count_label = $NprContainer/NinePatchRect/Label2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,13 +20,12 @@ func _ready():
 	ep = get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
-	_on_size_changed() # initialize size
-	get_viewport().connect("size_changed", self, "_on_size_changed")
+	get_tree().connect("screen_resized", self, "_on_size_changed")
 
 const base_resolution = Vector2(1280, 720)
 func _on_size_changed():
 	var resolution = get_viewport_rect().size
-	$NinePatchRect.rect_scale = Vector2.ONE * min(
+	$NprContainer.rect_scale = Vector2.ONE * min(
 		resolution.y / base_resolution.y,
 		resolution.x / base_resolution.x
 	)
@@ -57,9 +56,9 @@ func pause_modal(player_number, device_index):
 				return
 	device = device_index
 	if player_number == -1:
-		$NinePatchRect/Sprite.hide()
+		$NprContainer/NinePatchRect/Sprite.hide()
 	else:
-		$NinePatchRect/Sprite.show()
+		$NprContainer/NinePatchRect/Sprite.show()
 		number_label.set_text("%d" % (player_number + 1))
 	match paused_times:
 		0:
@@ -76,6 +75,7 @@ func pause_modal(player_number, device_index):
 			count_label.set_text("You’re on thin ice.")
 		_:
 			count_label.set_text("Dude, why are you doing this?")
+	_on_size_changed()
 	show()
 	anim.play("show")
 	get_tree().paused = true
