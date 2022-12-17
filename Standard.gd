@@ -1137,7 +1137,8 @@ func change_stage(next_stage):
 	elif next_stage == "outro":
 		stage = "outro"
 		if question_type == "N" or question_type == "T":
-			S.play_music("outro", 1.0)
+			var which_outro: int = R.rng.randi_range(1, 3)
+			S.play_music("outro_%d" % which_outro, 1.0)
 		elif question_type == "C":
 			S.play_music("candy_base", 1.0)
 		elif question_type == "O":
