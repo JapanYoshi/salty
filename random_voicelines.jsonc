@@ -11,103 +11,103 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "welcome": [
       {
         "v": "intro_00",
-        "s": "This is Salty Trivia, the quiz show where you must endure pun after another."
+        "s": "[b]Candy:[/b] This is Salty Trivia, the quiz show where you must endure pun after another."
       },
       {
         "v": "intro_01",
-        "s": "Welcome to Salty Trivia. I’m Candy Barre, the Dr. Phil of this show."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia. I’m Candy Barre, the Dr. Phil of this show."
       },
       {
         "v": "intro_02",
-        "s": "I’m Candy Barre, and you’re about to watch the fifth best damn quiz show you’ve ever seen."
+        "s": "[b]Candy:[/b] I’m Candy Barre, and you’re about to watch the fifth best damn quiz show you’ve ever seen."
       },
       {
         "v": "intro_03",
-        "s": "I’m your host, Candy Barre. Hell hath no fury like this quiz show."
+        "s": "[b]Candy:[/b] I’m your host, Candy Barre. Hell hath no fury like this quiz show."
       },
       {
         "v": "intro_04",
-        "s": "If you like putting ranch dressing on filet mignon, you’re gonna love Salty Trivia."
+        "s": "[b]Candy:[/b] If you like putting ranch dressing on filet mignon, you’re gonna love Salty Trivia."
       },
       {
         "v": "intro_05",
-        "s": "This is Salty Trivia, the quiz show without artificial flavoring—[#3822#]all my sass is real."
+        "s": "[b]Candy:[/b] This is Salty Trivia, the quiz show without artificial flavoring—[#3822#]all my sass is real."
       },
       {
         "v": "intro_06",
-        "s": "Hey, I’m Candy Barre, and my attitude was recently excavated from the Dead Sea."
+        "s": "[b]Candy:[/b] Hey, I’m Candy Barre, and my attitude was recently excavated from the Dead Sea."
       },
       {
         "v": "intro_07",
-        "s": "Welcome to the quiz show where no holds are barred and no Barres are held.[#4685#]I’m Candy Barre.[#6293#]I am very touch-starved. That’s the joke."
+        "s": "[b]Candy:[/b] Welcome to the quiz show where no holds are barred and no Barres are held.[#4685#]I’m Candy Barre.[#6293#]I am very touch-starved. That’s the joke."
       },
       {
         "v": "intro_08",
-        "s": "This week on Salty Trivia, we’re raising awareness of Comic Sans abuse.[#4084#]Come on, guys."
+        "s": "[b]Candy:[/b] This week on Salty Trivia, we’re raising awareness of Comic Sans abuse.[#4084#]Come on, guys."
       },
       {
         "v": "intro_09",
-        "s": "Welcome to Salty Trivia! Feel free to tweet about this with #SaltyTriviaGame.[#5433#]Or #ThisGameSucks, your choice."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia! Feel free to tweet about this with #SaltyTriviaGame.[#5433#]Or #ThisGameSucks, your choice."
       },
       {
         "v": "intro_10",
-        "s": "This is Salty Trivia, the quiz show about as orthodox as a Protestant priest."
+        "s": "[b]Candy:[/b] This is Salty Trivia, the quiz show about as orthodox as a Protestant priest."
       },
       {
         "v": "intro_11",
-        "s": "Welcome to Salty Trivia, the quiz show for nerds who think they’re cool, but usually aren’t."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia, the quiz show for nerds who think they’re cool, but usually aren’t."
       },
       {
         "v": "intro_12",
-        "s": "Welcome to Salty Trivia, the only quiz show[#2206#][almost 4 seconds of silence][#6037#]Let’s get going."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia, the only quiz show[#2206#][almost 4 seconds of silence][#6037#]Let’s get going."
       },
       {
         "v": "intro_13",
-        "s": "Hi, I’m Candy Barre, and when I’m not practising sick guitar shreds for my band Sinner Wish Mesclun,[#4905#]I’m hosting Salty Trivia."
+        "s": "[b]Candy:[/b] Hi, I’m Candy Barre, and when I’m not practising sick guitar shreds for my band Sinner Wish Mesclun,[#4905#]I’m hosting Salty Trivia."
       },
       {
         "v": "intro_14",
-        "s": "This is Salty Trivia with Candy Barre,[#2114#]the quiz show where I ask you simple questions[#4233#]in overcomplicated, hopefully funny ways."
+        "s": "[b]Candy:[/b] This is Salty Trivia with Candy Barre,[#2114#]the quiz show where I ask you simple questions[#4233#]in overcomplicated, hopefully funny ways."
       },
       {
         "v": "intro_15",
-        "s": "I’m Candy Barre, and this is Salty Trivia.[#2333#]Before you ask, yes, I already ate a Snickers. It’s just who I am."
+        "s": "[b]Candy:[/b] I’m Candy Barre, and this is Salty Trivia.[#2333#]Before you ask, yes, I already ate a Snickers. It’s just who I am."
       },
       {
         "v": "intro_16",
-        "s": "This is Salty Trivia. I’m already bored, so get with it."
+        "s": "[b]Candy:[/b] This is Salty Trivia. I’m already bored, so get with it."
       },
       {
         "v": "intro_17",
-        "s": "Welcome to Salty Trivia with Candy Barre, the quiz show that defenestrates formalities."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia with Candy Barre, the quiz show that defenestrates formalities."
       },
       {
         "v": "intro_18",
-        "s": "This is Salty Trivia. I hope you’re smarter AND funnier than a fifth grader."
+        "s": "[b]Candy:[/b] This is Salty Trivia. I hope you’re smarter AND funnier than a fifth grader."
       },
       {
         "v": "intro_19",
-        "s": "Welcome to Salty Trivia, the quiz show where all genders and sexualities are equally attackable."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia, the quiz show where all genders and sexualities are equally attackable."
       },
       {
         "v": "intro_20",
-        "s": "I’m Candy Barre, and if you want to be a millionaire, go play “Who Wants to Be a Millionaire”.[#4137#]This game’s not that."
+        "s": "[b]Candy:[/b] I’m Candy Barre, and if you want to be a millionaire, go play “Who Wants to Be a Millionaire”.[#4137#]This game’s not that."
       },
       {
         "v": "intro_21",
-        "s": "I’m your host Candy Barre. The safe word is “psychophysicotherapeutics”.[#4458#]Let’s see how much pain you can endure."
+        "s": "[b]Candy:[/b] I’m your host Candy Barre. The safe word is “psychophysicotherapeutics”.[#4458#]Let’s see how much pain you can endure."
       },
       {
         "v": "intro_22",
-        "s": "Welcome to Salty Trivia. My friends call me Candy, but you can call me Miss Urushimakka."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia. My friends call me Candy, but you can call me Miss Urushimakka."
       },
       {
         "v": "intro_23",
-        "s": "Welcome! I’m your host Candy Barre, and I woke up like this.[#4209#]Disheveled."
+        "s": "[b]Candy:[/b] Welcome! I’m your host Candy Barre, and I woke up like this.[#4209#]Disheveled."
       },
       {
         "v": "intro_24",
-        "s": "This is Salty Trivia. And I’m in disbelief that I got all dressed up fancy for this."
+        "s": "[b]Candy:[/b] This is Salty Trivia. And I’m in disbelief that I got all dressed up fancy for this."
       },
       {
         "v": "intro_25",
@@ -115,27 +115,27 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       },
       {
         "v": "intro_26",
-        "s": "I’m your host, Candy Barre, and if I were a tree, I’d be mahogany.[#3984#]What, you thought I’d say sassafras?"
+        "s": "[b]Candy:[/b] I’m your host, Candy Barre, and if I were a tree, I’d be mahogany.[#3984#]What, you thought I’d say sassafras?"
       },
       {
         "v": "intro_27",
-        "s": "This is Salty Trivia. I’m your host, and I’m not actually behind the screen.[#5229#][i][ominously][/i] I’m right behind you."
+        "s": "[b]Candy:[/b] This is Salty Trivia. I’m your host, and I’m not actually behind the screen.[#5229#][i][ominously][/i] I’m right behind you."
       },
       {
         "v": "intro_28",
-        "s": "Welcome to Salty Trivia, where my sass is real but my laughs are fake.[#4017#][i][obviously fake laugh][/i] Hahahahaha."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia, where my sass is real but my laughs are fake.[#4017#][i][obviously fake laugh][/i] Hahahahaha."
       },
       {
         "v": "intro_29",
-        "s": "This is Salty Trivia with Candy Barre,[#2000#]where we have 100% less fart sound effects than our competitors.[#6017#][fart sound effect][#7585#][i][slightly disappointedly][/i] 98.3%."
+        "s": "[b]Candy:[/b] This is Salty Trivia with Candy Barre,[#2000#]where we have 100% less fart sound effects than our competitors.[#6017#][fart sound effect][#7585#][i][slightly disappointedly][/i] 98.3%."
       },
       {
         "v": "intro_30",
-        "s": "Welcome to Salty Trivia with Candy Barre, the game we wish Kahoot wishes it were."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia with Candy Barre, the game we wish Kahoot wishes it were."
       },
       {
         "v": "intro_31",
-        "s": "You’re about to play Salty Trivia, the game that everybody can play,[#3571#]unless you’re Ramón Acosta from Miami, Florida.[#5874#]F**k off, Ramón! Pay me!"
+        "s": "[b]Candy:[/b] You’re about to play Salty Trivia, the game that everybody can play,[#3571#]unless you’re Ramón Acosta from Miami, Florida.[#5874#]F**k off, Ramón! Pay me!"
       },
       {
         "v": "intro_32",
@@ -143,393 +143,393 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       },
       {
         "v": "intro_33",
-        "s": "I’m your host Candy Barre, and this is the show where you work to win me money.[#4120#][i](beat)[/i] It isn’t?[#6167#]...Why am I here?"
+        "s": "[b]Candy:[/b] I’m your host Candy Barre, and this is the show where you work to win me money.[#4120#][i](beat)[/i] It isn’t?[#6167#]...Why am I here?"
       },
       {
         "v": "intro_34",
-        "s": "[i](dogs barking loudly)[/i] Welcome to Salty Trivia. I brought three small dogs to watch. Do you mind?"
+        "s": "[i](dogs barking loudly)[/i]\n[b]Candy:[/b] Welcome to Salty Trivia. I brought three small dogs to watch. Do you mind?"
       },
       {
         "v": "intro_35",
-        "s": "Hey, I’m Candy Barre, and what you’re seeing is a figment of your imagination.[#3794#]You’ve been in a coma for the last several months.[#6240#]Nah, just joshing with you."
+        "s": "[b]Candy:[/b] Hey, I’m Candy Barre, and what you’re seeing is a figment of your imagination.[#3794#]You’ve been in a coma for the last several months.[#6240#]Nah, just joshing with you."
       },
       {
         "v": "intro_36",
-        "s": "I’m Candy Barre, and this is the show where you answer my questions[#3558#]and I silently judge your intelligence or lack thereof."
+        "s": "[b]Candy:[/b] I’m Candy Barre, and this is the show where you answer my questions[#3558#]and I silently judge your intelligence or lack thereof."
       },
       {
         "v": "intro_37",
-        "s": "I’m Candy Barre. Now, you don’t mind if I loudly crunch on tortilla chips while I host this game, do you?[#5036#]You do?[#6088#]Crap."
+        "s": "[b]Candy:[/b] I’m Candy Barre. Now, you don’t mind if I loudly crunch on tortilla chips while I host this game, do you?[#5036#]You do?[#6088#]Crap."
       },
       {
         "v": "intro_38",
-        "s": "I’m your host Candy Barre, and learning Fortnite characters’ names is the last thing I’m gonna do.[#6011#]On my to-do list today before I sleep."
+        "s": "[b]Candy:[/b] I’m your host Candy Barre, and learning Fortnite characters’ names is the last thing I’m gonna do.[#6011#]On my to-do list today before I sleep."
       },
       {
         "v": "intro_39",
-        "s": "I’m Candy Barre, and I’m just gonna tell you beforehand that this will be televised nationally,[#4493#]so don’t say anything overly crude, like “f**k nugget”.[#7436#]Oh, whoops."
+        "s": "[b]Candy:[/b] I’m Candy Barre, and I’m just gonna tell you beforehand that this will be televised nationally,[#4493#]so don’t say anything overly crude, like “f**k nugget”.[#7436#]Oh, whoops."
       },
       {
         "v": "intro_40",
-        "s": "This is Salty Trivia with Candy Barre. I’m your host, Candy Barre. It’s in the name, dummy."
+        "s": "[b]Candy:[/b] This is Salty Trivia with Candy Barre. I’m your host, Candy Barre. It’s in the name, dummy."
       },
       {
         "v": "intro_41",
-        "s": "Hey, I’m Candy Barre, and I’ve been banned from every Guitar Hero convention in Seattle and Miami.[#5274#]Trust me, you don’t want to hear the full story."
+        "s": "[b]Candy:[/b] Hey, I’m Candy Barre, and I’ve been banned from every Guitar Hero convention in Seattle and Miami.[#5274#]Trust me, you don’t want to hear the full story."
       },
       {
         "v": "intro_42",
-        "s": "Welcome to Salty Trivia,[#1528#]where the questions are ridiculous like American gun control laws,[#4797#]but the answers are serious like the consequences of said gun control laws."
+        "s": "[b]Candy:[/b] Welcome to Salty Trivia,[#1528#]where the questions are ridiculous like American gun control laws,[#4797#]but the answers are serious like the consequences of said gun control laws."
       },
     ],
     // Intro. After the logo goes away, Candy comments on how many players there are. Lines for when there is only 1 player.
     "player_1": [
       {
         "v": "p1_00",
-        "s": "You’re a lone wolf, I see. Or just alone."
+        "s": "[b]Candy:[/b] You’re a lone wolf, I see. Or just alone."
       },
       {
         "v": "p1_01",
-        "s": "One lonely player? I sure hope you’re just trying out the game before inviting others to play with you."
+        "s": "[b]Candy:[/b] One lonely player? I sure hope you’re just trying out the game before inviting others to play with you."
       },
       {
         "v": "p1_02",
-        "s": "Playing by yourself? That’s fine, but next time, could you bring a friend who’s more interesting and easy to joke about?"
+        "s": "[b]Candy:[/b] Playing by yourself? That’s fine, but next time, could you bring a friend who’s more interesting and easy to joke about?"
       },
       {
         "v": "p1_03",
-        "s": "Playing with yourself, I see. Enjoy the satisfaction of doing whatever you want in the privacy of your own room!"
+        "s": "[b]Candy:[/b] Playing with yourself, I see. Enjoy the satisfaction of doing whatever you want in the privacy of your own room!"
       },
       {
         "v": "p1_04",
-        "s": "I hope you can handle 8 victims’ worth of sass!"
+        "s": "[b]Candy:[/b] I hope you can handle 8 victims’ worth of sass!"
       },
       {
         "v": "p1_05",
-        "s": "[i][angrily][/i]Wait, we set this whole game up only for one person?![#3732#][i][dismissively][/i] Whatever, I’m getting paid per episode."
+        "s": "[b]Candy:[/b] [i][angrily][/i] Wait, we set this whole game up only for one person?![#3732#][i][dismissively][/i] Whatever, I’m getting paid per episode."
       },
       {
         "v": "p1_06",
-        "s": "Did your friends not want to play with you, or do you have no friends?"
+        "s": "[b]Candy:[/b] Did your friends not want to play with you, or do you have no friends?"
       },
       {
         "v": "p1_07",
-        "s": "My fortune cookie this morning said “It’s better to be unhappy alone than unhappy with someone”. So if you feel unhappy here, tough luck, you’re stuck with me for this whole game."
+        "s": "[b]Candy:[/b] My fortune cookie this morning said “It’s better to be unhappy alone than unhappy with someone”. So if you feel unhappy here, tough luck, you’re stuck with me for this whole game."
       },
       {
         "v": "p1_08",
-        "s": "Only one contestant? I can’t focus all my sarcastic mirth onto just one person!"
+        "s": "[b]Candy:[/b] Only one contestant? I can’t focus all my sarcastic mirth onto just one person!"
       },
       {
         "v": "p1_09",
-        "s": "I understand. The world is scary because other people are better than you."
+        "s": "[b]Candy:[/b] I understand. The world is scary because other people are better than you."
       },
       {
         "v": "p1_10",
-        "s": "[i][in sultry voice][/i] Okay, just you and me. I hope you have scented candles.[#4134#]No? A bouquet?[#6802#]A bottle of wine?[#8478#]A box of chocolates? ...[#10706#][i](sigh)[/i] Romance is dead."
+        "s": "[b]Candy:[/b] [i][in sultry voice][/i] Okay, just you and me. I hope you have scented candles.[#4134#]No? A bouquet?[#6802#]A bottle of wine?[#8478#]A box of chocolates? ...[#10706#][i](sigh)[/i] Romance is dead."
       },
       {
         "v": "p1_11",
-        "s": "I bet you’re in the perfect target demographic for a Switch Lite."
+        "s": "[b]Candy:[/b] I bet you’re in the perfect target demographic for a Switch Lite."
       },
       {
         "v": "p1_12",
-        "s": "I know it’s just you and me, and we’re both mammals, but [i]please do not[/i] reenact the Discovery Channel here."
+        "s": "[b]Candy:[/b] I know it’s just you and me, and we’re both mammals, but [i]please do not[/i] reenact the Discovery Channel here."
       },
       {
         "v": "p1_13",
-        "s": "One, player?! You know you can use phones as controllers, right?! What’s the hold-up?!"
+        "s": "[b]Candy:[/b] One, player?! You know you can use phones as controllers, right?! What’s the hold-up?!"
       },
       {
         "v": "p1_14",
-        "s": "I feel bad for you. I really do."
+        "s": "[b]Candy:[/b] I feel bad for you. I really do."
       },
       {
         "v": "p1_15",
-        "s": "What do you want? Computer players? Ew."
+        "s": "[b]Candy:[/b] What do you want? Computer players? Ew."
       },
       {
         "v": "p1_16",
-        "s": "Flying solo? Alright, Jason Derulo, however you want it."
+        "s": "[b]Candy:[/b] Flying solo? Alright, Jason Derulo, however you want it."
       },
       {
         "v": "p1_17",
-        "s": "Wow, this is either gonna be a very boring episode with only one contestant,[#4588#]or a very legendary episode with a lone trivia master."
+        "s": "[b]Candy:[/b] Wow, this is either gonna be a very boring episode with only one contestant,[#4588#]or a very legendary episode with a lone trivia master."
       },
       {
         "v": "p1_18",
-        "s": "Okay, so,[#1306#]we’re trying out some voice recognition software.[#3788#]Can you just say “OK, Trivia” out loud into your device?[#6867#][i](Try it out now!)[/i][#8737#]We don’t have voice recognition software. But hey, nobody’s around to make fun of you."
+        "s": "[b]Candy:[/b] Okay, so,[#1306#]we’re trying out some voice recognition software.[#3788#]Can you just say “OK, Trivia” out loud into your device?[#6867#][i](Try it out now!)[/i][#8737#]We don’t have voice recognition software. But hey, nobody’s around to make fun of you."
       },
       {
         "v": "p1_19",
-        "s": "Just you and me? Great, nobody else to talk over me."
+        "s": "[b]Candy:[/b] Just you and me? Great, nobody else to talk over me."
       },
     ],
     // Lines for when there are 2 players.
     "player_2": [
       {
         "v": "p2_00",
-        "s": "You two seem like you’re here to finally decide who’s better, mano a mano. I like that."
+        "s": "[b]Candy:[/b] You two seem like you’re here to finally decide who’s better, mano a mano. I like that."
       },
       {
         "v": "p2_01",
-        "s": "Two of a kind, peas in a pod, birds of a feather.[#3479#]Oh, sorry, I was thinking of the Olsen Twins. Sorry to get sidetracked."
+        "s": "[b]Candy:[/b] Two of a kind, peas in a pod, birds of a feather.[#3479#]Oh, sorry, I was thinking of the Olsen Twins. Sorry to get sidetracked."
       },
       {
         "v": "p2_02",
-        "s": "If you’re looking for some couples bonding time,[#1963#]you’ve come to the exact opposite of the right place."
+        "s": "[b]Candy:[/b] If you’re looking for some couples bonding time,[#1963#]you’ve come to the exact opposite of the right place."
       },
       {
         "v": "p2_03",
-        "s": "Two contestants. Let me know if you’re still friends after the show’s done."
+        "s": "[b]Candy:[/b] Two contestants. Let me know if you’re still friends after the show’s done."
       },
       {
         "v": "p2_04",
-        "s": "Y’know, my grandma always said, “It takes two to make a quarrel”. And that’s so true![#4904#]If I play my cards right, you two will go home hating each other."
+        "s": "[b]Candy:[/b] Y’know, my grandma always said, “It takes two to make a quarrel”. And that’s so true![#4904#]If I play my cards right, you two will go home hating each other."
       },
       {
         "v": "p2_05",
-        "s": "So which one of you evils is the lesser one?"
+        "s": "[b]Candy:[/b] So which one of you evils is the lesser one?"
       },
       {
         "v": "p2_06",
-        "s": "Whichever one of you wins gets to make every decision for the rest of the day. Capisci?"
+        "s": "[b]Candy:[/b] Whichever one of you wins gets to make every decision for the rest of the day. Capisci?"
       },
       {
         "v": "p2_07",
-        "s": "Hey, Player 2, did Player 1 drag you into this?[#3439#]Feel free to upstage that sucker."
+        "s": "[b]Candy:[/b] Hey, Player 2, did Player 1 drag you into this?[#3439#]Feel free to upstage that sucker."
       },
       {
         "v": "p2_08",
-        "s": "I think I can already tell who’s the Mario and who’s the Luigi, but hey,[#3834#]feel free to duke it out in this game."
+        "s": "[b]Candy:[/b] I think I can already tell who’s the Mario and who’s the Luigi, but hey,[#3834#]feel free to duke it out in this game."
       },
       {
         "v": "p2_09",
-        "s": "Remember, you two, no hitting above the belt.[#2569#]Or at all. Trivia is a no-contact sport."
+        "s": "[b]Candy:[/b] Remember, you two, no hitting above the belt.[#2569#]Or at all. Trivia is a no-contact sport."
       },
       {
         "v": "p2_10",
-        "s": "Two players, huh? Couldn’t get the third player for Quiplash, I see."
+        "s": "[b]Candy:[/b] Two players, huh? Couldn’t get the third player for Quiplash, I see."
       },
       {
         "v": "p2_11",
-        "s": "Just one thing to ask of you two:[#2173#]Please don’t Freaky Friday on me during this game, because I won’t notice."
+        "s": "[b]Candy:[/b] Just one thing to ask of you two:[#2173#]Please don’t Freaky Friday on me during this game, because I won’t notice."
       },
       {
         "v": "p2_12",
-        "s": "Two players.[#1124#]Who’s the one who says “we’re not so different, you and I”,[#4162#]and who’s the one who tearfully shouts “no, we’re nothing alike”?"
+        "s": "[b]Candy:[/b] Two players.[#1124#]Who’s the one who says “we’re not so different, you and I”,[#4162#]and who’s the one who tearfully shouts “no, we’re nothing alike”?"
       },
       {
         "v": "p2_13",
-        "s": "I’m not sure which would be sadder: if you had nobody else to invite, or if you invited other people and they all bailed."
+        "s": "[b]Candy:[/b] I’m not sure which would be sadder: if you had nobody else to invite, or if you invited other people and they all bailed."
       },
     ],
     // Lines for when there are 3 players.
     "player_3": [
       {
         "v": "p3_00",
-        "s": "Three contestants? I wonder who’s the least liked!"
+        "s": "[b]Candy:[/b] Three contestants? I wonder who’s the least liked!"
       },
       {
         "v": "p3_02",
-        "s": "What, couldn’t you get a fourth player? I like the number 4."
+        "s": "[b]Candy:[/b] What, couldn’t you get a fourth player? I like the number 4."
       },
       {
         "v": "p3_03",
-        "s": "Ooh, this harkens back to the days of hosting my local church trivia night.[#3923#]Only three people came most of the time, and I’m a satanist now."
+        "s": "[b]Candy:[/b] Ooh, this harkens back to the days of hosting my local church trivia night.[#3923#]Only three people came most of the time, and I’m a satanist now."
       },
       {
         "v": "p3_04",
-        "s": "Well well well. If you think this is gonna be anything like that irreverent trivia show from the 90s with 3 contestants...[#6366#]You’re probably right."
+        "s": "[b]Candy:[/b] Well well well. If you think this is gonna be anything like that irreverent trivia show from the 90s with 3 contestants...[#6366#]You’re probably right."
       },
       {
         "v": "p3_05",
-        "s": "They say that three is a crowd. I still wouldn’t surf on you though. You look weak."
+        "s": "[b]Candy:[/b] They say that three is a crowd. I still wouldn’t surf on you though. You look weak."
       },
       {
         "v": "p3_06",
-        "s": "I’ll call you breakfast, lunch, and dinner. Three squares of the day."
+        "s": "[b]Candy:[/b] I’ll call you breakfast, lunch, and dinner. Three squares of the day."
       },
       {
         "v": "p3_07",
-        "s": "You know, every 3-player game ends up with 2 players ganging up on the third.[#4240#]Player 2, I saw that wink. Don’t worry, I’m sure Player 1 won’t suspect a thing."
+        "s": "[b]Candy:[/b] You know, every 3-player game ends up with 2 players ganging up on the third.[#4240#]Player 2, I saw that wink. Don’t worry, I’m sure Player 1 won’t suspect a thing."
       },
       {
         "v": "p3_08",
-        "s": "Alright, a Triforce of players! Who’s power, who’s wisdom, and who’s courage?{#4584#]I’m pretty sure wisdom has the advantage here, unless they’re too weak and cowardly to answer."
+        "s": "[b]Candy:[/b] Alright, a Triforce of players! Who’s power, who’s wisdom, and who’s courage?{#4584#]I’m pretty sure wisdom has the advantage here, unless they’re too weak and cowardly to answer."
       },
       {
         "v": "p3_09",
-        "s": "So who’s the good, who’s the bad, and who’s the ugly? Actually, never mind that last one; I think I know who the ugly is."
+        "s": "[b]Candy:[/b] So who’s the good, who’s the bad, and who’s the ugly? Actually, never mind that last one; I think I know who the ugly is."
       },
       {
         "v": "p3_10",
-        "s": "A lot of good things come in threes. But so do quiz show contestants. Ugh."
+        "s": "[b]Candy:[/b] A lot of good things come in threes. But so do quiz show contestants. Ugh."
       },
       {
         "v": "p3_11",
-        "s": "I’m gonna call you Curly, Larry, and Moe. ...Get it? It’s the Three Stooges.[#4951#]What do you mean, what does “stooge” mean?! Kids these days, I swear."
+        "s": "[b]Candy:[/b] I’m gonna call you Curly, Larry, and Moe. ...Get it? It’s the Three Stooges.[#4951#]What do you mean, what does “stooge” mean?! Kids these days, I swear."
       },
       {
         "v": "p3_12",
-        "s": "Seems like we have a triumvirate playing here.[#2325#]Hey, Marcus and Pompey, could you make sure nobody tries to stab Julius until the game is over? Thanks."
+        "s": "[b]Candy:[/b] Seems like we have a triumvirate playing here.[#2325#]Hey, Marcus and Pompey, could you make sure nobody tries to stab Julius until the game is over? Thanks."
       },
       {
         "v": "p3_13",
-        "s": "Hey! I’m a big fan. You guys are my favorite contestants this minute!"
+        "s": "[b]Candy:[/b] Hey! I’m a big fan. You guys are my favorite contestants this minute!"
       },
       {
         "v": "p3_14",
-        "s": "If you three were on the Titanic, only one of you would statistically survive. Fun fact, right?"
+        "s": "[b]Candy:[/b] If you three were on the Titanic, only one of you would statistically survive. Fun fact, right?"
       },
       {
         "v": "p3_15",
-        "s": "Now everyone, look to your left, and now look to your right.[#3800#]If you saw one person in either direction, that means you’re sitting in the middle."
+        "s": "[b]Candy:[/b] Now everyone, look to your left, and now look to your right.[#3800#]If you saw one person in either direction, that means you’re sitting in the middle."
       },
       {
         "v": "p3_16",
-        "s": "Keep in mind that any game smaller than 4[#2062#]will automatically have 18% gratuity subtracted from your winnings."
+        "s": "[b]Candy:[/b] Keep in mind that any game smaller than 4[#2062#]will automatically have 18% gratuity subtracted from your winnings."
       },
     ],
     // Lines for when there are 4, 5, 6, 7, or 8 players.
     "player_4": [
       {
         "v": "p4_00",
-        "s": "Thanks to all of you for coming in on such short notice. I invited 13 other people, but only you said yes."
+        "s": "[b]Candy:[/b] Thanks to all of you for coming in on such short notice. I invited 13 other people, but only you said yes."
       },
       {
         "v": "p4_01",
-        "s": "Quite a party going on here, huh? Must be getting a bit less exciting, considering you whipped this game out."
+        "s": "[b]Candy:[/b] Quite a party going on here, huh? Must be getting a bit less exciting, considering you whipped this game out."
       },
       {
         "v": "p4_02",
-        "s": "Let me give you some nice little nicknames.[#2329#]Weird-nose, stupid-hair, boring-shirt...[#6294#]and I’m out of ideas."
+        "s": "[b]Candy:[/b] Let me give you some nice little nicknames.[#2329#]Weird-nose, stupid-hair, boring-shirt...[#6294#]and I’m out of ideas."
       },
       {
         "v": "p4_03",
-        "s": "I’ve found that, 95% of the time, Player 1 is the most hated contestant.[#4617#]Do with that information whatever you will."
+        "s": "[b]Candy:[/b] I’ve found that, 95% of the time, Player 1 is the most hated contestant.[#4617#]Do with that information whatever you will."
       },
       {
         "v": "p4_04",
-        "s": "So many contestants! So many things to make fun about them![#3806#]I’m so paralyzed with all these options."
+        "s": "[b]Candy:[/b] So many contestants! So many things to make fun about them![#3806#]I’m so paralyzed with all these options."
       },
       {
         "v": "p4_05",
-        "s": "If I had a dollar every time I met any of you again,[#2700#]I’d probably want to come to terms with the money I already have."
+        "s": "[b]Candy:[/b] If I had a dollar every time I met any of you again,[#2700#]I’d probably want to come to terms with the money I already have."
       },
       {
         "v": "p4_06",
-        "s": "[i][sentimentally][/i] Think about it. All of you are sharing this same experience.[#5114#]All your lives intersected right here, in this beautiful moment.[#10539#][i](sniffle)[/i] I’m crying tears of joy, people."
+        "s": "[b]Candy:[/b] [i][sentimentally][/i] Think about it. All of you are sharing this same experience.[#5114#]All your lives intersected right here, in this beautiful moment.[#10539#][i](sniffle)[/i] I’m crying tears of joy, people."
       },
       {
         "v": "p4_07",
-        "s": "Hey Player 1, you better not get beaten by any of your clueless friends right here."
+        "s": "[b]Candy:[/b] Hey Player 1, you better not get beaten by any of your clueless friends right here."
       },
       {
         "v": "p4_08",
-        "s": "Alright, it’s a free-for-all! Remember, no hitting below the belt,[#2845#]everybody stop when someone goes limp or unconscious,[#5178#]and if you’re here for the first time, you HAVE to fight."
+        "s": "[b]Candy:[/b] Alright, it’s a free-for-all! Remember, no hitting below the belt,[#2845#]everybody stop when someone goes limp or unconscious,[#5178#]and if you’re here for the first time, you HAVE to fight."
       },
       {
         "v": "p4_09",
-        "s": "Did none of you have a copy of Smash Brothers? Or did you not have enough controllers for it?"
+        "s": "[b]Candy:[/b] Did none of you have a copy of Smash Brothers? Or did you not have enough controllers for it?"
       },
       {
         "v": "p4_10",
-        "s": "Oh nice, so many players! This will make the ad-break limbo competition a lot more fun.[#4749#]I bet Player 3 is a beast at limbo."
+        "s": "[b]Candy:[/b] Oh nice, so many players! This will make the ad-break limbo competition a lot more fun.[#4749#]I bet Player 3 is a beast at limbo."
       },
       {
         "v": "p4_11",
-        "s": "What a friendly group! All people who are happy to be here and ready to play.[#4370#]Except one of you. Don’t worry, that guy, I won’t tell the others."
+        "s": "[b]Candy:[/b] What a friendly group! All people who are happy to be here and ready to play.[#4370#]Except one of you. Don’t worry, that guy, I won’t tell the others."
       },
       {
         "v": "p4_12",
-        "s": "Wow, this is way more people than Player 4’s future marriage invitees.[#4489#]Just kidding, Player 4, you won’t get married on my watch."
+        "s": "[b]Candy:[/b] Wow, this is way more people than Player 4’s future marriage invitees.[#4489#]Just kidding, Player 4, you won’t get married on my watch."
       },
       {
         "v": "p4_13",
-        "s": "Did everyone put one dollar into the hat before the game starts?[#3173#]Because the only thing more fun than a casual game is mild gambling."
+        "s": "[b]Candy:[/b] Did everyone put one dollar into the hat before the game starts?[#3173#]Because the only thing more fun than a casual game is mild gambling."
       },
       {
         "v": "p4_14",
-        "s": "Everyone, remember, there’s no I in “team”,[#3077#]but there are two I’s in “competition”, which is what we’re doing here."
+        "s": "[b]Candy:[/b] Everyone, remember, there’s no I in “team”,[#3077#]but there are two I’s in “competition”, which is what we’re doing here."
       },
     ],
     // Intro. If someone entered a username that gets censored, Candy comments on how immature it is and changes their name. When 1 person gets censored, Candy addresses the individual player before that.
     "player_callout_0": [
       {
         "v": "player_callout_0",
-        "s": "Player 1,"
+        "s": "[b]Candy:[/b] Player 1,"
       },
     ],
     "player_callout_1": [
       {
         "v": "player_callout_1",
-        "s": "Player 2,"
+        "s": "[b]Candy:[/b] Player 2,"
       },
     ],
     "player_callout_2": [
       {
         "v": "player_callout_2",
-        "s": "Player 3,"
+        "s": "[b]Candy:[/b] Player 3,"
       },
     ],
     "player_callout_3": [
       {
         "v": "player_callout_3",
-        "s": "Player 4,"
+        "s": "[b]Candy:[/b] Player 4,"
       },
     ],
     "player_callout_4": [
       {
         "v": "player_callout_4",
-        "s": "Player 5,"
+        "s": "[b]Candy:[/b] Player 5,"
       },
     ],
     "player_callout_5": [
       {
         "v": "player_callout_5",
-        "s": "Player 6,"
+        "s": "[b]Candy:[/b] Player 6,"
       },
     ],
     "player_callout_6": [
       {
         "v": "player_callout_6",
-        "s": "Player 7,"
+        "s": "[b]Candy:[/b] Player 7,"
       },
     ],
     "player_callout_7": [
       {
         "v": "player_callout_7",
-        "s": "Player 8,"
+        "s": "[b]Candy:[/b] Player 8,"
       },
     ],
     // Lines for when 2 people entered a username that gets censored.
     "2_player_callout": [
       {
         "v": "2_player_callout",
-        "s": "Both of you,"
+        "s": "[b]Candy:[/b] Both of you,"
       },
     ],
     // Lines for when 3 people entered a username that gets censored.
     "3_player_callout": [
       {
         "v": "3_player_callout",
-        "s": "Really? All three of you?"
+        "s": "[b]Candy:[/b] Really? All three of you?"
       },
     ],
     // Candy comments on how immature it is.
     "name_censored": [
       {
         "v": "name_censored_00",
-        "s": "I see what you typed. And frankly, it was funny the first 2000 times. I’m gonna give you a better name."
+        "s": "[b]Candy:[/b] I see what you typed. And frankly, it was funny the first 2000 times. I’m gonna give you a better name."
       },
       {
         "v": "name_censored_01",
-        "s": "I thought our producers agreed to prevent kids from entering the studio. Well, now that you’re here, let me give you a real name."
+        "s": "[b]Candy:[/b] I thought our producers agreed to prevent kids from entering the studio. Well, now that you’re here, let me give you a real name."
       },
       {
         "v": "name_censored_02",
-        "s": "You think you’re clever, huh? F**k me? F**k you. Hope you like your new name."
+        "s": "[b]Candy:[/b] You think you’re clever, huh? F**k me? F**k you. Hope you like your new name."
       },
     ],
     // Lines for when Candy gives the player a new name. Doubles as the dictionary of random names that she can give you!
@@ -537,202 +537,202 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       {
         "v": "give_name_00",
         "name": "Stooge",
-        "s": "Stooge. Because you’re too dumb to know what that means."
+        "s": "[b]Candy:[/b] Stooge. Because you’re too dumb to know what that means."
       },
       {
         "v": "give_name_01",
         "name": "Jibberjabber",
-        "s": "Jibberjabber. Your favorite pastime."
+        "s": "[b]Candy:[/b] Jibberjabber. Your favorite pastime."
       },
       {
         "v": "give_name_02",
         "name": "Defenestrate",
-        "s": "Defenestrate. A fitting punishment for you."
+        "s": "[b]Candy:[/b] Defenestrate. A fitting punishment for you."
       },
       {
         "v": "give_name_03",
         "name": "Scrappy",
-        "s": "Scrappy. Everyone’s least favorite Doo."
+        "s": "[b]Candy:[/b] Scrappy. Everyone’s least favorite Doo."
       },
       {
         "v": "give_name_04",
         "name": "Bubsy",
-        "s": "Bubsy. Because you always tell yourself, what could possibly go wrong?[#4574#]This. This is what could possibly go wrong."
+        "s": "[b]Candy:[/b] Bubsy. Because you always tell yourself, what could possibly go wrong?[#4574#]This. This is what could possibly go wrong."
       },
       {
         "v": "give_name_05",
         "name": "Jack Squat",
-        "s": "Jack Squat. That’s what you know."
+        "s": "[b]Candy:[/b] Jack Squat. That’s what you know."
       },
       {
         "v": "give_name_06",
         "name": "Stinky",
-        "s": "Stinky. Need I say more?"
+        "s": "[b]Candy:[/b] Stinky. Need I say more?"
       },
       {
         "v": "give_name_07",
         "name": "Two-Incher",
-        "s": "Two-Incher. I’m told that’s an insult."
+        "s": "[b]Candy:[/b] Two-Incher. I’m told that’s an insult."
       },
       {
         "v": "give_name_08",
         "name": "Lard Chugger",
-        "s": "Lard Chugger. Because how else did you get that body?"
+        "s": "[b]Candy:[/b] Lard Chugger. Because how else did you get that body?"
       },
       {
         "v": "give_name_09",
         "name": "Veal",
-        "s": "Veal. Because you seem like the type of guy to keep saying “Try me, b***h”."
+        "s": "[b]Candy:[/b] Veal. Because you seem like the type of guy to keep saying “Try me, b***h”."
       },
       {
         "v": "give_name_10",
         "name": "Dimwit",
-        "s": "Dimwit. Now that’s a fitting name."
+        "s": "[b]Candy:[/b] Dimwit. Now that’s a fitting name."
       },
       {
         "v": "give_name_11",
         "name": "Phuc Yu",
-        "s": "Phuc Yu. That’s a totally real Vietnamese name."
+        "s": "[b]Candy:[/b] Phuc Yu. That’s a totally real Vietnamese name."
       },
       {
         "v": "give_name_12",
         "name": "Family Guy",
-        "s": "Family Guy. Because you’re crude and overrated."
+        "s": "[b]Candy:[/b] Family Guy. Because you’re crude and overrated."
       },
       {
         "v": "give_name_13",
         "name": "Low-Life",
-        "s": "Low-Life. Because what other kind of person sets their own name to “#@$* you” in a video game to see what the host says next?[#6095#]I’m talking to you, the player staring at this very video game screen.[#9207#]I’m some person talking alone to a microphone[#13108#]to someone I don’t know, and probably never will."
+        "s": "[b]Candy:[/b] Low-Life. Because what other kind of person sets their own name to “#@$* you” in a video game to see what the host says next?[#6095#]I’m talking to you, the player staring at this very video game screen.[#9207#]I’m some person talking alone to a microphone[#13108#]to someone I don’t know, and probably never will."
       },
       {
         "v": "give_name_14",
         "name": "Screw You",
-        "s": "[i]Screw[/i] You. Because think of the kids."
+        "s": "[b]Candy:[/b] [i]Screw[/i] You. Because think of the kids."
       },
       {
         "v": "give_name_15",
         "name": "Arby’s",
-        "s": "Arby’s. Because you have the meats. Where your brains should be."
+        "s": "[b]Candy:[/b] Arby’s. Because you have the meats. Where your brains should be."
       },
       {
         "v": "give_name_16",
         "name": "Mariner",
-        "s": "Mariner. After the Ancient Mariner with the albatross around his neck."
+        "s": "[b]Candy:[/b] Mariner. After the Ancient Mariner with the albatross around his neck."
       },
       {
         "v": "give_name_17",
         "name": "Buzz Lippman",
-        "s": "Buzz Lippman. The game show host we love to hate."
+        "s": "[b]Candy:[/b] Buzz Lippman. The game show host we love to hate."
       },
       {
         "v": "give_name_18",
         "name": "Gene",
-        "s": "Gene. The first four letters of “generic”."
+        "s": "[b]Candy:[/b] Gene. The first four letters of “generic”."
       },
       {
         "v": "give_name_19",
         "name": "Snowflake",
-        "s": "Snowflake. Because you can’t handle the heat of this game."
+        "s": "[b]Candy:[/b] Snowflake. Because you can’t handle the heat of this game."
       },
       {
         "v": "give_name_20",
         "name": "Couch Potato",
-        "s": "Couch Potato. You look like one, at least."
+        "s": "[b]Candy:[/b] Couch Potato. You look like one, at least."
       },
       {
         "v": "give_name_21",
         "name": "xXxSLAYERxXx",
-        "s": "xXxSLAYERxXx. Because you’re so edgy it’s not even funny."
+        "s": "[b]Candy:[/b] xXxSLAYERxXx. Because you’re so edgy it’s not even funny."
       },
       {
         "v": "give_name_22",
         "name": "Matryoshka",
-        "s": "Matryoshka. Because you’re so full of yourself."
+        "s": "[b]Candy:[/b] Matryoshka. Because you’re so full of yourself."
       },
       {
         "v": "give_name_23",
         "name": "Surströmming",
-        "s": "Surströmming. Because you smell putrid."
+        "s": "[b]Candy:[/b] Surströmming. Because you smell putrid."
       },
     ],
     // Lines for when 2 or 3 people entered a username that gets censored.
     "multiple_names_censored": [
       {
         "v": "multiple_names_censored_00",
-        "s": "I see your lack of originality. Let me fix that up by giving you some decent names."
+        "s": "[b]Candy:[/b] I see your lack of originality. Let me fix that up by giving you some decent names."
       },
       {
         "v": "multiple_names_censored_01",
-        "s": "You sound like you’re that frat type who drinks a six-pack a day and burps at each other’s faces[#4865#]watching Frasier or Wacked Out Sports. Some new names are in order."
+        "s": "[b]Candy:[/b] You sound like you’re that frat type who drinks a six-pack a day and burps at each other’s faces[#4865#]watching Frasier or Wacked Out Sports. Some new names are in order."
       },
       {
         "v": "multiple_names_censored_02",
-        "s": "You want an easter egg? You get an embarrassing name each."
+        "s": "[b]Candy:[/b] You want an easter egg? You get an embarrassing name each."
       },
     ],
     // Lines for after 2 or 3 names get changed. Possible random names are stored in Episode.gd.
     "give_multiple_names": [
       {
         "v": "give_multiple_names_00",
-        "s": "Oh, that’s much better. Let’s start the show."
+        "s": "[b]Candy:[/b] Oh, that’s much better. Let’s start the show."
       },
     ],
     // Lines for when 4 or more people entered a username that gets censored. Everybody gets punished for the infraction.
     "all_names_censored": [
       {
         "v": "all_names_censored_00",
-        "s": "You guys, I’m not just gonna sit here and watch you pull this sh**.[#2879#]So you know what? I’m gonna take away everyone’s names and chances for a positive score.[#7465#]Because f**k you, that’s why."
+        "s": "[b]Candy:[/b] You guys, I’m not just gonna sit here and watch you pull this sh**.[#2879#]So you know what? I’m gonna take away everyone’s names and chances for a positive score.[#7465#]Because f**k you, that’s why."
       },
     ],
     // Intro. Lifesaver tutorial intro. There are 4 lines in total after this.
     "lifesaver": [
       {
         "v": "lifesaver_00",
-        "s": "You get a Lifesaver! You get a Lifesaver! Everybody gets a Lifesaver!"
+        "s": "[b]Candy:[/b] You get a Lifesaver! You get a Lifesaver! Everybody gets a Lifesaver!"
       },
       {
         "v": "lifesaver_01",
-        "s": "Everybody in the splash zone, have a Lifesaver."
+        "s": "[b]Candy:[/b] Everybody in the splash zone, have a Lifesaver."
       },
       {
         "v": "lifesaver_02",
-        "s": "But enough of that! Here’s a Lifesaver!"
+        "s": "[b]Candy:[/b] But enough of that! Here’s a Lifesaver!"
       },
       {
         "v": "lifesaver_03",
-        "s": "There are no life jackets on this flight; only Lifesavers."
+        "s": "[b]Candy:[/b] There are no life jackets on this flight; only Lifesavers."
       },
       {
         "v": "lifesaver_04",
-        "s": "I just ate all the donuts, but I do have another torus-shaped thing for you."
+        "s": "[b]Candy:[/b] I just ate all the donuts, but I do have another torus-shaped thing for you."
       },
       {
         "v": "lifesaver_05",
-        "s": "Here’s a Lifesaver. THINK FAST!"
+        "s": "[b]Candy:[/b] Here’s a Lifesaver. THINK FAST!"
       },
       {
         "v": "lifesaver_06",
-        "s": "Having trouble staying afloat? Float back up with a Lifesaver!"
+        "s": "[b]Candy:[/b] Having trouble staying afloat? Float back up with a Lifesaver!"
       },
       {
         "v": "lifesaver_07",
-        "s": "Is it getting tropical in here, or is it just these Lifesavers?"
+        "s": "[b]Candy:[/b] Is it getting tropical in here, or is it just these Lifesavers?"
       },
       {
         "v": "lifesaver_08",
-        "s": "You know what costs less than five cents? These complementary Lifesavers!"
+        "s": "[b]Candy:[/b] You know what costs less than five cents? These complementary Lifesavers!"
       },
       {
         "v": "lifesaver_09",
-        "s": "Have a Lifesaver! No, don’t put that in your mouth!"
+        "s": "[b]Candy:[/b] Have a Lifesaver! No, don’t put that in your mouth!"
       },
       {
         "v": "lifesaver_10",
-        "s": "Oh buoy, it’s a Lifesaver!"
+        "s": "[b]Candy:[/b] Oh buoy, it’s a Lifesaver!"
       },
       {
         "v": "lifesaver_11",
-        "s": "Before we dive into Question 1, take a Lifesaver."
+        "s": "[b]Candy:[/b] Before we dive into Question 1, take a Lifesaver."
       },
     ],
     "lifesaver_tute0": [
@@ -767,46 +767,46 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "intermission": [
       {
         "v": "break_00",
-        "s": "That’s all for this round! We’ll be right back after the break."
+        "s": "[b]Candy:[/b] That’s all for this round! We’ll be right back after the break."
       },
       {
         "v": "break_01",
-        "s": "And that’s the round! We’ll be right back after a short intermission."
+        "s": "[b]Candy:[/b] And that’s the round! We’ll be right back after a short intermission."
       },
       {
         "v": "break_02",
-        "s": "You just answered 6 questions since the start of this round, which means it’s time to end this one and start a new one."
+        "s": "[b]Candy:[/b] You just answered 6 questions since the start of this round, which means it’s time to end this one and start a new one."
       },
       {
         "v": "break_03",
-        "s": "Are you satisfied with the outcome of that round? That was rhetorical, because the next one’s starting either way."
+        "s": "[b]Candy:[/b] Are you satisfied with the outcome of that round? That was rhetorical, because the next one’s starting either way."
       },
     ],
     // Round 2 intro.
     "round2": [
       {
         "v": "round2_00",
-        "s": "Whoa, hey there! Didn’t see you just waiting patiently for Round 2 of Salty Trivia."
+        "s": "[b]Candy:[/b] Whoa, hey there! Didn’t see you just waiting patiently for Round 2 of Salty Trivia."
       },
       {
         "v": "round2_01",
-        "s": "Welcome back to Salty Trivia. We’re just firing up the charcoal grill for our next batch of questions."
+        "s": "[b]Candy:[/b] Welcome back to Salty Trivia. We’re just firing up the charcoal grill for our next batch of questions."
       },
       {
         "v": "round2_02",
-        "s": "Hey! I hope you didn’t lose interest in Salty Trivia yet, because we’re not even halfway there![#4899#]We got a whole other round starting up."
+        "s": "[b]Candy:[/b] Hey! I hope you didn’t lose interest in Salty Trivia yet, because we’re not even halfway there![#4899#]We got a whole other round starting up."
       },
       {
         "v": "round2_03",
-        "s": "Welcome back! It sure was fun doing some aerobics during break time. Now it’s time to exercise your brain too!"
+        "s": "[b]Candy:[/b] Welcome back! It sure was fun doing some aerobics during break time. Now it’s time to exercise your brain too!"
       },
       {
         "v": "round2_04",
-        "s": "Aah. Welcome back to Salty Trivia. You have no idea how much I needed to excuse myself in that last break.[#5483#]But now I’m ready to host for at least another ten minutes!"
+        "s": "[b]Candy:[/b] Aah. Welcome back to Salty Trivia. You have no idea how much I needed to excuse myself in that last break.[#5483#]But now I’m ready to host for at least another ten minutes!"
       },
       {
         "v": "round2_05",
-        "s": "And here, we see an elusive trivia game contestant in its natural habitat.[#4737#]They attack when provoked, and answer when quizzed!"
+        "s": "[b]Candy:[/b] And here, we see an elusive trivia game contestant in its natural habitat.[#4737#]They attack when provoked, and answer when quizzed!"
       },
     ],
     // Round 2 intro. Explanation that point values are doubled.
@@ -840,35 +840,35 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "lifesaver2": [
       {
         "v": "lifesaver2_00",
-        "s": "Don’t forget: you still have Lifesavers! Use them to your advantage."
+        "s": "[b]Candy:[/b] Don’t forget: you still have Lifesavers! Use them to your advantage."
       },
       {
         "v": "lifesaver2_01",
-        "s": "C’mon, give those Lifesavers some lovin’!"
+        "s": "[b]Candy:[/b] C’mon, give those Lifesavers some lovin’!"
       },
       {
         "v": "lifesaver2_02",
-        "s": "Those Lifesavers aren’t gonna be here forever! Use them!"
+        "s": "[b]Candy:[/b] Those Lifesavers aren’t gonna be here forever! Use them!"
       },
       {
         "v": "lifesaver2_03",
-        "s": "There’s a pretty clueless person in here, and that’s me, wondering why you’re not using the Lifesavers!"
+        "s": "[b]Candy:[/b] There’s a pretty clueless person in here, and that’s me, wondering why you’re not using the Lifesavers!"
       },
       {
         "v": "lifesaver2_04",
-        "s": "Remember, if your score’s underwater, you can use a Lifesaver to float back up, hopefully."
+        "s": "[b]Candy:[/b] Remember, if your score’s underwater, you can use a Lifesaver to float back up, hopefully."
       },
       {
         "v": "lifesaver2_05",
-        "s": "Did you forget that you had Lifesavers, or are you banking on Question 12 being the hardest?"
+        "s": "[b]Candy:[/b] Did you forget that you had Lifesavers, or are you banking on Question 12 being the hardest?"
       },
       {
         "v": "lifesaver2_06",
-        "s": "Are you gonna use those Lifesavers, or did I go through the trouble of sourcing them and inflating them for nothing?"
+        "s": "[b]Candy:[/b] Are you gonna use those Lifesavers, or did I go through the trouble of sourcing them and inflating them for nothing?"
       },
       {
         "v": "lifesaver2_07",
-        "s": "Hey, those Lifesavers aren’t for decoration! They serve a gameplay purpose."
+        "s": "[b]Candy:[/b] Hey, those Lifesavers aren’t for decoration! They serve a gameplay purpose."
       },
     ],
     "lifesaver2_tute0": [
@@ -917,86 +917,86 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "outro_game": [
       {
         "v": "outro_game_00",
-        "s": "And that's the game! Thank you for stopping by for Salty Trivia with Candy Barre.[#3741#]"
+        "s": "[b]Candy:[/b] And that's the game! Thank you for stopping by for Salty Trivia with Candy Barre.[#3741#]"
       },
       {
         "v": "outro_game_01",
-        "s": "There we have it![#954#]You should take the time to congratulate yourself with a pat in the back or something.[#4149#]"
+        "s": "[b]Candy:[/b] There we have it![#954#]You should take the time to congratulate yourself with a pat in the back or something.[#4149#]"
       },
       {
         "v": "outro_game_02",
-        "s": "Game, set, and match! I do hope you enjoyed Salty Trivia with Candy Barre.[#4434#]"
+        "s": "[b]Candy:[/b] Game, set, and match! I do hope you enjoyed Salty Trivia with Candy Barre.[#4434#]"
       },
       {
         "v": "outro_game_03",
-        "s": "That's all for this game! Thanks a lot for participating in Salty Trivia with Candy Barre.[#4141#]"
+        "s": "[b]Candy:[/b] That's all for this game! Thanks a lot for participating in Salty Trivia with Candy Barre.[#4141#]"
       },
       {
         "v": "outro_game_04",
-        "s": "Well look at that, you made it through this episode without any OSHA violations![#4324#]"
+        "s": "[b]Candy:[/b] Well look at that, you made it through this episode without any OSHA violations![#4324#]"
       },
       {
         "v": "outro_game_05",
-        "s": "Let’s applaud the winner of this round of Salty Trivia with Candy Barre![#4291#]"
+        "s": "[b]Candy:[/b] Let’s applaud the winner of this round of Salty Trivia with Candy Barre![#4291#]"
       },
       {
         "v": "outro_game_06",
-        "s": "And that concludes this game of Salty Trivia with Candy Barre![#3525#]"
+        "s": "[b]Candy:[/b] And that concludes this game of Salty Trivia with Candy Barre![#3525#]"
       },
       {
         "v": "outro_game_07",
-        "s": "Good job on winning Salty Trivia with Candy Barre, trivia champ![#3800#]But if you think this victory makes you a cool person,[#6816#][#7600#]well..."
+        "s": "[b]Candy:[/b] Good job on winning Salty Trivia with Candy Barre, trivia champ![#3800#]But if you think this victory makes you a cool person,[#6816#][#7600#]well..."
       },
       {
         "v": "outro_game_08",
-        "s": "Congrats! By winning Salty Trivia with Candy Barre,[#2788#]you have proven that your mind is full of inconsequential minutiae.[#0615#]"
+        "s": "[b]Candy:[/b] Congrats! By winning Salty Trivia with Candy Barre,[#2788#]you have proven that your mind is full of inconsequential minutiae.[#0615#]"
       },
       {
         "v": "outro_game_09",
-        "s": "That’s all for this game! Champion, hope you’re proud of yourself.[#3064#]"
+        "s": "[b]Candy:[/b] That’s all for this game! Champion, hope you’re proud of yourself.[#3064#]"
       },
     ],
     // End of the game, when the music abruptly stops and it cuts to the final logo.
     "outro_slam": [
       {
         "v": "outro_slam_00",
-        "s": "Now get out."
+        "s": "[b]Candy:[/b] Now get out."
       },
       {
         "v": "outro_slam_01",
-        "s": "’Cause I’m not gonna touch you. Back off."
+        "s": "[b]Candy:[/b] ’Cause I’m not gonna touch you. Back off."
       },
       {
         "v": "outro_slam_02",
-        "s": "I did, at least a bit."
+        "s": "[b]Candy:[/b] I did, at least a bit."
       },
       {
         "v": "outro_slam_03",
-        "s": "What, you want a cookie or something?"
+        "s": "[b]Candy:[/b] What, you want a cookie or something?"
       },
       {
         "v": "outro_slam_04",
-        "s": "Now give me back the hardhats and leave."
+        "s": "[b]Candy:[/b] Now give me back the hardhats and leave."
       },
       {
         "v": "outro_slam_05",
-        "s": "Your head is full of useless knowledge, big whoop."
+        "s": "[b]Candy:[/b] Your head is full of useless knowledge, big whoop."
       },
       {
         "v": "outro_slam_06",
-        "s": "There’s no post-credits scene."
+        "s": "[b]Candy:[/b] There’s no post-credits scene."
       },
       {
         "v": "outro_slam_07",
-        "s": "[slam] You’re misguided."
+        "s": "[b]Candy:[/b] [i](slam)[/i] You’re misguided."
       },
       {
         "v": "outro_slam_08",
-        "s": "Yay. /s"
+        "s": "[b]Candy:[/b] Yay. /s"
       },
       {
         "v": "outro_slam_09",
-        "s": "’Cause I’m not."
+        "s": "[b]Candy:[/b] ’Cause I’m not."
       },
     ],
     // Lines for when someone types "fuck you" into an All Outta Salt. There are a total of 4 possible patterns in Salty Trivia, which are stored in Standard.gd.
@@ -1098,58 +1098,58 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "cuss_a0_ozzy": [
       {
         "v": "cuss_a0_ozzy",
-        "s": "[Candy] Oh, great. See, I told them this would happen one day.[#3153#]One day, some immature fucko would rock up and think it would be funny to flip me off.[#8448#]Well, you know what, buster? I happen to know a potty mouth who will make yours look like a kitty litter mouth.[#14491#][shouting] Hey! Ozzy! Get in here![#16990#](door opens)\n[Ozzy] What do you want for me now, Candy?! I’m about to have lunch here![#20671#][Candy] That bowl of offal you call lunch can wait, Ozzy. Here, have a gander at what this player typed.[#25923#][Ozzy] What? Why should I care what one your contestants says—[#28887#][#29857#][i](uproarious laughter)[/i][#35647#][Candy] You... find this funny?[#37862#][Ozzy] Oh! That’s classic! [i](continued laughter)[/i][#41268#][Candy] You have got to be kidding me.[#42924#][Ozzy] Hey! Kiddo! [i][stumbling over words in laughter][/i] Next time, why don’t you tell her to drop her britches first [i][inaudible][/i] before saying-[#47849#][Candy] Ozzy, shut up! I dragged you here to help me punish this player, not to make them feel good about it![#52764#][Ozzy] Why not? This is the best thing that has ever happened around here! (extended laughter)[#61011#][Candy] Okay, never mind, you were useless anyway. I’ll deal with this fucker myself.[#64902#]Hey, you! Watch this!"
+        "s": "[b]Candy:[/b] Oh, great. See, I told them this would happen one day.[#3153#]One day, some immature fucko would rock up and think it would be funny to flip me off.[#8448#]Well, you know what, buster? I happen to know a potty mouth who will make yours look like a kitty litter mouth.[#14491#][shouting] Hey! Ozzy! Get in here![#16990#](door opens)\n[b]Ozzy:[/b] What do you want for me now, Candy?! I’m about to have lunch here![#20671#][b]Candy:[/b] That bowl of offal you call lunch can wait, Ozzy. Here, have a gander at what this player typed.[#25923#][b]Ozzy[/b] What? Why should I care what one your contestants says—[#28887#][#29857#][i](uproarious laughter)[/i][#35647#][b]Candy:[/b] You... find this funny?[#37862#][b]Ozzy:[/b] Oh! That’s classic! [i](continued laughter)[/i][#41268#][b]Candy:[/b] You have got to be kidding me.[#42924#][b]Ozzy:[/b] Hey! Kiddo! [i][stumbling over words in laughter][/i] Next time, why don’t you tell her to drop her britches first before saying-[#47849#][b]Candy[/b] Ozzy, shut up! I dragged you here to help me punish this player, not to make them feel good about it![#52764#][b]Ozzy[/b] Why not? This is the best thing that has ever happened around here! (extended laughter)[#61011#][b]Candy[/b] Okay, never mind, you were useless anyway. I’ll deal with this fucker myself.[#64902#]Hey, you! Watch this!"
       },
     ],
     "cuss_a1_ozzy": [
       {
         "v": "cuss_a1_ozzy",
-        "s": "[Candy] Alright, that’s that dealt with, now— Are you still laughing, you geriatric kookaburra?[#6117#][Ozzy] [i][amid laughter][/i] I haven’t had a laugh this hard in years![#8732#][Candy] Listen, if you’re not going to bother me, could you just... leave? Please?[#12782#][Ozzy] [i][gradually getting farther][/i] Oh! I needed that![#17423#](door closes) I really needed that!"
+        "s": "[b]Candy:[/b] Alright, that’s that dealt with, now— Are you still laughing, you geriatric kookaburra?[#6117#][b]Ozzy:[/b] [i][amid laughter][/i] I haven’t had a laugh this hard in years![#8732#][b]Candy:[/b] Listen, if you’re not going to bother me, could you just... leave? Please?[#12782#][b]Ozzy:[/b] [i][gradually getting farther][/i] Oh! I needed that![#17423#](door closes) I really needed that!"
       },
     ],
     "cuss_a2_ozzy": [
       {
         "v": "cuss_a2_ozzy",
-        "s": "[Candy] Okay, let’s get back to the game.[#2320#]And don’t pull that kind of trick another time, okay?[#5421#]Or else Ozzy gets it."
+        "s": "[b]Candy:[/b] Okay, let’s get back to the game.[#2320#]And don’t pull that kind of trick another time, okay?[#5421#]Or else Ozzy gets it."
       },
     ],
     "cuss_b0_ozzy": [
       {
         "v": "cuss_b0_ozzy",
-        "s": "[Candy] You’re real fucking mature, you know that? You think I’m just going to sit here and take this sort of abuse—[#5537#][i](Ozzy enters, laughing)[/i][#6834#][Candy] [i][flatly][/i] You really are finding this amusing, aren’t you.[#9534#][Ozzy] You bet I do! [i](laughter)[/i][#12613#]Oh, that is peak comedy right there! Peak comedy![#17359#][Candy] Look! I don’t want you endorsing this kind of delinquency, Ozzy! We want to discourage the player from ever doing it again![#23571#][i](Ozzy continues laughing)[/i][#26883#][Candy] [i](clicks tongue)[/i] Okay. There’s only one way to fix this.[#29815#]Hey, Ozzy! You’re taking a mandatory vacation to The Bottom whether you like it or not.[#34181#][#36396#][Ozzy] (stops laughing) Wait, Bottom? What’s this about—[#39465#][i](trap door opens, Ozzy screams as he falls)[/i][#41036#][i](trap door shuts, Candy dusts her hands together as if to say “job well done”)[/i]\n[Candy] Problem solved.[#43883#]Anyway, did you pay attention to your score? See anything different with it?[#47248#]That’s right, nothing. Because I don’t want this kind of crass behavior being repeated again.[#52205#]And if you don’t behave, you’re going to meet Ozzy down below![#55738#]Now, can we please get back to the fucking question?"
+        "s": "[b]Candy:[/b] You’re real fucking mature, you know that? You think I’m just going to sit here and take this sort of abuse—[#5537#][i](Ozzy enters, laughing)[/i][#6834#][b]Candy:[/b] [i][flatly][/i] You really are finding this amusing, aren’t you.[#9534#][b]Ozzy:[/b] You bet I do! [i](laughter)[/i][#12613#]Oh, that is peak comedy right there! Peak comedy![#17359#][b]Candy:[/b] Look! I don’t want you endorsing this kind of delinquency, Ozzy! We want to discourage the player from ever doing it again![#23571#][i](Ozzy continues laughing)[/i][#26883#][b]Candy:[/b] [i](clicks tongue)[/i] Okay. There’s only one way to fix this.[#29815#]Hey, Ozzy! You’re taking a mandatory vacation to The Bottom whether you like it or not.[#34181#][#36396#][b]Ozzy:[/b] (stops laughing) Wait, Bottom? What’s this about—[#39465#][i](trap door opens, Ozzy screams as he falls)[/i][#41036#][i](trap door shuts, Candy dusts her hands together as if to say “job well done”)[/i]\n[b]Candy:[/b] Problem solved.[#43883#]Anyway, did you pay attention to your score? See anything different with it?[#47248#]That’s right, nothing. Because I don’t want this kind of crass behavior being repeated again.[#52205#]And if you don’t behave, you’re going to meet Ozzy down below![#55738#]Now, can we please get back to the fucking question?"
       },
     ],
     "cuss_c0_ozzy": [
       {
         "v": "cuss_c0_ozzy",
-        "s": "[Candy] [i][without faith][/i] You know what? This is just pathetic. I don’t...[#2805#]I don’t have the time or patience to deal with a pack of two-year-old shitheads who have nothing better to do[#7298#]than come into a game and tell me to go fuck myself and—[#10314#]Actually, no, I bet it’s just one 40-year-old bastard, sitting in his mom’s basement,[#15493#]getting a boner to the sound of my voice.[#18245#]You do realize that this is all a video game, right?[#20861#]I’m just some guy named Haley, talking to a mic in a bedroom somewhere in Japan.[#25564#]Yeah, Japan. Small world, huh?[#28517#]Anyway, Candy isn’t a real person. Shit, you’d better fucking hope Candy isn’t a real person,[#33337#]not with all the shit we’ve written her to do.[#36258#]Because, if you’re actually jacking off to some sarcastically enthusiastic goth girl that you can’t even see,[#42470#]you have some serious issues, buddy.[#44464#]And you know what? I’m not going to let you finish. Game’s over.[#48081#]Come back when you’re ready to play this trivia game the way God fucking intended.[#52068#]"
+        "s": "[b]Candy:[/b] [i][without faith][/i] You know what? This is just pathetic. I don’t...[#2805#]I don’t have the time or patience to deal with a pack of two-year-old shitheads who have nothing better to do[#7298#]than come into a game and tell me to go fuck myself and—[#10314#]Actually, no, I bet it’s just one 40-year-old bastard, sitting in his mom’s basement,[#15493#]getting a boner to the sound of my voice.[#18245#]You do realize that this is all a video game, right?[#20861#]I’m just some guy named Haley, talking to a mic in a bedroom somewhere in Japan.[#25564#]Yeah, Japan. Small world, huh?[#28517#]Anyway, Candy isn’t a real person. Shit, you’d better fucking hope Candy isn’t a real person,[#33337#]not with all the shit we’ve written her to do.[#36258#]Because, if you’re actually jacking off to some sarcastically enthusiastic goth girl that you can’t even see,[#42470#]you have some serious issues, buddy.[#44464#]And you know what? I’m not going to let you finish. Game’s over.[#48081#]Come back when you’re ready to play this trivia game the way God fucking intended.[#52068#]"
       },
     ],
     // Line that plays when the player paused too many times during a question. To prevent pause-scumming, the game counts how many times the game gets paused during a question. The user gets 3 free pauses, and after that, the probability of a game over increases with each pause. 8 pauses guarantees a game over.
     "too_many_pauses": [
       {
         "v": "too_many_pauses_00",
-        "s": "Oh, did Dr. Google give you that answer you were looking for?[#3408#]Either way, that answer’s useless now that you’re disqualified. Bye."
+        "s": "[b]Candy:[/b] Oh, did Dr. Google give you that answer you were looking for?[#3408#]Either way, that answer’s useless now that you’re disqualified. Bye."
       },
       {
         "v": "too_many_pauses_01",
-        "s": "Great power, like stopping time, comes with great responsibility.[#4203#]Now you’re a villain."
+        "s": "[b]Candy:[/b] Great power, like stopping time, comes with great responsibility.[#4203#]Now you’re a villain."
       },
       {
         "v": "too_many_pauses_02",
-        "s": "Either someone calls you every minute, or you call Google every question.[#4252#]Either way, you sound too busy to play."
+        "s": "[b]Candy:[/b] Either someone calls you every minute, or you call Google every question.[#4252#]Either way, you sound too busy to play."
       },
       {
         "v": "too_many_pauses_03",
-        "s": "I give you a set amount of time on each question for a reason.[#4010#]Next game, try following it."
+        "s": "[b]Candy:[/b] I give you a set amount of time on each question for a reason.[#4010#]Next game, try following it."
       },
       {
         "v": "too_many_pauses_04",
-        "s": "There’s no shame in being wrong, but there [i]is[/i] shame in cheating.[#4106#]Why don’t you [i]pause[/i] and think of what you’ve done?"
+        "s": "[b]Candy:[/b] There’s no shame in being wrong, but there [i]is[/i] shame in cheating.[#4106#]Why don’t you [i]pause[/i] and think of what you’ve done?"
       },
       {
         "v": "too_many_pauses_05",
-        "s": "You lose. You get nothing. Good day, sir."
+        "s": "[b]Candy:[/b] You lose. You get nothing. Good day, sir."
       }
     ]
   },
@@ -1159,822 +1159,822 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "skip": [
       {
         "v": "skip_00",
-        "s": "Oh, am I getting in the way? Excuuuse me."
+        "s": "[b]Candy:[/b] Oh, am I getting in the way? Excuuuse me."
       },
       {
         "v": "skip_01",
-        "s": "So much to do, so little time, right?"
+        "s": "[b]Candy:[/b] So much to do, so little time, right?"
       },
       {
         "v": "skip_02",
-        "s": "Yeah, making sure you know, just in case."
+        "s": "[b]Candy:[/b] Yeah, making sure you know, just in case."
       },
       {
         "v": "skip_03",
-        "s": "No time to waste, let’s go! [i](clap)[/i]"
+        "s": "[b]Candy:[/b] No time to waste, let’s go! [i](clap)[/i]"
       },
       {
         "v": "skip_04",
-        "s": "Let’s start then, pro player."
+        "s": "[b]Candy:[/b] Let’s start then, pro player."
       },
       {
         "v": "skip_05",
-        "s": "Alright, down the fast lane you go."
+        "s": "[b]Candy:[/b] Alright, down the fast lane you go."
       },
       {
         "v": "skip_06",
-        "s": "No need to explain. Let’s begin."
+        "s": "[b]Candy:[/b] No need to explain. Let’s begin."
       },
       {
         "v": "skip_07",
-        "s": "Sorry, am I rambling?"
+        "s": "[b]Candy:[/b] Sorry, am I rambling?"
       },
       {
         "v": "skip_08",
-        "s": "Okay, cool, you remembered."
+        "s": "[b]Candy:[/b] Okay, cool, you remembered."
       },
       {
         "v": "skip_09",
-        "s": "Alright, less work for me."
+        "s": "[b]Candy:[/b] Alright, less work for me."
       },
       {
         "v": "skip_10",
-        "s": "Good, I hate repeating myself."
+        "s": "[b]Candy:[/b] Good, I hate repeating myself."
       },
       {
         "v": "skip_11",
-        "s": "Less talk, more walk. I like that."
+        "s": "[b]Candy:[/b] Less talk, more walk. I like that."
       },
       {
         "v": "skip_12",
-        "s": "Someone’s in a hurry today."
+        "s": "[b]Candy:[/b] Someone’s in a hurry today."
       },
       {
         "v": "skip_13",
-        "s": "You get it. Same rules."
+        "s": "[b]Candy:[/b] You get it. Same rules."
       },
       {
         "v": "skip_14",
-        "s": "Roger that. Let’s advance."
+        "s": "[b]Candy:[/b] Roger that. Let’s advance."
       },
       {
         "v": "skip_15",
-        "s": "Without further ado, let’s begin."
+        "s": "[b]Candy:[/b] Without further ado, let’s begin."
       },
       {
         "v": "skip_16",
-        "s": "Yeah, you know the drill, blah blah blah."
+        "s": "[b]Candy:[/b] Yeah, you know the drill, blah blah blah."
       },
       {
         "v": "skip_17",
-        "s": "Fine by me. I’m paid per episode."
+        "s": "[b]Candy:[/b] Fine by me. I’m paid per episode."
       },
       {
         "v": "skip_18",
-        "s": "Yeah, I’m sure you know by now."
+        "s": "[b]Candy:[/b] Yeah, I’m sure you know by now."
       },
       {
         "v": "skip_19",
-        "s": "Oh, that’s a time-saver."
+        "s": "[b]Candy:[/b] Oh, that’s a time-saver."
       },
     ],
     "skip_miles": [
       {
         "v": "skip_miles_00",
-        "s": "Okay, let’s skip it."
+        "s": "[b]Miles:[/b] Okay, let’s skip it."
       },
       {
         "v": "skip_miles_01",
-        "s": "If you’re good, I’m good."
+        "s": "[b]Miles:[/b] If you’re good, I’m good."
       },
       {
         "v": "skip_miles_02",
-        "s": "Oh, alright. Just don’t ask me for help after the fact."
+        "s": "[b]Miles:[/b] Oh, alright. Just don’t ask me for help after the fact."
       },
       {
         "v": "skip_miles_03",
-        "s": "Enough of my yapping, then."
+        "s": "[b]Miles:[/b] Enough of my yapping, then."
       },
     ],
     // Line that plays before the title of the first question.
     "pretitle_q1": [
       {
         "v": "q_first_00",
-        "s": "The first category is:"
+        "s": "[b]Candy:[/b] The first category is:"
       },
       {
         "v": "q_first_01",
-        "s": "First up:"
+        "s": "[b]Candy:[/b] First up:"
       },
       {
         "v": "q_first_02",
-        "s": "First on the chopping block:"
+        "s": "[b]Candy:[/b] First on the chopping block:"
       },
       {
         "v": "q_first_03",
-        "s": "Let’s warm up on:"
+        "s": "[b]Candy:[/b] Let’s warm up on:"
       },
       {
         "v": "q_first_04",
-        "s": "Starting with:"
+        "s": "[b]Candy:[/b] Starting with:"
       },
       {
         "v": "q_first_05",
-        "s": "Let’s get the party started with:"
+        "s": "[b]Candy:[/b] Let’s get the party started with:"
       },
       {
         "v": "q_first_06",
-        "s": "Let’s get the ball rolling with:"
+        "s": "[b]Candy:[/b] Let’s get the ball rolling with:"
       },
       {
         "v": "q_first_07",
-        "s": "Here’s your appetizer:"
+        "s": "[b]Candy:[/b] Here’s your appetizer:"
       },
       {
         "v": "q_first_08",
-        "s": "Stretch your mental muscles with:"
+        "s": "[b]Candy:[/b] Stretch your mental muscles with:"
       },
       {
         "v": "q_first_09",
-        "s": "Let’s put this into motion with:"
+        "s": "[b]Candy:[/b] Let’s put this into motion with:"
       },
       {
         "v": "q_first_10",
-        "s": "What better way to begin, other than with this?"
+        "s": "[b]Candy:[/b] What better way to begin, other than with this?"
       },
     ],
     // Line that plays before the title of the second question onward.
     "pretitle": [
       {
         "v": "q_intro_00",
-        "s": "Here’s your next category:"
+        "s": "[b]Candy:[/b] Here’s your next category:"
       },
       {
         "v": "q_intro_01",
-        "s": "I love this one."
+        "s": "[b]Candy:[/b] I love this one."
       },
       {
         "v": "q_intro_02",
-        "s": "Your food for thought:"
+        "s": "[b]Candy:[/b] Your food for thought:"
       },
       {
         "v": "q_intro_03",
-        "s": "Coming up next:"
+        "s": "[b]Candy:[/b] Coming up next:"
       },
       {
         "v": "q_intro_04",
-        "s": "Let’s move on to:"
+        "s": "[b]Candy:[/b] Let’s move on to:"
       },
       {
         "v": "q_intro_05",
-        "s": "Say hello to:"
+        "s": "[b]Candy:[/b] Say hello to:"
       },
       {
         "v": "q_intro_06",
-        "s": "Riddle me this:"
+        "s": "[b]Candy:[/b] Riddle me this:"
       },
       {
         "v": "q_intro_07",
-        "s": "Next on the chopping block:"
+        "s": "[b]Candy:[/b] Next on the chopping block:"
       },
       {
         "v": "q_intro_08",
-        "s": "This next one’s called:"
+        "s": "[b]Candy:[/b] This next one’s called:"
       },
       {
         "v": "q_intro_09",
-        "s": "Let’s see how you do in:"
+        "s": "[b]Candy:[/b] Let’s see how you do in:"
       },
       {
         "v": "q_intro_10",
-        "s": "The title of this question is:"
+        "s": "[b]Candy:[/b] The title of this question is:"
       },
       {
         "v": "q_intro_11",
-        "s": "You’re gonna love this one."
+        "s": "[b]Candy:[/b] You’re gonna love this one."
       },
       {
         "v": "q_intro_12",
-        "s": "Can you handle this?"
+        "s": "[b]Candy:[/b] Can you handle this?"
       },
       {
         "v": "q_intro_13",
-        "s": "Are you ready for this?"
+        "s": "[b]Candy:[/b] Are you ready for this?"
       },
       {
         "v": "q_intro_14",
-        "s": "Please welcome:"
+        "s": "[b]Candy:[/b] Please welcome:"
       },
       {
         "v": "q_intro_15",
-        "s": "On your left hand side, you can see:"
+        "s": "[b]Candy:[/b] On your left hand side, you can see:"
       },
       {
         "v": "q_intro_16",
-        "s": "Coming right up:"
+        "s": "[b]Candy:[/b] Coming right up:"
       },
       {
         "v": "q_intro_17",
-        "s": "Brace yourself for:"
+        "s": "[b]Candy:[/b] Brace yourself for:"
       },
       {
         "v": "q_intro_18",
-        "s": "Prepare your mind for:"
+        "s": "[b]Candy:[/b] Prepare your mind for:"
       },
       {
         "v": "q_intro_19",
-        "s": "Next in line:"
+        "s": "[b]Candy:[/b] Next in line:"
       },
     ],
     "pretitle_miles": [
       {
         "v": "q_intro_miles_00",
-        "s": "The next question’s called:"
+        "s": "[b]Miles:[/b] The next question’s called:"
       },
     ],
     // If anyone used a Lifesaver during the question, line that plays after two wrong answers are revealed, and the Lifesaver users get to answer.
     "used_lifesaver": [
       {
         "v": "used_lifesaver_00",
-        "s": "Now let’s get the Lifesaver users to answer."
+        "s": "[b]Candy:[/b] Now let’s get the Lifesaver users to answer."
       },
       {
         "v": "used_lifesaver_01",
-        "s": "You used your Lifesaver on this question. Now’s your chance to answer."
+        "s": "[b]Candy:[/b] You used your Lifesaver on this question. Now’s your chance to answer."
       },
       {
         "v": "used_lifesaver_02",
-        "s": "Enjoying the perks of your Lifesaver? Let’s see that answer."
+        "s": "[b]Candy:[/b] Enjoying the perks of your Lifesaver? Let’s see that answer."
       },
       {
         "v": "used_lifesaver_03",
-        "s": "Since Lifesavers were deployed just now, we have a couple of late answers here."
+        "s": "[b]Candy:[/b] Since Lifesavers were deployed just now, we have a couple of late answers here."
       },
       {
         "v": "used_lifesaver_04",
-        "s": "That should help you make up your mind. Courtesy of the Lifesavers."
+        "s": "[b]Candy:[/b] That should help you make up your mind. Courtesy of the Lifesavers."
       },
       {
         "v": "used_lifesaver_05",
-        "s": "Thank goodness for Lifesavers, amirite? Now let’s see those fingers pressing."
+        "s": "[b]Candy:[/b] Thank goodness for Lifesavers, amirite? Now let’s see those fingers pressing."
       },
       {
         "v": "used_lifesaver_06",
-        "s": "You’re welcome for your Lifesaver. So, what do you think is the right answer?"
+        "s": "[b]Candy:[/b] You’re welcome for your Lifesaver. So, what do you think is the right answer?"
       },
       {
         "v": "used_lifesaver_07",
-        "s": "That should make it easier for you. Which one is it?"
+        "s": "[b]Candy:[/b] That should make it easier for you. Which one is it?"
       },
       {
         "v": "used_lifesaver_08",
-        "s": "Out of these two left, which is right, Lifesaver user?"
+        "s": "[b]Candy:[/b] Out of these two left, which is right, Lifesaver user?"
       },
       {
         "v": "used_lifesaver_09",
-        "s": "Hope [i]that[/i] Lifesaver was worth it. Answer now."
+        "s": "[b]Candy:[/b] Hope [i]that[/i] Lifesaver was worth it. Answer now."
       },
       {
         "v": "used_lifesaver_10",
-        "s": "Now you have two options. Which is bang-on and which is bogus?"
+        "s": "[b]Candy:[/b] Now you have two options. Which is bang-on and which is bogus?"
       },
       {
         "v": "used_lifesaver_11",
-        "s": "Are we gonna cut the red wire or the blue wire, over?"
+        "s": "[b]Candy:[/b] Are we gonna cut the red wire or the blue wire, over?"
       },
     ],
     "used_lifesaver_miles": [
       {
         "v": "used_lifesaver_miles_00",
-        "s": "And now’s the time for Lifesaver users to join back in."
+        "s": "[b]Miles:[/b] And now’s the time for Lifesaver users to join back in."
       },
       {
         "v": "used_lifesaver_miles_01",
-        "s": "And now’s the time for Lifesaver users to join back in."
+        "s": "[b]Miles:[/b] And now’s the time for Lifesaver users to join back in."
       },
       {
         "v": "used_lifesaver_miles_02",
-        "s": "That should leave just two options for Lifesaver users to pick from."
+        "s": "[b]Miles:[/b] That should leave just two options for Lifesaver users to pick from."
       },
       {
         "v": "used_lifesaver_miles_03",
-        "s": "That should leave just two options for Lifesaver users to pick from."
+        "s": "[b]Miles:[/b] That should leave just two options for Lifesaver users to pick from."
       },
       {
         "v": "used_lifesaver_miles_04",
-        "s": "So now that the Lifesaver removed two options, which of the remaining two is the right answer?"
+        "s": "[b]Miles:[/b] So now that the Lifesaver removed two options, which of the remaining two is the right answer?"
       },
       {
         "v": "used_lifesaver_miles_05",
-        "s": "I’ll reveal which is the right answer after every Lifesaver user submits a guess."
+        "s": "[b]Miles:[/b] I’ll reveal which is the right answer after every Lifesaver user submits a guess."
       },
     ],
     // Line that plays when nobody else may answer (everybody answered, or time's up). There are some special patterns explained below.
     "reveal": [
       {
         "v": "reveal_00",
-        "s": "Let’s see who got it."
+        "s": "[b]Candy:[/b] Let’s see who got it."
       },
       {
         "v": "reveal_01",
-        "s": "Here’s the tea."
+        "s": "[b]Candy:[/b] Here’s the tea."
       },
       {
         "v": "reveal_02",
-        "s": "And the big reveal..."
+        "s": "[b]Candy:[/b] And the big reveal..."
       },
       {
         "v": "reveal_03",
-        "s": "To set the record straight..."
+        "s": "[b]Candy:[/b] To set the record straight..."
       },
       {
         "v": "reveal_04",
-        "s": "This is the fun part."
+        "s": "[b]Candy:[/b] This is the fun part."
       },
       {
         "v": "reveal_05",
-        "s": "Drum roll please... Okay, now stop."
+        "s": "[b]Candy:[/b] Drum roll please... Okay, now stop."
       },
       {
         "v": "reveal_06",
-        "s": "Can you handle the truth?"
+        "s": "[b]Candy:[/b] Can you handle the truth?"
       },
       {
         "v": "reveal_07",
-        "s": "Let’s see if you passed."
+        "s": "[b]Candy:[/b] Let’s see if you passed."
       },
       {
         "v": "reveal_08",
-        "s": "Let’s find out."
+        "s": "[b]Candy:[/b] Let’s find out."
       },
       {
         "v": "reveal_09",
-        "s": "Allow me to explain."
+        "s": "[b]Candy:[/b] Allow me to explain."
       },
       {
         "v": "reveal_10",
-        "s": "Alright, shush, this is important."
+        "s": "[b]Candy:[/b] Alright, shush, this is important."
       },
       {
         "v": "reveal_11",
-        "s": "This is the part where I correct you."
+        "s": "[b]Candy:[/b] This is the part where I correct you."
       },
       {
         "v": "reveal_12",
-        "s": "This is gonna be good."
+        "s": "[b]Candy:[/b] This is gonna be good."
       },
       {
         "v": "reveal_13",
-        "s": "Enough thinking."
+        "s": "[b]Candy:[/b] Enough thinking."
       },
     ],
     "reveal_miles": [
       {
         "v": "reveal_miles_00",
-        "s": "Let’s see your choices."
+        "s": "[b]Miles:[/b] Let’s see your choices."
       },
       {
         "v": "reveal_miles_01",
-        "s": "Let’s see your choices."
+        "s": "[b]Miles:[/b] Let’s see your choices."
       },
       {
         "v": "reveal_miles_02",
-        "s": "Now for the validation."
+        "s": "[b]Miles:[/b] Now for the validation."
       },
       {
         "v": "reveal_miles_03",
-        "s": "Guess who got it right?"
+        "s": "[b]Miles:[/b] Guess who got it right?"
       },
       {
         "v": "reveal_miles_04",
-        "s": "Your choices are locked in."
+        "s": "[b]Miles:[/b] Your choices are locked in."
       },
       {
         "v": "reveal_miles_05",
-        "s": "And now we reveal the choices."
+        "s": "[b]Miles:[/b] And now we reveal the choices."
       },
     ],
     // Line that plays instead when at least 1 player chose each of the 4 options.
     "reveal_split": [
       {
         "v": "reveal_split_00",
-        "s": "Split opinion! This is gonna be exciting!"
+        "s": "[b]Candy:[/b] Split opinion! This is gonna be exciting!"
       },
       {
         "v": "reveal_split_01",
-        "s": "The contestants are disagreeing! Let’s see who’s right."
+        "s": "[b]Candy:[/b] The contestants are disagreeing! Let’s see who’s right."
       },
       {
         "v": "reveal_split_02",
-        "s": "We’re leaving no stone left unturned!"
+        "s": "[b]Candy:[/b] We’re leaving no stone left unturned!"
       },
       {
         "v": "reveal_split_03",
-        "s": "Oooh, I get to use all my wrong answer jokes!"
+        "s": "[b]Candy:[/b] Oooh, I get to use all my wrong answer jokes!"
       },
       {
         "v": "reveal_split_04",
-        "s": "Nice, all the options get picked! This is gonna take a while."
+        "s": "[b]Candy:[/b] Nice, all the options get picked! This is gonna take a while."
       },
       {
         "v": "reveal_split_05",
-        "s": "Alright, no option left behind."
+        "s": "[b]Candy:[/b] Alright, no option left behind."
       },
       {
         "v": "reveal_split_06",
-        "s": "Ooh, you can tell already that at least three people are wrong here."
+        "s": "[b]Candy:[/b] Ooh, you can tell already that at least three people are wrong here."
       },
     ],
     "reveal_split_miles": [
       {
         "v": "reveal_split_miles_00",
-        "s": "Looks like everybody chose a different answer this time."
+        "s": "[b]Miles:[/b] Looks like everybody chose a different answer this time."
       },
       {
         "v": "reveal_split_miles_01",
-        "s": "I’m glad the decoy answers were convincing."
+        "s": "[b]Miles:[/b] I’m glad the decoy answers were convincing."
       },
       {
         "v": "reveal_split_miles_02",
-        "s": "We either wrote a great question, or a confusing one."
+        "s": "[b]Miles:[/b] We either wrote a great question, or a confusing one."
       },
       {
         "v": "reveal_split_miles_03",
-        "s": "Oh, all the decoys are chosen. Let’s dive in."
+        "s": "[b]Miles:[/b] Oh, all the decoys are chosen. Let’s dive in."
       },
     ],
     // Line that plays instead when at least 3 players all chose the same answer.
     "reveal_jinx": [
       {
         "v": "reveal_jinx_00",
-        "s": "Piece of cake, huh?"
+        "s": "[b]Candy:[/b] Piece of cake, huh?"
       },
       {
         "v": "reveal_jinx_01",
-        "s": "By unanimous decision..."
+        "s": "[b]Candy:[/b] By unanimous decision..."
       },
       {
         "v": "reveal_jinx_02",
-        "s": "Survey says..."
+        "s": "[b]Candy:[/b] Survey says..."
       },
       {
         "v": "reveal_jinx_03",
-        "s": "Whoa, you guys are well coordinated."
+        "s": "[b]Candy:[/b] Whoa, you guys are well coordinated."
       },
       {
         "v": "reveal_jinx_04",
-        "s": "Let’s face it: that was easy."
+        "s": "[b]Candy:[/b] Let’s face it: that was easy."
       },
       {
         "v": "reveal_jinx_05",
-        "s": "No variety? This is boring."
+        "s": "[b]Candy:[/b] No variety? This is boring."
       },
       {
         "v": "reveal_jinx_06",
-        "s": "Great minds think alike, but fools seldom differ."
+        "s": "[b]Candy:[/b] Great minds think alike, but fools seldom differ."
       },
       {
         "v": "reveal_jinx_07",
-        "s": "What are you, a hive mind?"
+        "s": "[b]Candy:[/b] What are you, a hive mind?"
       },
     ],
     "reveal_jinx_miles": [
       {
         "v": "reveal_jinx_miles_00",
-        "s": "Wow, there’s a strong consensus."
+        "s": "[b]Miles:[/b] Wow, there’s a strong consensus."
       },
       {
         "v": "reveal_jinx_miles_01",
-        "s": "Here’s what everyone picked."
+        "s": "[b]Miles:[/b] Here’s what everyone picked."
       },
       {
         "v": "reveal_jinx_miles_02",
-        "s": "Did we make this question too easy?"
+        "s": "[b]Miles:[/b] Did we make this question too easy?"
       },
       {
         "v": "reveal_jinx_miles_03",
-        "s": "Oh, everyone chose this option."
+        "s": "[b]Miles:[/b] Oh, everyone chose this option."
       },
     ],
     // Line that plays instead when nobody chose an option.
     "reveal_crickets": [
       {
         "v": "reveal_crickets_00",
-        "s": "Are you AFK?"
+        "s": "[b]Candy:[/b] Are you AFK?"
       },
       {
         "v": "reveal_crickets_01",
-        "s": "Come on, not even a guess?"
+        "s": "[b]Candy:[/b] Come on, not even a guess?"
       },
       {
         "v": "reveal_crickets_02",
-        "s": "Welp, I’ve wasted that question."
+        "s": "[b]Candy:[/b] Welp, I’ve wasted that question."
       },
       {
         "v": "reveal_crickets_03",
-        "s": "I guess that went way over your head."
+        "s": "[b]Candy:[/b] I guess that went way over your head."
       },
       {
         "v": "reveal_crickets_04",
-        "s": "I see you’re too scared of risk."
+        "s": "[b]Candy:[/b] I see you’re too scared of risk."
       },
       {
         "v": "reveal_crickets_05",
-        "s": "Hello? Anyone there? I’m about to reveal the right answer!"
+        "s": "[b]Candy:[/b] Hello? Anyone there? I’m about to reveal the right answer!"
       },
       {
         "v": "reveal_crickets_06",
-        "s": "Did you just ignore me?"
+        "s": "[b]Candy:[/b] Did you just ignore me?"
       },
       {
         "v": "reveal_crickets_07",
-        "s": "No answer. Just like my Sweet Sixteen invitations."
+        "s": "[b]Candy:[/b] No answer. Just like my Sweet Sixteen invitations."
       },
       {
         "v": "reveal_crickets_08",
-        "s": "You still do exist, right?"
+        "s": "[b]Candy:[/b] You still do exist, right?"
       },
     ],
     "reveal_crickets_miles": [
       {
         "v": "reveal_crickets_miles_00",
-        "s": "I’m disappointed that you didn’t give it a shot."
+        "s": "[b]Miles:[/b] I’m disappointed that you didn’t give it a shot."
       },
       {
         "v": "reveal_crickets_miles_01",
-        "s": "Did we make it too hard? Here’s the answer."
+        "s": "[b]Miles:[/b] Did we make it too hard? Here’s the answer."
       },
       {
         "v": "reveal_crickets_miles_02",
-        "s": "Oh. That’s a letdown. Let me show you the solution."
+        "s": "[b]Miles:[/b] Oh. That’s a letdown. Let me show you the solution."
       },
       {
         "v": "reveal_crickets_miles_03",
-        "s": "I feel ignored. Would the right answer help?"
+        "s": "[b]Miles:[/b] I feel ignored. Would the right answer help?"
       },
     ],
     // Line that plays after the wrong answers are revealed, when nobody chose the correct answer.
     "reveal_correct": [
       {
         "v": "reveal_correct_00",
-        "s": "Disappointingly..."
+        "s": "[b]Candy:[/b] Disappointingly..."
       },
       {
         "v": "reveal_correct_01",
-        "s": "Here’s what you should have picked."
+        "s": "[b]Candy:[/b] Here’s what you should have picked."
       },
       {
         "v": "reveal_correct_02",
-        "s": "This would’ve worked."
+        "s": "[b]Candy:[/b] This would’ve worked."
       },
       {
         "v": "reveal_correct_03",
-        "s": "Open sesame."
+        "s": "[b]Candy:[/b] Open sesame."
       },
       {
         "v": "reveal_correct_04",
-        "s": "Here’s the big reveal."
+        "s": "[b]Candy:[/b] Here’s the big reveal."
       },
       {
         "v": "reveal_correct_05",
-        "s": "None of you got it."
+        "s": "[b]Candy:[/b] None of you got it."
       },
       {
         "v": "reveal_correct_06",
-        "s": "The shocking truth is..."
+        "s": "[b]Candy:[/b] The shocking truth is..."
       },
       {
         "v": "reveal_correct_07",
-        "s": "Really? Nobody picked this?"
+        "s": "[b]Candy:[/b] Really? Nobody picked this?"
       },
       {
         "v": "reveal_correct_08",
-        "s": "I thought it was pretty simple, but..."
+        "s": "[b]Candy:[/b] I thought it was pretty simple, but..."
       },
       {
         "v": "reveal_correct_09",
-        "s": "Oof, this has gotta hurt."
+        "s": "[b]Candy:[/b] Oof, this has gotta hurt."
       },
       {
         "v": "reveal_correct_10",
-        "s": "Let’s call it a learning moment."
+        "s": "[b]Candy:[/b] Let’s call it a learning moment."
       },
       {
         "v": "reveal_correct_11",
-        "s": "In case you’re wondering..."
+        "s": "[b]Candy:[/b] In case you’re wondering..."
       },
       {
         "v": "reveal_correct_12",
-        "s": "Here’s what you didn’t know."
+        "s": "[b]Candy:[/b] Here’s what you didn’t know."
       },
       {
         "v": "reveal_correct_13",
-        "s": "You’re really making me work for my salary, aren’t ya?"
+        "s": "[b]Candy:[/b] You’re really making me work for my salary, aren’t ya?"
       },
       {
         "v": "reveal_correct_14",
-        "s": "Whyyy didn’t you think of this?"
+        "s": "[b]Candy:[/b] Whyyy didn’t you think of this?"
       },
     ],
     "reveal_correct_miles": [
       {
         "v": "reveal_correct_miles_00",
-        "s": "Here’s the right answer."
+        "s": "[b]Miles:[/b] Here’s the right answer."
       },
       {
         "v": "reveal_correct_miles_01",
-        "s": "Here’s the right answer."
+        "s": "[b]Miles:[/b] Here’s the right answer."
       },
       {
         "v": "reveal_correct_miles_02",
-        "s": "This is the solution."
+        "s": "[b]Miles:[/b] This is the solution."
       },
       {
         "v": "reveal_correct_miles_03",
-        "s": "This is the solution."
+        "s": "[b]Miles:[/b] This is the solution."
       },
       {
         "v": "reveal_correct_miles_04",
-        "s": "Let me explain."
+        "s": "[b]Miles:[/b] Let me explain."
       },
       {
         "v": "reveal_correct_miles_05",
-        "s": "The answer is..."
+        "s": "[b]Miles:[/b] The answer is..."
       },
       {
         "v": "reveal_correct_miles_06",
-        "s": "I’m sorry, none of you were right."
+        "s": "[b]Miles:[/b] I’m sorry, none of you were right."
       },
     ],
     // Generic wrong answer line, for when the question file doesn't specify one.
     "option": [
       {
         "v": "wrong_00",
-        "s": "Congratulations! You’re wrong!"
+        "s": "[b]Candy:[/b] Congratulations! You’re wrong!"
       },
       {
         "v": "wrong_01",
-        "s": "So wrong, yet so uninterestingly so."
+        "s": "[b]Candy:[/b] So wrong, yet so uninterestingly so."
       },
       {
         "v": "wrong_02",
-        "s": "Knock knock, who’s there? Wrong answer."
+        "s": "[b]Candy:[/b] Knock knock, who’s there? Wrong answer."
       },
       {
         "v": "wrong_03",
-        "s": "Good news! Nah, I’m just kidding."
+        "s": "[b]Candy:[/b] Good news! Nah, I’m just kidding."
       },
       {
         "v": "wrong_04",
-        "s": "That’s just sad."
+        "s": "[b]Candy:[/b] That’s just sad."
       },
       {
         "v": "wrong_05",
-        "s": "I believed in you."
+        "s": "[b]Candy:[/b] I believed in you."
       },
       {
         "v": "wrong_06",
-        "s": "I’ll be taking that, thank you."
+        "s": "[b]Candy:[/b] I’ll be taking that, thank you."
       },
       {
         "v": "wrong_07",
-        "s": "I would say I understand why you chose that, but that would be dishonest."
+        "s": "[b]Candy:[/b] I would say I understand why you chose that, but that would be dishonest."
       },
       {
         "v": "wrong_08",
-        "s": "If only you had a second chance!"
+        "s": "[b]Candy:[/b] If only you had a second chance!"
       },
       {
         "v": "wrong_09",
-        "s": "I’d love to spare you, but I’m not allowed to."
+        "s": "[b]Candy:[/b] I’d love to spare you, but I’m not allowed to."
       },
       {
         "v": "wrong_10",
-        "s": "Were you thinking there?"
+        "s": "[b]Candy:[/b] Were you thinking there?"
       },
       {
         "v": "wrong_11",
-        "s": "At least you chose [i]an[/i] answer."
+        "s": "[b]Candy:[/b] At least you chose [i]an[/i] answer."
       },
       {
         "v": "wrong_12",
-        "s": "What’s the opposite of “winner winner chicken dinner”? “You you beef stew”?"
+        "s": "[b]Candy:[/b] What’s the opposite of “winner winner chicken dinner”? “You you beef stew”?"
       },
       {
         "v": "wrong_13",
-        "s": "Contrary to popular be—Wait, never mind, I thought you chose a different one."
+        "s": "[b]Candy:[/b] Contrary to popular be—Wait, never mind, I thought you chose a different one."
       },
       {
         "v": "wrong_14",
-        "s": "Hold on, let me check again.[#1985#]Hm. Mmhm.[#3460#]Still not correct."
+        "s": "[b]Candy:[/b] Hold on, let me check again.[#1985#]Hm. Mmhm.[#3460#]Still not correct."
       },
       {
         "v": "wrong_15",
-        "s": "Hi, it’s Candy, just checking on that answer again.[#2299#][#3756#]Uh huh, thanks.[#5300#]Wrong answer."
+        "s": "[b]Candy:[/b] Hi, it’s Candy, just checking on that answer again.[#2299#][#3756#]Uh huh, thanks.[#5300#]Wrong answer."
       },
       {
         "v": "wrong_16",
-        "s": "To quote Shakespeare’s [i]Hamlet,[/i] Act 3, Scene 2, Line 176:[#5230#]“No, no”."
+        "s": "[b]Candy:[/b] To quote Shakespeare’s [i]Hamlet,[/i] Act 3, Scene 2, Line 176:[#5230#]“No, no”."
       },
       {
         "v": "wrong_17",
-        "s": "Your mind must have 404’d."
+        "s": "[b]Candy:[/b] Your mind must have 404’d."
       },
       {
         "v": "wrong_18",
-        "s": "Roll for intelligence...[#1759#][#2461#]1."
+        "s": "[b]Candy:[/b] Roll for intelligence...[#1759#][#2461#]1."
       },
       {
         "v": "wrong_19",
-        "s": "Now, you can’t go bankrupt on this game, but I [i]will[/i] punish you."
+        "s": "[b]Candy:[/b] Now, you can’t go bankrupt on this game, but I [i]will[/i] punish you."
       },
       {
         "v": "wrong_20",
-        "s": "I mean, I didn’t expect much from you, but holy hell."
+        "s": "[b]Candy:[/b] I mean, I didn’t expect much from you, but holy hell."
       },
       {
         "v": "wrong_21",
-        "s": "Yikety yike, Christ on a bike."
+        "s": "[b]Candy:[/b] Yikety yike, Christ on a bike."
       },
       {
         "v": "wrong_22",
-        "s": "Careful. Your dumb is showing."
+        "s": "[b]Candy:[/b] Careful. Your dumb is showing."
       },
       {
         "v": "wrong_23",
-        "s": "Thaaat’s embarrassing. For you."
+        "s": "[b]Candy:[/b] Thaaat’s embarrassing. For you."
       },
       {
         "v": "wrong_24",
-        "s": "I thought so at first, but then I knew better."
+        "s": "[b]Candy:[/b] I thought so at first, but then I knew better."
       },
       {
         "v": "wrong_25",
-        "s": "[i](beat)[/i][#1445#]Wow, even the crickets are speechless."
+        "s": "[i](beat)[/i][#1445#][b]Candy:[/b] Wow, even the crickets are speechless."
       },
       {
         "v": "wrong_26",
-        "s": "[i](beat)[/i][#1440#]Y’know, I can’t even make fun of that."
+        "s": "[i](beat)[/i][#1440#][b]Candy:[/b] Y’know, I can’t even make fun of that."
       },
       {
         "v": "wrong_27",
-        "s": "[i](sips)[/i][#1440#][i](swallows)[/i][#2438#]Aaaah.[#3442#][i](coughs)[/i][#4005#][#4621#]No."
+        "s": "[b]Candy:[/b] [i](sips)[/i][#1440#][i](swallows)[/i][#2438#]Aaaah.[#3442#][i](coughs)[/i][#4005#][#4621#]No."
       },
       {
         "v": "wrong_28",
-        "s": "What do you want, a cookie?"
+        "s": "[b]Candy:[/b] What do you want, a cookie?"
       },
       {
         "v": "wrong_29",
-        "s": "Really? You picked [i]that?![/i]"
+        "s": "[b]Candy:[/b] Really? You picked [i]that?![/i]"
       },
       {
         "v": "wrong_30",
-        "s": "Look at me. Look right at me.[#2432#]Wait, sh**, you can’t."
+        "s": "[b]Candy:[/b] Look at me. Look right at me.[#2432#]Wait, sh**, you can’t."
       },
       {
         "v": "wrong_31",
-        "s": "I sure hope you didn’t pick that answer sober."
+        "s": "[b]Candy:[/b] I sure hope you didn’t pick that answer sober."
       },
       {
         "v": "wrong_32",
-        "s": "Ooo, that’s gotta hurt."
+        "s": "[b]Candy:[/b] Ooo, that’s gotta hurt."
       },
       {
         "v": "wrong_33",
-        "s": "[i](laughs)[/i][#1863#][i](beat)[/i][#2682#]You serious?"
+        "s": "[b]Candy:[/b] [i](laughs)[/i][#1863#][i](beat)[/i][#2682#]You serious?"
       },
       {
         "v": "wrong_34",
-        "s": "Please do better next time."
+        "s": "[b]Candy:[/b] Please do better next time."
       },
       {
         "v": "wrong_35",
-        "s": "[i][in British accent][/i] Oh! You’ve been Wangernumbed!"
+        "s": "[b]Candy:[/b] [i][in British accent][/i] Oh! You’ve been Wangernumbed!"
       },
       {
         "v": "wrong_36",
-        "s": "Don’t quit your day job."
+        "s": "[b]Candy:[/b] Don’t quit your day job."
       },
       {
         "v": "wrong_37",
-        "s": "If you’re good at it, don’t do it for free.[#1869#]If you’re bad at it, it’s probably trivia."
+        "s": "[b]Candy:[/b] If you’re good at it, don’t do it for free.[#1869#]If you’re bad at it, it’s probably trivia."
       },
       {
         "v": "wrong_38",
-        "s": "Hindsight really is 20/20, isn’t it?"
+        "s": "[b]Candy:[/b] Hindsight really is 20/20, isn’t it?"
       },
       {
         "v": "wrong_39",
-        "s": "So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."
+        "s": "[b]Candy:[/b] So I have good news and bad news.[#1800#]The bad news is there’s no good news, and the good news is,[#4818#]I don’t even know where I’m going with this,[#6136#]so let’s just reel it back in and say you’re wrong."
       },
       {
         "v": "wrong_40",
-        "s": "That’s gotta be the correct answer for some other question."
+        "s": "[b]Candy:[/b] That’s gotta be the correct answer for some other question."
       },
       {
         "v": "wrong_41",
-        "s": "Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][i](chuckles)[/i] This is dumb."
+        "s": "[b]Candy:[/b] Hell yeah! That’s what I’m talking about when I say that’s wrong![#3222#][#3617#][i](chuckles)[/i] This is dumb."
       },
       {
         "v": "wrong_42",
@@ -1988,27 +1988,27 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "option_miles": [
       {
         "v": "wrong_miles_00",
-        "s": "I’m sorry, that’s not it."
+        "s": "[b]Miles:[/b] I’m sorry, that’s not it."
       },
       {
         "v": "wrong_miles_01",
-        "s": "I’m afraid not."
+        "s": "[b]Miles:[/b] I’m afraid not."
       },
       {
         "v": "wrong_miles_02",
-        "s": "That’s not the right one."
+        "s": "[b]Miles:[/b] That’s not the right one."
       },
       {
         "v": "wrong_miles_03",
-        "s": "Man, how does Candy come up with all that?"
+        "s": "[b]Miles:[/b] Man, how does Candy come up with all that?"
       },
       {
         "v": "wrong_miles_04",
-        "s": "Hey, Daisy, can you play that sad trombone effect we have?[#3208#][i](sad trombone effect)[/i][#5241#]Thanks."
+        "s": "[b]Miles:[/b] Hey, Daisy, can you play that sad trombone effect we have?[#3208#][i](sad trombone effect)[/i][#5241#]Thanks."
       },
       {
         "v": "wrong_miles_05",
-        "s": "How unfortunate."
+        "s": "[b]Miles:[/b] How unfortunate."
       },
     ],
     // Line that plays after the title and before the Sorta Kinda intro cinematic.
@@ -2046,13 +2046,13 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "sort_category_names": [
       {
         "v": "sort_category_names",
-        "s": "I’m going to list seven names."
+        "s": "[b]Candy:[/b] I’m going to list seven names."
       },
     ],
     "sort_category_ingredients": [
       {
         "v": "sort_category_ingredients",
-        "s": "I’m going to list seven ingredients."
+        "s": "[b]Candy:[/b] I’m going to list seven ingredients."
       },
     ],
     // Sorta Kinda tutorial lines.
@@ -2177,7 +2177,7 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "gib_tute0": [
       {
         "v": "gib_tute0",
-        "s": "I’m gonna give you a silly phrase, whose syllables rhyme with another, more popular phrase.[#4518#]Buzz in and type the answer as soon as you know what it is."
+        "s": "[b]Candy:[/b] I’m gonna give you a silly phrase, whose syllables rhyme with another, more popular phrase.[#4518#]Buzz in and type the answer as soon as you know what it is."
       },
     ],
     "gib_tute1": [
@@ -2275,76 +2275,76 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "gib_early": [
       {
         "v": "gib_early_00",
-        "s": "Hey, did your finger slip onto the buzzer?"
+        "s": "[b]Candy:[/b] Hey, did your finger slip onto the buzzer?"
       },
       {
         "v": "gib_early_01",
-        "s": "You went for the big money, and big money is what you lost.[#3228#]Tough break, kid."
+        "s": "[b]Candy:[/b] You went for the big money, and big money is what you lost.[#3228#]Tough break, kid."
       },
       {
         "v": "gib_early_02",
-        "s": "Maybe if you waited for a clue, you might have come up with something decent."
+        "s": "[b]Candy:[/b] Maybe if you waited for a clue, you might have come up with something decent."
       },
       {
         "v": "gib_early_03",
-        "s": "Maybe next time, don’t move fast and break things."
+        "s": "[b]Candy:[/b] Maybe next time, don’t move fast and break things."
       },
     ],
     // All Outta Salt wrong answer line, if 1 or 2 out of 3 clues are revealed.
     "gib_wrong": [
       {
         "v": "gib_wrong_00",
-        "s": "I don’t know what that is, but that’s not it."
+        "s": "[b]Candy:[/b] I don’t know what that is, but that’s not it."
       },
       {
         "v": "gib_wrong_01",
-        "s": "I’d say I understand why you typed that in, but that would be dishonest."
+        "s": "[b]Candy:[/b] I’d say I understand why you typed that in, but that would be dishonest."
       },
       {
         "v": "gib_wrong_02",
-        "s": "I’m not gonna judge, maybe it rhymes in your accent.[#2566#][#3158#]I lied. That was dumb."
+        "s": "[b]Candy:[/b] I’m not gonna judge, maybe it rhymes in your accent.[#2566#][#3158#]I lied. That was dumb."
       },
       {
         "v": "gib_wrong_03",
-        "s": "Well, you wrote [i]something,[/i] alright."
+        "s": "[b]Candy:[/b] Well, you wrote [i]something,[/i] alright."
       },
       {
         "v": "gib_wrong_04",
-        "s": "I really want to believe that you made a really bad typo, instead of believing that you’re that dumb."
+        "s": "[b]Candy:[/b] I really want to believe that you made a really bad typo, instead of believing that you’re that dumb."
       },
     ],
     // All Outta Salt wrong answer line, if 3 out of 3 clues are revealed.
     "gib_late": [
       {
         "v": "gib_late_00",
-        "s": "Three clues, and you [i]still[/i] got it wrong? Unreal."
+        "s": "[b]Candy:[/b] Three clues, and you [i]still[/i] got it wrong? Unreal."
       },
       {
         "v": "gib_late_01",
-        "s": "I gave you all the clues! What do you want from me?"
+        "s": "[b]Candy:[/b] I gave you all the clues! What do you want from me?"
       },
       {
         "v": "gib_late_02",
-        "s": "Oh, for crying out loud, you had all the time and clues you needed! How do you not get it?"
+        "s": "[b]Candy:[/b] Oh, for crying out loud, you had all the time and clues you needed! How do you not get it?"
       },
       {
         "v": "gib_late_03",
-        "s": "Took you long enough.[#1242#][#1858#]To be wrong."
+        "s": "[b]Candy:[/b] Took you long enough.[#1242#][#1858#]To be wrong."
       },
     ],
     // All Outta Salt wrong answer line, if the player left the answer blank.
     "gib_blank": [
       {
         "v": "gib_blank_00",
-        "s": "Hm, interesting. Very minimalist.[#2589#]Hey, let me help you minimize that score there."
+        "s": "[b]Candy:[/b] Hm, interesting. Very minimalist.[#2589#]Hey, let me help you minimize that score there."
       },
       {
         "v": "gib_blank_01",
-        "s": "I said “give me a rhyming phrase”,[#1416#]not “give me a detailed look into what little is going on in your head”."
+        "s": "[b]Candy:[/b] I said “give me a rhyming phrase”,[#1416#]not “give me a detailed look into what little is going on in your head”."
       },
       {
         "v": "gib_blank_02",
-        "s": "Uh, did your keyboard break, or did you genuinely have no idea?"
+        "s": "[b]Candy:[/b] Uh, did your keyboard break, or did you genuinely have no idea?"
       },
     ],
     // Line that plays after the title and before the Thousand-Question-Question intro.
@@ -2374,15 +2374,15 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "thou_tute0": [
       {
         "v": "thou_tute0_00",
-        "s": "This question’s worth a whopping thousand times more than a normal question."
+        "s": "[b]Candy:[/b] This question’s worth a whopping thousand times more than a normal question."
       },
       {
         "v": "thou_tute0_01",
-        "s": "And that means it’s worth as much as a thousand other questions."
+        "s": "[b]Candy:[/b] And that means it’s worth as much as a thousand other questions."
       },
       {
         "v": "thou_tute0_02",
-        "s": "We call it the Thousand-Question Question, because a thousand times the winnings are at stake."
+        "s": "[b]Candy:[/b] We call it the Thousand-Question Question, because a thousand times the winnings are at stake."
       },
     ],
     "thou_tute1": [
@@ -2428,7 +2428,7 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "like_intro": [
       {
         "v": "like_intro_00",
-        "s": "Welcome to Like It or Leave It!"
+        "s": "[b]Candy:[/b] Welcome to Like It or Leave It!"
       },
     ],
     "like_tute0": [
@@ -2474,30 +2474,30 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "like_outro": [
       {
         "v": "like_outro_00",
-        "s": "That’s all five! Let’s see how it affected your final score."
+        "s": "[b]Candy:[/b] That’s all five! Let’s see how it affected your final score."
       },
       {
         "v": "like_outro_01",
-        "s": "That’s enough social media time. Who’s on top at the end?"
+        "s": "[b]Candy:[/b] That’s enough social media time. Who’s on top at the end?"
       },
       {
         "v": "like_outro_02",
-        "s": "That’s the end of the game! Now for the final scoreboard."
+        "s": "[b]Candy:[/b] That’s the end of the game! Now for the final scoreboard."
       },
     ],
     // Line that plays at the start of a Sugar Rush.
     "rush_intro": [
       {
         "v": "rush_intro_00",
-        "s": "Welcome to the Sugar Rush."
+        "s": "[b]Candy:[/b] Welcome to the Sugar Rush."
       },
       {
         "v": "rush_intro_01",
-        "s": "You’ve made it to the Sugar Rush."
+        "s": "[b]Candy:[/b] You’ve made it to the Sugar Rush."
       },
       {
         "v": "rush_intro_02",
-        "s": "Brace yourselves for the Sugar Rush."
+        "s": "[b]Candy:[/b] Brace yourselves for the Sugar Rush."
       },
     ],
     // Tutorial for the Sugar Rush.
@@ -2552,66 +2552,66 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
     "rush_skip": [
       {
         "v": "skip_00",
-        "s": "Oh, am I getting in the way? Excuuuse me."
+        "s": "[b]Candy:[/b] Oh, am I getting in the way? Excuuuse me."
       },
       {
         "v": "rush_skip_01",
-        "s": "Well, if you insist. Here’s the topic."
+        "s": "[b]Candy:[/b] Well, if you insist. Here’s the topic."
       },
       {
         "v": "rush_skip_02",
-        "s": "Oh, by all means. Just remember this."
+        "s": "[b]Candy:[/b] Oh, by all means. Just remember this."
       },
       {
         "v": "rush_skip_03",
-        "s": "Ah, you’ve been here before, I take it. Here’s the topic."
+        "s": "[b]Candy:[/b] Ah, you’ve been here before, I take it. Here’s the topic."
       },
       {
         "v": "rush_skip_04",
-        "s": "A little jumpy, are we? I’ll give you the topic."
+        "s": "[b]Candy:[/b] A little jumpy, are we? I’ll give you the topic."
       },
       {
         "v": "rush_skip_05",
-        "s": "Well then, just don’t blame me if you get confused."
+        "s": "[b]Candy:[/b] Well then, just don’t blame me if you get confused."
       },
       {
         "v": "rush_skip_06",
-        "s": "No need for guidance, I see. Here’s your topic."
+        "s": "[b]Candy:[/b] No need for guidance, I see. Here’s your topic."
       },
     ],
     // Lines for when you buzz into an All Outta Salt.
     "buzz_in": [
       {
         "v": "buzz_in_00",
-        "s": "Alright, hit me!"
+        "s": "[b]Candy:[/b] Alright, hit me!"
       },
       {
         "v": "buzz_in_01",
-        "s": "I see you, I see you."
+        "s": "[b]Candy:[/b] I see you, I see you."
       },
       {
         "v": "buzz_in_02",
-        "s": "You’re up to bat!"
+        "s": "[b]Candy:[/b] You’re up to bat!"
       },
       {
         "v": "buzz_in_03",
-        "s": "Show me what you got."
+        "s": "[b]Candy:[/b] Show me what you got."
       },
       {
         "v": "buzz_in_04",
-        "s": "Alright, what’s the answer?"
+        "s": "[b]Candy:[/b] Alright, what’s the answer?"
       },
       {
         "v": "buzz_in_05",
-        "s": "Type that answer in."
+        "s": "[b]Candy:[/b] Type that answer in."
       },
       {
         "v": "buzz_in_06",
-        "s": "Okay, what are you thinking of?"
+        "s": "[b]Candy:[/b] Okay, what are you thinking of?"
       },
       {
         "v": "buzz_in_07",
-        "s": "What do you have for me?"
+        "s": "[b]Candy:[/b] What do you have for me?"
       },
     ],
   },
@@ -2651,19 +2651,19 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       "candy": [
         {
           "v": "player_name_candy",
-          "s": "Oh, I’m flattered that you’d name yourself after me.[#3181#]Unfortunately, you neglected to pay the licensing fee to use my name,[#6577#]so I’m gonna have to deduct that from your winnings once this game is over."
+          "s": "[b]Candy:[/b] Oh, I’m flattered that you’d name yourself after me.[#3181#]Unfortunately, you neglected to pay the licensing fee to use my name,[#6577#]so I’m gonna have to deduct that from your winnings once this game is over."
         },
       ],
       "daisy": [
         {
           "v": "player_name_daisy",
-          "s": "[b]Candy:[/b] Hold on, Daisy isn’t [i]actually[/i] in there, is she? Let me take a—[##][b]Daisy:[/b] Here.[##][b]Candy:[/b] [i][spooked][/i] Whoa! Daisy, when did you get two centimeters behind me?"
+          "s": "[b]Candy:[/b] Hold on, Daisy isn’t [i]actually[/i] in there, is she? Let me take a—[#4197#][b]Daisy:[/b] Here.\n[b]Candy:[/b] [i][spooked][/i] Whoa![#5602#]Daisy, when did you get two centimeters behind me?"
         },
       ],
       "miles": [
         {
           "v": "player_name_miles",
-          "s": "[b]Candy:[/b] Uh, hey, Miles? Do I have to keep calling this guy by your name, or would that be confusing?[##][b]Miles:[/b] I think it’s fine, but don’t make too many inside jokes about me. They wouldn’t get them.[##][b]Candy:[/b] Oh, you think I’m concerned whether or not these people will get my jokes?"
+          "s": "[b]Candy:[/b] Uh, hey, Miles? Do I have to keep calling this guy by your name, or would that be confusing?[#5989#][b]Miles:[/b] I think it’s fine, but don’t make too many inside jokes about me. They wouldn’t get them.[#9919#][b]Candy:[/b] Oh, you think I’m concerned whether or not these people will get my jokes?"
         },
       ],
       "ozzy": [
@@ -2676,44 +2676,44 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       "cookie": [
         {
           "v": "player_name_cookie",
-          "s": "I can’t believe it myself, but this episode we have an epic celebrity guest![#4738#]Give it up for Mr. Cookie “Fortune Cookie” Masterson![#9045#]I loved your game shows, I still do! Of course, it’s not just Jack and Fibbage I watched from you.[#14010#]I especially loved you in Fakin’ It, how you infused a game show with an[#17714#]influence from stuff like Big Brother or Survivor![#21046#]Yeah, I’ve seen everything you did that I could find on YouTube.[#23654#]Point is, big fan. So glad you’re here."
+          "s": "[b]Candy:[/b] I can’t believe it myself, but this episode we have an epic celebrity guest![#4738#]Give it up for Mr. Cookie “Fortune Cookie” Masterson![#9045#]I loved your game shows, I still do! Of course, it’s not just Jack and Fibbage I watched from you.[#14010#]I especially loved you in Fakin’ It, how you infused a game show with an[#17714#]influence from stuff like Big Brother or Survivor![#21046#]Yeah, I’ve seen everything you did that I could find on YouTube.[#23654#]Point is, big fan. So glad you’re here."
         },
       ],
       "schmitty": [
         {
           "v": "player_name_schmitty",
-          "s": "Is that—? It is![#2063#]The one and only Josh Schmitty Schmitstinstein![#5461#]Oh, I loved your performance in Mortal Kombat![#7894#]Heh, but no, seriously, you were stellar in Jack and Quiplash.[#11445#]I still love watching past broadcasts and playing along.[#14382#]I mean, a comedy tournament game show? Who could have come up with that, except maybe the Japanese?[#20267#]Point is, I’m so happy that you’re here!"
+          "s": "[b]Candy:[/b] Is that—? It is![#2063#]The one and only Josh Schmitty Schmitstinstein![#5461#]Oh, I loved your performance in Mortal Kombat![#7894#]Heh, but no, seriously, you were stellar in Jack and Quiplash.[#11445#]I still love watching past broadcasts and playing along.[#14382#]I mean, a comedy tournament game show? Who could have come up with that, except maybe the Japanese?[#20267#]Point is, I’m so happy that you’re here!"
         },
       ],
       "nate": [
         {
           "v": "player_name_nate",
-          "s": "Oh my gosh, we have a special guest this time![#2906#]Everybody clap for Nate Shapiro![#5832#]That guy from all those movies and the original You Don’t Know Jack![#9296#]Hello and welcome to my show! I’m so grateful that you’d give mine a chance.[#13515#]So where have you been lately, anyway? I heard you’ve started a podcast recently?[#17526#]I should really check that out. Anyway, thank you for coming!"
+          "s": "[b]Candy:[/b] Oh my gosh, we have a special guest this time![#2906#]Everybody clap for Nate Shapiro![#5832#]That guy from all those movies and the original You Don’t Know Jack![#9296#]Hello and welcome to my show! I’m so grateful that you’d give mine a chance.[#13515#]So where have you been lately, anyway? I heard you’ve started a podcast recently?[#17526#]I should really check that out. Anyway, thank you for coming!"
         },
       ],
       "buzz": [
         {
           "v": "player_name_buzz",
-          "s": "Oh, it’s Mr. Buzz Lippman, the host of You Don’t Know Jack Volume 2![#4499#]You did great in it, don’t listen to the haters. You were just finding your voice.[#8006#]I’d love to sit down and chat about your life after hosting, but[#10702#]we have a game to play, so let’s keep that for later."
+          "s": "[b]Candy:[/b] Oh, it’s Mr. Buzz Lippman, the host of You Don’t Know Jack Volume 2![#4499#]You did great in it, don’t listen to the haters. You were just finding your voice.[#8006#]I’d love to sit down and chat about your life after hosting, but[#10702#]we have a game to play, so let’s keep that for later."
         },
       ],
       "guy": [
         {
           "v": "player_name_guy",
-          "s": "Everyone please welcome Guy Towers, the host of You Don’t Know Jack Sports![#4882#]I mean, out of the series, I bet it’s the hardest one for me to revisit,[#7496#]since I’m not familiar with sports trivia from when I was in middle school,[#11025#]but I really do hope you enjoy our little show here!"
+          "s": "[b]Candy:[/b] Everyone please welcome Guy Towers, the host of You Don’t Know Jack Sports![#4882#]I mean, out of the series, I bet it’s the hardest one for me to revisit,[#7496#]since I’m not familiar with sports trivia from when I was in middle school,[#11025#]but I really do hope you enjoy our little show here!"
         },
       ],
       "jackcake": [
         {
           "v": "player_name_jackcake",
-          "s": "[i][sarcastically][/i] Oh, we have quite the special guest that is really pleasant to talk to.[#4187#]Everyone welcome Jack Cake from You Don’t Know Jack UK![#8033#]Oh, I am so sad that your show lasted only one season.[#12746#]I would have very much loved to listen to your tolerable voice and acceptable banter."
+          "s": "[b]Candy:[/b] [i][sarcastically][/i] Oh, we have quite the special guest that is really pleasant to talk to.[#4187#]Everyone welcome Jack Cake from You Don’t Know Jack UK![#8033#]Oh, I am so sad that your show lasted only one season.[#12746#]I would have very much loved to listen to your tolerable voice and acceptable banter."
         },
       ],
       // ST staff
       "haleyhalcyon": [
         {
           "v": "player_name_haleyhalcyon",
-          "s": "Oh hey! That’s HaleyHalcyon! The guy who voiced me and coded this game![#4406#]This janky game that she tried to code in HTML back in 2019,[#7957#]but gave up before she even got to the first question.[#10662#]Yeah, three years well spent, I’d say. Love you, you little dweeb."
+          "s": "[b]Candy:[/b] Oh hey! That’s HaleyHalcyon! The guy who voiced me and coded this game![#4406#]This janky game that she tried to code in HTML back in 2019,[#7957#]but gave up before she even got to the first question.[#10662#]Yeah, three years well spent, I’d say. Love you, you little dweeb."
         },
       ],
       "riverkath": [
