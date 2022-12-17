@@ -90,7 +90,7 @@ func show_leaderboard(hidden: bool = false):
 	if !hidden:
 		anim.play("leaderboard")
 		set_radius(1.5)
-		$Logo.show_logo()
+		$Logo2.show_logo()
 
 func hide_leaderboard():
 	anim.play("leaderboard_end")
