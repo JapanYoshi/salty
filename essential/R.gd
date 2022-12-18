@@ -124,7 +124,7 @@ func blank_bytes(size: int) -> PoolByteArray:
 const grawlix_chars = "£‡§ƒ¤±ℓ€÷∆√∫∑∂≠≤≥"
 func grawlix(length: int) -> String:
 	var out = ""
-	for i in range(length):
+	for _i in range(length):
 		out += grawlix_chars[
 			rand_range(0, len(grawlix_chars) - 1)
 		]
@@ -345,7 +345,7 @@ func crash(reason):
 	S.play_music("", 0)
 	audience_keys = []
 	
-	get_tree().change_scene('res://essential/Error.tscn')
+	get_tree().change_scene('res://essential/FatalError.tscn')
 	call_deferred(
 		"_deferred_crash", reason
 	)

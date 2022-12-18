@@ -85,6 +85,7 @@ run/main_scene="res://logo/SplashScreen.tscn"
 boot_splash/image="res://essential/bootsplash.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://essential/icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [audio]
 
@@ -242,4 +243,3 @@ vram_compression/import_etc2=false
 quality/shadows/filter_mode=0
 quality/filters/anisotropic_filter_level=2
 quality/depth/hdr=false
-environment/default_environment="res://essential/default_env.tres"

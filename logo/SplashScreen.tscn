@@ -9,7 +9,7 @@
 [ext_resource path="res://logo/godot.png" type="Texture" id=7]
 [ext_resource path="res://logo/godot.ogg" type="AudioStream" id=8]
 [ext_resource path="res://logo/rating.png" type="Texture" id=9]
-[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=10]
+[ext_resource path="res://essential/default_font.tres" type="DynamicFont" id=10]
 
 [sub_resource type="Animation" id=4]
 resource_name = "RESET"
@@ -545,13 +545,16 @@ volume_db = -3.0
 bus = "BGM"
 
 [node name="Label" type="Label" parent="LogoContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -360.0
+margin_bottom = -360.0
+rect_scale = Vector2( 1.5, 1.5 )
 custom_fonts/font = ExtResource( 10 )
 text = "Loading resource files..."
 align = 1
 valign = 1
+autowrap = true
 
 [node name="CoverRect" type="ColorRect" parent="."]
 anchor_right = 1.0

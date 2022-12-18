@@ -17,9 +17,11 @@ var random_questions = {}
 var q_cache_path = ProjectSettings.globalize_path("user://")
 var cached = {}
 
+# update this when releasing new version
+# must start with "_assets"
+var asset_cache_filename = "_assets_1.pck"
 var asset_cache_path = ProjectSettings.globalize_path("user://")
 var asset_cache_url = "https://haitouch-9320f.web.app/salty/"
-var asset_cache_filename = "_assets.pck"
 onready var http_request = HTTPRequest.new()
 
 
@@ -134,11 +136,15 @@ func download_assets(callback_node: Node, callback_function_name: String):
 	print("Loader.download_assets(): Successfully sent HTTP request. ", http_request.get_downloaded_bytes(), "/", http_request.get_body_size());
 	while http_request.get_downloaded_bytes() != http_request.get_body_size():
 		if is_instance_valid(callback_node):
+			print("Loader.download_assets(): ", http_request.get_downloaded_bytes(), "/", http_request.get_body_size())
 			callback_node.call(callback_function_name, http_request.get_downloaded_bytes(), http_request.get_body_size())
 			yield(get_tree().create_timer(1.0), "timeout")
+		else:
+			print("Loader.download_assets(): Callback node is invalid.", http_request.get_downloaded_bytes(), "/", http_request.get_body_size())
 
 
 func _download_assets_request_completed(result, response_code, headers, body):
+	print("Loader._download_assets_request_completed(",result,",",response_code,",",headers,",",body,")")
 	http_request.disconnect("request_completed", self, "_download_assets_request_completed")
 	if result != HTTPRequest.RESULT_SUCCESS:
 		var error_message = "The HTTP request for the asset pack did not succeed. Error code: %d — " % [result]
@@ -178,9 +184,22 @@ func _download_assets_request_completed(result, response_code, headers, body):
 
 func load_assets():
 	ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
-	yield(get_tree().create_timer(0.05), "timeout")
+	yield(get_tree().create_timer(0.5), "timeout")
 	emit_signal("loaded")
 	return
+
+
+func clear_asset_cache():
+	var dir = Directory.new()
+	if dir.open(asset_cache_path) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				print("Found file: " + asset_cache_path + file_name)
+				if file_name.begins_with("_assets") and file_name.ends_with(".pck"):
+					dir.remove(asset_cache_path + file_name)
+			file_name = dir.get_next()
 
 
 func remove_jsonc_comments(text: String) -> String:
