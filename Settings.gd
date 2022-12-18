@@ -288,7 +288,9 @@ func _get_temp_config(key: String):
 
 func _ready():
 	if R.html:
-		$ButtonAsset.show()
+		$ScreenStretch/ButtonAsset.show()
+	else:
+		$ScreenStretch/ButtonAsset.hide()
 	S.play_music("house", 1)
 	# Set up the options. Finally automate this sucker.
 	var range_used: bool = false
@@ -470,5 +472,5 @@ func clear_question_cache():
 func clear_asset_cache():
 	S.play_music("", 0.0)
 	Loader.clear_asset_cache()
-	$AssetDeleted.show()
+	$ScreenStretch/AssetDeleted.show()
 	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)

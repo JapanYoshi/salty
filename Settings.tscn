@@ -485,6 +485,7 @@ custom_styles/normal = ExtResource( 16 )
 text = "Space/㍙"
 
 [node name="ButtonAsset" type="Button" parent="ScreenStretch"]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 221.0
@@ -496,7 +497,6 @@ theme = ExtResource( 21 )
 text = "Clear asset cache"
 
 [node name="Button" type="Button" parent="ScreenStretch"]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
