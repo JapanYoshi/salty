@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://logo/LogoContainer.gd" type="Script" id=1]
 [ext_resource path="res://logo/hand0.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://logo/godot.png" type="Texture" id=7]
 [ext_resource path="res://logo/godot.ogg" type="AudioStream" id=8]
 [ext_resource path="res://logo/rating.png" type="Texture" id=9]
-[ext_resource path="res://essential/default_font.tres" type="DynamicFont" id=10]
 
 [sub_resource type="Animation" id=4]
 resource_name = "RESET"
@@ -183,7 +182,7 @@ tracks/3/path = NodePath("AudioStreamPlayer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "clips": [ {
 "end_offset": 0.0,
@@ -237,6 +236,20 @@ tracks/7/enabled = true
 tracks/7/keys = {
 "points": PoolRealArray( 0, 0, 0, 0.02, 0.3, 0.75, -0.2, -0.16, 0, 0, 2.5, 0, 0, 0, 0 ),
 "times": PoolRealArray( 0, 0.3, 3 )
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("AudioStreamPlayer2")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -484,8 +497,11 @@ script = ExtResource( 6 )
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -108.0
+margin_right = -108.0
 grow_horizontal = 2
 grow_vertical = 2
+rect_rotation = -5.0
 rect_pivot_offset = Vector2( 600, 960 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -499,6 +515,9 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 108.0
+margin_right = 108.0
+rect_rotation = 5.0
 rect_pivot_offset = Vector2( 500, 1080 )
 texture = ExtResource( 4 )
 __meta__ = {
@@ -509,6 +528,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 540, 540 )
 texture = ExtResource( 3 )
 __meta__ = {
@@ -526,7 +546,6 @@ margin_top = -384.0
 margin_right = 384.0
 margin_bottom = 384.0
 rect_min_size = Vector2( 768, 768 )
-rect_rotation = -2.0
 rect_pivot_offset = Vector2( 384, 384 )
 texture = ExtResource( 7 )
 expand = true
@@ -540,21 +559,14 @@ anims/haitouch = SubResource( 1 )
 anims/rating_fadein = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LogoContainer"]
-stream = ExtResource( 8 )
+stream = ExtResource( 5 )
 volume_db = -3.0
 bus = "BGM"
 
-[node name="Label" type="Label" parent="LogoContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -360.0
-margin_bottom = -360.0
-rect_scale = Vector2( 1.5, 1.5 )
-custom_fonts/font = ExtResource( 10 )
-text = "Loading resource files..."
-align = 1
-valign = 1
-autowrap = true
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="LogoContainer"]
+stream = ExtResource( 8 )
+volume_db = -3.0
+bus = "BGM"
 
 [node name="CoverRect" type="ColorRect" parent="."]
 anchor_right = 1.0

@@ -8,48 +8,6 @@ func _ready():
 	print("LogoContainer._ready()")
 	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
-	if !R.html:
-		print("Not an HTML build; all assets are already here. Load sounds.")
-		_load_sounds()
-		return
-	print("HTML build; check whether the asset pack is downloaded.")
-	if !Loader.are_assets_cached():
-		update_download_progress(-1)
-		print("LogoContainer._ready(): Asking Loader to download assets from the Internet.")
-		Loader.connect("loaded", self, "_load_assets", [], CONNECT_ONESHOT)
-		Loader.download_assets(self, "update_download_progress")
-	else:
-		print("Asset pack is cached. Moving on.")
-		_load_assets()
-	return
-
-
-func _load_assets():
-	print("LogoContainer._load_assets()")
-	Loader.connect("loaded", self, "_load_sounds", [], CONNECT_ONESHOT)
-	Loader.load_assets()
-	return
-
-
-func _load_sounds():
-	print("LogoContainer._load_sounds()")
-	S.preload_sounds()
-	_assets_loaded()
-	return
-
-
-func update_download_progress(bytes_downloaded: int):
-	print("LogoContainer.update_download_progress(", bytes_downloaded, ")")
-	if bytes_downloaded == -1:
-		$Label.show()
-		$Label.text = "Before running the game for the first time, the game needs to download the necessary asset files. Please wait..."
-	else:
-		$Label.text = "Downloading resource files.\n%4f MB downloaded" % (float(bytes_downloaded) / 1048576)
-
-
-func _assets_loaded():
-	print("LogoContainer._assets_loaded()")
-	$Label.hide()
 	anim.play("rating_fadein")
 
 

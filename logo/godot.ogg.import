@@ -12,4 +12,4 @@ dest_files=[ "res://.import/godot.ogg-ff82ddf9d29ea676796a67bc07776c08.oggstr" ]
 [params]
 
 loop=true
-loop_offset=0
+loop_offset=5.0
