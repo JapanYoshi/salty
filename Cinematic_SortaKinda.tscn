@@ -1534,7 +1534,6 @@ tracks/11/keys = {
 }
 
 [sub_resource type="ViewportTexture" id=2]
-flags = 2
 viewport_path = NodePath("Viewport")
 
 [sub_resource type="Animation" id=26]
@@ -1822,9 +1821,9 @@ anims/vibrate = SubResource( 26 )
 
 [node name="Option" type="Panel" parent="."]
 margin_left = 240.0
-margin_top = 720.0
+margin_top = 724.0
 margin_right = 1040.0
-margin_bottom = 840.001
+margin_bottom = 844.001
 custom_styles/panel = ExtResource( 13 )
 __meta__ = {
 "_edit_group_": true
