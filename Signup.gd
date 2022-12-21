@@ -600,9 +600,9 @@ func give_player_nick(id):
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."
 	if eta >= 60*1000:
-		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
+		time_text = "Please wait ≈%dʹ' %0.1f\"..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
 	elif eta >= 1000:
-		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
+		time_text = "Please wait ≈%0.1f\"..." % (eta / 1000.0)
 	elif eta > 0:
 		time_text = "Almost there..."
 	elif eta == 0:
