@@ -122,18 +122,23 @@ margin_right = 560.0
 margin_bottom = 44.0
 text = "Episode Name"
 
-[node name="Stats" type="Control" parent="Details/V"]
+[node name="Stats" type="HBoxContainer" parent="Details/V"]
 margin_top = 44.0
 margin_right = 560.0
-margin_bottom = 104.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 560, 60 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Locked" type="RichTextLabel" parent="Details/V/Stats"]
-margin_top = 1.0
-margin_right = 236.0
-margin_bottom = 29.0
+[node name="V0" type="VBoxContainer" parent="Details/V/Stats"]
+margin_right = 256.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_horizontal = 3
+
+[node name="Locked" type="RichTextLabel" parent="Details/V/Stats/V0"]
+margin_right = 256.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
 custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
 bbcode_enabled = true
@@ -141,11 +146,10 @@ bbcode_text = "Locked: false"
 text = "Locked: false"
 fit_content_height = true
 
-[node name="HiScore" type="RichTextLabel" parent="Details/V/Stats"]
-margin_left = 240.0
-margin_top = 1.0
-margin_right = 560.0
-margin_bottom = 29.0
+[node name="HiScore" type="RichTextLabel" parent="Details/V/Stats/V0"]
+margin_top = 32.0
+margin_right = 256.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
 bbcode_enabled = true
@@ -153,10 +157,16 @@ bbcode_text = "High score: $-100,000 (2022-12-31)"
 text = "High score: $-100,000 (2022-12-31)"
 fit_content_height = true
 
-[node name="LastPlayed" type="RichTextLabel" parent="Details/V/Stats"]
-margin_top = 29.0
-margin_right = 236.0
-margin_bottom = 57.0
+[node name="V1" type="VBoxContainer" parent="Details/V/Stats"]
+margin_left = 260.0
+margin_right = 560.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 3
+
+[node name="LastPlayed" type="RichTextLabel" parent="Details/V/Stats/V1"]
+margin_right = 300.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
 custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
 bbcode_enabled = true
@@ -164,11 +174,10 @@ bbcode_text = "Last played: 2022-12-31"
 text = "Last played: 2022-12-31"
 fit_content_height = true
 
-[node name="BestAcc" type="RichTextLabel" parent="Details/V/Stats"]
-margin_left = 240.0
-margin_top = 29.0
-margin_right = 560.0
-margin_bottom = 57.0
+[node name="BestAcc" type="RichTextLabel" parent="Details/V/Stats/V1"]
+margin_top = 32.0
+margin_right = 300.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
 bbcode_enabled = true
@@ -180,9 +189,9 @@ __meta__ = {
 }
 
 [node name="Desc" type="RichTextLabel" parent="Details/V"]
-margin_top = 104.0
+margin_top = 132.0
 margin_right = 560.0
-margin_bottom = 132.0
+margin_bottom = 160.0
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Episode description. [i]italic[/i]"

@@ -211,28 +211,28 @@ func get_high_score(ep_id: String):
 
 
 func submit_high_score(score: int, accuracy: float):
-	if not (pass_between.episode_data.episode_name in save_data.history.keys()):
-		init_high_score(pass_between.episode_data.episode_name)
+	if not (pass_between.episode_data.filename in save_data.history.keys()):
+		init_high_score(pass_between.episode_data.filename)
 	var edited_high_score: bool = false
 	var now = OS.get_unix_time()
-	save_data.history[pass_between.episode_data.episode_name].last_played = now
+	save_data.history[pass_between.episode_data.filename].last_played = now
 	# check if high score is better
-	if save_data.history[pass_between.episode_data.episode_name].high_score_time == 0\
-	or score > save_data.history[pass_between.episode_data.episode_name].high_score:
+	if save_data.history[pass_between.episode_data.filename].high_score_time == 0\
+	or score > save_data.history[pass_between.episode_data.filename].high_score:
 		edited_high_score = true
-		save_data.history[pass_between.episode_data.episode_name].high_score = score
-		save_data.history[pass_between.episode_data.episode_name].high_score_time = now
+		save_data.history[pass_between.episode_data.filename].high_score = score
+		save_data.history[pass_between.episode_data.filename].high_score_time = now
 	# check if accuarcy is better
 	if !is_nan(accuracy) and (
-		save_data.history[pass_between.episode_data.episode_name].best_accuracy_time == 0\
-		or accuracy > save_data.history[pass_between.episode_data.episode_name].best_accuracy
+		save_data.history[pass_between.episode_data.filename].best_accuracy_time == 0\
+		or accuracy > save_data.history[pass_between.episode_data.filename].best_accuracy
 	):
 		edited_high_score = true
-		save_data.history[pass_between.episode_data.episode_name].best_accuracy = accuracy
-		save_data.history[pass_between.episode_data.episode_name].best_accuracy_time = now
+		save_data.history[pass_between.episode_data.filename].best_accuracy = accuracy
+		save_data.history[pass_between.episode_data.filename].best_accuracy_time = now
 	# check if new episode is unlocked
-	if pass_between.episode_data.episode_name in unlocks.keys():
-		for unlock in unlocks[pass_between.episode_data.episode_name]:
+	if pass_between.episode_data.filename in unlocks.keys():
+		for unlock in unlocks[pass_between.episode_data.filename]:
 			if save_data.history[unlock].locked:
 				edited_high_score = true
 				save_data.history[unlock].locked = false

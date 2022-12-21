@@ -332,6 +332,7 @@ func load_episodes_list():
 			var result = JSON.parse(ep_file.get_as_text())
 			if result.error == OK:
 				episodes[ep_name] = result.result
+				episodes[ep_name].filename = ep_name
 			else:
 				print("Couldn't load episode: " + ep_name)
 	print("Loader: Episode data loaded.")

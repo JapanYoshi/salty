@@ -15,10 +15,10 @@ var last = ""
 var disable_controls = false
 
 onready var el_name = $Details/V/Name
-onready var el_locked = $Details/V/Stats/Locked
-onready var el_last_played = $Details/V/Stats/LastPlayed
-onready var el_high_score = $Details/V/Stats/HiScore
-onready var el_best_acc = $Details/V/Stats/BestAcc
+onready var el_locked = $Details/V/Stats/V0/Locked
+onready var el_last_played = $Details/V/Stats/V1/LastPlayed
+onready var el_high_score = $Details/V/Stats/V0/HiScore
+onready var el_best_acc = $Details/V/Stats/V1/BestAcc
 onready var el_desc = $Details/V/Desc
 
 # Called when the node enters the scene tree for the first time.
