@@ -11,8 +11,8 @@ signal gp_axis(index, axis, value)
 # prevent inputs from leaking out to the game when paused
 signal gp_button_paused(index, button, pressed)
 signal gp_axis_paused(index, axis, value)
-signal gp_connect
-signal gp_disconnect
+
+
 
 # List of registered controllers.
 # By default, indices 0-3 will be occupied by the keyboard,
@@ -23,6 +23,7 @@ var ignore_axis = [0, 0, 0, 0]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
+# warning-ignore:return_value_discarded
 	Input.connect("joy_connection_changed", self, "_on_input_changed")
 	add_controller(DEVICES.KEYBOARD, 0, 0)
 	add_controller(DEVICES.KEYBOARD, 1, 0)
