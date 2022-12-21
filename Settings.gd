@@ -310,7 +310,7 @@ func _ready():
 				vbox.add_child(element)
 			else:
 				bool_used = true
-			element.get_node("VBox/HSplit/SBox").set_pressed_no_signal(_get_temp_config(s.k))
+			(element.get_node("VBox/HSplit/SBox") as CheckBox).set_pressed_no_signal(_get_temp_config(s.k))
 			element.connect("toggled", self, "_on_check_toggled")
 		else:
 			element = vbox.get_node("Range")
@@ -319,9 +319,11 @@ func _ready():
 				vbox.add_child(element)
 			else:
 				range_used = true
-			element.get_node("VBox/HBoxContainer/HSlider").min_value = s.r[0]
-			element.get_node("VBox/HBoxContainer/HSlider").max_value = s.r[1]
-			element.get_node("VBox/HBoxContainer/HSlider").value = _get_temp_config(s.k)
+			var slider: HSlider = element.get_node("VBox/HBoxContainer/HSlider")
+			slider.min_value = s.r[0]
+			slider.max_value = s.r[1]
+			slider.tick_count = s.r[1] - s.r[0]
+			slider.value = _get_temp_config(s.k)
 			element.connect("value_changed", self, "_on_HSlider_value_changed")
 
 		vbox.move_child(element, i + 1)

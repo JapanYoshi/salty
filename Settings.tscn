@@ -356,6 +356,7 @@ margin_bottom = 48.0
 size_flags_horizontal = 3
 max_value = 2.0
 value = 2.0
+scrollable = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
