@@ -30,8 +30,8 @@ func play_intro():
 	anim.play("intro")
 	
 func show_title(title):
-	question.get_node("Ttl/RichTextLabel").clear()
-	question.get_node("Ttl/RichTextLabel").append_bbcode(
+	question.get_node("Ttl/PanelContainer/RichTextLabel").clear()
+	question.get_node("Ttl/PanelContainer/RichTextLabel").append_bbcode(
 		"[center]%s[/center]" % title
 	)
 	question.get_node("Ttl").show()
