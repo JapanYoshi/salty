@@ -80,8 +80,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Salty"
-run/main_scene="res://logo/SplashScreen.tscn"
+config/name="Salty Trivia with Candy Barre"
+config/description="The sassy quiz party game, where the questions are ridiculous, but the answersr are serious."
+run/main_scene="res://essential/Initialization.tscn"
 boot_splash/image="res://essential/bootsplash.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://essential/icon.png"
@@ -104,6 +105,7 @@ Fb="*res://essential/FirebaseManager.tscn"
 
 window/size/width=1280
 window/size/height=720
+window/handheld/orientation="sensor_landscape"
 window/stretch/aspect="keep"
 
 [importer_defaults]
