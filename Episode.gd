@@ -37,6 +37,7 @@ func _ready():
 	q_box.hud = hud
 	question_number = 0
 	episode_data = R.pass_between.episode_data
+	print("Episode.gd: Question IDs received were ", episode_data.question_id)
 #	if not R.pass_between.has("episode_name"):
 ##		# we're debugging
 #		DEBUG = true
@@ -662,7 +663,7 @@ func load_next_question():
 	if question_number == 6 and R.get_settings_value("cutscenes") and intermission_played == false:
 		intermission_played = true
 		play_intermission()
-		#load_question(episode_data.question_id[question_number])
+		#load_question(question_number)
 	elif question_number == 13:
 		q_box.set_process(false)
 		c_box.show()
@@ -670,18 +671,18 @@ func load_next_question():
 		play_outro()
 	else:
 		intermission_played = false
-		load_question(episode_data.question_id[question_number])
+		load_question(question_number)
 
-func load_question(q_name):
+func load_question(q_number: int):
 	c_box.set_process(false)
 	c_box.hide()
 	
-	q_box.question_number = question_number
-	q_box.show_loading_logo(question_number + 1)
+	q_box.question_number = q_number
+	q_box.show_loading_logo(q_number + 1)
 	yield(q_box.anim, "animation_finished")
 	S.unload_all_voices()
 	Loader.call_deferred("load_question",
-		q_name, question_number == 0, q_box
+		R.pass_between.episode_data.question_id[q_number], q_number == 0, q_box
 	)
 	yield(Loader, "loaded")
 #	print("Q_BOX.DATA SHOULD NOW BE THE DICTIONARY ", q_box.data)
@@ -752,7 +753,7 @@ func _load_outro_cutscene():
 		var candidates = Loader.random_dict.audio_episode["outro_game"]
 		var candidates_slam = Loader.random_dict.audio_episode["outro_slam"]
 		var index = 0
-		if candidates.empty() == 0 or candidates_slam.empty() == 0:
+		if candidates.empty() or candidates_slam.empty():
 			R.crash("There are no random game outro lines! Please check `random_voicelines.json` to see if `outro_game` and `outro_slam` are filled up correctly.")
 		elif len(candidates) != len(candidates_slam):
 			R.crash("The number of random `outro_game` and `outro_slam` lines in `random_voicelines.json` are different: " + str(len(candidates)) + " vs. " + str(len(candidates_slam)) + ".")

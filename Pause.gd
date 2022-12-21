@@ -20,7 +20,9 @@ func _ready():
 	ep = get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
+	$NprContainer/HBoxContainer/HSlider.value = R.get_settings_value("overall_volume")
 	get_tree().connect("screen_resized", self, "_on_size_changed")
+
 
 const base_resolution = Vector2(1280, 720)
 func _on_size_changed():
@@ -29,6 +31,7 @@ func _on_size_changed():
 		resolution.y / base_resolution.y,
 		resolution.x / base_resolution.x
 	)
+
 
 func _process(delta):
 	if !visible: return
@@ -80,9 +83,11 @@ func pause_modal(player_number, device_index):
 	anim.play("show")
 	get_tree().paused = true
 
+
 func resume():
 	if anim.get_playing_speed() or !visible: return
 	anim.play("hide")
+
 
 func quit():
 	if anim.get_playing_speed() or !visible: return
@@ -92,6 +97,7 @@ func quit():
 	S.stop_voice()
 	get_tree().change_scene("res://Title.tscn")
 	get_tree().paused = false
+
 
 func _gp_button(index, button, pressed):
 	if ending: return;
@@ -111,6 +117,7 @@ func _gp_button(index, button, pressed):
 			pause_modal(i, index)
 		return
 
+
 func _gp_button_paused(index, button, pressed):
 	# other buttons?
 	if index != device: return
@@ -123,7 +130,19 @@ func _gp_button_paused(index, button, pressed):
 		quit()
 		return;
 
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "hide":
 		hide()
 		get_tree().paused = false
+
+
+## Hard-codes the maximum of 15 so that might be an issue later if I change it
+func _on_HSlider_value_changed(value):
+	if !visible: return
+	print("_on_HSlider_value_changed(", value, ")")
+	R.set_settings_value("overall_volume", value)
+	var v = float(value) / 15.0
+	S.set_overall_volume(v)
+	$VolumeSound.pitch_scale = v + 1.0
+	$VolumeSound.play()
