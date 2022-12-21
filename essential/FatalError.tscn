@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=1]
 [ext_resource path="res://essential/default_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://essential/FatalError.gd" type="Script" id=3]
+[ext_resource path="res://essential/default_font_b.tres" type="DynamicFont" id=4]
 
 [node name="Error" type="ColorRect"]
 anchor_right = 1.0
@@ -33,35 +34,35 @@ margin_bottom = -8.0
 
 [node name="Label" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
 margin_right = 1200.0
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 2 )
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 4 )
 text = "Fatal error"
 align = 1
 valign = 1
 
 [node name="Reason" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 32.0
+margin_top = 41.0
 margin_right = 1200.0
-margin_bottom = 60.0
+margin_bottom = 78.0
 size_flags_vertical = 2
 custom_fonts/font = ExtResource( 2 )
 autowrap = true
 
 [node name="Footer" type="RichTextLabel" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 515.0
+margin_top = 479.0
 margin_right = 1200.0
-margin_bottom = 602.0
+margin_bottom = 593.0
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "If this issue persists, please report the error to the GitHub repo ([url]https://github.com/JapanYoshi/salty/issues[/url]) or the official Discord server ([url]https://discord.gg/Mp89KdZ75N[/url])."
-text = "If this issue persists, please report the error to the GitHub repo (https://github.com/JapanYoshi/salty/issues) or the official Discord server (https://discord.gg/Mp89KdZ75N)."
+bbcode_text = "If this issue persists, please report the error to [url=https://github.com/JapanYoshi/salty/issues]the GitHub repo[/url] (github.com/japanyoshi/salty/issues) or [url=https://discord.gg/Mp89KdZ75N]the official Discord server[/url] (discord.gg/Mp89KdZ75N)."
+text = "If this issue persists, please report the error to the GitHub repo (github.com/japanyoshi/salty/issues) or the official Discord server (discord.gg/Mp89KdZ75N)."
 fit_content_height = true
 
 [node name="Button" type="Button" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 606.0
+margin_top = 597.0
 margin_right = 1200.0
 margin_bottom = 640.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 4 )
 text = "Return to title"
 
 [connection signal="meta_clicked" from="ScreenStretch/ColorRect/VBoxContainer/Footer" to="." method="_on_Footer_meta_clicked"]
