@@ -80,7 +80,7 @@ func _process(delta):
 			http.poll()
 			#if http.get_status() != HTTPClient.STATUS_REQUESTING:
 			if http.get_status() == HTTPClient.STATUS_BODY:
-				print_debug(http.get_response_headers())
+#				print_debug(http.get_response_headers())
 				state = State.LISTENING
 
 
