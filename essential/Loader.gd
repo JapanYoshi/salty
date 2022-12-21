@@ -15,17 +15,19 @@ var random_questions = {}
 
 # ProjectSettings.globalize_path forbids this from being a const
 var q_cache_path = ProjectSettings.globalize_path("user://")
+const question_url = "https://haitouch.ga/me/salty/q/"
+const q_cache_filename = "%s.zip"
 var cached = {}
 
 # update this when releasing new version
 # must start with "_assets"
-var asset_cache_filename = "_assets_1.pck"
+var asset_cache_filename = "_assets_2.pck"
 var asset_cache_path = ProjectSettings.globalize_path("user://")
-var asset_cache_url = "https://haitouch-9320f.web.app/salty/"
+const asset_cache_url = "https://haitouch-9320f.web.app/salty_pck/"
 onready var http_request = HTTPRequest.new()
 
 
-var random_dict = {}
+export var random_dict = {}
 
 var rng = RandomNumberGenerator.new()
 
@@ -46,9 +48,6 @@ func _ready():
 	add_child(http_request)
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
-	load_random_voice_lines()
-	load_random_questions()
-	load_episodes_list()
 	# var dir: Directory = Directory.new()
 	# if !(dir.dir_exists(q_cache_path)):
 	# 	dir.make_dir_recursive(q_cache_path)
@@ -60,18 +59,21 @@ func _ready():
 const MAGIC_NUMBER = PoolByteArray([0x47, 0x44, 0x50, 0x43])
 func is_question_cached(id):
 	var file: File = File.new()
-	if !file.file_exists(q_cache_path + "%s.pck" % id):
+	if !file.file_exists(q_cache_path + q_cache_filename % id):
+		file.close()
 		return false
-	var error: int = file.open(q_cache_path + "%s.pck" % id, File.READ)
+	var error: int = file.open(q_cache_path + q_cache_filename % id, File.READ)
 	if error:
-		printerr("Loading ", q_cache_path, "%s.pck" % id, " resulted in error %d." % error)
+		printerr("Loading ", q_cache_path, q_cache_filename % id, " resulted in error %d." % error)
+		file.close()
 		return false
-	for i in range(4):
-		if file.get_8() != MAGIC_NUMBER[i]:
-			# Corrupted file.
-			printerr(q_cache_path + "%s.pck" % id, " exists, but does not start with GDPC. Removing.")
-			remove_from_question_cache(id)
-			return false
+	# code to validate .pck file, not used because it's a zip file
+#	for i in range(4):
+#		if file.get_8() != MAGIC_NUMBER[i]:
+#			# Corrupted file.
+#			printerr(q_cache_path + q_cache_filename % id, " exists, but does not start with GDPC. Removing.")
+#			remove_from_question_cache(id)
+#			return false
 	file.close()
 	return true
 
@@ -83,69 +85,117 @@ func append_question_cache(id):
 func remove_from_question_cache(id):
 	cached[id] = false
 	var dir = Directory.new()
-	dir.remove(q_cache_path + "%s.pck" % id)
+	dir.remove(q_cache_path + q_cache_filename % id)
 
 
 func clear_question_cache():
 	var dir = Directory.new()
 	for id in cached:
-		dir.remove(q_cache_path + "%s.pck" % id)
+		dir.remove(q_cache_path + q_cache_filename % id)
 
 
-func load_cached_question(id):
+func mount_cached_question(id):
 	return ProjectSettings.load_resource_pack(
-		q_cache_path + "%s.pck" % id
+		q_cache_path + q_cache_filename % id
 	)
 
 
-func are_assets_cached():
-	var file: File = File.new()
-	if !file.file_exists(asset_cache_path + asset_cache_filename):
-		print("Loader: Asset cache is not saved.")
-		return false
-	var error: int = file.open(asset_cache_path + asset_cache_filename, File.READ)
-	if error:
-		printerr("Loading ", asset_cache_path + asset_cache_filename, " resulted in error %d." % error)
-		var dir = Directory.new()
-		dir.remove(asset_cache_path + asset_cache_filename)
-		return false
-	for i in range(4):
-		if file.get_8() != MAGIC_NUMBER[i]:
-			# Corrupted file.
-			print("Loader: Asset cache is saved, but invalid.")
-			var dir = Directory.new()
-			dir.remove(asset_cache_path + asset_cache_filename)
-			return false
-	file.close()
-	return true
+#func are_assets_cached():
+#	var file: File = File.new()
+#	if !file.file_exists(asset_cache_path + asset_cache_filename):
+#		print("Loader: Asset cache is not saved. Trying to delete any other versions of the assets to save space...")
+#		clear_asset_cache()
+#		return false
+#	var error: int = file.open(asset_cache_path + asset_cache_filename, File.READ)
+#	if error:
+#		printerr("Loading ", asset_cache_path + asset_cache_filename, " resulted in error %d." % error)
+#		var dir = Directory.new()
+#		dir.remove(asset_cache_path + asset_cache_filename)
+#		return false
+#	for i in range(4):
+#		if file.get_8() != MAGIC_NUMBER[i]:
+#			# Corrupted file.
+#			print("Loader: Asset cache is saved, but invalid.")
+#			var dir = Directory.new()
+#			dir.remove(asset_cache_path + asset_cache_filename)
+#			return false
+#	file.close()
+#	return true
 
 
-func download_assets(callback_node: Node, callback_function_name: String):
-	var url = asset_cache_url + asset_cache_filename
+var assets_done: bool = false
+func head_request_assets(callback_node: Node, callback_function_name: String):
 	print("Loader.download_assets(): Getting ready to contact this url: ", asset_cache_url + asset_cache_filename)
-	# Create an HTTP request node and connect its completion signal.
+	http_request.connect("request_completed", self, "_head_request_completed", [callback_node, callback_function_name], CONNECT_ONESHOT)
+	var result = http_request.request(
+		asset_cache_url + asset_cache_filename,
+		[], true, HTTPClient.METHOD_HEAD
+	)
+	if result:
+		printerr("http_request() HEAD did not succeed: ", result)
+		if is_instance_valid(callback_node):
+			callback_node.call(callback_function_name, 8)
+		return
+
+
+func _head_request_completed(\
+	result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray,\
+	callback_node: Node, callback_function_name: String):
+	print("_head_request_completed ", result, " ", response_code, " ", headers, " ", body)
+	# get last modified date
+	var file: File = File.new()
+	var last_mod_saved: String = ""
+	if file.file_exists(asset_cache_path + "last-modified.txt"):
+		file.open(asset_cache_path + "last-modified.txt", File.READ)
+		last_mod_saved = file.get_as_text()
+		file.close()
+	# find out the size
+	var size: int = 0
+	var last_mod: String = ""
+	for h in headers:
+		var h_split = h.split(":", true, 1)
+		if h_split[0] == "content-length":
+			size = int(h_split[1])
+		elif h_split[0] == "last-modified":
+			last_mod = h_split[1]
+	if is_instance_valid(callback_node):
+		if last_mod == last_mod_saved:
+			print("New last-modified header value ", last_mod, " == cached last-modified header value", last_mod_saved)
+			callback_node.call(callback_function_name, 9, size)
+		else:
+			print("New last-modified header value ", last_mod, " != cached last-modified header value", last_mod_saved)
+			callback_node.call(callback_function_name, 0, size)
+
+
+func download_assets_confirm(callback_node: Node, callback_function_name: String):
 	http_request.set_download_file(asset_cache_path + asset_cache_filename)
 	http_request.download_chunk_size = 262144
-	http_request.connect("request_completed", self, "_download_assets_request_completed")
+	http_request.connect("request_completed", self, "_download_assets_request_completed", [], CONNECT_ONESHOT)
 	# Perform the HTTP request.
 	print("Loader.download_assets(): About to send the request to download the file as: ", asset_cache_path + asset_cache_filename)
-	var error = http_request.request(url)
+	var error = http_request.request(asset_cache_url + asset_cache_filename)
 	if error != OK:
 		push_error("Loader.download_assets(): An error occurred while making the HTTP request: %d." % error)
 		return
-	print("Loader.download_assets(): Successfully sent HTTP request. ", http_request.get_downloaded_bytes(), "/", http_request.get_body_size());
-	while http_request.get_downloaded_bytes() != http_request.get_body_size():
+	print("Loader.download_assets(): Successfully sent HTTP request. ", http_request.get_downloaded_bytes());
+	assets_done = false
+	while !assets_done:
 		if is_instance_valid(callback_node):
-			print("Loader.download_assets(): ", http_request.get_downloaded_bytes(), "/", http_request.get_body_size())
-			callback_node.call(callback_function_name, http_request.get_downloaded_bytes(), http_request.get_body_size())
+			print("Loader.download_assets(): ", http_request.get_downloaded_bytes())
+			callback_node.call(callback_function_name, 1, http_request.get_downloaded_bytes())
 			yield(get_tree().create_timer(1.0), "timeout")
 		else:
-			print("Loader.download_assets(): Callback node is invalid.", http_request.get_downloaded_bytes(), "/", http_request.get_body_size())
+			print("Loader.download_assets(): Callback node is invalid.", http_request.get_downloaded_bytes())
+	if is_instance_valid(callback_node):
+		callback_node.call(callback_function_name, 2, -1)
+	else:
+		printerr("Loader.download_assets_confirm: Callback node is not valid")
 
 
-func _download_assets_request_completed(result, response_code, headers, body):
+func _download_assets_request_completed(\
+	result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray):
 	print("Loader._download_assets_request_completed(",result,",",response_code,",",headers,",",body,")")
-	http_request.disconnect("request_completed", self, "_download_assets_request_completed")
+	assets_done = true
 	if result != HTTPRequest.RESULT_SUCCESS:
 		var error_message = "The HTTP request for the asset pack did not succeed. Error code: %d — " % [result]
 		match result:
@@ -178,12 +228,23 @@ func _download_assets_request_completed(result, response_code, headers, body):
 	elif response_code >= 400:
 		R.crash("Tried to download the asset pack, but the Web request did not succeed. The HTTP response code was %d." % [response_code] + "\nPressing the “Return to title” button below will not work correctly.")
 		return
-	emit_signal("loaded")
+	# save last modified date
+	var last_mod: String = ""
+	for h in headers:
+		var h_split = h.split(":", 1)
+		if h_split[0] == "last-modified":
+			last_mod = h_split[1]
+			break
+	var file = File.new()
+	file.open(asset_cache_path + "last-modified.txt", File.WRITE)
+	file.store_string(last_mod)
+	file.close()
 	return
 
 
 func load_assets():
-	ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
+	var result = ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
+	print("Resource pack load result is ", result)
 	yield(get_tree().create_timer(0.5), "timeout")
 	emit_signal("loaded")
 	return
@@ -198,12 +259,13 @@ func clear_asset_cache():
 			if !dir.current_is_dir():
 				print("Found file: " + asset_cache_path + file_name)
 				if file_name.begins_with("_assets") and file_name.ends_with(".pck"):
-					dir.remove(asset_cache_path + file_name)
+					dir.remove(file_name)
 			file_name = dir.get_next()
 
 
 func remove_jsonc_comments(text: String) -> String:
 	# remove block comments
+	# as a side effect of me not bothering to parse the entire thing, strings cannot contain /* or */
 	var start: int = text.find("/*"); var end: int = text.find("*/", start)
 	while start != -1:
 		if end == -1:
@@ -312,8 +374,14 @@ const random_voice_line_keys = [
 	"like_title", "like_options", "like_ready",
 	"like_outro"
 ];
+export var question_texts: Dictionary = {};
 
-func load_question(id, first_question: bool, q_box: Node):
+
+func reset_question_text():
+	question_texts.clear()
+
+
+func load_question_text(id) -> int:
 	var failed_count: int = 5
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
@@ -329,7 +397,7 @@ func load_question(id, first_question: bool, q_box: Node):
 		yield(get_tree().create_timer(0.2), "timeout")
 	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data `_question.gdcfg` for ID '" + id + "' is missing.")
-		return
+		return err
 	elif err == ERR_PARSE_ERROR:
 		print("Found it, but it could not be parsed")
 		var textfile = File.new()
@@ -337,26 +405,36 @@ func load_question(id, first_question: bool, q_box: Node):
 		print(textfile.get_as_text())
 		textfile.close()
 		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
-		return
+		return err
 	elif err != OK:
 		R.crash("Loading question data `_question.gdcfg` for ID '" + id + "' resulted in error code %d." % err)
-		return
+		return err
 	if len(file.get_sections()) == 0:
 		var textfile = File.new()
 		textfile.open(path, File.READ)
 		R.crash("Question data for ID '" + id + "' turned out empty. Text content:\n" + textfile.get_as_text())
 		textfile.close()
-		return
-	var data = {}
+		return ERR_FILE_EOF
+	question_texts[id] = {}
 	for section in file.get_sections():
 		if section == "root":
 			for section_key in file.get_section_keys(section):
-				data[section_key] = file.get_value(section, section_key)
+				question_texts[id][section_key] = file.get_value(section, section_key)
 		else:
-			data[section] = {}
+			question_texts[id][section] = {}
 			for section_key in file.get_section_keys(section):
-				data[section][section_key] = file.get_value(section, section_key)
-	pass
+				question_texts[id][section][section_key] = file.get_value(section, section_key)
+	if question_texts.has(id):
+		return OK
+	return ERR_SCRIPT_FAILED
+
+
+func load_question(id, first_question: bool, q_box: Node):
+	if not(id in question_texts.keys()):
+		printerr("Question ID passed is ", id, ", which is not one of the questions in the episode data: ", R.pass_between.episode_data.question_id)
+		R.crash("Question data for ID '" + id + "' has not been preloaded. Question asset data cannot be loaded.\nCurrently loaded question list: " + String(R.pass_between.episode_data.question_id))
+		return
+	var data: Dictionary = question_texts[id]
 	### Expected structure:
 	# "v" is voice file name,
 	# "t" is text (for title, question, and options),
