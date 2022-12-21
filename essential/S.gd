@@ -42,7 +42,8 @@ func preload_sounds():
 	var r = f.open(sfx_path + "_.json", File.READ)
 	if r != OK:
 		printerr("Could not load list of sound effects.")
-	sfx_list = JSON.parse(f.get_as_text()).result
+	var jsonparse = JSON.parse(f.get_as_text())
+	sfx_list = jsonparse.result
 	for k in sfx_list.keys():
 		preload_sfx(k)
 	print("S.preload_sounds(): Preloaded SFX.")
