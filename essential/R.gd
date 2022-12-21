@@ -5,7 +5,7 @@ signal change_audience_count(audience_count)
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var rng = RandomNumberGenerator.new()
+export onready var rng = RandomNumberGenerator.new()
 var html: bool = false
 var pass_between = {}
 var players = []
@@ -211,28 +211,28 @@ func get_high_score(ep_id: String):
 
 
 func submit_high_score(score: int, accuracy: float):
-	if not (pass_between.episode_name in save_data.history.keys()):
-		init_high_score(pass_between.episode_name)
+	if not (pass_between.episode_data.episode_name in save_data.history.keys()):
+		init_high_score(pass_between.episode_data.episode_name)
 	var edited_high_score: bool = false
 	var now = OS.get_unix_time()
-	save_data.history[pass_between.episode_name].last_played = now
+	save_data.history[pass_between.episode_data.episode_name].last_played = now
 	# check if high score is better
-	if save_data.history[pass_between.episode_name].high_score_time == 0\
-	or score > save_data.history[pass_between.episode_name].high_score:
+	if save_data.history[pass_between.episode_data.episode_name].high_score_time == 0\
+	or score > save_data.history[pass_between.episode_data.episode_name].high_score:
 		edited_high_score = true
-		save_data.history[pass_between.episode_name].high_score = score
-		save_data.history[pass_between.episode_name].high_score_time = now
+		save_data.history[pass_between.episode_data.episode_name].high_score = score
+		save_data.history[pass_between.episode_data.episode_name].high_score_time = now
 	# check if accuarcy is better
 	if !is_nan(accuracy) and (
-		save_data.history[pass_between.episode_name].best_accuracy_time == 0\
-		or accuracy > save_data.history[pass_between.episode_name].best_accuracy
+		save_data.history[pass_between.episode_data.episode_name].best_accuracy_time == 0\
+		or accuracy > save_data.history[pass_between.episode_data.episode_name].best_accuracy
 	):
 		edited_high_score = true
-		save_data.history[pass_between.episode_name].best_accuracy = accuracy
-		save_data.history[pass_between.episode_name].best_accuracy_time = now
+		save_data.history[pass_between.episode_data.episode_name].best_accuracy = accuracy
+		save_data.history[pass_between.episode_data.episode_name].best_accuracy_time = now
 	# check if new episode is unlocked
-	if pass_between.episode_name in unlocks.keys():
-		for unlock in unlocks[pass_between.episode_name]:
+	if pass_between.episode_data.episode_name in unlocks.keys():
+		for unlock in unlocks[pass_between.episode_data.episode_name]:
 			if save_data.history[unlock].locked:
 				edited_high_score = true
 				save_data.history[unlock].locked = false
@@ -345,12 +345,14 @@ func crash(reason):
 	S.play_music("", 0)
 	audience_keys = []
 	
+# warning-ignore:return_value_discarded
 	get_tree().change_scene('res://essential/FatalError.tscn')
 	call_deferred(
 		"_deferred_crash", reason
 	)
 
 func _deferred_crash(reason):
+# warning-ignore:unsafe_method_access
 	get_tree().get_root().get_node('Error').set_reason(reason)
 	S.play_sfx("naughty")
 
@@ -392,6 +394,7 @@ func listen_for_audience_join():
 	pass
 	if get_settings_value("room_openness") != 0 and get_settings_value("audience"):
 #		Ws.connect("player_joined", self, 'audience_join')
+# warning-ignore:return_value_discarded
 		Fb.connect("player_joined", self, 'audience_join')
 #		Ws.connect('player_requested_nick', self, "give_audience_nick")
 
@@ -439,7 +442,6 @@ func generate_room_code():
 	var buf: PoolByteArray = [0, 0, 0, 0]
 	var code: String = ""
 	while true:
-		var rng = RandomNumberGenerator.new()
 		rng.randomize()
 		for i in range(4):
 			buf[i] = rng.randi_range(65, 90)
