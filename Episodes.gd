@@ -1,6 +1,6 @@
 extends Control
 var menu_root: Control
-onready var ep_scroller = $ScrollContainer/VBoxContainer
+var ep_scroller: VBoxContainer
 var eps = {}
 #var eps = {"RQ": {
 #	id = "RQ",
@@ -23,7 +23,7 @@ onready var el_desc = $Details/V/Desc
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Episodes readying...")
+	ep_scroller = get_node_or_null("ScrollContainer/VBoxContainer")
 	ep_scroller.get_parent().get_v_scrollbar().rect_min_size.x = 32
 	var ep_box = ep_scroller.get_node("Option")
 	ep_box.name = "Template"
@@ -48,15 +48,14 @@ func _ready():
 			new_box.get_node("VBox/Split/Num/Text").modulate = Color(1.0, 1.0, 1.0, 0.25)
 			new_box.get_node("VBox/Split/Title").modulate = Color(1.0, 1.0, 1.0, 0.25)
 		ep_scroller.add_child(new_box)
-		ep_scroller.move_child($ScrollContainer/VBoxContainer/BottomSpacer, ep_scroller.get_child_count()-1)
-#	if eps.has("RQ"):
-#		first = "RQ"
-#		ep_box.grab_focus()
-#	else:
+		ep_scroller.move_child(
+			$ScrollContainer/VBoxContainer/BottomSpacer,
+			ep_scroller.get_child_count() - 1
+		)
 	ep_scroller.get_node(first).grab_focus()
 	ep_box.queue_free()
 	focus_shifted(first)
-	print("Episodes readied.")
+
 
 func focus_shifted(which):
 	print("focus_shifted to ", which)
