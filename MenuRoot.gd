@@ -286,10 +286,11 @@ func _load_question(q):
 			Loader.remove_from_question_cache(q)
 			R.crash("Could not load resource pack for question ID %s. The file appears to be corrupted, so it has been removed from the cache." % q)
 		# check required files
-		var file = File.new()
-		if !file.file_exists("res://q/%s/title.wav.import" % q):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted.\n" % q + "Cause of failure: res://q/%s/title.wav.import does not exist." % q)
+		var test_stream = ResourceLoader.load("res://q/%s/title.wav" % q)
+		if not(test_stream is AudioStreamSample):
+			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted.\n" % q + "Cause of failure: res://q/%s/title.wav does not exist." % q)
 			return
+		var file = File.new()
 		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
 			R.crash("Loaded resource pack for question ID %s, but it seems to be incomplete.\n" % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
 			return
