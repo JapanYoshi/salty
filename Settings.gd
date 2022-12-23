@@ -303,6 +303,7 @@ func _ready():
 		setting_is_bool.push_back(is_a_boolean)
 		var headline_text = s.t
 		_set_temp_config(s.k, R.get_settings_value(s.k))
+		var cb_or_slider: Node
 		if is_a_boolean:
 			element = vbox.get_node("Bool")
 			if bool_used:
@@ -310,8 +311,9 @@ func _ready():
 				vbox.add_child(element)
 			else:
 				bool_used = true
-			(element.get_node("VBox/HSplit/SBox") as CheckBox).set_pressed_no_signal(_get_temp_config(s.k))
-			element.connect("toggled", self, "_on_check_toggled")
+			cb_or_slider = element.get_node("VBox/HSplit/SBox") as CheckBox
+			cb_or_slider.set_pressed_no_signal(_get_temp_config(s.k))
+			cb_or_slider.connect("toggled", self, "_on_check_toggled")
 		else:
 			element = vbox.get_node("Range")
 			if range_used:
@@ -319,44 +321,40 @@ func _ready():
 				vbox.add_child(element)
 			else:
 				range_used = true
-			var slider: HSlider = element.get_node("VBox/HBoxContainer/HSlider")
-			slider.min_value = s.r[0]
-			slider.max_value = s.r[1]
-			slider.tick_count = s.r[1] - s.r[0]
-			slider.value = _get_temp_config(s.k)
-			element.connect("value_changed", self, "_on_HSlider_value_changed")
+			cb_or_slider = element.get_node("VBox/HBoxContainer/HSlider") as HSlider
+			cb_or_slider.min_value = s.r[0]
+			cb_or_slider.max_value = s.r[1]
+			cb_or_slider.tick_count = s.r[1] - s.r[0]
+			cb_or_slider.value = _get_temp_config(s.k)
+			cb_or_slider.connect("value_changed", self, "_on_HSlider_value_changed")
+		cb_or_slider.connect("focus_entered", self, "_change_focus", [i])
 
 		vbox.move_child(element, i + 1)
 		element.get_node("VBox/HSplit/Label").set_text(headline_text)
 		element.get_node("VBox/HSplit/value").text = s.o[int(_get_temp_config(s.k))].t
 		setting_elements.push_back(element)
-#	for i in range(len(temp_config)):
-#		focus_index = i
-#		change_desc(true)
+
+	# set focus neighbors manually
 	focus_index = 0
-	# signals and focuses
 	for i in range(len(setting_elements)):
 		var element = setting_elements[i]
-		element.connect("mouse_entered", self, "_on_option_mouse_entered", [i])
-		var checkbox: Node
+		var cb_or_slider: Node
 		if setting_is_bool[i]:
-			checkbox = element.get_node("VBox/HSplit/SBox")
-			checkbox.connect("toggled", self, "_on_check_toggled")
+			cb_or_slider = element.get_node("VBox/HSplit/SBox") as CheckBox
 		else:
-			checkbox = element.get_node("VBox/HBoxContainer/HSlider")
-			checkbox.connect("value_changed", self, "_on_HSlider_value_changed")
-		checkbox.connect("focus_entered", self, "_change_focus", [i])
-		
+			cb_or_slider = element.get_node("VBox/HBoxContainer/HSlider") as HSlider
+		element.connect("mouse_entered", self, "_on_option_mouse_entered", [i])
+
 		var i_before = posmod(i - 1, len(setting_elements))
 		if setting_is_bool[i_before]:
-			checkbox.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HSplit/SBox").get_path()
+			cb_or_slider.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HSplit/SBox").get_path()
 		else:
-			checkbox.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HBoxContainer/HSlider").get_path()
+			cb_or_slider.focus_neighbour_top = setting_elements[i_before].get_node("VBox/HBoxContainer/HSlider").get_path()
 		var i_after = posmod(i + 1, len(setting_elements))
 		if setting_is_bool[i_after]:
-			checkbox.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HSplit/SBox").get_path()
+			cb_or_slider.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HSplit/SBox").get_path()
 		else:
-			checkbox.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HBoxContainer/HSlider").get_path()
+			cb_or_slider.focus_neighbour_bottom = setting_elements[i_after].get_node("VBox/HBoxContainer/HSlider").get_path()
 	# finally focus on the first item
 	if setting_is_bool[0]:
 		vbox.get_child(1).get_node("VBox/HSplit/SBox").grab_focus()
@@ -465,6 +463,13 @@ func _on_SaveButton_pressed():
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_option_mouse_entered(extra_arg_0):
+	var element = setting_elements[extra_arg_0]
+	var cb_or_slider: Node
+	if setting_is_bool[extra_arg_0]:
+		cb_or_slider = element.get_node("VBox/HSplit/SBox") as CheckBox
+	else:
+		cb_or_slider = element.get_node("VBox/HBoxContainer/HSlider") as HSlider
+	cb_or_slider.grab_focus()
 	_change_focus(extra_arg_0)
 
 func clear_question_cache():
