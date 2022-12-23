@@ -1,5 +1,6 @@
 extends Control
 
+var menu_root: Control
 var p_count = 0 # number of players
 var room_full: bool = false
 var signup_now: Dictionary
@@ -23,7 +24,7 @@ func _ready():
 	$Instructions/SignupOnline/ReadAloud.set_text("")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 	$Instructions/SignupOnline/ShowHide.set_text("")
-	if R.cfg.room_openness != 0:
+	if R.get_settings_value("room_openness") != 0:
 		$Instructions/SignupOnline/host.set_text("Connecting to server...")
 #		Ws.connect('connected', self, "server_connected", [], CONNECT_ONESHOT)
 #		Ws.connect('disconnected', self, "server_failed", [], CONNECT_ONESHOT)
@@ -51,7 +52,7 @@ func server_connected():
 #	Ws.disconnect('disconnected', self, "server_failed")
 	$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 0.3)
 	# Ws.websocket_url
-	$Instructions/SignupOnline/host.set_text("Visit haitouch.GA/TE")
+	$Instructions/SignupOnline/host.set_text("Visit haitouch.ga/te")
 	$Instructions/SignupOnline/RoomCode2.set_text("Opening room...")
 	$Instructions/SignupOnline/RoomCode.set_text("")
 #	Ws.connect("room_opened", self, "room_opened", [], CONNECT_ONESHOT)
@@ -64,7 +65,7 @@ func room_tried(success: bool):
 #		self.connect("tree_exited", Ws, "close_room")
 		$Instructions/SignupOnline.self_modulate = Color(1, 1, 1, 1.0)
 		$Instructions/SignupOnline/RoomCode2.set_text("and enter the room code:")
-		room_code_hidden = !R.cfg.hide_room_code
+		room_code_hidden = !R.get_settings_value("hide_room_code")
 		toggle_show_room_code()
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 		Fb.connect("player_joined", self, 'remote_queue')
@@ -200,9 +201,9 @@ func read_room_code():
 func _gp_button(player: int, button: int, pressed: bool):
 	if len(R.players) > 0\
 	and R.players[0].device == C.DEVICES.REMOTE\
+	and R.get_settings_value("remote_start")\
 	and R.players[0].device_index == player\
-	and button == 5\
-	and pressed:
+	and button == 5:
 		start_game()
 
 # Check for controllers that haven't signed up yet.
@@ -252,7 +253,7 @@ func _input(e):
 					):
 						start_game()
 				elif e.button_index == JOY_DS_B:
-					get_parent().back()
+					menu_root.back()
 				elif e.button_index == JOY_DS_X:
 					toggle_show_room_code()
 				elif e.button_index == JOY_SELECT:
@@ -261,7 +262,7 @@ func _input(e):
 		var sc = e.physical_scancode
 		if e.pressed:
 			if sc == KEY_ESCAPE:
-				get_parent().back()
+				menu_root.back()
 			# This is a hacky workaround caused by the fact that
 			# "physical scancode" has been backported from Godot 4,
 			# but not "is physical key pressed".
@@ -305,7 +306,8 @@ func gp_queue(device_number: int, side: int):
 			"device_number": device_number,
 			"input_slot_number": input_slot_number,
 			"player_number": p_count,
-			"side": side
+			"side": side,
+			"censored": false,
 		}
 	)
 	p_count += 1
@@ -331,7 +333,8 @@ func kb_queue(input_slot_number):
 		"device_number": input_slot_number,
 		"input_slot_number": input_slot_number,
 		"player_number": p_count,
-		"side": 0
+		"side": 0,
+		"censored": false,
 	})
 	p_count += 1
 	accept_event()
@@ -348,7 +351,8 @@ func remote_queue(data):
 			"player_number": p_count,
 			"remote_device_name": data.name,
 			"name": data.nick,
-			"side": 0
+			"side": 0,
+			"censored": false,
 		})
 		p_count += 1
 		accept_event()
@@ -357,21 +361,18 @@ func remote_queue(data):
 		R.audience_join(data)
 
 func check_full():
-	# R.cfg.room_size is in range 0 - 7. Add 1 to get the actual player count.
+	# R.get_settings_value("room_size") is in range 0 - 7. Add 1 to get the actual player count.
 	var total_players: int = len(R.players) + len(signup_now) + len(signup_queue);
-	print("DEBUG Player Count Check", total_players, "/", R.cfg.room_size + 1)
-	if total_players >= R.cfg.room_size + 1:
-		# this is done server-side
-#		Ws.send_to_room('editRoom', {
-#			"status": "FULL_AUDI" if R.cfg.audience else "FULL"
-#		});
+#	var total_players: int = len(R.players) + len(signup_queue);
+	print("DEBUG Player Count Check", total_players, "/", R.get_settings_value("room_size") + 1)
+	if total_players >= R.get_settings_value("room_size") + 1:
 		$TouchButton.hide()
 		room_full = true;
 	else:
 		room_full = false;
 	print("DEBUG Player Count Check room_full=", room_full)
 
-func _process(_delta):
+func _process(delta):
 	if (
 		len(signup_now) == 0 # checking if the dictionary is empty
 	and
@@ -380,7 +381,7 @@ func _process(_delta):
 		start_signup()
 
 func start_signup():
-	if len(R.players) > R.cfg.room_size:
+	if len(R.players) >= 1 + R.get_settings_value("room_size"):
 		return
 	signup_now = signup_queue.pop_front()
 	if signup_now.type == C.DEVICES.GAMEPAD:
@@ -414,11 +415,16 @@ func start_signup():
 		$TouchButton.hide()
 	else:
 		# online
-		if R.cfg.room_openness == 2:
+		# censor name
+		var matched = R.censor_regex.search(signup_now.name)
+		if null != matched:
+			signup_now.censored = true
+			signup_now.name = R.grawlix(len(signup_now.name))
+		if R.get_settings_value("room_openness") == 2:
 			signup_ended(
 				signup_now.name, 0
 			)
-		elif R.cfg.room_openness == 1:
+		elif R.get_settings_value("room_openness") == 1:
 			signup_modal.start_setup_remote(
 				signup_now.name
 			)
@@ -434,6 +440,7 @@ func signup_ended(name, keyboard_type):
 	if keyboard_type == -1:
 		S.play_sfx("menu_fail")
 		Fb.reject_remote_player(signup_now.remote_device_name)
+		used_ids.erase(signup_now.remote_device_name) # allow rejoin
 	# end check
 	else:
 		var box = signup_box.instance()
@@ -479,24 +486,31 @@ func signup_ended(name, keyboard_type):
 		else:
 			icon_name = "retro"
 			default_name = "Player %d" % (len(R.players) + 1)
+		# has name been censored before this point?
+		if signup_now.censored == true:
+			name_type = 2
 		# is name default?
-		if name == "":
+		elif name == "":
 			name = default_name
 			name_type = 1
 		# is name "fuck you"?
 		else:
-			var matched = R.cuss_regex.search(name)
+			var matched = R.censor_regex.search(name)
 			if null != matched:
 				name_type = 2
+				name = R.grawlix(len(name))
 		box.setup(name, len(R.players), icon_name)
 		var player_device_index = signup_now.device_number # [input revamp]
-		if signup_now.type == C.DEVICES.REMOTE:
+		if signup_now.type == C.DEVICES.GAMEPAD:
+			player_device_index = signup_now.input_slot_number
+		elif signup_now.type == C.DEVICES.REMOTE:
 			player_device_index = C.lookup_button(C.DEVICES.REMOTE, signup_now.remote_device_name, 0).player;
 			keyboard_type = 3
 		var player = {
 			name = name,
 			name_type = name_type,
 			score = 0,
+			accuracy = [0, 0],
 			device = signup_now.type,
 			device_index = player_device_index,
 			device_name = signup_now.remote_device_name if signup_now.type == C.DEVICES.REMOTE else "N/A",
@@ -507,10 +521,13 @@ func signup_ended(name, keyboard_type):
 		}
 		print("Appending new player: ", player)
 		if len(R.players) == 0:
-			$Ready/Label2.set_text("Or press Return on the keyboard")
+			if R.get_settings_value("remote_start"):
+				$Ready/Label2.set_text("Or press Return on the keyboard")
 			if signup_now.type == C.DEVICES.GAMEPAD:
 				$Ready/Label.set_text("Press ㍝ to start!")
-			elif signup_now.type == C.DEVICES.KEYBOARD:
+			elif signup_now.type == C.DEVICES.KEYBOARD or (
+				signup_now.type == C.DEVICES.REMOTE and !R.get_settings_value("remote_start")
+			):
 				$Ready/Label.set_text("Press Return to start!")
 				$Ready/Label2.set_text("")
 			elif signup_now.type == C.DEVICES.TOUCHSCREEN:
@@ -518,9 +535,12 @@ func signup_ended(name, keyboard_type):
 			elif signup_now.type == C.DEVICES.REMOTE:
 				$Ready/Label.set_text("Tap “Start” to start!")
 			$Ready/Anim.play("Enter")
-
-		give_player_nick(player.device_name)
 		R.players.append(player)
+		if len(R.players) >= 1 + R.get_settings_value("room_size"):
+			# Full room indicator.
+			$Ready2/Anim.play("Enter")
+
+
 		if signup_now.type == C.DEVICES.REMOTE:
 			give_player_nick(player.device_name)
 		else:
@@ -539,7 +559,7 @@ func start_game():
 	R.uuid_reset()
 	# pass on the duty of registering new audience members to Root while the game is on
 	R.listen_for_audience_join()
-	get_parent().start_game()
+	menu_root.start_game()
 
 func _on_TouchButton_pressed():
 	# touchscreen player is in slot 4
@@ -552,13 +572,15 @@ func _on_TouchButton_pressed():
 			"device_number": 4,
 			"input_slot_number": 4,
 			"player_number": p_count,
-			"side": 0
+			"side": 0,
+			"censored": false,
 		}
 	)
 	p_count += 1
 	check_full()
 
 func _on_Ready_gui_input(event):
+	if R.players.empty(): return
 	if R.players[0].device == C.DEVICES.TOUCHSCREEN:
 		if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 			start_game()
@@ -578,10 +600,9 @@ func give_player_nick(id):
 func update_loading_progress(partial: int, total: int, eta: int):
 	var time_text = "Time estimate unknown..."
 	if eta >= 60*1000:
-# warning-ignore:integer_division
-		time_text = "Please wait ≈%dʹ %0.1f″..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
+		time_text = "Please wait ≈%dʹ' %0.1f\"..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
 	elif eta >= 1000:
-		time_text = "Please wait ≈%0.1f″..." % (eta / 1000.0)
+		time_text = "Please wait ≈%0.1f\"..." % (eta / 1000.0)
 	elif eta > 0:
 		time_text = "Almost there..."
 	elif eta == 0:

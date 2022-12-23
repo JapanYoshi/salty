@@ -83,7 +83,7 @@ func start_setup_remote(player_name: String):
 	remote_nickname = player_name
 	$Panel/Name.show()
 	$Panel/Name/Name.set_text("[no nickname]" if player_name == "" else player_name)
-	$Panel/Type.set_animation("remote")
+	$Panel/Type.set_animation("online")
 	$Panel/Confirm.hide()
 	$Panel/Instructions.set_text("Confirm join")
 	$Panel/Instructions2.hide()
@@ -172,9 +172,11 @@ func _input(event):
 		pass
 
 func _on_Button_pressed():
+	$Panel/Name/Button.release_focus()
 	current_keyboard = 1
 	done(remote_nickname)
 
 func _on_Button2_pressed():
+	$Panel/Name/Button2.release_focus()
 	current_keyboard = -1
 	done(remote_nickname)

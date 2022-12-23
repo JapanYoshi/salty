@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Achievements.gd" type="Script" id=1]
+[ext_resource path="res://achievements/AchievementToastie.tscn" type="PackedScene" id=2]
+
+[node name="Achievements" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1024.0
+margin_bottom = -528.0
+rect_pivot_offset = Vector2( 640, 360 )
+rect_clip_content = true
+script = ExtResource( 1 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="AchievementToastie1" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 0, -64 )
+
+[node name="AchievementToastie2" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 0, -64 )
+
+[node name="AchievementToastie3" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 0, -64 )
+
+[node name="Tween" type="Tween" parent="."]

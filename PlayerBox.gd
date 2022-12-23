@@ -124,13 +124,12 @@ func show_finale_box(which):
 			$GridContainer.get_child(5).get_child(0).position.y = 0
 			$GridContainer.show()
 		2:
-			# leftover code from testing; don't show
+			$GridContainer.hide() # show the actual leaderboard
 #			$GridContainer.get_child(0).hide()
 #			$GridContainer.get_child(2).hide()
 #			$GridContainer.get_child(3).get_child(0).position.y = -8
 #			$GridContainer.get_child(5).get_child(0).position.y = -8
 #			$GridContainer.show()
-			$GridContainer.hide()
 
 func reset_finale_box():
 	for i in range(6):

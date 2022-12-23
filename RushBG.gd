@@ -167,7 +167,7 @@ func start_round(topic, options):
 	tween_background_intensity(3.75, false)
 
 func _set_ring_scale(scale):
-	if R.cfg.graphics_quality >= 1:
+	if R.get_settings_value("graphics_quality") >= 1:
 		$Rings.material.set_shader_param(
 			"scale", scale
 		)

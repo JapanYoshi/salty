@@ -1,8 +1,8 @@
-extends ColorRect
+extends Control
 
-export var undul_speed: float = 0.1;
 export var v_speed: float = 0.01;
 export var radius: float = 0.0;
+var p_time: float = 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,18 +15,12 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if !self.visible or R.cfg.graphics_quality < 2:
+	if !self.visible or R.get_settings_value("graphics_quality") == 0:
 		self.set_process(false)
 		return
 	self.material.set_shader_param(
 		"p_time",
-		self.material.get_shader_param("p_time")
-		+ delta * undul_speed
-	)
-	self.material.set_shader_param(
-		"offset",
-		self.material.get_shader_param("offset")
-		+ delta * v_speed * Vector2.DOWN
+		fmod(p_time + delta * v_speed, 1.0)
 	)
 	self.material.set_shader_param(
 		"radius",
@@ -34,7 +28,7 @@ func _process(delta):
 	)
 
 func set_param(key, value):
-	if key == "radius" and R.cfg.graphics_quality >= 2:
+	if key == "radius" and R.get_settings_value("graphics_quality") >= 2:
 		radius = value;
 	else:
 		self.material.set_shader_param(

@@ -272,9 +272,6 @@ margin_bottom = 280.0
 rect_min_size = Vector2( 420, 280 )
 rect_pivot_offset = Vector2( 210, 140 )
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Bg" type="Panel" parent="."]
 self_modulate = Color( 0.145098, 0.431373, 0.686275, 0.447059 )
@@ -296,14 +293,11 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 396.0
 margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Bg/CenterContainer"]
-margin_top = 18.0
+margin_top = 10.0
 margin_right = 388.0
-margin_bottom = 214.0
+margin_bottom = 222.0
 rect_min_size = Vector2( 388, 0 )
 theme = ExtResource( 3 )
 bbcode_enabled = true

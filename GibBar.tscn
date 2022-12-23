@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/body_italic.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GibBar.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.14902, 0.435294, 0.666667, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.0823529, 0.247059, 0.407843, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.160784, 0.803922, 0.929412, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+
+[sub_resource type="Theme" id=3]
+default_font = ExtResource( 1 )
+ProgressBar/styles/bg = SubResource( 1 )
+ProgressBar/styles/fg = SubResource( 2 )
+
+[node name="GibBar" type="ProgressBar"]
+margin_left = 88.0
+margin_top = 248.0
+margin_right = 1192.0
+margin_bottom = 296.0
+rect_min_size = Vector2( 1104, 48 )
+rect_pivot_offset = Vector2( 0, 24 )
+theme = SubResource( 3 )
+max_value = 10.0
+value = 0.41
+percent_visible = false
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.0823529, 0.247059, 0.407843, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+text = " 1st clue showing in %s seconds..."
+valign = 1

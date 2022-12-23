@@ -9,10 +9,12 @@ func _ready():
 	pass
 
 func _process(delta):
-	if R.cfg.graphics_quality == 0:
+	if R.get_settings_value("graphics_quality") == 0:
 		return
 	offset += offset_speed * delta
+	offset = offset.posmodv(Vector2.ONE)
 	p_time += time_speed * delta
+	p_time = fmod(p_time, 1.0)
 	self.material.set_shader_param(
 		"p_time", p_time
 	)

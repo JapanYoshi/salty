@@ -8,29 +8,104 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Firebase",
+"language": "GDScript",
+"path": "res://firebase_app_lite/firebase.gd"
+}, {
+"base": "Node",
+"class": "FirebaseApp",
+"language": "GDScript",
+"path": "res://firebase_app_lite/app.gd"
+}, {
+"base": "Node",
+"class": "FirebaseAuth",
+"language": "GDScript",
+"path": "res://firebase_auth_lite/auth.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseDataSnapshot",
+"language": "GDScript",
+"path": "res://firebase_database_lite/data_snapshot.gd"
+}, {
+"base": "Node",
+"class": "FirebaseDatabase",
+"language": "GDScript",
+"path": "res://firebase_database_lite/database.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseError",
+"language": "GDScript",
+"path": "res://firebase_app_lite/error.gd"
+}, {
+"base": "FirebaseEventProcessorLite",
+"class": "FirebaseEventProcessor",
+"language": "GDScript",
+"path": "res://firebase_database_lite/event_processor.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseEventProcessorLite",
+"language": "GDScript",
+"path": "res://firebase_database_lite/event_processor_lite.gd"
+}, {
+"base": "Node",
+"class": "FirebaseReference",
+"language": "GDScript",
+"path": "res://firebase_database_lite/reference.gd"
+}, {
+"base": "Reference",
+"class": "FirebaseUser",
+"language": "GDScript",
+"path": "res://firebase_auth_lite/user.gd"
+}, {
+"base": "Node",
+"class": "HTTPSSEClient",
+"language": "GDScript",
+"path": "res://firebase_database_lite/http_sse_client.gd"
+} ]
+_global_script_class_icons={
+"Firebase": "res://firebase_app_lite/icon.png",
+"FirebaseApp": "res://firebase_app_lite/icon.png",
+"FirebaseAuth": "res://firebase_auth_lite/icon.png",
+"FirebaseDataSnapshot": "res://firebase_database_lite/icon.png",
+"FirebaseDatabase": "res://firebase_database_lite/icon.png",
+"FirebaseError": "res://firebase_app_lite/icon.png",
+"FirebaseEventProcessor": "res://firebase_database_lite/icon.png",
+"FirebaseEventProcessorLite": "res://firebase_database_lite/icon.png",
+"FirebaseReference": "res://firebase_database_lite/icon.png",
+"FirebaseUser": "res://firebase_auth_lite/icon.png",
+"HTTPSSEClient": "res://firebase_database_lite/icon.png"
+}
+
 [application]
 
-config/name="Salty"
-run/main_scene="res://SplashScreen.tscn"
-boot_splash/image="res://images/bootsplash.png"
+config/name="Salty Trivia with Candy Barre"
+config/description="The sassy quiz party game, where the questions are ridiculous, but the answersr are serious."
+run/main_scene="res://essential/Initialization.tscn"
+boot_splash/image="res://essential/bootsplash.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://essential/icon.png"
+config/windows_native_icon="res://icon.ico"
+
+[audio]
+
+default_bus_layout="res://essential/default_bus_layout.tres"
 
 [autoload]
 
-R="*res://R.gd"
-C="*res://C.gd"
-S="*res://S.gd"
-Loader="*res://Loader.gd"
-Ws="res://Websocket.tscn"
+R="*res://essential/R.gd"
+C="*res://essential/C.gd"
+S="*res://essential/S.gd"
+Loader="*res://essential/Loader.gd"
 firebase="*res://firebase_app_lite/firebase.gd"
-Fb="*res://FirebaseManager.tscn"
+Fb="*res://essential/FirebaseManager.tscn"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
-window/stretch/mode="2d"
+window/handheld/orientation="sensor_landscape"
 window/stretch/aspect="keep"
 
 [importer_defaults]
@@ -170,4 +245,3 @@ vram_compression/import_etc2=false
 quality/shadows/filter_mode=0
 quality/filters/anisotropic_filter_level=2
 quality/depth/hdr=false
-environment/default_environment="res://default_env.tres"

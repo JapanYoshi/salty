@@ -637,17 +637,11 @@ margin_bottom = 16.0
 texture = SubResource( 4 )
 expand = true
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Cover" type="ColorRect" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Options" type="GridContainer" parent="."]
 anchor_left = 0.5
@@ -703,7 +697,7 @@ margin_left = -640.0
 margin_top = -92.0
 margin_right = 640.0
 margin_bottom = -23.0
-rect_scale = Vector2( 0.9744, 0.9744 )
+rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 640, 42 )
 theme = ExtResource( 5 )
 bbcode_enabled = true

@@ -3,56 +3,74 @@ extends Control
 var now_focused = -1
 var active = true
 const desc = [
-	"Play the game, alone or with friends.",
-	"What the heck is [i]Salty Trivia,[/i] anyway?",
-	"Tweak settings like volume and fullscreen.",
-	"Bye!"
+	"Play the game, alone or with friends. Play the latest episode to unlock the next one in line.",
+	"What the heck is [i]Salty Trivia,[/i] anyway? Read the virtual manual to find out.",
+	"Tweak settings, such as volume, phones-as-controllers capabilities, and cutscenes. (Press F11 to toggle fullscreen, by the way.)",
+	"View your past progress, such as high scores and when you got them.",
+	"Close the game. Bye!",
 ]
+const desc_webpage = "Take a look at our webpage, haitouch.ga."
 onready var tween = Tween.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	R._set_visual_quality(R.cfg.graphics_quality)
+	R._set_visual_quality(-1)
 	add_child(tween)
-	$Logo.play_intro()
+	$ScreenStretch/Logo.play_intro()
 	S.play_music("hiphop", 1.0)
 	now_focused = -1
 	change_focus_to(0)
+	if R.html:
+		$ScreenStretch/VBoxContainer/Button5.text = "Open webpage"
 
 func _on_Button_mouse_entered(i):
 	change_focus_to(i)
 
 func change_focus_to(i):
-	$VBoxContainer.get_child(i).grab_focus()
+	$ScreenStretch/VBoxContainer.get_child(i).grab_focus()
 	if now_focused != i: # changing focus
 		if now_focused != -1: # not first time
 			S.play_sfx("menu_move")
-		$Panel/RichTextLabel.bbcode_text = desc[i]
+		if R.html and i == len(desc) - 1:
+			$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc_webpage
+		else:
+			$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc[i]
 		now_focused = i
+
+const SCROLL_SPEED: float = 512.0
+var current_scroll_speed: float = 0.0
+
+func _process(delta):
+	$ScreenStretch/About/PanelContainer/ScrollContainer.scroll_vertical += delta * current_scroll_speed
+
 
 func _input(e):
 	if e.is_action_pressed("ui_down"):
-		if $About.visible:
-			$About/PanelContainer/ScrollContainer.scroll_vertical += 32
+		if $ScreenStretch/About.visible:
+			current_scroll_speed = SCROLL_SPEED
 		else:
 			change_focus_to((now_focused + 1) % len(desc))
 		accept_event()
 	elif e.is_action_pressed("ui_up"):
-		if $About.visible:
-			$About/PanelContainer/ScrollContainer.scroll_vertical -= 32
+		if $ScreenStretch/About.visible:
+			current_scroll_speed = -SCROLL_SPEED
 		else:
 			change_focus_to(posmod(now_focused - 1, len(desc)))
 		accept_event()
+	elif $ScreenStretch/About.visible and (
+		e.is_action_released("ui_down") or e.is_action_released("ui_up")
+	):
+		current_scroll_speed = 0
+		accept_event()
 	elif e.is_action_pressed("ui_cancel"):
-		if $About.visible:
+		if $ScreenStretch/About.visible:
 			_on_Close_pressed()
 			accept_event()
 
-func _on_Play_pressed():
-	if not active: return
-	active = false
-	S.play_sfx("menu_confirm")
+
+func _scene_transition(path: String):
 	release_focus()
+	S.play_sfx("menu_confirm")
 	tween.interpolate_property(
 		self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0
 	)
@@ -62,32 +80,39 @@ func _on_Play_pressed():
 	tween.start()
 	yield(tween, "tween_all_completed")
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://MenuRoot.tscn")
-	pass # Replace with function body.
+	get_tree().change_scene(path)
+
+
+func _on_Play_pressed():
+	if not active: return
+	active = false
+	_scene_transition("res://MenuRoot.tscn")
+
 
 func _on_About_pressed():
 	S.play_sfx("menu_confirm")
-	$About.show()
-	$About/Close.grab_focus()
+	$ScreenStretch/About.show()
+	$ScreenStretch/About/Close.grab_focus()
 	pass # Replace with function body.
+
 
 func _on_Options_pressed():
 	S.play_sfx("menu_confirm")
-	release_focus()
-	tween.interpolate_property(
-		self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0
-	)
-	tween.start()
-	yield(tween, "tween_all_completed")
-# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Settings.tscn")
-	pass # Replace with function body.
+	_scene_transition("res://Settings.tscn")
+
+
+func _on_Save_Data_pressed():
+	_scene_transition("res://SaveData.tscn")
+
 
 func _on_Exit_pressed():
-	get_tree().quit()
+	# "quit" just freezes the game on html5, open the webpage instead
+	if R.html:
+		OS.shell_open("https://haitouch.ga")
+	else:
+		get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
 
 
 func _on_Close_pressed():
-	$About.hide()
-
-
+	$ScreenStretch/About.hide()
+	$ScreenStretch/VBoxContainer.get_child(1).grab_focus()

@@ -3,7 +3,9 @@ extends Control
 onready var anim = $AnimationPlayer
 onready var logo = $Logo
 onready var tween = $Tween
-onready var backdrop = $Circle
+onready var backdrop = $Color
+onready var vignette = $Circle
+
 var ranking
 
 signal animation_finished(name)
@@ -13,20 +15,9 @@ func _ready():
 	var pb = $Leaderboard/PC
 	for i in range(1, 8):
 		$Leaderboard.add_child(pb.duplicate())
-	$CreditBox/CreditScroller.hide()
 
-const credits_speed = 48
-var credits_scroll = 0.0
-
-func _process(delta):
-	if $CreditBox/CreditScroller.visible:
-		credits_scroll += delta * credits_speed
-		if credits_scroll > $CreditBox/CreditScroller/V.rect_size.y - $CreditBox/CreditScroller.rect_size.y:
-			credits_scroll = 0
-		$CreditBox/CreditScroller.scroll_vertical = credits_scroll
 
 func play_intro():
-	backdrop.color = Color("#365c45");
 	anim.play("intro")
 	logo.play_intro()
 
@@ -42,38 +33,30 @@ func round2_logo(backwards):
 		anim.play("round2")
 
 func open_bg():
-	tween.interpolate_method(
-		self, "set_radius", 0.0, 0.75, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
-	)
-	tween.start()
+	vignette.open()
 
 func close_bg():
-	tween.interpolate_method(
-		self, "set_radius", 0.75, 0.0, 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT
-	)
-	tween.start()
+	vignette.close()
 
 func show_lifesaver_logo():
 	$Lifesavers.show()
 	anim.play("lifesavers_logo")
 
-# 0, 1, 2: first round
-# 3, 4, 5: second round
 func lifesaver_tutorial(stage: int):
-	var lbl: RichTextLabel = get_node("Label%d" % (stage % 3))
-	var text = [
-		# round 1
-		"Press ㍘ or ㍚ to activate",
-		"From 4 options to 2 options",
-		"12 questions, 1 Lifesaver",
-		# round 2
-		"From 4 options to 2 options",
-		"6 more questions!",
-		"Press ㍘ or ㍚ to activate",
-	][stage]
-	lbl.bbcode_text = text
-	anim.play("lifesavers_tute%d" % (stage % 3))
+	var real_stage = stage % 3
+	get_node("Label%d" % real_stage).bbcode_text = (
+		[
+			"Press ㍘ or ㍚ to activate",
+			"From 4 options to 2 options",
+			"12 questions, 1 Lifesaver",
+			"From 4 options to 2 options",
+			"6 questions left to use!",
+			"Press ㍘ or ㍚ to activate",
+		][stage]
+	)
+	anim.play("lifesavers_tute%d" % real_stage)
 
+# A class just to pass a function to ranking.sort_custom(..) below
 class LBSorter:
 	static func _sort_players(a, b):
 		if a.score == b.score:
@@ -92,8 +75,9 @@ func rank_players():
 
 func show_leaderboard(hidden: bool = false):
 	rank_players()
-	backdrop.color = Color("#0b3601")
+	backdrop.modulate = Color("#0b3601")
 	var lb = $Leaderboard
+	lb.show()
 	for i in range(8):
 		var box = lb.get_child(i + 1);
 		if i >= len(ranking):
@@ -106,15 +90,18 @@ func show_leaderboard(hidden: bool = false):
 	if !hidden:
 		anim.play("leaderboard")
 		set_radius(1.5)
-		$Logo.show_logo()
+		$Logo2.show_logo()
 
 func hide_leaderboard():
 	anim.play("leaderboard_end")
 	close_bg()
 
+# 0, 1, 2: 3 items in a row
+# 3, 4: 2 items in a row
 # depending on the number of players, the "indices" of the leaderboard boxes will be:
 const leaderboard_positions = [
-	[], [1], [3, 4], [0, 1, 2], [3, 2, 0, 4], [4, 0, 1, 2, 3], [1, 2, 3, 4, 0, 1], [3, 4, 0, 1, 2, 3, 4], [0, 1, 2, 3, 4, 0, 1, 2]
+	[], [1], [3, 4], [0, 1, 2], [3, 2, 0, 4], [4, 0, 1, 2, 3],
+	[1, 2, 3, 4, 0, 1], [3, 4, 0, 1, 2, 3, 4], [0, 1, 2, 3, 4, 0, 1, 2]
 ]
 func show_final_leaderboard():
 	var flb = $Final/FinalLeaderboard
@@ -128,6 +115,8 @@ func show_final_leaderboard():
 		flb.get_child(i).init_values(ranking[i])
 	$Final.show()
 	$Leaderboard/Panel/Label.set_text("Final standings")
+	
+	vignette.modulate = Color.black
 	# calculate the placement of each player, taking ties into account.
 	for i in range(len(ranking)):
 		var placement = i
@@ -171,13 +160,14 @@ func show_final_leaderboard():
 					"%dth" % (p.placement + 1)
 				)
 				comment = ("You tied for %s!" if p.tied else "You placed %s!") % _ord
-#			Ws.send('message', {
-#				'action': 'changeScene',
-#				'sceneName': 'finalResult',
-#				'result': p.score,
-#				'resultAsText': R.format_currency(p.score),
-#				'comment': comment
-#			}, p.device_name);
+			Fb.send_to_player(
+				p.device_name, {
+					action = "finalResult",
+					result = p.score,
+					resultAsText = R.format_currency(p.score),
+					comment = comment,
+				}
+			)
 	for a in R.audience:
 		# Calculate how many players you beat.
 #		ranking[i].score
@@ -187,8 +177,8 @@ func show_final_leaderboard():
 		if len(ranking) > 1:
 			var players_beaten: int = 0
 			var tied: bool = false
-			for j in range(len(ranking)):
-				match sign(a.score - ranking[len(ranking) - j - 1]):
+			for j in range(len(ranking) - 1, -1, -1):
+				match sign(a.score - ranking[j].score):
 					1.0:
 						players_beaten += 1
 					0.0:
@@ -196,13 +186,15 @@ func show_final_leaderboard():
 						break
 					-1.0:
 						break
-			if players_beaten == 1:
-				comment = "You beat one single player... Better than losing to everyone."
-			elif players_beaten > 1:
+			if players_beaten >= 1:
 				if players_beaten == len(ranking):
 					comment = "You beat all %d players! Great work, Galaxy Brain!" % players_beaten
-				else:
+				elif players_beaten > 1:
 					comment = "You beat %d players! Maybe next time you can beat all of them." % players_beaten
+				else:
+					comment = "You beat one single player... Better than losing to everyone."
+			elif tied:
+				comment = "You tied with the top player, but you didn’t beat any. Big whoop."
 			else:
 				comment = "You didn’t beat any players. See, this is why you can’t play."
 		else:
@@ -212,6 +204,14 @@ func show_final_leaderboard():
 				comment = "Oh, come on! You tied with the Player?!"
 			else:
 				comment = "See, this is why you can’t play with the Player."
+		Fb.send_to_player(
+			a.device_name, {
+				action = "finalResult",
+				result = a.score,
+				resultAsText = R.format_currency(a.score),
+				comment = comment,
+			}, true
+		)
 #		Ws.send('message', {
 #			'action': 'changeScene',
 #			'sceneName': 'finalResult',
@@ -219,55 +219,45 @@ func show_final_leaderboard():
 #			'resultAsText': R.format_currency(a.score),
 #			'comment': comment
 #		}, a.device_name);
-	# actually, load the credits too while we're at it.
-	var credits = ConfigFile.new()
-	var err = credits.load("res://credits.gdcfg")
-	if err != OK:
-		printerr("Could not load credits.")
-	else:
-		$CreditBox/CreditScroller/V/Spacer.rect_min_size.y = $CreditBox/CreditScroller.rect_size.y
-		var rtl = $CreditBox/CreditScroller/V/RichTextLabel
-		for sect in credits.get_sections():
-			var new_rtl = rtl.duplicate(7) # don't use instancing so we can edit the text
-			new_rtl.set_bbcode(
-				"[b]" +
-				credits.get_value(sect, "h") +
-				"[/b]"
-			)
-			new_rtl.name = sect
-			$CreditBox/CreditScroller/V.add_child(new_rtl)
-			var items = credits.get_value(sect, "b")
-			for i in len(items):
-				new_rtl = rtl.duplicate(7)
-				new_rtl.set_bbcode(items[i])
-				new_rtl.name = sect + "_%02d" % i
-				$CreditBox/CreditScroller/V.add_child(new_rtl)
-		$CreditBox/CreditScroller/V.add_child($CreditBox/CreditScroller/V/Spacer.duplicate())
-		rtl.free()
+	# High score submission/checking
+	# Find the best accuracy.
+	var best_accuracy: float = NAN
+	for i in range(len(R.players)):
+		if R.players[i].accuracy[1] == 0: continue; # prevent division by zero
+		var acc = float(R.players[i].accuracy[0]) / float(R.players[i].accuracy[1])
+		if is_nan(best_accuracy) or acc > best_accuracy:
+			best_accuracy = acc
+	R.submit_high_score(ranking[0].score, best_accuracy)
+	$CreditBox.load_credits()
+#	anim.play("credits_roll", 0, 0.001, false)
+#	anim.stop()
 	anim.play("final_standings")
+	set_radius(0.0)
 	logo.show_logo()
 
 func hide_final_leaderboard():
-	set_radius(1.5)
 	$Final.hide()
+	$Leaderboard.show()
+#	logo.show_logo()
 
 func roll_credits():
 	anim.play("credits_roll")
 	S.play_music("organ", 1.0)
+	backdrop.modulate = Color("#365c45")
 
 func set_radius(value):
-	backdrop.set_param("radius", value)
+	vignette.set_radius(value)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	emit_signal("animation_finished")
 
 func show_techdiff():
-	$TechDiff.show()
-	$TechDiff.set_process(true)
-	logo.hide_logo()
-	set_radius(0.0)
 	anim.play("intro", 0.0, 0.01, false)
 	anim.stop() # resets playback position to 0
+	logo.hide_logo()
+	set_radius(0.0)
+	$TechDiff.set_process(true)
+	$TechDiff.show()
 
 func hide_techdiff():
 	$TechDiff.hide()

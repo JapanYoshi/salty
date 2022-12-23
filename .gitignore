@@ -7,5 +7,7 @@
 
 # custom ignores
 .export/
+android/
 data/
 desktop.ini
+.idea/

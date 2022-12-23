@@ -1,17 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=1]
 [ext_resource path="res://ThemeEpisode.tres" type="Theme" id=2]
 [ext_resource path="res://Episodes.gd" type="Script" id=3]
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=4]
 
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+border_width_left = 32
+border_width_right = 32
+border_color = Color( 1, 1, 1, 0 )
+
 [node name="Episodes" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_left = 200.0
@@ -32,25 +35,27 @@ margin_top = -296.0
 margin_right = 576.0
 margin_bottom = 296.0
 theme = ExtResource( 2 )
+custom_styles/bg = SubResource( 1 )
 follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 576.0
+margin_left = 32.0
+margin_right = 544.0
 margin_bottom = 204.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="TopSpacer" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_right = 576.0
+margin_right = 512.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 
 [node name="Option" type="Button" parent="ScrollContainer/VBoxContainer"]
 margin_top = 68.0
-margin_right = 540.0
+margin_right = 512.0
 margin_bottom = 136.0
-rect_min_size = Vector2( 540, 0 )
+rect_min_size = Vector2( 512, 0 )
 size_flags_horizontal = 0
 theme = ExtResource( 2 )
 
@@ -62,7 +67,7 @@ margin_right = -8.0
 margin_bottom = 48.0
 
 [node name="Split" type="HSplitContainer" parent="ScrollContainer/VBoxContainer/Option/VBox"]
-margin_right = 524.0
+margin_right = 496.0
 margin_bottom = 44.0
 mouse_filter = 1
 custom_constants/separation = 0
@@ -82,20 +87,17 @@ margin_right = -8.0
 mouse_filter = 1
 text = "RQ"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/Option/VBox/Split"]
 margin_left = 72.0
-margin_right = 524.0
+margin_right = 496.0
 margin_bottom = 44.0
 mouse_filter = 1
 text = "choose random questions"
 
 [node name="BottomSpacer" type="Control" parent="ScrollContainer/VBoxContainer"]
 margin_top = 140.0
-margin_right = 576.0
+margin_right = 512.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 0, 64 )
 
@@ -106,39 +108,96 @@ margin_right = 616.0
 margin_bottom = 768.0
 theme = ExtResource( 2 )
 
-[node name="Name" type="Label" parent="Details"]
+[node name="V" type="VBoxContainer" parent="Details"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 568.0
-margin_bottom = 64.0
+margin_right = -8.0
+margin_bottom = -48.0
+custom_constants/separation = 0
+
+[node name="Name" type="Label" parent="Details/V"]
+margin_right = 560.0
+margin_bottom = 44.0
 text = "Episode Name"
 
-[node name="Hiscore" type="RichTextLabel" parent="Details"]
-margin_left = 8.0
-margin_top = 53.0
-margin_right = 568.0
-margin_bottom = 93.0
+[node name="Stats" type="HBoxContainer" parent="Details/V"]
+margin_top = 44.0
+margin_right = 560.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 560, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="V0" type="VBoxContainer" parent="Details/V/Stats"]
+margin_right = 256.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_horizontal = 3
+
+[node name="Locked" type="RichTextLabel" parent="Details/V/Stats/V0"]
+margin_right = 256.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
 custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
 bbcode_enabled = true
-bbcode_text = "High score: Coming soon!"
-text = "High score: Coming soon!"
+bbcode_text = "Locked: false"
+text = "Locked: false"
+fit_content_height = true
+
+[node name="HiScore" type="RichTextLabel" parent="Details/V/Stats/V0"]
+margin_top = 32.0
+margin_right = 256.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
+bbcode_enabled = true
+bbcode_text = "High score: $-100,000 (2022-12-31)"
+text = "High score: $-100,000 (2022-12-31)"
+fit_content_height = true
+
+[node name="V1" type="VBoxContainer" parent="Details/V/Stats"]
+margin_left = 260.0
+margin_right = 560.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 3
+
+[node name="LastPlayed" type="RichTextLabel" parent="Details/V/Stats/V1"]
+margin_right = 300.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
+bbcode_enabled = true
+bbcode_text = "Last played: 2022-12-31"
+text = "Last played: 2022-12-31"
+fit_content_height = true
+
+[node name="BestAcc" type="RichTextLabel" parent="Details/V/Stats/V1"]
+margin_top = 32.0
+margin_right = 300.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+custom_colors/default_color = Color( 1, 1, 1, 0.627451 )
+bbcode_enabled = true
+bbcode_text = "Best accuracy: 100.0% (2022-12-31)"
+text = "Best accuracy: 100.0% (2022-12-31)"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="RichTextLabel" parent="Details"]
-margin_left = 8.0
-margin_top = 88.0
-margin_right = 568.0
-margin_bottom = 192.0
+[node name="Desc" type="RichTextLabel" parent="Details/V"]
+margin_top = 132.0
+margin_right = 560.0
+margin_bottom = 160.0
 theme = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "Episode description. \\[b]bold[/b]"
-text = "Episode description. \\bold"
+bbcode_text = "Episode description. [i]italic[/i]"
+text = "Episode description. italic"
 fit_content_height = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/Option" to="." method="_on_Option_pressed"]

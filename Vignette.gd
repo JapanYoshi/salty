@@ -1,7 +1,10 @@
 extends ColorRect
 
 onready var tween = Tween.new()
-const MAX_RADIUS = 1.25;
+const MAX_RADIUS = 1.01;
+const EASE_TIME = 0.5;
+const EASE_X = 0.23;
+const EASE_Y = 0.18;
 signal tween_finished
 
 # Called when the node enters the scene tree for the first time.
@@ -16,8 +19,14 @@ func open():
 	tween.stop_all()
 	tween.interpolate_method(
 		self, "set_radius",
-		0.0, MAX_RADIUS,
-		0.5, Tween.TRANS_SINE, Tween.EASE_IN_OUT
+		0.0, MAX_RADIUS * EASE_Y,
+		EASE_TIME * EASE_X, Tween.TRANS_QUAD, Tween.EASE_IN
+	)
+	tween.interpolate_method(
+		self, "set_radius",
+		MAX_RADIUS * EASE_Y, MAX_RADIUS,
+		(1.0 - EASE_TIME) * EASE_X, Tween.TRANS_QUAD, Tween.EASE_IN,
+		EASE_TIME * EASE_X
 	)
 	tween.start()
 
@@ -25,8 +34,14 @@ func close():
 	tween.stop_all()
 	tween.interpolate_method(
 		self, "set_radius",
-		MAX_RADIUS, 0.0,
-		0.5, Tween.TRANS_SINE, Tween.EASE_IN_OUT
+		MAX_RADIUS, MAX_RADIUS * (1.0 - EASE_Y),
+		EASE_TIME * EASE_X, Tween.TRANS_QUAD, Tween.EASE_IN
+	)
+	tween.interpolate_method(
+		self, "set_radius",
+		MAX_RADIUS * (1.0 - EASE_Y), 0.0,
+		(1.0 - EASE_TIME) * EASE_X, Tween.TRANS_QUAD, Tween.EASE_IN,
+		EASE_TIME * EASE_X
 	)
 	tween.start()
 

@@ -1,8 +1,9 @@
 extends ColorRect
 
-onready var q_box = $Standard
-onready var c_box = $Cutscenes
-onready var hud = $HUD
+onready var q_box = $ScreenStretch/Standard
+onready var c_box = $ScreenStretch/Cutscenes
+onready var hud = $ScreenStretch/HUD
+onready var skip_btn = $ScreenStretch/SkipButton
 var episode_data = {}
 var question_number = 0
 var intermission_played = false
@@ -18,48 +19,60 @@ var scene_history = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	q_box.ep = self
-	q_box.kb = get_node("TypingHandler")
+	q_box.kb = $ScreenStretch/TypingHandler
 	q_box.set_process(false)
-	c_box.set_process(true)
+	if R.get_settings_value("cutscenes"):
+		c_box.show()
+	else:
+		c_box.hide()
 	S.play_sfx("blank")
-	$Shutter/AnimationPlayer.stop()
-	$SkipButton.hide()
-	$BackButton.hide()
-	$Cutscenes/Circle.color = Color.black
-	$Cutscenes/Circle.modulate = Color.white
-	$Cutscenes/TechDiff.hide()
-	$Cutscenes/Final.hide()
+	$ScreenStretch/Shutter/AnimationPlayer.stop()
+	skip_btn.hide()
+	$ScreenStretch/BackButton.hide()
+#	c_box.backdrop.modulate = Color.black
+#	c_box.vignette.modulate = Color.white
+	c_box.get_node("TechDiff").hide()
+	c_box.get_node("Final").hide()
 	q_box.connect("question_done", self, "load_next_question")
 	q_box.hud = hud
 	question_number = 0
+	episode_data = R.pass_between.episode_data
+	print("Episode.gd: Question IDs received were ", episode_data.question_id)
 #	if not R.pass_between.has("episode_name"):
-#		# we're debugging
+##		# we're debugging
 #		DEBUG = true
 #		R.pass_between.episode_name = "demo"
 #		question_number = 12
+#		episode_data = Loader.load_episode(R.pass_between.episode_name)
 #		load_next_question()
 #		return
 #	elif R.pass_between.episode_name == "demo":
 #		# still debug for now
 #		DEBUG = true
-#		question_number = 6
-#		episode_data = Loader.load_episode(R.pass_between.episode_name)
+#		question_number = 12
 #		load_next_question()
 #		return
-	episode_data = R.pass_between.episode_data
-	$Cutscenes/Round2.scale = Vector2(0, 1)
+	c_box.get_node("Round2").scale = Vector2(0, 1)
+	$ScreenStretch/PauseButton.hide()
+	for i in range(len(R.players)):
+		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
+			$ScreenStretch/PauseButton.show()
+			break
 	call_deferred("play_intro")
+
+func _exit_tree():
+	Fb.close_room()
 
 func enable_skip():
 	C.connect("gp_button", self, "_gp_button")
-	$SkipButton.show()
+	skip_btn.show()
 	skippable = true
 	skipped = false
 #	Ws.scene("enableSkip")
 	send_scene("enableSkip")
 
 func disable_skip():
-	$SkipButton.hide()
+	skip_btn.hide()
 	C.disconnect("gp_button", self, "_gp_button")
 	skippable = false
 	skipped = true
@@ -99,6 +112,11 @@ func _give_default_names(count, size):
 	return chosen_names
 
 func play_intro():
+	# Fade the music that has been playing since the signup screen.
+	# (Takes 0.5 seconds.)
+	S.play_track(0, 0)
+	S.play_track(1, 0)
+	S.play_track(2, 0)
 	# in case I let players turn off Lifesavers in the future
 	var lifesaver_left = false
 	for p in R.players:
@@ -111,12 +129,26 @@ func play_intro():
 	var default_players = []
 	var censored_players = []
 	var chosen_names = []
+	var special_guest: int = (
+		# -1 is sentinel for "none yet",
+		# -2 for "this episode can't do that"
+		-1 if (
+			!episode_data.has("no_special_guest")
+			or episode_data.no_special_guest == false
+		) else -2
+	)
+	var special_guest_id: String = ""
 	for p in R.players:
 		if p.name_type == 1: # default name
 			default_players.append(p.player_number)
 		elif p.name_type == 2: # censored name
 			censored_players.append(p.player_number)
-			q_box.hud.set_player_name(p.player_number, "[CENSORED]")
+#			q_box.hud.set_player_name(p.player_number, "[CENSORED]")
+		elif special_guest == -1:
+			var guest_id_or_empty_string = Loader.guest_id_or_empty_string(p.name)
+			if !guest_id_or_empty_string.empty():
+				special_guest = p.player_number
+				special_guest_id = guest_id_or_empty_string
 		if p.device == C.DEVICES.REMOTE:
 			remote_players.append(p.player_number)
 	var names = Loader.random_dict.audio_episode["give_name"]
@@ -139,7 +171,7 @@ func play_intro():
 	var voice_lines = [
 		"welcome"
 	]
-	if episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
+	if R.get_settings_value("cutscenes") and episode_data.audio.has("welcome_before") and episode_data.audio.welcome_before.v != "default":
 		show_tech_diff = true
 		voice_lines.append_array(
 			[
@@ -149,7 +181,11 @@ func play_intro():
 		)
 	var player_voice
 	var global_voice_lines = []
-	if R.cfg.cutscenes:
+	# Wait for the volume to fade to -80.0 (zero)
+	while S.music_dict[S.tracks[0]].get_volume_db() > -80.0:
+#		print("Episode.gd waiting for the volume to fade: ", S.music_dict[S.tracks[0]].get_volume_db())
+		yield(get_tree(), "idle_frame")
+	if R.get_settings_value("cutscenes"):
 #		Ws.scene("intro")
 		send_scene("intro")
 		# preload the voice lines we need
@@ -163,25 +199,36 @@ func play_intro():
 			])
 		match len(censored_players):
 			0:
-				match len(R.players):
-					1:
-						player_voice = "player_1"
-						voice_lines.append("player_1")
-					2:
-						player_voice = "player_2"
-						voice_lines.append("player_2")
-					3:
-						player_voice = "player_3"
-						voice_lines.append("player_3")
-					_:
-						player_voice = "player_4"
-						voice_lines.append("player_4")
+				if special_guest >= 0:
+					# special guest easter egg lines
+					player_voice = "special_guest"
+					yield(
+						S.preload_guest_voice(special_guest_id),
+						"completed"
+					)
+				else:
+					match len(R.players):
+						1:
+							player_voice = "player_1"
+							voice_lines.append("player_1")
+						2:
+							player_voice = "player_2"
+							voice_lines.append("player_2")
+						3:
+							player_voice = "player_3"
+							voice_lines.append("player_3")
+						_:
+							player_voice = "player_4"
+							voice_lines.append("player_4")
 			1:
 				player_voice = "player_callout_%d" % censored_players[0]
 				global_voice_lines.append(player_voice)
 				global_voice_lines.append("name_censored")
-				S.preload_ep_voice("give_name", names[chosen_names[0]].v, false, names[chosen_names[0]].s)
-				yield(S, "voice_preloaded")
+				yield(
+					S.preload_ep_voice(
+						"give_name", names[chosen_names[0]].v, false, names[chosen_names[0]].s
+					), "completed"
+				)
 			2, 3:
 				player_voice = "%d_player_callout" % len(censored_players)
 				global_voice_lines.append(player_voice)
@@ -193,7 +240,7 @@ func play_intro():
 				global_voice_lines.append("give_multiple_names")
 	
 		if episode_data.has("audio") == false:
-			R.crash("Episode data is missing audio data.")
+			R.crash("Episode data is missing the section `audio`. Malformed episode data?")
 			return
 		for key in voice_lines:
 			# func preload_voice(key, filename, question_specific: bool = false, subtitle_string=""):
@@ -210,21 +257,24 @@ func play_intro():
 					printerr("No candidate lines for key: ", key)
 					breakpoint
 					# fallback
-					S.call_deferred("preload_ep_voice",
-						key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+					yield(
+						S.preload_ep_voice(
+							key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+						), "completed"
 					)
-					yield(S, "voice_preloaded")
 				elif len(candidates) > 1:
 					index = R.rng.randi_range(0, len(candidates) - 1)
-				S.call_deferred("preload_ep_voice",
-					key, candidates[index].v, false, candidates[index].s
+				yield(
+					S.preload_ep_voice(
+						key, candidates[index].v, false, candidates[index].s
+					), "completed"
 				)
-				yield(S, "voice_preloaded")
 			else:
-				S.call_deferred("preload_ep_voice",
-					key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s
+				yield(
+					S.preload_ep_voice(
+						key, episode_data.audio[key].v, R.pass_between.episode_name, episode_data.audio[key].s
+					), "completed"
 				)
-				yield(S, "voice_preloaded")
 		for key in global_voice_lines:
 			# not episode specific, assume you meant to do it
 			var candidates = Loader.random_dict.audio_episode[key]
@@ -233,34 +283,34 @@ func play_intro():
 				printerr("No candidate lines for key: ", key)
 				breakpoint
 				# fallback
-				S.call_deferred("preload_ep_voice",
-					key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+				yield(
+					S.preload_ep_voice(
+						key, "wrong_00", false, "LINE ID %s NOT FOUND" % key
+					), "completed"
 				)
-				yield(S, "voice_preloaded")
 			elif len(candidates) > 1:
 				index = R.rng.randi_range(0, len(candidates) - 1)
-			S.call_deferred("preload_ep_voice",
-				key, candidates[index].v, false, candidates[index].s
+			yield(
+				S.preload_ep_voice(
+					key, candidates[index].v, false, candidates[index].s
+				), "completed"
 			)
-			yield(S, "voice_preloaded")
 		# non-random skip voice?
 		if episode_data.audio.has("skip") == false or episode_data.audio["skip"].v == "default":
 			var skip_index = R.rng.randi_range(0, len(Loader.random_dict.audio_question.skip) - 1)
-			S.call_deferred("preload_voice",
+			yield(S.preload_voice(
 				"skip",
 				Loader.random_dict.audio_question.skip[skip_index].v,
 				false,
 				Loader.random_dict.audio_question.skip[skip_index].s
-			)
-			yield(S, "voice_preloaded")
+			), "completed")
 		else:
-			S.call_deferred("preload_ep_voice",
+			yield(S.preload_ep_voice(
 				"skip",
 				episode_data.audio["skip"].v,
 				R.pass_between.episode_name,
 				episode_data.audio["skip"].s
-			)
-			yield(S, "voice_preloaded")
+			), "completed")
 		yield(get_tree().create_timer(0.5), "timeout")
 		# fake intro
 		if show_tech_diff:
@@ -285,13 +335,38 @@ func play_intro():
 		hud.slide_playerbar(true); yield(hud.get_node("Tween"), "tween_all_completed")
 		yield(get_tree().create_timer(0.1), "timeout") # allow a bit of extra time for slide out
 		
-		S.play_voice(player_voice); yield(S, "voice_end")
-	
+		# If there are censored players, it calls out the player(s) who got censored
+		# If there are special guests, this does not play
+		# Otherwise, it plays a player count quip
+		if special_guest < 0:
+			S.play_voice(player_voice); yield(S, "voice_end")
+		else:
+			if R.get_settings_value("cutscenes"):
+				q_box.hud.highlight_players([special_guest])
+				# TODO: give achievement
+				# remove already seen character
+				var new_progress: Array = R.get_save_data_item(
+					"misc", "guests_seen", []
+				)
+				new_progress.push_back(
+					special_guest_id
+				)
+				R.set_save_data_item(
+					"misc", "guests_seen",
+					new_progress
+				)
+				R.save_save_data()
+				Loader.load_special_guests()
+				S.play_sfx("option_highlight")
+				yield(get_tree().create_timer(0.5), "timeout")
+				S.play_voice("special_guest"); yield(S, "voice_end")
+				q_box.hud.reset_playerboxes([special_guest])
+				S.unload_voice("special_guest")
 	match len(censored_players):
-		0:
+		0: # we deal with "more than 3" later
 			pass;
 		1:
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -306,13 +381,13 @@ func play_intro():
 #					'playerIndex': R.players[censored_players[0]].player_number,
 #					'isVip': false
 #				});
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				q_box.hud.reset_playerboxes(censored_players)
 				S.play_voice("give_name"); yield(S, "voice_end")
 		2, 3:
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -356,7 +431,7 @@ func play_intro():
 #						'playerIndex': R.players[censored_players[i]].player_number,
 #						'isVip': false
 #					});
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
@@ -374,13 +449,13 @@ func play_intro():
 #						'isVip': false
 #					});
 			q_box.hud.punish_players(range(len(R.players)), 50001)
-			if R.cfg.cutscenes:
+			if R.get_settings_value("cutscenes"):
 				S.play_sfx("naughty")
 				yield(get_tree().create_timer(1.0), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
 			q_box.hud.reset_all_playerboxes()
 	
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		if lifesaver_left:
 			send_scene("lifesaver")
 			enable_skip()
@@ -410,8 +485,8 @@ func play_intro():
 		load_next_question()
 
 func play_intro_2():
+	c_box.hide()
 	q_box.show_loading_logo(15)
-	yield(q_box.anim, "animation_finished")
 	
 	q_box.hud.reset_all_playerboxes()
 	var lifesaver_left = false
@@ -476,10 +551,13 @@ func play_intro_2():
 		)
 		yield(S, "voice_preloaded")
 	
+	if q_box.anim.is_playing():
+		yield(q_box.anim, "animation_finished")
 	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
 	
+	c_box.show()
 	S.play_music("new_theme", true)
 	c_box.play_intro(); yield(c_box, "animation_finished")
 	S.play_track(0, 0.4)
@@ -508,6 +586,7 @@ func play_intro_2():
 		if skipped: return
 		c_box.lifesaver_tutorial(5)
 		S.play_voice("lifesaver2_tute2"); yield(S, "voice_end")
+		if skipped: return
 		disable_skip()
 	for k in voice_lines:
 		S.unload_voice(k)
@@ -520,8 +599,9 @@ func end_intro():
 	hud.slide_playerbar(false)
 #	c_box.tween.connect("tween_all_completed", q_box, "show_loading_logo", [], CONNECT_ONESHOT)
 	c_box.close_bg()
-	c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
-	q_box.set_process(true)
+	if c_box.anim.current_animation != "end_intro":
+		c_box.anim.play("end_intro"); yield(c_box, "animation_finished")
+	#q_box.set_process(true)
 	load_next_question()
 
 func play_intermission():
@@ -560,6 +640,7 @@ func play_intermission():
 	q_box.finish_loading_screen()
 	yield(q_box.anim, "animation_finished")
 	q_box.set_process(false)
+	c_box.show()
 	
 	S.play_sfx("leaderboard_show")
 	c_box.show_leaderboard()
@@ -579,24 +660,29 @@ func load_next_question():
 	revert_scene("")
 	send_scene()
 	print("Loading next question. Question number is ", str(question_number), " and intermission played is ", str(intermission_played))
-	if question_number == 6 and R.cfg.cutscenes and intermission_played == false:
+	if question_number == 6 and R.get_settings_value("cutscenes") and intermission_played == false:
+		intermission_played = true
 		play_intermission()
-		#load_question(episode_data.question_id[question_number])
+		#load_question(question_number)
 	elif question_number == 13:
 		q_box.set_process(false)
+		c_box.show()
 		c_box.set_process(true)
 		play_outro()
 	else:
 		intermission_played = false
-		load_question(episode_data.question_id[question_number])
+		load_question(question_number)
 
-func load_question(q_name):
+func load_question(q_number: int):
 	c_box.set_process(false)
-	q_box.call_deferred("show_loading_logo")
+	c_box.hide()
+	
+	q_box.question_number = q_number
+	q_box.show_loading_logo(q_number + 1)
 	yield(q_box.anim, "animation_finished")
-	q_box.question_number = question_number
+	S.unload_all_voices()
 	Loader.call_deferred("load_question",
-		q_name, question_number == 0, q_box
+		R.pass_between.episode_data.question_id[q_number], q_number == 0, q_box
 	)
 	yield(Loader, "loaded")
 #	print("Q_BOX.DATA SHOULD NOW BE THE DICTIONARY ", q_box.data)
@@ -606,67 +692,150 @@ func load_question(q_name):
 func too_many_pauses():
 	# freeze frame effect
 	var txr: ImageTexture = ImageTexture.new()
-	# Let frames pass to make sure the screen was captured.
-#	yield(get_tree(), "idle_frame")
+	# stop the music and voice to get rid of the subtitles if visible
+	S.play_music("", 0)
+	S.stop_voice()
+	S.sub_node.clear_contents()
+	
+	yield(get_tree().create_timer(0.1), "timeout")
 	# Retrieve the captured image.
 	var screenshot: Image = get_viewport().get_texture().get_data()
 	txr.create_from_image(screenshot, 0)
-	$Screen.set_texture(txr)
-#	$Screen.show()
-	
-	S.play_music("", 0)
-	S.stop_voice()
-	q_box.queue_free()
-	yield(get_tree().create_timer(0.5), "timeout")
+	$ScreenBehindShutter.set_texture(txr)
+	$ScreenBehindShutter.show()
+	q_box.free()
+	c_box.hide()
+	yield(get_tree().create_timer(0.1), "timeout")
 	#S.play_voice("")
 	disqualified()
 
 func disqualified():
 #	Ws.close_room()
-	Loader.load_random_voice_line("too_many_pauses", "", true)
+	yield(
+		Loader.load_random_voice_line("too_many_pauses", "", true),
+		"completed"
+	)
 	S.play_voice("too_many_pauses")
 	yield(S, "voice_end")
 	shutter()
 
 func shutter():
-	$Shutter.set_texture(load("res://images/shutter.png"))
-	$Shutter/AnimationPlayer.play("disqualified")
+	$ScreenStretch/Shutter.set_texture(load("res://images/shutter.png"))
+	$ScreenStretch/Shutter/AnimationPlayer.play("disqualified")
 	S.play_sfx("dq")
-	yield($Shutter/AnimationPlayer, "animation_finished")
+	yield($ScreenStretch/Shutter/AnimationPlayer, "animation_finished")
 #	Ws._disconnect()
 	get_tree().change_scene("res://Title.tscn")
 
 func play_outro():
-	$Pause.hide()
+	$Pause.set_process(false)
+	$Pause.ending = true
+	$ScreenStretch/PauseButton.hide()
+	revert_scene("")
+	send_scene("gameEnd")
+	c_box.show()
 	c_box.set_radius(0)
-	intermission_played = false
+#	intermission_played = false
 	S.preload_music("drum_roll")
+	if R.get_settings_value("cutscenes"):
+		_load_outro_cutscene()
+	else:
+		_outro_cutscene_0()
+
+func _load_outro_cutscene():
 	# use the same index for both lines
+	var outro_game_v: String
+	var outro_game_s: String
+	var outro_slam_v: String
+	var outro_slam_s: String
+	var use_episode_voice: bool
 	if episode_data.audio.has("outro_game") == false or episode_data.audio["outro_game"].v == "default":
 		var candidates = Loader.random_dict.audio_episode["outro_game"]
 		var candidates_slam = Loader.random_dict.audio_episode["outro_slam"]
 		var index = 0
-		if len(candidates) == 0:
-			R.crash("No candidate lines for key: " + "outro_game")
-		elif len(candidates_slam) == 0:
-			R.crash("No candidate lines for key: " + "outro_slam")
+		if candidates.empty() or candidates_slam.empty():
+			R.crash("There are no random game outro lines! Please check `random_voicelines.json` to see if `outro_game` and `outro_slam` are filled up correctly.")
+		elif len(candidates) != len(candidates_slam):
+			R.crash("The number of random `outro_game` and `outro_slam` lines in `random_voicelines.json` are different: " + str(len(candidates)) + " vs. " + str(len(candidates_slam)) + ".")
 		elif len(candidates) > 1:
-			index = R.rng.randi_range(0, len(candidates) - 1)
-		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
-		yield(S, "voice_preloaded")
-		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
-		yield(S, "voice_preloaded")
+			index = R.rng.randi_range(0, len(candidates) - 1)\
+		# complications arose from preloading too fast
+		outro_game_v = candidates[index].v
+		outro_game_s = candidates[index].s
+		outro_slam_v = candidates_slam[index].v
+		outro_slam_s = candidates_slam[index].s
+		use_episode_voice = false
+#		S.preload_ep_voice("outro_game", candidates[index].v, false, candidates[index].s)
+#		yield(S, "voice_preloaded")
+#		S.preload_ep_voice("outro_slam", candidates_slam[index].v, false, candidates_slam[index].s)
+#		yield(S, "voice_preloaded")
 	else:
-		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
-		yield(S, "voice_preloaded")
-		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
-		yield(S, "voice_preloaded")
+		outro_game_v = episode_data.audio["outro_game"].v
+		outro_game_s = episode_data.audio["outro_game"].s
+		outro_slam_v = episode_data.audio["outro_slam"].v
+		outro_slam_s = episode_data.audio["outro_slam"].s
+		use_episode_voice = true
+#		S.preload_ep_voice("outro_game", episode_data.audio["outro_game"].v, R.pass_between.episode_name, episode_data.audio["outro_game"].s)
+#		yield(S, "voice_preloaded")
+#		S.preload_ep_voice("outro_slam", episode_data.audio["outro_slam"].v, R.pass_between.episode_name, episode_data.audio["outro_slam"].s)
+#		yield(S, "voice_preloaded")
+	S.connect("voice_preloaded", self, "_on_outro_voice_load_1", [outro_slam_v, outro_slam_s, use_episode_voice], CONNECT_ONESHOT)
+	S.preload_ep_voice(
+		"outro_game", outro_game_v,
+		R.pass_between.episode_name if use_episode_voice else false,
+		outro_game_s
+	)
+	return
+
+# ignore the result and assume it succeeded
+func _on_outro_voice_load_1(_result: int, v2: String, s2: String, episode):
+	print("_on_outro_voice_load_1")
+	S.disconnect("voice_preloaded", self, "_on_outro_voice_load_1") # but, but it's fucking CONNECT_ONESHOT
+	S.connect("voice_preloaded", self, "_on_outro_voice_load_2", [], CONNECT_ONESHOT)
+	S.preload_ep_voice(
+		"outro_slam", v2,
+		R.pass_between.episode_name if episode else false,
+		s2
+	)
+	return
 	
+# ignore the result and assume it succeeded
+func _on_outro_voice_load_2(_result: int):
+	print("_on_outro_voice_load_2")
+	_outro_cutscene_0()
+
+# called whether or not cutscenes are enabled
+func _outro_cutscene_0():
 	hud.rc_box.hide()
-	c_box.show_final_leaderboard();
+	c_box.show_final_leaderboard()
 	S.play_music("drum_roll", true)
 	q_box.hide()
+	yield(get_tree().create_timer(5.0), "timeout")
+	send_scene("showResult")
 	yield(c_box.anim, "animation_finished")
+	if R.get_settings_value("cutscenes"):
+		_outro_cutscene_1()
+	else:
+		c_box.tween.interpolate_property(
+			c_box.get_node("Final"),
+			"modulate:a",
+			1.0, 0.0, 0.5,
+			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
+			2.5
+		)
+		c_box.tween.interpolate_property(
+			c_box.get_node("Final"),
+			"modulate:a",
+			0.0, 0.0, 0.5,
+			Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
+			3.0
+		)
+		c_box.tween.start()
+		yield(c_box.tween, "tween_all_completed")
+		c_box.hide_final_leaderboard()
+		_outro_cutscene_2()
+
+func _outro_cutscene_1():
 	S.play_music("new_theme", true)
 	yield(get_tree().create_timer(3.5), "timeout")
 	S.play_track(0, 0.4)
@@ -676,6 +845,9 @@ func play_outro():
 	c_box.hide_final_leaderboard()
 	S.play_voice("outro_slam"); yield(S, "voice_end")
 	yield(get_tree().create_timer(1.0), "timeout")
+	_outro_cutscene_2()
+
+func _outro_cutscene_2():
 	c_box.roll_credits()
 	C.connect("gp_button", self, "_back_button")
 	intermission_played = true
@@ -709,20 +881,30 @@ func _on_credits_link_clicked(meta):
 	OS.shell_open(meta)
 
 # Keeps a log of scenes sent, in case someone has to reconnect.
-func send_scene(name, scene_data = {}):
+func send_scene(name: String = "", scene_data = {}):
+	if name == "":
+		# Just send the current backlog with no additions
+		Fb.scene(scene_history)
+#		print("resent scene history")
+		return
 #	Ws.scene(name, scene_data)
-	scene_data.action = "changeScene"
+	#scene_data.action = "changeScene"
 	scene_data.sceneName = name
+	# The client can keep track of which events are new
+	# Avoid timestamp collision
+	var last_time = scene_history.back().time if len(scene_history) else 0
+	var now_time = Time.get_ticks_usec()
+	scene_data.time = now_time + (1 if last_time == now_time else 0)
+	# Add the new scene to the backlog
 	scene_history.push_back(scene_data)
+	# Send the whole backlog to the room
 	Fb.scene(scene_history)
-	#print("If you were to rejoin now, you would receive these scene events:")
-#	for scene in scene_history:
-#		print(scene.sceneName, scene)
+#	print("sent scene history:", scene_history)
 	return
 
 # Pops the latest scene packets until the sceneName matches the `until` param.
 # If it's '' or there's no match, the whole scene log is deleted.
-func revert_scene(until):
+func revert_scene(until: String):
 	if until == "":
 		# Just clear the whole backlog regardless
 		scene_history.clear()
@@ -732,8 +914,10 @@ func revert_scene(until):
 		# we should stop at (or we clear out the whole history)
 		var back = scene_history.pop_back()
 		if back.sceneName == until:
-			#print("If you were to rejoin now, you would receive these scene events:")
-			for scene in scene_history:
-				print(scene.sceneName, scene)
+#			print("reverted scene history:", scene_history)
 			return
 #	print("Cleared all scene events")
+
+
+func _on_PauseButton_pressed():
+	C.inject_button(4, 6, true)

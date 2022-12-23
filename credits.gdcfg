@@ -1,7 +1,3 @@
-[title]
-h = "Salty Trivia with Candy Barre"
-b = ["presented by hai!touch Studios"]
-
 [director]
 h = "Creative Director"
 b = ["Haley Walker"]
@@ -25,41 +21,42 @@ b = ["Haley Walker"]
 [music]
 h = "Music"
 b = [
-  "Haley Walker · Salty Trivia, Salty Trivia (classic) · Candy Trivia · Sorta Kinda · All Outta Salt · Sugar Rush · Like It or Leave It · Thousand-Question Question · options",
-  "Tri-Tachyon · Rage Against the Times, from [url=https://opengameart.org/content/heavy-metal-riffs-4hrdm8]Heavy Metal Riffs[/url]",
+  "Haley Walker — Salty Trivia, Salty Trivia (classic) • Candy Trivia • Sorta Kinda • All Outta Salt • Sugar Rush • Like It or Leave It • Thousand-Question Question • Scoreboard • End Credits",
+  "Tri-Tachyon — Rage Against the Times (from [url=https://opengameart.org/content/heavy-metal-riffs-4hrdm8]Heavy Metal Riffs[/url])",
 ]
 
 [voices]
 h = "Voice Actors"
 b = [
-  "Haley Walker · [i]Candy Barre[/i]",
-  "RiverKath · [i]Daisy Chaine[/i]",
-  "Walter Mack · [i]Miles Stone[/i]",
-  "The Primordial Clok-Roo · [i]Ozzy[/i]"
+  "Haley Walker — [i]Candy Barre[/i]",
+  "RiverKath — [i]Daisy Chaine[/i]",
+  "Walter Mack — [i]Miles Stone[/i]",
+  "The Primordial Clok-Roo — [i]Ozzy[/i]",
 ]
 
 [writers]
 h = "Writers"
 b = [
-  "Haley Walker",
-  "The Primordial Clok-Roo",
-  "indecorousPyrrhonist",
-  "RiverKath"
+  "Haley Walker — Main writer and coordinator",
+  "The Primordial Clok-Roo — Writer",
+  "indecorousPyrrhonist — Writer",
+  "RiverKath — Writer",
+  "Volunteers from #st-your-trivia on our Discord server",
 ]
 
 [technologies]
 h = "Technologies Used"
 b = [
-  "Godot Engine · [i]game engine[/i]",
-  "Gotm.io · [i]game hosting[/i]",
-  "WebSocket · [i]client-server communication[/i]",
-  "Node.js and Express · [i]Web controller system[/i]",
-  "Render · [i]Web controller hosting[/i]",
-  "GitHub Pages · [i]home page hosting[/i]",
-  "Casting Call Club · [i]voice talent recruitment[/i]",
-  "Inkscape · [i]graphic design[/i]",
-  "GIMP · [i]graphic design[/i]",
-  "FL Studio · [i]music production[/i]"
+  "Godot Engine — [i]game engine[/i]",
+  "Gotm.io — [i]game hosting[/i]",
+  "GitHub — [i]version control[/i]",
+  "Firebase Realtime Database — [i]Web controller system[/i]",
+  "Firebase Web Hosting — [i]Web controller hosting[/i]",
+  "GitHub Pages — [i]home page hosting[/i]",
+  "Casting Call Club — [i]voice talent recruitment[/i]",
+  "Inkscape — [i]graphic design[/i]",
+  "GIMP — [i]graphic design[/i]",
+  "FL Studio — [i]music production[/i]",
 ]
 
 [encouragement]
@@ -67,29 +64,28 @@ h = "Encouragement and Ideas from"
 b = [
   "TheDarkSid3r",
   "shslsquirrel",
-  "ManBurning"
+  "ManBurning",
 ]
 
 [misc]
 h = "Misc. Acknowledgements"
 b = [
-  "The body text font, Barlow Semi Condensed, was designed by Jeremy Tribby. It is released under the Open Font License.",
-  "The headline font, Abril Fatface, was designed by Veronika Burian & José Scaglione of TypeTogether. It is released under a proprietary license for use without cost.",
-  "All trademarks used in this game are the property of their respective owners. They are used for commentary, comedy, and education, and should not be taken as an implication of ownership, endorsement, or criticism."
+  "Godot Engine is a free and open-source game engine. The source code for this game is available [url=https://github.com/japanyoshi/salty]on GitHub.[/url]",
+  "All trademarks used in this game are the property of their respective owners. They are used for commentary, comedy, and education, and should not be taken as an implication of ownership, endorsement, or criticism.",
 ]
 
 [special_thanks]
 h = "Special Thanks"
 b = [
-  "Jackbox Games · [i]owner and publisher of You Don’t Know Jack[/i]",
-  "Harry Gottlieb · [i]original creator of You Don’t Know Jack, founder of Jackbox Games, and voice of Nate Shapiro[/i]",
-  "Laffy Taffy · [i]for not suing me for making fun of the jokes on their wrappers[/i]",
-  "you · [i]Thanks for playing![/i]"
+  "Jackbox Games • [i]owner and publisher of You Don’t Know Jack[/i]",
+  "Harry Gottlieb • [i]original creator of You Don’t Know Jack, founder of Jackbox Games, and voice of Nate Shapiro[/i]",
+  "Laffy Taffy • [i]for not suing me for making fun of the jokes on their wrappers[/i]",
+  "you • [i]Thanks for playing![/i]",
 ]
 
 [announcement]
 h = "Announcement"
 b = [
   "Stay tuned for Episodes 4, 5, and 6!",
-  "[url=https://discord.gg/95JWgy9gue]Join our Discord![/url]"
+  "[url=https://discord.gg/95JWgy9gue]Join our Discord![/url]",
 ]

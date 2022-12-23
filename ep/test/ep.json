@@ -1,0 +1,44 @@
+{
+  "episode_name": "Test Episode",
+  "episode_id": "TE",
+  "episode_desc": "Should not be available in final build",
+  "audio": {
+    "welcome": {"v": "default"},
+    "player_1": {"v": "default"},
+    "player_2": {"v": "default"},
+    "player_3": {"v": "default"},
+    "player_4": {"v": "default"},
+    "lifesaver": {"v": "default"},
+    "lifesaver_tute0": {"v": "default"},
+    "lifesaver_tute1": {"v": "default"},
+    "lifesaver_tute2": {"v": "default"},
+    "lifesaver_tute3": {"v": "default"},
+    "intermission": {"v": "default"},
+    "round2": {"v": "default"},
+    "round2_tute": {"v": "default"},
+    "lifesaver2": {"v": "default"},
+    "lifesaver2_tute0": {"v": "default"},
+    "lifesaver2_tute1": {"v": "default"},
+    "lifesaver2_tute2": {"v": "default"},
+    "outro_game": {"v": "default"},
+    "outro_slam": {"v": "default"},
+    "skip": {"v": "default"}
+  },
+  "question_id": [
+    "r009",
+    "r008",
+    "r007",
+    "r002",
+    "r004",
+    "r005",
+    
+    "r006",
+    "t005",
+    "RNG_nsctgo",
+    "RNG_nsctgo",
+    "RNG_nsctgo",
+    "RNG_nsctgo",
+
+    "RNG_lr"
+  ]
+}

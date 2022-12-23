@@ -5,23 +5,23 @@
   "audio": {
     "welcome": {
       "v": "welcome",
-      "s": "Welcome to the very first episode of Salty Trivia with Candy Barre,[#4458#]where the questions are ridiculous but the answers are serious![#8011#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#12748#]Now lift your trays to the upright position and prepare for take-off.[#16231#]Or don’t, I don’t care."
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#4458#]where the questions are ridiculous but the answers are serious![#8011#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#12748#]Now lift your trays to the upright position and prepare for take-off.[#16231#]Or don’t, I don’t care."
     },
     "intermission": {
       "v": "intermission",
-      "s": "We’ll be right back after these messages.[#2090#]Not from our sponsors, but these thirsty guys trying to slide into my DMs.[#5782#]I gotta go block those real quick. See ya.[#7918#]"
+      "s": "[b]Candy:[/b] We’ll be right back after these messages.[#2090#]Not from our sponsors, but these thirsty guys trying to slide into my DMs.[#5782#]I gotta go block those real quick. See ya.[#7918#]"
     },
     "round2": {
       "v": "welcome_back",
-      "s": "Welcome back to Salty Trivia.[#1491#]Remember me? I remember the first time we met like it was only yesterday.[#6022#]Let’s carry on to Round 2!"
+      "s": "[b]Candy:[/b] Welcome back to Salty Trivia.[#1491#]Remember me? I remember the first time we met like it was only yesterday.[#6022#]Let’s carry on to Round 2!"
     },
     "outro_game": {
       "v": "outro_game",
-      "s": "From the bottom of my heart,[#1920#]thank you for participating in this very first episode[#5598#]of Salty Trivia with Candy Barre.[#7395#]"
+      "s": "[b]Candy:[/b] From the bottom of my heart,[#1920#]thank you for participating in this very first episode[#5598#]of Salty Trivia with Candy Barre.[#7395#]"
     },
     "outro_slam": {
       "v": "outro_slam",
-      "s": "Now get out."
+      "s": "[b]Candy:[/b] Now get out."
     }
   },
   "question_id": [

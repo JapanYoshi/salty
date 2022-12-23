@@ -1,0 +1,469 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://ThemeEpisode.tres" type="Theme" id=1]
+[ext_resource path="res://images/bg2.png" type="Texture" id=2]
+[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=4]
+[ext_resource path="res://MenuBG.tscn" type="PackedScene" id=5]
+[ext_resource path="res://SaveData.gd" type="Script" id=6]
+[ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=7]
+[ext_resource path="res://BackButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=9]
+[ext_resource path="res://achievements/AchievementItem.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ButtonPromptHover.stylebox" type="StyleBox" id=11]
+[ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=12]
+[ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=13]
+[ext_resource path="res://themeTyping.tres" type="Theme" id=14]
+[ext_resource path="res://fonts/gibberish_big_font.tres" type="DynamicFont" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Center:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Center:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 286, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Left:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Right:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Center:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "tab_left"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Center:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ -5.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Center:rect_position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ 254.0, 286.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Left:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Right:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Center:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "tab_right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Center:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ 5.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Center:rect_position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ 318.0, 286.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Left:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Right:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Center:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[node name="SaveData" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 6 )
+
+[node name="ScreenStretch" parent="." instance=ExtResource( 7 )]
+
+[node name="r" type="Control" parent="ScreenStretch"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+rect_pivot_offset = Vector2( 640, 360 )
+
+[node name="ColorRect" parent="ScreenStretch/r" instance=ExtResource( 5 )]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+texture = ExtResource( 2 )
+
+[node name="TabContainer" type="TabContainer" parent="ScreenStretch/r"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 80.0
+margin_top = 150.0
+margin_right = -80.0
+margin_bottom = -40.0
+rect_clip_content = true
+custom_styles/panel = SubResource( 4 )
+tabs_visible = false
+
+[node name="HighScore" type="ScrollContainer" parent="ScreenStretch/r/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+scroll_horizontal_enabled = false
+
+[node name="Grid" type="GridContainer" parent="ScreenStretch/r/TabContainer/HighScore"]
+margin_left = 560.0
+margin_right = 560.0
+size_flags_horizontal = 6
+custom_constants/vseparation = 8
+custom_constants/hseparation = 8
+columns = 2
+
+[node name="Achievements" type="ScrollContainer" parent="ScreenStretch/r/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+theme = ExtResource( 1 )
+scroll_horizontal_enabled = false
+
+[node name="v" type="VBoxContainer" parent="ScreenStretch/r/TabContainer/Achievements"]
+margin_right = 1088.0
+margin_bottom = 720.0
+
+[node name="Label" type="Label" parent="ScreenStretch/r/TabContainer/Achievements/v"]
+margin_right = 1088.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 9 )
+text = "Achievements aren’t ready yet. Maybe soon...?"
+align = 1
+valign = 1
+
+[node name="Grid" type="GridContainer" parent="ScreenStretch/r/TabContainer/Achievements/v"]
+margin_top = 38.0
+margin_right = 1088.0
+margin_bottom = 885.0
+size_flags_horizontal = 6
+custom_constants/vseparation = 8
+custom_constants/hseparation = 8
+columns = 2
+
+[node name="AchievementItem" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_bottom = 163.0
+
+[node name="AchievementItem2" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_left = 548.0
+margin_right = 1088.0
+margin_bottom = 163.0
+
+[node name="AchievementItem3" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_top = 171.0
+margin_bottom = 334.0
+
+[node name="AchievementItem4" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_left = 548.0
+margin_top = 171.0
+margin_right = 1088.0
+margin_bottom = 334.0
+
+[node name="AchievementItem5" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_top = 342.0
+margin_bottom = 505.0
+
+[node name="AchievementItem6" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_left = 548.0
+margin_top = 342.0
+margin_right = 1088.0
+margin_bottom = 505.0
+
+[node name="AchievementItem7" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_top = 513.0
+margin_bottom = 676.0
+
+[node name="AchievementItem8" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_left = 548.0
+margin_top = 513.0
+margin_right = 1088.0
+margin_bottom = 676.0
+
+[node name="AchievementItem9" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_top = 684.0
+margin_bottom = 847.0
+
+[node name="AchievementItem10" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
+margin_left = 548.0
+margin_top = 684.0
+margin_right = 1088.0
+margin_bottom = 847.0
+
+[node name="Header" type="Control" parent="ScreenStretch/r"]
+margin_left = 84.0
+margin_top = 84.0
+margin_right = 1196.0
+margin_bottom = 148.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="Left" type="Label" parent="ScreenStretch/r/Header"]
+margin_top = 7.0
+margin_right = 282.0
+margin_bottom = 51.0
+rect_pivot_offset = Vector2( 0, 23 )
+mouse_filter = 0
+custom_fonts/font = ExtResource( 4 )
+text = "㍛ Achievements"
+valign = 1
+
+[node name="Center" type="Label" parent="ScreenStretch/r/Header"]
+margin_left = 286.0
+margin_right = 826.0
+margin_bottom = 58.0
+rect_pivot_offset = Vector2( 270, 60 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "High Scores"
+align = 1
+valign = 1
+
+[node name="Right" type="Label" parent="ScreenStretch/r/Header"]
+margin_left = 830.0
+margin_top = 7.0
+margin_right = 1112.0
+margin_bottom = 51.0
+rect_pivot_offset = Vector2( 282, 23 )
+mouse_filter = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Achievements ㍝"
+align = 2
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenStretch/r/Header"]
+anims/RESET = SubResource( 1 )
+anims/tab_left = SubResource( 2 )
+anims/tab_right = SubResource( 3 )
+
+[node name="Label" type="Label" parent="ScreenStretch/r"]
+margin_left = 200.0
+margin_right = 701.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 3 )
+text = "Save Data"
+
+[node name="BackButton" parent="ScreenStretch/r" instance=ExtResource( 8 )]
+rect_pivot_offset = Vector2( 390, 111 )
+
+[node name="Delete" type="Button" parent="ScreenStretch/r"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -270.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 13 )
+custom_styles/hover = ExtResource( 11 )
+custom_styles/pressed = ExtResource( 12 )
+custom_styles/focus = ExtResource( 12 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 12 )
+text = "㍞ Delete save data"
+
+[node name="DeleteModal" type="ColorRect" parent="ScreenStretch/r"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.898039, 0.0470588, 0.0470588, 0.862745 )
+
+[node name="Panel" type="Panel" parent="ScreenStretch/r/DeleteModal"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 800, 600 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenStretch/r/DeleteModal/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+
+[node name="Label" type="Label" parent="ScreenStretch/r/DeleteModal/Panel/VBoxContainer"]
+margin_right = 736.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 15 )
+text = "Are you DAMN sure?!"
+
+[node name="Label2" type="Label" parent="ScreenStretch/r/DeleteModal/Panel/VBoxContainer"]
+margin_top = 60.0
+margin_right = 736.0
+margin_bottom = 384.0
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 4 )
+text = "You are about to delete your save data and achievement history. This is irreversible! Are you sure you want to yeet it out of existence?!"
+autowrap = true
+
+[node name="yes" type="Button" parent="ScreenStretch/r/DeleteModal/Panel/VBoxContainer"]
+margin_top = 388.0
+margin_right = 736.0
+margin_bottom = 460.0
+theme = ExtResource( 14 )
+text = "Yep, to hell with my save data."
+
+[node name="no" type="Button" parent="ScreenStretch/r/DeleteModal/Panel/VBoxContainer"]
+margin_top = 464.0
+margin_right = 736.0
+margin_bottom = 536.0
+theme = ExtResource( 14 )
+text = "NOOOO! I DIDN’T MEAN TO!"
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="gui_input" from="ScreenStretch/r/Header/Left" to="." method="_on_Left_gui_input"]
+[connection signal="gui_input" from="ScreenStretch/r/Header/Right" to="." method="_on_Right_gui_input"]
+[connection signal="back_pressed" from="ScreenStretch/r/BackButton" to="." method="_back"]
+[connection signal="pressed" from="ScreenStretch/r/Delete" to="." method="_confirm_delete"]
+[connection signal="pressed" from="ScreenStretch/r/DeleteModal/Panel/VBoxContainer/yes" to="." method="_on_delete_confirm"]
+[connection signal="pressed" from="ScreenStretch/r/DeleteModal/Panel/VBoxContainer/no" to="." method="_on_delete_cancel"]

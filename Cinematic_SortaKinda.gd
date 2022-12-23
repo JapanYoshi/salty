@@ -3,27 +3,34 @@ extends Control
 signal intro_ended
 signal answer_done
 signal outro_ended
-onready var a_long = $ViewportContainer/Viewport/OptionsVP/PanelA/Center/RTL
-onready var b_long = $ViewportContainer/Viewport/OptionsVP/PanelB/Center/RTL
-onready var a_short = $ViewportContainer/Viewport/OptionsVP/PanelA/Center/Short
-onready var b_short = $ViewportContainer/Viewport/OptionsVP/PanelB/Center/Short
+onready var a_long = $Viewport/OptionsVP/Scale/PanelA/Center/RTL
+onready var b_long = $Viewport/OptionsVP/Scale/PanelB/Center/RTL
+onready var a_short = $Viewport/OptionsVP/Scale/PanelA/Center/Short
+onready var b_short = $Viewport/OptionsVP/Scale/PanelB/Center/Short
 var has_both = false
 
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "_on_resized")
-	hide()
+#	hide()
 	init()
+	# debug
+#	intro()
+#	set_options("OPTION 1 long version", "OPTION 2 long version", "left", "right")
+#	show_option(0); show_option(1);
+	# end debug
 
 func init():
 	$AnimationPlayer.play("initialize")
 	$Screen3D/jiggle.stop()
-	if !R.cfg.cutscenes:
+	if !R.get_settings_value("cutscenes"):
 		$AnimationPlayer.set_current_animation("intro")
 		$AnimationPlayer.seek(100, true)
+	_on_size_changed()
+	get_viewport().connect("size_changed", self, "_on_size_changed")
 
 func intro():
 	show()
-	if R.cfg.cutscenes:
+	if R.get_settings_value("cutscenes"):
 		$AnimationPlayer.play("intro")
 		S.play_music("sort_intro", true)
 	else:
@@ -78,7 +85,7 @@ func show_question(text: String):
 func skip_intro(has_both: bool):
 	$AnimationPlayer.play("skip_intro")
 	if has_both:
-		$ViewportContainer/Viewport/OptionsVP/PanelAB.rect_scale = Vector2.ONE
+		$Viewport/OptionsVP/Scale/PanelAB.rect_scale = Vector2.ONE
 
 func answer(which: int):
 	match which:
@@ -129,9 +136,22 @@ func _on_TouchAB_pressed():
 	# 4 = touchscreen, 1 = up face button, true = pressed
 	C.inject_button(4, 1, true)
 
-func _on_resized():
-	var size = get_tree().get_root().size # already in the correct aspect ratio
-	$ViewportContainer.rect_size = size
-	# i want to scale the meta viewport but it doesn't affect the text size
-	#$ViewportContainer/Viewport/OptionsVP.size = size
-	pass # Replace with function body.
+const base_resolution = Vector2(1280, 720)
+var scale: float = 1.0
+func _on_size_changed():
+	var resolution = get_viewport_rect().size
+	if resolution.x / resolution.y > (16.0 / 9.0):
+		# too wide
+		scale = resolution.y / base_resolution.y
+	else:
+		# too narrow
+		scale = resolution.x / base_resolution.x
+	# todo: options viewport size is too big when started at 1080p
+	$Viewport.size = base_resolution * scale # enlarge to native res
+	
+	$Viewport/OptionsVP.size = base_resolution * scale # enlarge to native res
+	$Viewport/OptionsVP/Scale.rect_scale = Vector2.ONE * scale # enlarge to native res
+	$Viewport/Options.scale = Vector3.ONE / scale # shrink sprite to "logical" 720p relative to camera
+	
+	$Screen3D.rect_size = base_resolution * scale # enlarge to native res
+	$Screen3D.rect_scale = Vector2.ONE / scale # fit to "logical" 720p
