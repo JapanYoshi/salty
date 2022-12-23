@@ -20,6 +20,7 @@ func _ready():
 	ep = get_parent()
 	C.connect("gp_button", self, "_gp_button")
 	C.connect("gp_button_paused", self, "_gp_button_paused")
+	C.connect("gp_axis_paused", self, "_gp_axis_paused")
 	$NprContainer/HBoxContainer/HSlider.value = R.get_settings_value("overall_volume")
 	get_tree().connect("screen_resized", self, "_on_size_changed")
 
@@ -120,7 +121,7 @@ func _gp_button(index, button, pressed):
 
 func _gp_button_paused(index, button, pressed):
 	# other buttons?
-	if index != device: return
+	if index != device or !pressed: return
 	if button == 5 or button == 6:
 		accept_event()
 		resume()
@@ -128,7 +129,43 @@ func _gp_button_paused(index, button, pressed):
 	elif button == 4:
 		accept_event()
 		quit()
-		return;
+	elif button == 14:
+		_change_volume(-1)
+		accept_event()
+	elif button == 15:
+		_change_volume(1)
+		accept_event()
+	return;
+
+
+var last_axis_value: float = 0.0
+const axis_value_thres: float = 0.5
+func _gp_axis_paused(index, axis, value):
+	# other buttons?
+	if index != device or axis != 0: return
+	if last_axis_value < axis_value_thres and axis_value_thres <= value:
+		# cursor right
+		last_axis_value = value
+		_change_volume(1)
+		accept_event()
+		return
+	if value <= -axis_value_thres and -axis_value_thres < last_axis_value:
+		# cursor left
+		last_axis_value = value
+		_change_volume(-1)
+		accept_event()
+		return
+	if (last_axis_value <= -axis_value_thres and -axis_value_thres < value) or\
+	(last_axis_value >= axis_value_thres and axis_value_thres > value):
+		# cursor center
+		last_axis_value = value
+		accept_event()
+		return
+
+
+func _change_volume(by: float):
+	print("changed volume via controller input")
+	$NprContainer/HBoxContainer/HSlider.value += by
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
