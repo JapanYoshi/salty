@@ -74,7 +74,7 @@ func _input(event):
 			if OS.get_ticks_usec() < ignore_axis[which.player]:
 				return
 			elif get_tree().paused:
-				emit_signal("gp_axis_paused", which.player, which.button, event.axis_value)
+				emit_signal("gp_axis_paused", which.player, which.axis, event.axis_value)
 			else:
 				emit_signal("gp_axis", which.player, which.axis, event.axis_value)
 
@@ -210,7 +210,7 @@ func lookup_axis(device, axis):
 		"player": -1,
 		"axis": -1
 	}
-	for i in range(len(ctrl)):
+	for i in range(5, len(ctrl)):
 		var c = ctrl[i]
 		if c.device_type == DEVICES.GAMEPAD and c.device == device and axis in c.axes:
 			map.player = i; map.axis = c.axes.find(axis)
