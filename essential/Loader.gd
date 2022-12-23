@@ -129,7 +129,7 @@ func head_request_assets(callback_node: Node, callback_function_name: String):
 	http_request.connect("request_completed", self, "_head_request_completed", [callback_node, callback_function_name], CONNECT_ONESHOT)
 	var result = http_request.request(
 		asset_cache_url + asset_cache_filename,
-		[], true, HTTPClient.METHOD_HEAD
+		["Accept-Encoding: identity"], true, HTTPClient.METHOD_HEAD
 	)
 	if result:
 		printerr("http_request() HEAD did not succeed: ", result)
