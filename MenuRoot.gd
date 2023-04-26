@@ -240,8 +240,9 @@ func download_question(q):
 func _http_request_completed(result, response_code, headers, body, q):
 	prints("MenuRoot._http_request_completed(", response_code, ", ", q, ")")
 	http_request.disconnect("request_completed", self, "_http_request_completed")
+	var error_message = ""
 	if result != HTTPRequest.RESULT_SUCCESS:
-		var error_message = "The HTTP request for question ID %s did not succeed. Error code: %d — " % [q, result]
+		error_message = "The HTTP request for question ID %s did not succeed. Error code: %d — " % [q, result]
 		match result:
 			HTTPRequest.RESULT_CHUNKED_BODY_SIZE_MISMATCH:
 				error_message += "Chunked body size mismatch."
@@ -267,10 +268,16 @@ func _http_request_completed(result, response_code, headers, body, q):
 				error_message += "Request reached its maximum redirect limit."
 			HTTPRequest.RESULT_TIMEOUT:
 				error_message += "Request timed out."
-		R.crash(error_message)
-		return
 	elif response_code >= 400:
-		R.crash("Tried to load question ID %s, but the Web request did not succeed. The HTTP response code was %d." % [q, response_code])
+		error_message = (
+			"Tried to load question ID %s, but the Web request did not succeed. " + 
+			"The HTTP response code was %d.\n" % [q, response_code]
+		)
+	if !error_message.empty():
+		error_message += "Please check that your Internet connection is strong and stable, and try again."
+		if OS.has_feature("Android"):
+			error_message += " As you are playing on Android, please make sure that you have not revoked the appṥ’s permission to access the Internet."
+		R.crash(error_message)
 		return
 	Loader.append_question_cache(q)
 	_load_question(q)
