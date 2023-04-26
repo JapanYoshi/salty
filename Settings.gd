@@ -76,17 +76,17 @@ var settings_dict = [
 			{
 				v = 0,
 				t = "no room",
-				d = "Don’t use phones as controllers. In fact, don’t even bother opening a room or connecting to the game server."
+				d = "Don’t use phones as controllers. In fact, don’t even bother opening a room or connecting to the game server. Recommended for Android."
 			},
 			{
 				v = 1,
 				t = "vetted",
-				d = "Players on their phones must be allowed in one by one. (However, once the room is full, they can join the audience freely, assuming that you’ve left that feature on.)"
+				d = "Players on their phones must be allowed in one by one. (However, once the room is full, they can join the audience freely, assuming that you’ve left that feature on.) Not recommended for Android."
 			},
 			{
 				v = 2,
 				t = "open room",
-				d = "Players on their phones are automatically let in."
+				d = "Players on their phones are automatically let in. Not recommended for Android."
 			}
 		]
 	},{
