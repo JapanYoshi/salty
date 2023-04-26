@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/achievement.wav-9c2270faf95b61b25359f2402f80fad8.sample"
+
+[deps]
+
+source_file="res://audio/sfx/achievement.wav"
+dest_files=[ "res://.import/achievement.wav-9c2270faf95b61b25359f2402f80fad8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=1

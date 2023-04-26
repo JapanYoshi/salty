@@ -14,6 +14,51 @@
     "description": "Complete Episode 3 “Give Me Your Answers Do”.",
     "steps": 1,
   },
+  "episode_04": {
+    "title": "Gaming Headset",
+    "description": "Complete Episode 4 “Pandering to Gamers”.",
+    "steps": 1,
+  },
+  "episode_05": {
+    "title": "Big Tub of Ice Cream",
+    "description": "Complete Episode 5 “Bittersweet Love”.",
+    "steps": 1,
+  },
+  "episode_06": {
+    "title": "Essential Japanese Phrasebook",
+    "description": "Complete Episode 6 “All About Japan”.",
+    "steps": 1,
+  },
+  "episode_07": {
+    "title": "Hidden",
+    "description": "Complete Episode 7.",
+    "steps": 1,
+  },
+  "episode_08": {
+    "title": "Hidden",
+    "description": "Complete Episode 8.",
+    "steps": 1,
+  },
+  "episode_09": {
+    "title": "Hidden",
+    "description": "Complete Episode 9.",
+    "steps": 1,
+  },
+  "episode_10": {
+    "title": "Hidden",
+    "description": "Complete Episode 10.",
+    "steps": 1,
+  },
+  "episode_11": {
+    "title": "Hidden",
+    "description": "Complete Episode 11.",
+    "steps": 1,
+  },
+  "episode_12": {
+    "title": "Hidden",
+    "description": "Complete Episode 12.",
+    "steps": 1,
+  },
   "special_guest": {
     "title": "Very Important Player",
     "description": "Use a name that gets a special welcome.",
@@ -21,7 +66,7 @@
   },
   "cuss_1": {
     "title": "F.U. Right Back",
-    "description": "Upset the host by swearing at her.",
+    "description": "Upset the host by swearing.",
     "steps": 1,
   },
   "cuss_3": {

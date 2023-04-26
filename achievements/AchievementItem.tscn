@@ -3,7 +3,7 @@
 [ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=1]
 [ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=2]
 [ext_resource path="res://AchievementItem.gd" type="Script" id=3]
-[ext_resource path="res://android-icon-legacy.png" type="Texture" id=4]
+[ext_resource path="res://achievements/episode_01.png" type="Texture" id=4]
 [ext_resource path="res://HighScoreItem.stylebox" type="StyleBox" id=5]
 
 [sub_resource type="StyleBoxFlat" id=2]
