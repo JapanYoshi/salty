@@ -34,32 +34,32 @@ margin_bottom = -8.0
 
 [node name="Label" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
 margin_right = 1200.0
-margin_bottom = 37.0
+margin_bottom = 29.0
 custom_fonts/font = ExtResource( 4 )
 text = "Fatal error"
 align = 1
 valign = 1
 
 [node name="Reason" type="Label" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 41.0
+margin_top = 33.0
 margin_right = 1200.0
-margin_bottom = 78.0
+margin_bottom = 62.0
 size_flags_vertical = 2
 custom_fonts/font = ExtResource( 2 )
 autowrap = true
 
 [node name="Footer" type="RichTextLabel" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 479.0
+margin_top = 541.0
 margin_right = 1200.0
-margin_bottom = 593.0
+margin_bottom = 601.0
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "If this issue persists, please report the error to [url=https://github.com/JapanYoshi/salty/issues]the GitHub repo[/url] (github.com/japanyoshi/salty/issues) or [url=https://discord.gg/Mp89KdZ75N]the official Discord server[/url] (discord.gg/Mp89KdZ75N)."
-text = "If this issue persists, please report the error to the GitHub repo (github.com/japanyoshi/salty/issues) or the official Discord server (discord.gg/Mp89KdZ75N)."
+bbcode_text = "If this issue persists, please report the error to [url=https://github.com/JapanYoshi/salty/issues]the GitHub repo[/url] (github.com/japanyoshi/salty/issues) or [url=https://discord.gg/Mp89KdZ75N]the official Discord server[/url] (discord.gg/Mp89KdZ75N), and include the above error message."
+text = "If this issue persists, please report the error to the GitHub repo (github.com/japanyoshi/salty/issues) or the official Discord server (discord.gg/Mp89KdZ75N), and include the above error message."
 fit_content_height = true
 
 [node name="Button" type="Button" parent="ScreenStretch/ColorRect/VBoxContainer"]
-margin_top = 597.0
+margin_top = 605.0
 margin_right = 1200.0
 margin_bottom = 640.0
 custom_fonts/font = ExtResource( 4 )
