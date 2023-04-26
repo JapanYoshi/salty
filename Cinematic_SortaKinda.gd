@@ -25,8 +25,9 @@ func init():
 	if !R.get_settings_value("cutscenes"):
 		$AnimationPlayer.set_current_animation("intro")
 		$AnimationPlayer.seek(100, true)
-	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
+	yield(get_tree(), "idle_frame")
+	_on_size_changed()
 
 func intro():
 	show()
@@ -140,18 +141,20 @@ const base_resolution = Vector2(1280, 720)
 var scale: float = 1.0
 func _on_size_changed():
 	var resolution = get_viewport_rect().size
-	if resolution.x / resolution.y > (16.0 / 9.0):
-		# too wide
-		scale = resolution.y / base_resolution.y
-	else:
-		# too narrow
-		scale = resolution.x / base_resolution.x
+	# Can assume that aspect ratio is 16:9, since it is inside the resizer
+	scale = resolution.y / base_resolution.y
+#	if resolution.x / resolution.y > (16.0 / 9.0):
+#		# too wide
+#		scale = resolution.y / base_resolution.y
+#	else:
+#		# too narrow
+#		scale = resolution.x / base_resolution.x
 	# todo: options viewport size is too big when started at 1080p
 	$Viewport.size = base_resolution * scale # enlarge to native res
 	
 	$Viewport/OptionsVP.size = base_resolution * scale # enlarge to native res
 	$Viewport/OptionsVP/Scale.rect_scale = Vector2.ONE * scale # enlarge to native res
-	$Viewport/Options.scale = Vector3.ONE / scale # shrink sprite to "logical" 720p relative to camera
+#	$Viewport/Options.scale = Vector3.ONE * scale # shrink sprite to "logical" 720p relative to camera
 	
-	$Screen3D.rect_size = base_resolution * scale # enlarge to native res
-	$Screen3D.rect_scale = Vector2.ONE / scale # fit to "logical" 720p
+	#$Screen3D.rect_size = base_resolution * scale # enlarge to native res
+	#$Screen3D.rect_scale = Vector2.ONE / scale # fit to "logical" 720p
