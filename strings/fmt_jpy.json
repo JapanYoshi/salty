@@ -1,0 +1,14 @@
+{
+  "name": "yen"
+, "description": "Japan’s currency, home to the 1-yen coin that takes 13 yen to make."
+, "multiplier": 0.1
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "forceDecimalSymbol": false
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-¥", "K"]
+, "zero":   ["±¥", "K"]
+, "posi":   ["+¥", "K"]
+, "noSign": [ "¥", "K"]
+}

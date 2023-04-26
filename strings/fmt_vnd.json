@@ -1,0 +1,14 @@
+{
+  "name": "dong"
+, "description": "Vietnam’s currency. Because of drastic devaluation in the past, 1000 dong is the SMALLEST banknote in use today (worth about 4 cents)."
+, "multiplier": 25
+, "decimalDigits": 0
+, "decimalSymbol": ","
+, "forceDecimalSymbol": false
+, "separatorDigits": [3]
+, "separatorSymbol": "."
+, "nega":   ["-", "Mđ"]
+, "zero":   ["±", "Mđ"]
+, "posi":   ["+", "Mđ"]
+, "noSign": [ "", "Mđ"]
+}

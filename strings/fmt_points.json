@@ -1,8 +1,10 @@
 {
   "name": "points"
-, "multiplier": 1
+, "description": "The currency-neutral option."
+, "multiplier": 0.01
 , "decimalDigits": 0
 , "decimalSymbol": "."
+, "forceDecimalSymbol": false
 , "separatorDigits": [3]
 , "separatorSymbol": ","
 , "nega":   ["-", "pt"]

@@ -32,6 +32,7 @@ var DEFAULT_CFG = {
 	hide_room_code = false,
 	hide_room_code_ingame = false,
 	awesomeness = true,
+	currency_format = "fmt_usd.json",
 }
 
 const DEFAULT_SAVE = {
@@ -86,7 +87,6 @@ var unlocks = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
-	set_currency("fmt_dollars")
 	var result = cuss_regex.compile("F+U+C+K+[^A-Z]*(Y+O+U|O+F)")
 	if result != OK:
 		print("Could not compile cuss RegEx: error code %d" % result)
@@ -94,6 +94,7 @@ func _ready():
 	if result != OK:
 		print("Could not compile censor RegEx: error code %d" % result)
 	load_settings()
+	set_currency(get_settings_value("currency_format"))
 	load_save_data()
 	_set_visual_quality(get_settings_value("graphics_quality"))
 	pause_mode = Node.PAUSE_MODE_PROCESS
@@ -245,6 +246,7 @@ var currency_data = {
 , "multiplier": 1
 , "decimalDigits": 0
 , "decimalSymbol": "."
+, "forceDecimalSymbol": false
 , "separatorDigits": [3]
 , "separatorSymbol": ","
 , "nega":   ["-$", ""]
@@ -253,9 +255,9 @@ var currency_data = {
 , "noSign": [ "$", ""]
 }
 
-func set_currency(curr_name="fmt_dollars"):
+func set_currency(curr_name="fmt_dollars.json"):
 	var fmt_file = File.new()
-	var result = fmt_file.open("res://strings/%s.json" % curr_name, File.READ)
+	var result = fmt_file.open("res://strings/%s" % curr_name, File.READ)
 	if result == OK:
 		result = JSON.parse(fmt_file.get_as_text())
 		if result.error == OK:
@@ -265,37 +267,41 @@ func set_currency(curr_name="fmt_dollars"):
 	fmt_file.close()
 
 # Helper function to convert the score into a currency-signed and comma'd string.
-func format_currency(score = 0.0, no_plus = false, min_digits = 0) -> String:
-	score *= currency_data.multiplier
+func format_currency(score = 0.0, no_plus = false, min_digits = 0, formatting = {}) -> String:
+	if formatting.empty():
+		formatting = currency_data
+	score *= formatting.multiplier
 	var numText = str(int(floor(abs(score))))
-	var digits = len(numText)
+	var digits = len(numText) # will be used after this to calculate the number of decimal digits
 	var numText_ = ""
 	var i = 0
 	while true:
-		if currency_data.separatorDigits[i] < len(numText):
-			numText_ = currency_data.separatorSymbol + numText.right(
-				len(numText) - currency_data.separatorDigits[i]
+		if formatting.separatorDigits[i] < len(numText):
+			numText_ = formatting.separatorSymbol + numText.right(
+				len(numText) - formatting.separatorDigits[i]
 			) + numText_
-			numText = numText.left(len(numText) - currency_data.separatorDigits[i])
-			i = (i + 1) % len(currency_data.separatorDigits)
+			numText = numText.left(len(numText) - formatting.separatorDigits[i])
+			i = min(i + 1, len(formatting.separatorDigits) - 1)
 		else:
 			break
 	numText = numText + numText_
-	var decimal_digits = max(currency_data.decimalDigits, min_digits - digits)
+	var decimal_digits = max(formatting.decimalDigits, min_digits - digits)
 	if decimal_digits > 0:
-		numText += currency_data.decimalSymbol + ("%0*.*f" % [
+		numText += formatting.decimalSymbol + ("%0*.*f" % [
 			decimal_digits + 2,
 			decimal_digits,
 			abs(score) - floor(abs(score))
 		]).right(2) # get part after the "0."
-	var sign_arr = currency_data.nega
+	elif formatting.forceDecimalSymbol:
+		numText += formatting.decimalSymbol
+	var sign_arr = formatting.nega
 	if score >= 0.0:
 		if no_plus:
-			sign_arr = currency_data.noSign
+			sign_arr = formatting.noSign
 		elif score > 0.0:
-			sign_arr = currency_data.posi
+			sign_arr = formatting.posi
 		else:
-			sign_arr = currency_data.zero
+			sign_arr = formatting.zero
 	return sign_arr[0] + numText + sign_arr[1]
 
 ## date formatting

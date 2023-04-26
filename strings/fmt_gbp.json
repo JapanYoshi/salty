@@ -1,0 +1,14 @@
+{
+  "name": "pounds"
+, "description": "The UK’s currency, where the plural of “penny” is “pence”."
+, "multiplier": 1
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "forceDecimalSymbol": false
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-£", ""]
+, "zero":   ["±£", ""]
+, "posi":   ["+£", ""]
+, "noSign": [ "£", ""]
+}

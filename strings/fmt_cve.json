@@ -1,0 +1,14 @@
+{
+  "name": "escudos"
+, "description": "The country of Cabo Verde (a.k.a. Cape Verde), off the western coast of Africa, is home to the world’s only currency to put its currency symbol in place of its decimal separator."
+, "multiplier": 100
+, "decimalDigits": 0
+, "decimalSymbol": "$"
+, "forceDecimalSymbol": true
+, "separatorDigits": [3]
+, "separatorSymbol": "."
+, "nega":   ["-", ""]
+, "zero":   ["±", ""]
+, "posi":   ["+", ""]
+, "noSign": [ "", ""]
+}

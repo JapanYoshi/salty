@@ -1,0 +1,14 @@
+{
+  "name": "simoleons"
+, "description": "Before it was a fictional currency used in The Sims, the word “simoleon” or “simolean” was used around 1900 in the US to mean “a dollar”!"
+, "multiplier": 1
+, "decimalDigits": 0
+, "decimalSymbol": "."
+, "forceDecimalSymbol": false
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-§", ""]
+, "zero":   ["±§", ""]
+, "posi":   ["+§", ""]
+, "noSign": [ "§", ""]
+}

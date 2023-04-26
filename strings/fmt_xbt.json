@@ -1,0 +1,14 @@
+{
+  "name": "Bitcoin"
+, "description": "The world’s first cryptocurrency. 1 bitcoin is so big, that transactions are usually carried out by the millibitcoin, microbitcoin, or satoshi (1/100 of a microbitcoin)."
+, "multiplier": 0.04
+, "decimalDigits": 1
+, "decimalSymbol": "."
+, "forceDecimalSymbol": false
+, "separatorDigits": [3]
+, "separatorSymbol": ","
+, "nega":   ["-", " mB"]
+, "zero":   ["±", " mB"]
+, "posi":   ["+", " mB"]
+, "noSign": ["", " mB"]
+}

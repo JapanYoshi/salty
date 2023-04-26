@@ -1,10 +1,12 @@
 {
-  "name": "euro"
+  "name": "euros"
+, "description": "The Eurozone’s common currency."
 , "multiplier": 1
 , "decimalDigits": 0
-, "decimalSymbol": "."
+, "decimalSymbol": ","
+, "forceDecimalSymbol": false
 , "separatorDigits": [3]
-, "separatorSymbol": ","
+, "separatorSymbol": "."
 , "nega":   ["-€", ""]
 , "zero":   ["±€", ""]
 , "posi":   ["+€", ""]

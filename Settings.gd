@@ -253,6 +253,11 @@ var settings_dict = [
 			}
 		]
 	},{
+		k = "currency_format",
+		t = "Currency format",
+		r = [], # will programmatically fill these in
+		o = [],
+	},{
 		k = "awesomeness",
 		t = "Detect awesomeness",
 		r = [0, 1],
@@ -270,6 +275,7 @@ var settings_dict = [
 		]
 	}
 ]
+var currencies = []
 var ring_speed = 1
 var focus_index = 0
 onready var temp_config = ConfigFile.new()
@@ -281,9 +287,14 @@ var setting_is_bool = []
 var setup_done = false
 
 func _set_temp_config(key: String, value):
+	printt(key, key == "currency_format", value, typeof(value))
+	if key == "currency_format" and value is int:
+		temp_config.set_value("config", key, currencies[value]); return
 	temp_config.set_value("config", key, value)
 
 func _get_temp_config(key: String):
+	if key == "currency_format":
+		return currencies.find(temp_config.get_value("config", key))
 	return temp_config.get_value("config", key)
 
 func _ready():
@@ -292,6 +303,47 @@ func _ready():
 	else:
 		$ScreenStretch/ButtonAsset.hide()
 	S.play_music("house", 1)
+	# Automatically create a list of the installed currency formats.
+	var format_index: int = -1
+	for i in range(len(settings_dict)):
+		if settings_dict[i].k == "currency_format":
+			format_index = i; break
+	var dir = Directory.new()
+	if format_index == -1:
+		print("currency_format index not found in settings dictionary")
+	else:
+		if dir.open("res://strings") != OK:
+			print("res://strings folder could not be opened")
+			settings_dict.pop_at(format_index)
+		else:
+			currencies.clear()
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if !dir.current_is_dir() and file_name.begins_with("fmt_") and file_name.ends_with(".json"):
+					currencies.push_back(file_name)
+				file_name = dir.get_next()
+			settings_dict[format_index].r = [0, len(currencies) - 1]
+			for i in range(len(currencies)):
+				var c = currencies[i]
+				var file = File.new()
+				var result = file.open("res://strings/" + c, File.READ)
+				if result == OK:
+					result = JSON.parse(file.get_as_text())
+					if result.error == OK:
+						var currency_data = result.result
+						var sample_text = "{desc}\n{question_value} per correct answer, {question_negative} per wrong answer. Aim for {big_number}!".format({
+							desc = currency_data.description,
+							question_value = R.format_currency(1000, false, 0, currency_data),
+							question_negative = R.format_currency(-1000, false, 0, currency_data),
+							big_number = R.format_currency(9876543, true, 0, currency_data),
+						})
+						settings_dict[format_index].o.push_back({
+							v = i,
+							t = currency_data.name,
+							d = sample_text,
+						})
+				file.close()
 	# Set up the options. Finally automate this sucker.
 	var range_used: bool = false
 	var bool_used: bool = false
@@ -413,8 +465,10 @@ func scroll_scroller():
 
 func _on_HSlider_value_changed(value):
 	var setting_name = settings_dict[focus_index].k
+	if not(value is int):
+		value = int(value)
 	_set_temp_config(setting_name, value)
-	if typeof(value) == TYPE_REAL and setup_done:
+	if setup_done:
 		var slider = vbox.get_child(1 + focus_index).get_node("VBox/HBoxContainer/HSlider")
 		if is_instance_valid(slider):
 			S.play_sfx(
@@ -430,6 +484,7 @@ func _on_HSlider_value_changed(value):
 					2.0
 				)
 			)
+	
 	match settings_dict[focus_index].k:
 		"graphics_quality":
 			R._set_visual_quality(value)
@@ -460,6 +515,7 @@ func _on_SaveButton_pressed():
 	R.cfg = temp_config
 	R.save_settings()
 	R._set_visual_quality(-1)
+	R.set_currency(_get_temp_config("currency_format"))
 	get_tree().change_scene("res://Title.tscn")
 
 func _on_option_mouse_entered(extra_arg_0):

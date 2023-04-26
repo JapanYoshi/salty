@@ -1,8 +1,10 @@
 {
   "name": "dollars"
+, "description": "Good ol’ US dollars, where the plural of “penny” is “pennies”."
 , "multiplier": 1
 , "decimalDigits": 0
 , "decimalSymbol": "."
+, "forceDecimalSymbol": false
 , "separatorDigits": [3]
 , "separatorSymbol": ","
 , "nega":   ["-$", ""]

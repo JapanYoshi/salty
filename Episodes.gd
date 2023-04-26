@@ -73,7 +73,7 @@ func focus_shifted(which):
 			el_last_played.bbcode_text = "Last play: %s" % R.format_date(hs.last_played)
 			
 		if hs.high_score_time == 0:
-			el_high_score.bbcode_text = "High score: $0 (never)"
+			el_high_score.bbcode_text = "High score: %s (never)" % R.format_currency(0)
 		else:
 			el_high_score.bbcode_text = "High score: %s (%s)" % [
 				R.format_currency(hs.high_score),
