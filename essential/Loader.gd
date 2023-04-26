@@ -21,7 +21,7 @@ var cached = {}
 
 # update this when releasing new version
 # must start with "_assets"
-var asset_cache_filename = "_assets_2.pck"
+var asset_cache_filename = "_assets_3.pck"
 var asset_cache_path = ProjectSettings.globalize_path("user://")
 const asset_cache_url = "https://haitouch-9320f.web.app/salty_pck/"
 onready var http_request = HTTPRequest.new()
