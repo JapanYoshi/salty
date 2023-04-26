@@ -19,14 +19,14 @@ var cfg = ConfigFile.new()
 # 0: Render at 1280x720. Disable most shader animations.
 # 1: Stretch to window size. Disable most shader animations.
 # 2: Stretch to window size. Enable all shader animations.
-const DEFAULT_CFG = {
+var DEFAULT_CFG = {
 	graphics_quality = 2,
 	room_size = 7,
-	room_openness = 2,
+	room_openness = 0 if OS.has_feature("mobile") else 2,
 	remote_start = true,
 	audience = true,
 	subtitles = true,
-	overall_volume = 15,
+	overall_volume = 10,
 	music_volume = 10,
 	cutscenes = true,
 	hide_room_code = false,
