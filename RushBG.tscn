@@ -446,15 +446,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("CenterContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.243137, 0.309804, 0.533333, 0 ) ]
+}
 
 [node name="RushBG" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -496, -536 )
 script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color( 0.0627451, 0.168627, 0.309804, 1 )
@@ -758,10 +767,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -503.0
-margin_top = -242.0
+margin_top = -2.0
 margin_right = -337.0
-margin_bottom = -186.0
-custom_colors/font_color = Color( 0.0313726, 0.85098, 0.294118, 1 )
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0.980392, 0.376471, 0.294118, 1 )
 custom_fonts/font = ExtResource( 20 )
 text = "+$500"
 align = 1
@@ -777,10 +786,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -83.0
-margin_top = -242.0
+margin_top = -2.0
 margin_right = 83.0
-margin_bottom = -186.0
-custom_colors/font_color = Color( 0.0313726, 0.85098, 0.294118, 1 )
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0.980392, 0.376471, 0.294118, 1 )
 custom_fonts/font = ExtResource( 20 )
 text = "+$500"
 align = 1
@@ -796,10 +805,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 337.0
-margin_top = -322.0
+margin_top = -2.0
 margin_right = 503.0
-margin_bottom = -266.0
-custom_colors/font_color = Color( 0.0313726, 0.85098, 0.294118, 1 )
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0.980392, 0.376471, 0.294118, 1 )
 custom_fonts/font = ExtResource( 20 )
 text = "+$500"
 align = 1
@@ -831,9 +840,6 @@ rect_rotation = -9.0
 rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 400, 360 )
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer"]
 margin_top = 323.0
