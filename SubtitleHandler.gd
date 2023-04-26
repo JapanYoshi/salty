@@ -15,6 +15,7 @@ func _ready():
 	#queue_subtitles("Welcome to Salty Trivia with Candy Barre,[#3000#]and I woke up like this.[#5500#]Disheveled.")
 	### End testing
 	get_viewport().connect("size_changed", self, "_on_size_changed")
+	yield(get_tree(), "idle_frame")
 	_on_size_changed()
 
 func clear_contents():
@@ -42,7 +43,7 @@ func _on_size_changed():
 		# too narrow
 		viewport_scale = resolution.x / base_resolution.x
 		self.rect_position = Vector2(0.0, 0.5 * (resolution.y - base_resolution.y * viewport_scale))
-	$ColorRect.rect_size = base_resolution * viewport_scale
+	#$ColorRect.rect_size = base_resolution * viewport_scale
 	vbox.size = Vector2(900, 96) * viewport_scale
 	sbox.rect_size = vbox.size
 	tbox.rect_min_size = Vector2(896 * viewport_scale, 0)
