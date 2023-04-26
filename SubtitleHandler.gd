@@ -14,8 +14,8 @@ func _ready():
 	### Testing
 	#queue_subtitles("Welcome to Salty Trivia with Candy Barre,[#3000#]and I woke up like this.[#5500#]Disheveled.")
 	### End testing
-	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
+	_on_size_changed()
 
 func clear_contents():
 #	print("SUB CLEAR_CONTENTS")
@@ -31,22 +31,29 @@ func queue_subtitles(contents = ""):
 	show_queued()
 
 const base_resolution: Vector2 = Vector2(1280.0, 720.0) # resolution of full viewport
-var scale: float = 1.0
+var viewport_scale: float = 1.0
 func _on_size_changed():
 	var resolution = get_viewport_rect().size
 	if resolution.x / resolution.y > base_resolution.x / base_resolution.y:
 		# too wide
-		scale = resolution.y / base_resolution.y
+		viewport_scale = resolution.y / base_resolution.y
+		self.rect_position = Vector2(0.5 * (resolution.x - base_resolution.x * viewport_scale), 0.0)
 	else:
 		# too narrow
-		scale = resolution.x / base_resolution.x
-	print("Subtitle scale is ", scale)
-	vbox.size = Vector2(900, 96) * scale
-	rect_scale = Vector2.ONE * scale
-	sbox.rect_scale = Vector2.ONE * scale
+		viewport_scale = resolution.x / base_resolution.x
+		self.rect_position = Vector2(0.0, 0.5 * (resolution.y - base_resolution.y * viewport_scale))
+	$ColorRect.rect_size = base_resolution * viewport_scale
+	vbox.size = Vector2(900, 96) * viewport_scale
+	sbox.rect_size = vbox.size
+	tbox.rect_min_size = Vector2(896 * viewport_scale, 0)
+	for font_name in ["normal_font", "bold_font", "italics_font", "bold_italics_font"]:
+		tbox.get_font(font_name).set_size(24 * viewport_scale)
 	sview.material.set_shader_param(
-		"line_thickness", 4.0 * scale
+		"line_thickness", 4.0 * viewport_scale
 	)
+	sview.rect_position = Vector2(190, 560) * viewport_scale
+	sview.rect_size = vbox.size
+#	print("sview rect pos ", sview.rect_position, " rect size ", sview.rect_size)
 
 # Shows subtitles from the queue. Clears the subtitle if the queue is empty.
 func show_queued():

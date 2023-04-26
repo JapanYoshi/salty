@@ -11,8 +11,9 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
-shader_param/line_color = Color( 0, 0, 0, 0.784314 )
-shader_param/line_thickness = 4.0
+shader_param/text_color = Color( 1, 0.945098, 0.498039, 1 )
+shader_param/line_color = Color( 0.129412, 0.109804, 0.0784314, 1 )
+shader_param/line_thickness = 2.628
 
 [sub_resource type="ViewportTexture" id=3]
 viewport_path = NodePath("Viewport")
@@ -36,27 +37,26 @@ one_shot = true
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 900, 96 )
 transparent_bg = true
-handle_input_locally = false
 usage = 0
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
 
 [node name="SubBox" type="CenterContainer" parent="Viewport"]
 material = SubResource( 2 )
-margin_left = 4.0
-margin_right = 896.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 892, 96 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -4, 0 )
 mouse_filter = 2
 
 [node name="SubText" type="RichTextLabel" parent="Viewport/SubBox"]
+margin_left = 2.0
 margin_top = 33.0
-margin_right = 892.0
+margin_right = 898.0
 margin_bottom = 63.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 892, 0 )
+rect_min_size = Vector2( 896, 0 )
 mouse_filter = 2
-custom_colors/default_color = Color( 1, 0.945098, 0.498039, 1 )
 custom_fonts/bold_italics_font = ExtResource( 6 )
 custom_fonts/italics_font = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 3 )
