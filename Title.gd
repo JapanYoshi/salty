@@ -20,6 +20,7 @@ func _ready():
 	S.play_music("hiphop", 1.0)
 	now_focused = -1
 	change_focus_to(0)
+	$ScreenStretch/About.hide()
 	if R.html:
 		$ScreenStretch/VBoxContainer/Button5.text = "Open webpage"
 
