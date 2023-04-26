@@ -4,14 +4,28 @@ var total_size: int = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if !R.html:
+	if R.html:
+		print("HTML build; check whether the asset pack is downloaded.")
+		update_download_progress(-1)
+		Loader.head_request_assets(self, "update_download_progress")
+#	elif OS.has_feature("Android"):
+#		_request_internet_permissions()
+	else:
 		print("Not an HTML build; all assets are already here. Load sounds.")
 		_load_sounds()
 		return
-	print("HTML build; check whether the asset pack is downloaded.")
-	update_download_progress(-1)
-	Loader.head_request_assets(self, "update_download_progress")
 
+#func _request_internet_permissions():
+#	var perms = OS.get_granted_permissions()
+#	print(perms)
+#	if "android.permission.INTERNET" in perms:
+#		# Already granted
+#		_load_sounds()
+#		return
+#	$ColorRect.show()
+#	$ColorRect/Label.text = "In order to download question data from the Internet, the Android app needs your permission to access the Internet.\nPlease confirm that you want to grant this permission through the system dialog you are about to see."
+#	$ColorRect/Button.show()
+#	$ColorRect/Button.grab_focus()
 
 func update_download_progress(result: int, param: int = -1):
 	match result:
@@ -44,7 +58,12 @@ func update_download_progress(result: int, param: int = -1):
 
 func _on_Button_pressed():
 	$ColorRect/Button.hide() # also loses focus
-	Loader.download_assets_confirm(self, "update_download_progress")
+	if R.html:
+		Loader.download_assets_confirm(self, "update_download_progress")
+#	else:
+#		OS.request_permissions()
+#		yield(get_tree(), "idle_frame")
+#		_request_internet_permissions()
 
 
 func _load_assets():
