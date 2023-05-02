@@ -1443,6 +1443,10 @@ func _on_voice_end(voice_id):
 						hud.show_accuracy_audience(NAN)
 				if 0 < len(answers[correct_answer]):
 					S.play_sfx("point_gain")
+					if question_type == "T" and point_value >= 1000:
+						ep.achieve.increment_progress("tqq_x1", 1)
+					if lifesaver_is_activated and lifesaver_correct:
+						ep.achieve.increment_progress("correct_with_lifesaver", 1)
 				else:
 					S.play_sfx("option_correct")
 				for i in range(4):
@@ -1766,6 +1770,9 @@ func S_show_question():
 #					'numerator': accuracy[p * 2],
 #					'denominator': accuracy[p * 2 + 1],
 #				}, R.players[p].device_name)
+		if max_acc == 7:
+			ep.achieve.increment_progress("dod_perfect", 1)
+	
 		# find accuracy of audience
 		var audience_correct: int = 0
 		var audience_answered: int = 0
