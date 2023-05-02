@@ -62,11 +62,11 @@ func is_question_cached(id):
 	if !file.file_exists(q_cache_path + q_cache_filename % id):
 		file.close()
 		return false
-	var error: int = file.open(q_cache_path + q_cache_filename % id, File.READ)
-	if error:
-		printerr("Loading ", q_cache_path, q_cache_filename % id, " resulted in error %d." % error)
-		file.close()
-		return false
+#	var error: int = file.open(q_cache_path + q_cache_filename % id, File.READ)
+#	if error:
+#		printerr("Loading ", q_cache_path, q_cache_filename % id, " resulted in error %d." % error)
+#		file.close()
+#		return false
 	# code to validate .pck file, not used because it's a zip file
 #	for i in range(4):
 #		if file.get_8() != MAGIC_NUMBER[i]:
@@ -383,7 +383,7 @@ func reset_question_text():
 
 
 func load_question_text(id) -> int:
-	var failed_count: int = 5
+	var failed_count: int = 3
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
 	var err = ERR_FILE_NOT_FOUND

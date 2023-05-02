@@ -183,6 +183,7 @@ func load_episode(ep):
 		if Loader.is_question_cached(q_id[q]):
 			print("MenuRoot: Question already cached: ", q_id[q])
 			_load_question(q_id[q])
+			yield(get_tree(), "idle_frame") # prevent lagspike
 		else:
 			print("MenuRoot: Question must be downloaded: ", q_id[q])
 			load_order.push_back(q_id[q])
@@ -293,15 +294,17 @@ func _load_question(q):
 			Loader.remove_from_question_cache(q)
 			R.crash("Could not load resource pack for question ID %s. The file appears to be corrupted, so it has been removed from the cache." % q)
 		# check required files
-		var test_stream = ResourceLoader.load("res://q/%s/title.wav" % q)
-		if not(test_stream is AudioStreamSample):
-			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted.\n" % q + "Cause of failure: res://q/%s/title.wav does not exist." % q)
-			return
-		var file = File.new()
-		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
-			R.crash("Loaded resource pack for question ID %s, but it seems to be incomplete.\n" % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
-			return
-		print("_load_question(%s): " % q, "Loading question text preemptively...")
+#		var test_stream = ResourceLoader.load_interactive("res://q/%s/title.wav" % q)
+#		while test_stream.poll() != ERR_FILE_EOF:
+#			yield(get_tree().create_timer(0.25), "timeout")
+#		if not(test_stream.get_resource() is AudioStreamSample):
+#			R.crash("Loaded resource pack for question ID %s, but it has not been correctly extracted.\n" % q + "Cause of failure: res://q/%s/title.wav does not exist." % q)
+#			return
+#		var file = File.new()
+#		if !file.file_exists("res://q/%s/_question.gdcfg" % q):
+#			R.crash("Loaded resource pack for question ID %s, but it seems to be incomplete.\n" % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
+#			return
+#		print("_load_question(%s): " % q, "Loading question text preemptively...")
 		var result = Loader.load_question_text(q)
 		if result:
 			R.crash(("Loading question text for %s" % q) + " failed with error code %d." % result)
