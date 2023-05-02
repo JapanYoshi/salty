@@ -106,7 +106,26 @@ func _load_high_scores():
 
 
 func _load_achievements():
-	pass
+	var a = Loader.get_achievement_list()
+	for k in a.keys():
+		var article = a[k]
+		if article.title == "Hidden": continue;
+		var progress = R.get_save_data_item(
+			"achievements", k, {
+				progress = 0,
+				achieved = false,
+				date = -1,
+			}
+		)
+		var ach = achievement_item.instance()
+		ach.set_fields(
+			"res://achievements/%s.png" % k, # image_path: String,
+			article.title, # achievement_name: String,
+			article.description, # description: String,
+			progress.progress / article.steps, # progress: float,
+			progress.date # date: int
+		)
+		achievement_grid.add_child(ach)
 
 
 func _back():

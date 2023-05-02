@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://ThemeEpisode.tres" type="Theme" id=1]
 [ext_resource path="res://images/bg2.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=7]
 [ext_resource path="res://BackButton.tscn" type="PackedScene" id=8]
 [ext_resource path="res://fonts/smallish_normal.tres" type="DynamicFont" id=9]
-[ext_resource path="res://achievements/AchievementItem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://ButtonPromptHover.stylebox" type="StyleBox" id=11]
 [ext_resource path="res://ButtonPrompt.stylebox" type="StyleBox" id=12]
 [ext_resource path="res://fonts/small_normal.tres" type="DynamicFont" id=13]
@@ -267,14 +266,14 @@ theme = ExtResource( 1 )
 scroll_horizontal_enabled = false
 
 [node name="v" type="VBoxContainer" parent="ScreenStretch/r/TabContainer/Achievements"]
-margin_right = 1088.0
-margin_bottom = 720.0
+margin_right = 674.0
+margin_bottom = 38.0
 
 [node name="Label" type="Label" parent="ScreenStretch/r/TabContainer/Achievements/v"]
 margin_right = 1088.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 9 )
-text = "Achievements aren’t ready yet. Maybe soon...?"
+text = "Tasks you’ve completed over the course of playing this game."
 align = 1
 valign = 1
 
@@ -286,54 +285,6 @@ size_flags_horizontal = 6
 custom_constants/vseparation = 8
 custom_constants/hseparation = 8
 columns = 2
-
-[node name="AchievementItem" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_bottom = 163.0
-
-[node name="AchievementItem2" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_left = 548.0
-margin_right = 1088.0
-margin_bottom = 163.0
-
-[node name="AchievementItem3" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_top = 171.0
-margin_bottom = 334.0
-
-[node name="AchievementItem4" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_left = 548.0
-margin_top = 171.0
-margin_right = 1088.0
-margin_bottom = 334.0
-
-[node name="AchievementItem5" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_top = 342.0
-margin_bottom = 505.0
-
-[node name="AchievementItem6" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_left = 548.0
-margin_top = 342.0
-margin_right = 1088.0
-margin_bottom = 505.0
-
-[node name="AchievementItem7" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_top = 513.0
-margin_bottom = 676.0
-
-[node name="AchievementItem8" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_left = 548.0
-margin_top = 513.0
-margin_right = 1088.0
-margin_bottom = 676.0
-
-[node name="AchievementItem9" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_top = 684.0
-margin_bottom = 847.0
-
-[node name="AchievementItem10" parent="ScreenStretch/r/TabContainer/Achievements/v/Grid" instance=ExtResource( 10 )]
-margin_left = 548.0
-margin_top = 684.0
-margin_right = 1088.0
-margin_bottom = 847.0
 
 [node name="Header" type="Control" parent="ScreenStretch/r"]
 margin_left = 84.0
