@@ -1,4 +1,5 @@
 {
+    "achievement": "achievement.wav",
     "blank": "../_.wav",
     "buzz_in": "buzz_in.wav",
     "dq": "dq.wav",
