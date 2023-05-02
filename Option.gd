@@ -13,7 +13,7 @@ func _ready():
 	anim.play("wrong_silent", -1, 1000)
 	
 	# TEST
-#	set_content("line 1 [i]line 1[/i] [code]TRUE[/code] oeuoeuoeuoe uoe ou oe uoe uoeuoe uoe uoe uoe uoeu oe uoeu oeu oeu oeuoeu oeu oe uoe uoe uoe oeuu oeuoe uoe ueo ueou oe uoe uoe uoe")
+#	set_content("Read the entirety of [i]Alexander and the Terrible, Horrible, No Good, Very Bad Day[/i] by Judith Viorst")
 #	enter(0);
 	pass # Replace with function body.
 

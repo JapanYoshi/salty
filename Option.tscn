@@ -231,8 +231,9 @@ text = "↑"
 
 [node name="Content" type="RichTextLabel" parent="Option/HSplitContainer"]
 margin_left = 60.0
-margin_right = 1010.0
-margin_bottom = 50.001
+margin_right = 1006.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 0, 26 )
 mouse_filter = 2
 bbcode_enabled = true
 bbcode_text = "Lorem [i]ipsum[/i] [b]dolor [i]sit[/i][/b] [code]amet[/code]"
