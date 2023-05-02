@@ -31,7 +31,7 @@ script = ExtResource( 3 )
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 536.0
-margin_bottom = 161.0
+margin_bottom = 206.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="h"]
@@ -45,29 +45,30 @@ expand = true
 [node name="v" type="VBoxContainer" parent="h"]
 margin_left = 132.0
 margin_right = 532.0
-margin_bottom = 157.0
+margin_bottom = 202.0
 size_flags_horizontal = 3
 
 [node name="name" type="Label" parent="h/v"]
 margin_right = 400.0
-margin_bottom = 44.0
+margin_bottom = 91.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
-text = "Achievement name"
+text = "Achievement name oeuaoeuaeouaoue"
+autowrap = true
 
 [node name="desc" type="Label" parent="h/v"]
-margin_top = 48.0
+margin_top = 95.0
 margin_right = 400.0
-margin_bottom = 119.0
+margin_bottom = 166.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Description description description blah blah blah blah blah blah"
 autowrap = true
 
 [node name="h" type="ProgressBar" parent="h/v"]
-margin_top = 123.0
+margin_top = 170.0
 margin_right = 400.0
-margin_bottom = 155.0
+margin_bottom = 202.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 custom_styles/fg = SubResource( 2 )
