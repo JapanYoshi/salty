@@ -1,15 +1,15 @@
 extends Control
 
 var mode = "T"
-var count = 0
-var max_value = 1000 * 1000 # 1000 dollars per question
+var count: int = 0
+var max_value: int = 1000 * 1000 # 1000 dollars per question
 var value: int = 0
 
 # used to move the nonsense phrase into view while typing
 const outside_y: float = -48.0
 const clue_y: float = 40.0
-const question_up_y: float = 24.0
-const question_y: float = 56.0
+const question_up_y: float = 4.0
+const question_y: float = 86.0
 
 signal intro_ended
 signal checkpoint(checkpoint)
@@ -175,15 +175,15 @@ func update_price():
 	elif mode == "G":
 		value = int(max_value * (80.0 - count) / 80.0)
 		match count:
-			20.0:
+			20:
 				emit_signal("checkpoint", 0)
-			40.0:
+			40:
 				emit_signal("checkpoint", 1)
-			60.0:
+			60:
 				emit_signal("checkpoint", 2)
-			70.0, 72.0, 74.0, 76.0, 78.0:
+			70, 72, 74, 76, 78:
 				S.play_sfx("time_close")
-			80.0:
+			80:
 				emit_signal("checkpoint", 3) # signals to Standard.gd
 				S.play_sfx("time_up")
 				anim.stop(false)
