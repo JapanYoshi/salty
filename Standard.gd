@@ -15,17 +15,17 @@ signal question_done
 # option
 # outro
 # end
-var stage = ""
+var stage: String = ""
 
-var point_value = 0
+var point_value: int = 0
 
-var question_number = 0
-var question_type = "N"
-var question_section_number = 0
+var question_number: int = 0
+var question_type: String = "N"
+var question_section_number: int = 0
 
-var theme_normal = preload("res://ThemeOption.theme")
-var theme_candy = preload("res://ThemeCandyOption.tres")
-const musics = {
+var theme_normal: Theme = preload("res://ThemeOption.theme")
+var theme_candy: Theme = preload("res://ThemeCandyOption.tres")
+const musics: Dictionary = {
 	"N": [],
 	"O": ["rage_intro", "rage_loop", "rage_answer_now", "rage_outro"],
 	"C": ["candy_intro", "candy_base", "candy_extra", "candy_extra2"],
@@ -64,32 +64,33 @@ var data = {}
 # For gradually showing long question text
 var question_queue = []
 
-# -1 for wrong (generic response),
+# 255 for wrong (generic response),
 # 0 for wrong (specific response), and 1 for correct
-var responses = [
+var responses = PoolByteArray([
 	0, 0, 0, 0
-]
-const RESPONSE_USED = -15
+])
+const RESPONSE_USED: int = 241
 # a total of 6 buckets, the last two reserved for Sugar Rush.
 # stores the integer IDs of players who chose the answer.
 var answers = [
-	[], [], [], [], [], []
+	PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray()
 ]
 var answers_audience = [
-	[], [], [], [], [], []
+	PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray(), PoolByteArray()
 ]
-# players who have not answered.
+# players who have not answered this question (yet).
 # audience players won't be put in here.
-var no_answer = []
-var no_answer_audience = []
-# players who used a lifesaver.
+var no_answer: PoolByteArray = PoolByteArray()
+var no_answer_audience: PoolByteArray = PoolByteArray()
+# players who used a lifesaver this question.
 # audience members won't get one.
-var used_lifesaver = []
+var used_lifesaver: PoolByteArray = PoolByteArray()
 var lifesaver_is_activated: bool = false
 # players who answered wrong.
 # player IDs are moved from answers to answered_wrong as the correct answer gets revealed.
-var answered_wrong = []
-var answered_wrong_audience = []
+var answered_wrong: PoolByteArray = PoolByteArray()
+# Can't be PoolByteArray because All Outta Salt pushes [index, value]
+var answered_wrong_audience: Array = []
 # the index of the correct answer (0 - 3 for normal questions).
 var correct_answer = 0
 var last_revealed_answer = 0
@@ -228,16 +229,16 @@ func _gp_button(input_player, button, pressed):
 					no_answer.find(player)
 				) != -1:
 					var option = [-2, 0, -2, 1, 3, 2, -1][button]
-					if option >= 0 and responses[option] != RESPONSE_USED:
+					if option & 128 == 0 and responses[option] != RESPONSE_USED:
 						print("Player %d chose option %d" % [player, option])
 						if is_audience:
-							no_answer_audience.erase(player)
+							no_answer_audience.remove(no_answer_audience.find(player))
 							answers_audience[option].append(player)
 							print("AUDI:",answers_audience,"/",no_answer_audience)
 							# R.audience[player].accuracy[1] += 1
 						else:
 							answers[option].append(player)
-							no_answer.erase(player)
+							no_answer.remove(no_answer.find(player))
 							print("PLYR:",answers_audience,"/",no_answer_audience)
 							player_buzz_in(player)
 							R.players[player].accuracy[1] += 1
@@ -245,7 +246,7 @@ func _gp_button(input_player, button, pressed):
 						print("Player %d used the Lifesaver!")
 						R.players[player].has_lifesaver = false
 						used_lifesaver.append(player)
-						no_answer.erase(player)
+						no_answer.remove(no_answer.find(player))
 						player_buzz_in(player)
 					else:
 						pass
@@ -265,11 +266,11 @@ func _gp_button(input_player, button, pressed):
 						answers[option].append(player)
 						print("Player %d chose option %d" % [player, option])
 						if is_audience:
-							no_answer_audience.erase(player)
+							no_answer_audience.remove(no_answer_audience.find(player))
 							#R.audience[player].accuracy[1] += 1
 						else:
 							player_buzz_in(player)
-							no_answer.erase(player)
+							no_answer.remove(no_answer.find(player))
 							print("Players who haven't answered: ", no_answer)
 							R.players[player].accuracy[1] += 1
 							if len(no_answer) == 0:
@@ -283,7 +284,7 @@ func _gp_button(input_player, button, pressed):
 				if no_answer.find(player) != -1:
 					if button in [1, 3, 4, 5]:
 						set_buzz_in(false)
-						no_answer.erase(player)
+						no_answer.remove(no_answer.find(player))
 						print("Player %d buzzed in" % player)
 						hud.highlight_players([player])
 						S.play_sfx("buzz_in")
@@ -310,10 +311,10 @@ func _gp_button(input_player, button, pressed):
 					no_answer.find(player)
 				) != -1:
 					var option = [-1, 0, -1, 1, 3, 2, -1][button]
-					if option >= 0 and responses[option] != RESPONSE_USED:
+					if option & 128 == 0 and responses[option] != RESPONSE_USED:
 						if is_audience:
 							answers_audience[option].append([player, bgs.G.value])
-							no_answer_audience.erase(player)
+							no_answer_audience.remove(no_answer_audience.find(player))
 							print("Audience member %d chose option %d for %f points" % [player, option, bgs.G.value])
 							#R.players[audience].accuracy[1] += 1
 							# Don't reveal the option until a player gets it right
@@ -322,7 +323,7 @@ func _gp_button(input_player, button, pressed):
 							set_buzz_in(false)
 							player_buzz_in(player)
 							answers[option].append(player)
-							no_answer.erase(player)
+							no_answer.remove(no_answer.find(player))
 							print("Player %d chose option %d" % [player, option])
 							S.stop_voice()
 							bgs.G.countdown_pause(true)
@@ -465,6 +466,9 @@ func answer_submitted(text):
 	var matched = ans_regex.search(text)
 	if null != matched: # matched
 #		print("correct")
+		ep.achieve.increment_progress("gib_correct", 1)
+		if bgs.G.value == bgs.G.max_value:
+			ep.achieve.increment_progress("gib_fast", 1)
 		# Move the person correctly answering to bucket 1
 		answers[1].push_back(answers[0].pop_back())
 		R.players[answers[1][0]].accuracy[0] += 1
@@ -477,6 +481,7 @@ func answer_submitted(text):
 		S.play_track(0, 0.0)
 		print("fuck you right back, player")
 		if cuss_level == 0:
+			ep.achieve.increment_progress("cuss_gib", 1)
 			# Host-specific cuss lines. Choose between the 4 sets.
 			# Total number of points to deduct. Make it a multiple of 10.
 			var total_money_deduction: int = 100000
@@ -544,6 +549,8 @@ func answer_submitted(text):
 			S.play_voice("cuss_b0")
 			return
 		else:
+			ep.achieve.increment_progress("cuss_gib_3", 1)
+			ep.achieve.increment_progress("ragequit", 1)
 			# "you know what we quit"
 			S.play_voice("cuss_c0")
 			yield(S, "voice_end")
@@ -567,7 +574,7 @@ func _on_gib_audience_answer(message, from, finalize: bool):
 	var matched = ans_regex.search(message)
 	if null != matched: # matched
 		print("audience incorrect")
-		answered_wrong_audience.push([player, bgs.G.value])
+		answered_wrong_audience.push_back([player, bgs.G.value])
 	else:
 		print("audience correct")
 		answers_audience[0].push([player, bgs.G.value])
@@ -583,6 +590,7 @@ func reset_answers():
 	answers_audience = [[], [], [], [], [], []]
 	no_answer = []
 	no_answer_audience = []
+	used_lifesaver = []
 	for i in range(len(R.players)):
 		no_answer.append(i)
 	for i in range(len(R.audience)):
@@ -795,7 +803,7 @@ func change_stage(next_stage):
 					responses[i] = 1
 					correct_answer = i
 				elif data["option%d" % i].v == "random":
-					responses[i] = -1
+					responses[i] = 255
 				else:
 					responses[i] = 0
 			revealed_count = 0
@@ -1415,6 +1423,11 @@ func _on_voice_end(voice_id):
 			if responses[correct_answer] == RESPONSE_USED:
 				# just revealed the right answer
 				ep.send_scene('correctReveal', {index = correct_answer})
+				# check if anyone who answered right used a lifesaver
+				var lifesaver_correct = 0
+				for p in used_lifesaver:
+					if p in answers[correct_answer]:
+						lifesaver_correct += 1
 				# check if anyone in the audience answered it right
 				# (and remove the audience from the correct answer count calculations)
 				var audience_correct: int = 0
@@ -1491,8 +1504,8 @@ func _on_voice_end(voice_id):
 		"before_countdown":
 			set_buzz_in(true)
 			lifesaver_is_activated = true
-			no_answer = used_lifesaver
-			used_lifesaver = []
+			no_answer = used_lifesaver # no need for .duplicate() because it's PoolByteArray
+			# used_lifesaver = []
 			change_stage("countdown")
 		"outro":
 			change_stage("end")
@@ -1520,7 +1533,7 @@ func reveal_next_option():
 			set_buzz_in(true)
 		return
 	# did somebody use a lifesaver?
-	if len(used_lifesaver) > 0:
+	if !lifesaver_is_activated and len(used_lifesaver) > 0:
 		# find out if there are exactly 2 options left
 		if revealed_count == 2:
 			# buzz in again
@@ -1560,7 +1573,7 @@ func reveal_next_option():
 				# Found one!
 				reveal_option(choice)
 				return
-			elif responses[choice] == -1:
+			elif responses[choice] == 255:
 				generic = choice
 	# okay, the rest are all generic answers
 	# see if nobody answered
