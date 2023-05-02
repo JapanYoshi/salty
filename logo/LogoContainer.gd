@@ -1,5 +1,6 @@
 extends Control
 onready var anim: AnimationPlayer = $AnimationPlayer
+var title: PackedScene
 var ready_to_play_intro: bool = false
 # Animated logo for hai!touch Studios.
 
@@ -23,15 +24,14 @@ func _on_size_changed():
 # Also called when the user skips the logo.
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "rating_fadein":
+		title = load("res://Title.tscn")
 		ready_to_play_intro = true
 	elif anim_name == "fadeout":
 		anim.play("haitouch")
 	elif anim_name == "haitouch":
 		anim.play("godot")
 	elif anim_name == "godot":
-		get_tree().change_scene(
-			"res://Title.tscn"
-		)
+		get_tree().change_scene_to(title)
 
 # Called when the user skips the logo.
 func skip():
