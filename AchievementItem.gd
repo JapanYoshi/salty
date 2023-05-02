@@ -8,12 +8,13 @@ func set_fields(
 	progress: float,
 	date: int
 ):
-	$h/TextureRect.texture = load(image_path)
-	$h/v/name.text = achievement_name
-	$h/v/desc.text = description
-	if date == -1:
+	if progress < 1.0:
+		$h/TextureRect.texture = load("res://achievements/locked.png")
 		$h/v/h.value = progress
 		$h/v/h/progress.text = "%.1f%%" % (progress * 100.0)
 	else:
+		$h/TextureRect.texture = load(image_path)
 		$h/v/h.value = 1
-		$h/v/h/prgoress.text = R.format_date(date)
+		$h/v/h/progress.text = R.format_date(date)
+	$h/v/name.text = achievement_name
+	$h/v/desc.text = description

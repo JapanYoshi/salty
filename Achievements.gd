@@ -7,8 +7,9 @@ enum PLATFORM {
 var current_platform: int = PLATFORM.CUSTOM
 
 var achievement_list: Dictionary
-
 var achievement_progress: Dictionary = {}
+var achievement_type_key: Dictionary = {}
+
 
 onready var toasties = [
 	$YSort/AchievementToastie1,
@@ -33,12 +34,12 @@ func _ready():
 		toasties[i].connect("toastie_hidden", self, "_on_toastie_hidden")
 	
 	# TESTING
-	yield(get_tree(), "idle_frame")
-	_queue_toastie("episode_01")
-	_queue_toastie("episode_02")
-	_queue_toastie("episode_03")
-	_queue_toastie("special_guest")
-	_queue_toastie("cuss_1")
+#	yield(get_tree(), "idle_frame")
+#	_queue_toastie("episode_01")
+#	_queue_toastie("episode_02")
+#	_queue_toastie("episode_03")
+#	_queue_toastie("special_guest")
+#	_queue_toastie("cuss_1")
 
 
 const COOLDOWN: float = 0.25
@@ -63,25 +64,33 @@ func _on_screen_resized():
 func _initialize_achievements():
 	achievement_list = Loader.get_achievement_list()
 	for k in achievement_list.keys():
-		achievement_progress[k] = R.get_save_data_item("achievements", k, 0)
+		achievement_progress[k] = R.get_save_data_item("achievements", k, {progress = 0}).progress
+		var ach_type = achievement_list[k].type
+		if ach_type in achievement_type_key:
+			achievement_type_key[ach_type].push_back(k)
+		else:
+			achievement_type_key[ach_type] = [k]
 	# check what platform it is
 	pass # Replace with function body.
 
 
 ## Sets the progress of the achievement with the given key. Does not update if the achievement is already progressed past it.
 ## Checks whether the achievement is gotten afterward.
-func set_progress(key: String, to: int):
-	# Do not increase progress if we are already progressed past it.
-	if achievement_progress[key] < to:
-		achievement_progress[key] = to
-		_check_progress(key)
+func set_progress(type: String, to: int):
+	for ach in achievement_type_key[type]:
+		# Incease progress only if we haven't progressed past it yet.
+		if achievement_progress[ach] < to and achievement_progress[ach] < achievement_list[ach].steps:
+			achievement_progress[ach] = to
+			_check_progress(ach)
 
 
 ## Increments the progress of the achievement with the given key.
 ## Checks whether the achievement is gotten afterward.
-func increment_progress(key: String, by: int):
-	achievement_progress[key] += by
-	_check_progress(key)
+func increment_progress(type: String, by: int):
+	for ach in achievement_type_key[type]:
+		if achievement_progress[ach] < achievement_list[ach].steps:
+			achievement_progress[ach] += by
+			_check_progress(ach)
 
 
 ## Checks whether the achievement is gotten.
@@ -92,6 +101,12 @@ func _check_progress(key):
 		achievement_progress[key] = achievement_list[key].steps
 		if current_platform == PLATFORM.CUSTOM:
 			_show_toastie(key)
+	R.set_save_data_item("achievements", key, {
+		progress = achievement_progress[key],
+		achieved = achievement_progress[key] == achievement_list[key].steps,
+		date = OS.get_unix_time(),
+	})
+	R.save_save_data()
 
 
 ## Shows the toastie for the achievement. Called automatically after _check_progress(key).

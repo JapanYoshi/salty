@@ -4,6 +4,7 @@ onready var q_box = $ScreenStretch/Standard
 onready var c_box = $ScreenStretch/Cutscenes
 onready var hud = $ScreenStretch/HUD
 onready var skip_btn = $ScreenStretch/SkipButton
+onready var achieve = $Achievements
 var episode_data = {}
 var question_number = 0
 var intermission_played = false
@@ -56,7 +57,7 @@ func _ready():
 	$ScreenStretch/PauseButton.hide()
 	for i in range(len(R.players)):
 		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
-			$ScreenStretch/PauseButton.show()
+			pause_btn.show()
 			break
 	call_deferred("play_intro")
 
@@ -185,6 +186,9 @@ func play_intro():
 	while S.music_dict[S.tracks[0]].get_volume_db() > -80.0:
 #		print("Episode.gd waiting for the volume to fade: ", S.music_dict[S.tracks[0]].get_volume_db())
 		yield(get_tree(), "idle_frame")
+	# Achievements: start game with 3 audience members
+	if len(R.audience) >= 3:
+		achieve.increment_progress("audience_3", 1)
 	if R.get_settings_value("cutscenes"):
 #		Ws.scene("intro")
 		send_scene("intro")
@@ -341,9 +345,10 @@ func play_intro():
 		if special_guest < 0:
 			S.play_voice(player_voice); yield(S, "voice_end")
 		else:
+			# TODO: give achievement
+			achieve.increment_progress("special_guest", 1)
 			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players([special_guest])
-				# TODO: give achievement
 				# remove already seen character
 				var new_progress: Array = R.get_save_data_item(
 					"misc", "guests_seen", []
@@ -366,6 +371,7 @@ func play_intro():
 		0: # we deal with "more than 3" later
 			pass;
 		1:
+			achieve.increment_progress("cuss_name", 1)
 			if R.get_settings_value("cutscenes"):
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
@@ -409,6 +415,7 @@ func play_intro():
 					["Wario", "Waluigi"],
 				]
 			else:
+				achieve.increment_progress("cuss_name_3", 1)
 				new_names = [
 					["Alvin", "Simon", "Theodore"],
 					["Billy", "Mandy", "Grim"],
@@ -711,6 +718,7 @@ func too_many_pauses():
 
 func disqualified():
 #	Ws.close_room()
+	achieve.increment_progress("ragequit", 1)
 	yield(
 		Loader.load_random_voice_line("too_many_pauses", "", true),
 		"completed"
@@ -736,6 +744,8 @@ func play_outro():
 	c_box.show()
 	c_box.set_radius(0)
 #	intermission_played = false
+	# Achievement: Complete specific episode
+	achieve.increment_progress("episode_" + episode_data.filename, 1)
 	S.preload_music("drum_roll")
 	if R.get_settings_value("cutscenes"):
 		_load_outro_cutscene()

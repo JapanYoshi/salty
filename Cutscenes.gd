@@ -119,6 +119,8 @@ func show_final_leaderboard():
 	vignette.modulate = Color.black
 	# calculate the placement of each player, taking ties into account.
 	for i in range(len(ranking)):
+		if ranking[i].score == 0:
+			get_parent().achieve.increment_progress("score_0", 1)
 		var placement = i
 		while placement > 0 and ranking[placement - 1].score == ranking[i].score:
 			ranking[i].tied = true
@@ -228,6 +230,13 @@ func show_final_leaderboard():
 		if is_nan(best_accuracy) or acc > best_accuracy:
 			best_accuracy = acc
 	R.submit_high_score(ranking[0].score, best_accuracy)
+	# Achievements: Cumulative score
+	if ranking[0].score > 0:
+		get_parent().achieve.increment_progress("score_cumulative", ranking[0].score)
+	# Achievements: Perfect score
+	if len(ranking) == 1 and best_accuracy == 1.0:
+		get_parent().achieve.increment_progress("perfect", 1)
+	
 	$CreditBox.load_credits()
 #	anim.play("credits_roll", 0, 0.001, false)
 #	anim.stop()
