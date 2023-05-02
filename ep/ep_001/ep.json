@@ -5,7 +5,7 @@
   "audio": {
     "welcome_before": {
       "v": "welcome_before",
-      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#4217#]where the—[#5519#]Hold on, what happened to the teleprompter?[#7757#]It’s gone totally blank! Miles?![#10198#][b]Miles:[/b]Ugh... Stand by, please!"
+      "s": "[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#4217#]where the—[#5519#]Hold on, what happened to the teleprompter?[#7757#]It’s gone totally blank! Miles?![#10198#][b]Miles:[/b] Ugh... Stand by, please!"
     },
     "welcome_standby": {
       "v": "welcome_standby",
