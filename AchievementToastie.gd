@@ -18,6 +18,7 @@ func show_toastie(name: String, texture: Texture):
 
 	title.text = name
 	anim.play("show")
+	S.play_sfx("achievement")
 	timer.start()
 
 
