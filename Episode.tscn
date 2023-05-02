@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Episode.gd" type="Script" id=2]
@@ -51,6 +51,7 @@
 [ext_resource path="res://CreditBox.gd" type="Script" id=49]
 [ext_resource path="res://ThemeSettingOption.tres" type="Theme" id=50]
 [ext_resource path="res://audio/sfx/key_move.wav" type="AudioStream" id=51]
+[ext_resource path="res://achievements/Achievements.tscn" type="PackedScene" id=52]
 
 [sub_resource type="ShaderMaterial" id=30]
 shader = ExtResource( 46 )
@@ -1857,7 +1858,12 @@ visible = false
 margin_left = -222.0
 margin_right = -6.0
 
-[node name="PauseButton" type="Button" parent="ScreenStretch"]
+[node name="SubManager" parent="." instance=ExtResource( 6 )]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PauseButton" type="Button" parent="."]
 modulate = Color( 1, 1, 1, 0.156863 )
 margin_right = 117.0
 margin_bottom = 48.0
@@ -1868,11 +1874,6 @@ custom_styles/focus = ExtResource( 26 )
 custom_styles/disabled = ExtResource( 26 )
 custom_styles/normal = ExtResource( 26 )
 text = "Pause"
-
-[node name="SubManager" parent="." instance=ExtResource( 6 )]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Pause" type="ColorRect" parent="."]
 pause_mode = 2
@@ -2061,12 +2062,14 @@ rect_min_size = Vector2( 400, 64 )
 max_value = 15.0
 scrollable = false
 
+[node name="Achievements" parent="." instance=ExtResource( 52 )]
+
 [connection signal="animation_finished" from="ScreenStretch/Cutscenes/AnimationPlayer" to="ScreenStretch/Cutscenes" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/CreditScroller/V/Body" to="." method="_on_credits_link_clicked"]
 [connection signal="meta_clicked" from="ScreenStretch/Cutscenes/CreditBox/RichTextLabel" to="." method="_on_credits_link_clicked"]
 [connection signal="gui_input" from="ScreenStretch/SkipButton" to="." method="_on_SkipButton_gui_input"]
 [connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_BackButton_back_pressed"]
-[connection signal="pressed" from="ScreenStretch/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="animation_finished" from="Pause/AnimationPlayer" to="Pause" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="Pause/NprContainer/NinePatchRect/HBoxContainer/Button2" to="Pause" method="quit"]
 [connection signal="pressed" from="Pause/NprContainer/NinePatchRect/HBoxContainer/Button" to="Pause" method="resume"]

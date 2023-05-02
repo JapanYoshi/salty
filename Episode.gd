@@ -4,6 +4,7 @@ onready var q_box = $ScreenStretch/Standard
 onready var c_box = $ScreenStretch/Cutscenes
 onready var hud = $ScreenStretch/HUD
 onready var skip_btn = $ScreenStretch/SkipButton
+onready var pause_btn = $PauseButton
 onready var achieve = $Achievements
 var episode_data = {}
 var question_number = 0
@@ -54,7 +55,7 @@ func _ready():
 #		load_next_question()
 #		return
 	c_box.get_node("Round2").scale = Vector2(0, 1)
-	$ScreenStretch/PauseButton.hide()
+	pause_btn.hide()
 	for i in range(len(R.players)):
 		if R.players[i].device == C.DEVICES.TOUCHSCREEN:
 			pause_btn.show()
@@ -730,6 +731,7 @@ func disqualified():
 func shutter():
 	$ScreenStretch/Shutter.set_texture(load("res://images/shutter.png"))
 	$ScreenStretch/Shutter/AnimationPlayer.play("disqualified")
+	$ScreenStretch/Shutter.show()
 	S.play_sfx("dq")
 	yield($ScreenStretch/Shutter/AnimationPlayer, "animation_finished")
 #	Ws._disconnect()
@@ -738,7 +740,7 @@ func shutter():
 func play_outro():
 	$Pause.set_process(false)
 	$Pause.ending = true
-	$ScreenStretch/PauseButton.hide()
+	pause_btn.hide()
 	revert_scene("")
 	send_scene("gameEnd")
 	c_box.show()
