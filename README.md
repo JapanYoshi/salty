@@ -27,6 +27,12 @@ The current public build is published on [the Gotm webpage](https://gotm.io/hait
 
 2. Download or fork the repository, and open the folder once you've booted Godot.
 
+## License and Copyright for a Fork
+
+This game is released as free and open source software, which means that you are free to run the program, study and modify the program’s files, and redistribute the program whether modified or not. In order to achieve these freedoms, all the game’s code is open-source and visible on this repository.
+
+However, this does not mean that the assets of this game are free of copyright. You may not use the code to impersonate us, or otherwise scam people. The music, voice assets, and graphical assets are available for ease of modification, but if you release a modification, you must replace all the provided voice files, unless you have the voice actors’ permission.
+
 ## How to Make Your Own Questions, Episodes, and Controller for a Fork
 
 To use your own **question files**, use [the `salty_data` repository](https://github.com/JapanYoshi/salty_data) as a template. I don't recommend downloading the entire thing because it has hella WAV files and it takes space; just get everything except for the `/q/` folder, and follow the tutorial on that repository.
@@ -73,7 +79,7 @@ Note to localizers: You can expand this to support any number of letters, but th
 
 * Grid - The old-fashioned method where the joystick is used to move the cursor on an old-fashioned gridwise table of letters. The slowest to type, but probably a method we've all used before.
 
-Note to localizers: You will have to manually tweak a lot of stuff to change the number of keys. First, inside `TypingHandler.tscn`, you have to set `config.KB_WIDTH` and `config.KB_HEIGHT` to the desired grid size in the script `TypingHandler.gd`, and duplicate exactly `config.KB_WIDTH * config.KB_WEIGHT - 4` copies of the key element inside `$KB/Grid`. You must now manually resize and reposition the Space and Submit keys, since they are not part of the grid, as well as the gamepad shortcut labels for Space, Submit, and Delete. Then and only then can you edit the variable `config.kb_main` to contain the character to input.
+Note to localizers: You will have to manually tweak a lot of stuff to change the number of keys. First, inside `TypingHandler.tscn`, you have to set `config.KB_WIDTH` and `config.KB_HEIGHT` to the desired grid size in the script `TypingHandler.gd`, and duplicate exactly `config.KB_WIDTH * config.KB_HEIGHT - 4` copies of the key element inside `$KB/Grid`. You must now manually resize and reposition the Space and Submit keys, since they are not part of the grid, as well as the gamepad shortcut labels for Space, Submit, and Delete. Then and only then can you edit the variable `config.kb_main` to contain the character to input.
 
 ### "Phones as Controllers"
 
