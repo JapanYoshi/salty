@@ -129,6 +129,9 @@ func _input(event):
 		menu_root.back()
 	elif event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right"):
 		accept_event()
+	elif event.is_action_pressed("ui_select"):
+		accept_event()
+		_on_Preload_pressed()
 
 func _on_Option_pressed():
 	if disable_controls: return
@@ -179,3 +182,10 @@ func _on_Option_pressed():
 func _on_BackButton_back_pressed():
 	S.play_sfx("menu_back")
 	menu_root.back()
+
+func _on_Preload_pressed():
+	disable_controls = true
+	S.play_sfx("menu_confirm")
+	release_focus()
+	menu_root.preload_episode(eps[selected_now].filename)
+	pass
