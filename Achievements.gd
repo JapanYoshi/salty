@@ -77,6 +77,10 @@ func _initialize_achievements():
 ## Sets the progress of the achievement with the given key. Does not update if the achievement is already progressed past it.
 ## Checks whether the achievement is gotten afterward.
 func set_progress(type: String, to: int):
+	if not (R.get_settings_value("cheat_codes_active").empty()):
+		print("Cannot progress achievements while cheat codes are active."); return
+	if !achievement_type_key.has(type):
+		printerr("Achievement type ", type, " is not used in any achievement!"); return
 	for ach in achievement_type_key[type]:
 		# Incease progress only if we haven't progressed past it yet.
 		if achievement_progress[ach] < to and achievement_progress[ach] < achievement_list[ach].steps:
@@ -87,6 +91,10 @@ func set_progress(type: String, to: int):
 ## Increments the progress of the achievement with the given key.
 ## Checks whether the achievement is gotten afterward.
 func increment_progress(type: String, by: int):
+	if not (R.get_settings_value("cheat_codes_active").empty()):
+		print("Cannot progress achievements while cheat codes are active."); return
+	if !achievement_type_key.has(type):
+		printerr("Achievement type ", type, " is not used in any achievement!"); return
 	for ach in achievement_type_key[type]:
 		if achievement_progress[ach] < achievement_list[ach].steps:
 			achievement_progress[ach] += by

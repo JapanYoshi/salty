@@ -15,6 +15,6 @@ func set_fields(
 	else:
 		$h/TextureRect.texture = load(image_path)
 		$h/v/h.value = 1
-		$h/v/h/progress.text = R.format_date(date)
+		$h/v/h/progress.text = "Unlocked via cheat code" if date == 0 else R.format_date(date)
 	$h/v/name.text = achievement_name
 	$h/v/desc.text = description
