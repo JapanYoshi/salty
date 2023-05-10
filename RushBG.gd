@@ -31,6 +31,9 @@ func set_options(options):
 func show_option(index):
 	$Options.get_child(index).enter()
 
+func show_option_delayed(index, time_sec):
+	$Options.get_child(index).enter_delayed(time_sec)
+
 func time_up(truthy):
 	$Tween.remove_all()
 	if truthy:
@@ -97,7 +100,7 @@ func show_title(bbcode):
 	)
 	$AnimationPlayer.play("show_title")
 
-func tween_background_intensity(duration: float, backwards: bool):
+func tween_background_intensity(duration: float, backwards: bool, delay: float = 0.0):
 	var ring_speed_min = 1.0
 	var ring_speed_max = 16.0
 	var color_min = Color.transparent
@@ -128,17 +131,17 @@ func tween_background_intensity(duration: float, backwards: bool):
 	$Tween.interpolate_property(
 		self, "ring_speed",
 		ring_speed_from, ring_speed_to,
-		duration, Tween.TRANS_QUAD, easing
+		duration, Tween.TRANS_QUAD, easing, delay
 	)
 	$Tween.interpolate_property(
 		$Cover, "color",
 		color_from, color_to,
-		duration, Tween.TRANS_QUAD, easing
+		duration, Tween.TRANS_QUAD, easing, delay
 	)
 	$Tween.interpolate_method(
 		self, "_set_ring_scale",
 		scale_from, scale_to,
-		duration, Tween.TRANS_QUAD, easing
+		duration, Tween.TRANS_QUAD, easing, delay
 	)
 	$Tween.start()
 
@@ -153,18 +156,12 @@ func start_round(topic, options):
 	set_options(options)
 	tween_background_intensity(1.5, true)
 	show_option(0)
-	yield(get_tree().create_timer(15.0/16.0), "timeout")
-	show_option(1)
-	yield(get_tree().create_timer(15.0/16.0 * 3.0), "timeout")
-	show_option(2)
-	yield(get_tree().create_timer(15.0/16.0), "timeout")
-	show_option(3)
-	yield(get_tree().create_timer(15.0/16.0 * 3.0), "timeout")
-	show_option(4)
-	yield(get_tree().create_timer(15.0/16.0), "timeout")
-	show_option(5)
-	yield(get_tree().create_timer(15.0/16.0 * 3.0), "timeout")
-	tween_background_intensity(3.75, false)
+	show_option_delayed(1, 0.9375)
+	show_option_delayed(2, 3.75)
+	show_option_delayed(3, 4.6875)
+	show_option_delayed(4, 7.5)
+	show_option_delayed(5, 8.4375)
+	tween_background_intensity(3.75, 11.25)
 
 func _set_ring_scale(scale):
 	if R.get_settings_value("graphics_quality") >= 1:
