@@ -19,6 +19,9 @@ func set_option(bbcode):
 func enter():
 	anim.play("show")
 
+func enter_delayed(time_sec: float):
+	$EnterTimer.start(time_sec)
+
 func time_up():
 	anim.play("reveal")
 

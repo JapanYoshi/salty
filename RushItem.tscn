@@ -334,9 +334,14 @@ anims/show = SubResource( 21 )
 anims/yes = SubResource( 22 )
 
 [node name="TouchBtn" type="Button" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 flat = true
 
+[node name="EnterTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="TouchBtn" to="." method="_on_TouchBtn_pressed"]
+[connection signal="timeout" from="EnterTimer" to="." method="enter"]
