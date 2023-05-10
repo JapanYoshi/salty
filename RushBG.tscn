@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scroll.gdshader" type="Shader" id=1]
 [ext_resource path="res://radial.tres" type="Shader" id=2]
@@ -459,6 +459,83 @@ tracks/1/keys = {
 "values": [ Color( 0.243137, 0.309804, 0.533333, 0 ) ]
 }
 
+[sub_resource type="Animation" id=23]
+resource_name = "tutorial_over"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel2:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.125, 1.125 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel2:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel3:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.25 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.125, 1.125 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Panel3:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.05, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Panel4:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.125, 1.125 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Panel4:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+
 [node name="RushBG" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -697,7 +774,6 @@ margin_right = 1260.0
 margin_bottom = 600.0
 
 [node name="Topic" type="RichTextLabel" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -724,7 +800,7 @@ margin_left = 17.0
 margin_top = 13.0
 margin_right = 423.0
 margin_bottom = 279.0
-rect_scale = Vector2( 1.1, 1.1 )
+rect_scale = Vector2( 1.125, 1.125 )
 rect_pivot_offset = Vector2( 203, 133 )
 mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
@@ -738,7 +814,7 @@ margin_left = 437.0
 margin_top = 333.0
 margin_right = 843.0
 margin_bottom = 599.0
-rect_scale = Vector2( 1.1, 1.1 )
+rect_scale = Vector2( 1.125, 1.125 )
 rect_pivot_offset = Vector2( 203, 133 )
 mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
@@ -752,7 +828,7 @@ margin_left = 857.0
 margin_top = 13.0
 margin_right = 1263.0
 margin_bottom = 279.0
-rect_scale = Vector2( 1.1, 1.1 )
+rect_scale = Vector2( 1.125, 1.125 )
 rect_pivot_offset = Vector2( 203, 133 )
 mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
@@ -788,7 +864,7 @@ anchor_bottom = 0.5
 margin_left = -83.0
 margin_top = -2.0
 margin_right = 83.0
-margin_bottom = 58.0
+margin_bottom = 58.0001
 custom_colors/font_color = Color( 0.980392, 0.376471, 0.294118, 1 )
 custom_fonts/font = ExtResource( 20 )
 text = "+$500"
@@ -807,7 +883,7 @@ anchor_bottom = 0.5
 margin_left = 337.0
 margin_top = -2.0
 margin_right = 503.0
-margin_bottom = 58.0
+margin_bottom = 58.0001
 custom_colors/font_color = Color( 0.980392, 0.376471, 0.294118, 1 )
 custom_fonts/font = ExtResource( 20 )
 text = "+$500"
@@ -823,11 +899,12 @@ anims/incorrect_example = SubResource( 20 )
 anims/selection_example = SubResource( 18 )
 anims/show_title = SubResource( 21 )
 anims/show_topic = SubResource( 17 )
+anims/tutorial_over = SubResource( 23 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color( 0.243137, 0.309804, 0.533333, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -836,8 +913,8 @@ margin_left = -400.0
 margin_top = -360.0
 margin_right = 400.0
 margin_bottom = 346.0
-rect_rotation = -9.0
-rect_scale = Vector2( 1e-05, 1e-05 )
+rect_rotation = 5.0
+rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 400, 360 )
 mouse_filter = 2
 
