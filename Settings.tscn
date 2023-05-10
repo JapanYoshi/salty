@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://flicker.gd" type="Script" id=1]
 [ext_resource path="res://radial.tres" type="Shader" id=2]
@@ -23,11 +23,12 @@
 [ext_resource path="res://ThemeSettingOption.tres" type="Theme" id=21]
 [ext_resource path="res://Settings.gd" type="Script" id=22]
 [ext_resource path="res://BackButton.gd" type="Script" id=23]
-[ext_resource path="res://fonts/small_bold.tres" type="DynamicFont" id=24]
+[ext_resource path="res://SettingsRange.tscn" type="PackedScene" id=24]
 [ext_resource path="res://RingsContainer.gd" type="Script" id=25]
 [ext_resource path="res://ButtonPromptHover.stylebox" type="StyleBox" id=26]
 [ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=27]
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=28]
+[ext_resource path="res://SettingsBool.tscn" type="PackedScene" id=29]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -308,100 +309,9 @@ margin_right = 736.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
 
-[node name="Range" type="PanelContainer" parent="ScreenStretch/Scroll/VBoxContainer"]
-margin_top = 20.0
-margin_right = 736.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
+[node name="Range" parent="ScreenStretch/Scroll/VBoxContainer" instance=ExtResource( 24 )]
 
-[node name="VBox" type="VBoxContainer" parent="ScreenStretch/Scroll/VBoxContainer/Range"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 94.0
-
-[node name="HSplit" type="HBoxContainer" parent="ScreenStretch/Scroll/VBoxContainer/Range/VBox"]
-margin_right = 720.0
-margin_bottom = 34.0
-
-[node name="Label" type="Label" parent="ScreenStretch/Scroll/VBoxContainer/Range/VBox/HSplit"]
-margin_right = 500.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="ScreenStretch/Scroll/VBoxContainer/Range/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 3.0
-margin_right = 720.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ScreenStretch/Scroll/VBoxContainer/Range/VBox"]
-margin_top = 38.0
-margin_right = 720.0
-margin_bottom = 86.0
-
-[node name="HSlider" type="HSlider" parent="ScreenStretch/Scroll/VBoxContainer/Range/VBox/HBoxContainer"]
-margin_right = 720.0
-margin_bottom = 48.0
-size_flags_horizontal = 3
-max_value = 2.0
-value = 2.0
-scrollable = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bool" type="PanelContainer" parent="ScreenStretch/Scroll/VBoxContainer"]
-margin_top = 126.0
-margin_right = 736.0
-margin_bottom = 206.0
-rect_min_size = Vector2( 0, 80 )
-theme = ExtResource( 21 )
-
-[node name="VBox" type="VBoxContainer" parent="ScreenStretch/Scroll/VBoxContainer/Bool"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 728.0
-margin_bottom = 72.0
-
-[node name="HSplit" type="HBoxContainer" parent="ScreenStretch/Scroll/VBoxContainer/Bool/VBox"]
-margin_right = 720.0
-margin_bottom = 64.0
-
-[node name="Label" type="Label" parent="ScreenStretch/Scroll/VBoxContainer/Bool/VBox/HSplit"]
-margin_top = 15.0
-margin_right = 500.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 24 )
-
-[node name="value" type="Label" parent="ScreenStretch/Scroll/VBoxContainer/Bool/VBox/HSplit"]
-margin_left = 504.0
-margin_top = 18.0
-margin_right = 652.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 140, 0 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
-clip_text = true
-
-[node name="SBox" type="CheckBox" parent="ScreenStretch/Scroll/VBoxContainer/Bool/VBox/HSplit"]
-margin_left = 656.0
-margin_right = 720.0
-margin_bottom = 64.0
-pressed = true
-align = 2
+[node name="Bool" parent="ScreenStretch/Scroll/VBoxContainer" instance=ExtResource( 29 )]
 
 [node name="BottomSpacer" type="Control" parent="ScreenStretch/Scroll/VBoxContainer"]
 margin_top = 210.0
@@ -486,16 +396,16 @@ custom_styles/normal = ExtResource( 16 )
 text = "Space/㍙"
 
 [node name="ButtonAsset" type="Button" parent="ScreenStretch"]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 221.0
-margin_top = -67.0
-margin_right = 419.0
-margin_bottom = -16.0
+margin_left = 17.0
+margin_top = -126.0
+margin_right = 215.0
+margin_bottom = -75.0
 grow_vertical = 0
 theme = ExtResource( 21 )
-text = "Clear asset cache"
+text = "㍞ Clear asset cache"
+align = 0
 
 [node name="Button" type="Button" parent="ScreenStretch"]
 anchor_top = 1.0
@@ -506,7 +416,8 @@ margin_right = 214.0
 margin_bottom = -16.0
 grow_vertical = 0
 theme = ExtResource( 21 )
-text = "Clear question cache"
+text = "㍛ Clear question cache"
+align = 0
 
 [node name="AssetDeleted" type="ColorRect" parent="ScreenStretch"]
 visible = false
