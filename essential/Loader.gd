@@ -58,10 +58,13 @@ func _ready():
 
 const MAGIC_NUMBER = PoolByteArray([0x47, 0x44, 0x50, 0x43])
 func is_question_cached(id):
-	var file: File = File.new()
-	if !file.file_exists(q_cache_path + q_cache_filename % id):
-		file.close()
-		return false
+	if id in cached and cached[id] == true:
+		var file: File = File.new()
+		if !file.file_exists(q_cache_path + q_cache_filename % id):
+			file.close()
+			cached[id] = false
+			return false
+		return true
 #	var error: int = file.open(q_cache_path + q_cache_filename % id, File.READ)
 #	if error:
 #		printerr("Loading ", q_cache_path, q_cache_filename % id, " resulted in error %d." % error)
@@ -74,8 +77,7 @@ func is_question_cached(id):
 #			printerr(q_cache_path + q_cache_filename % id, " exists, but does not start with GDPC. Removing.")
 #			remove_from_question_cache(id)
 #			return false
-	file.close()
-	return true
+	return false
 
 
 func append_question_cache(id):
@@ -91,7 +93,7 @@ func remove_from_question_cache(id):
 func clear_question_cache():
 	var dir = Directory.new()
 	for id in cached:
-		dir.remove(q_cache_path + q_cache_filename % id)
+		remove_from_question_cache(id)
 
 
 func mount_cached_question(id):
@@ -305,18 +307,20 @@ func load_random_questions():
 		else:
 			R.crash("random_questions.jsonc could not be parsed. Error code: %d" % json.error)
 
-func random_questions_of_type(type, count):
-	var questions = []
-	var pool = random_questions[type]
+# Pass 0 to return all questions
+func random_questions_of_type(type, count) -> PoolStringArray:
+	var pool: PoolStringArray = PoolStringArray(random_questions[type])
+	if count == 0:
+		return pool
 	if count == 1:
-		return [pool[R.rng.randi_range(0, len(pool) - 1)]]
-	else:
-		var indices = range(len(pool) - 1)
-		for i in range(count):
-			var index = R.rng.randi_range(0, len(indices) - 1)
-			questions.push_back(pool[indices[index]])
-			indices.remove(index)
-		return questions
+		return PoolStringArray([pool[R.rng.randi_range(0, len(pool) - 1)]])
+	var questions: PoolStringArray = PoolStringArray()
+	var indices = range(len(pool) - 1)
+	for i in range(count):
+		var index = R.rng.randi_range(0, len(indices) - 1)
+		questions.push_back(pool[indices[index]])
+		indices.remove(index)
+	return questions
 
 func load_episodes_list():
 	# new option with list file
