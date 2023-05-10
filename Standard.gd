@@ -18,6 +18,7 @@ signal question_done
 var stage: String = ""
 
 var point_value: int = 0
+var no_wrong_penalty_cheat: bool = "no_wrong_penalty" in R.get_settings_value("cheat_codes_active")
 
 var question_number: int = 0
 var question_type: String = "N"
@@ -468,7 +469,7 @@ func answer_submitted(text):
 #		print("correct")
 		ep.achieve.increment_progress("gib_correct", 1)
 		if bgs.G.value == bgs.G.max_value:
-			ep.achieve.increment_progress("gib_fast", 1)
+			ep.achieve.increment_progress("gib_correct_fast", 1)
 		# Move the person correctly answering to bucket 1
 		answers[1].push_back(answers[0].pop_back())
 		R.players[answers[1][0]].accuracy[0] += 1
@@ -1062,8 +1063,9 @@ func change_stage(next_stage):
 #			Ws.disconnect("remote_typing", self, "_on_gib_audience_submit")
 			for kv_pair in answers_audience[0]:
 				hud.reward_players([kv_pair[0]], kv_pair[1])
+			
 			for kv_pair in answered_wrong_audience:
-				hud.punish_players([kv_pair[0]], kv_pair[1])
+				hud.punish_players([kv_pair[0]], 0 if no_wrong_penalty_cheat else kv_pair[1])
 		yield(get_tree().create_timer(6.0), "timeout")
 		
 		stage = "outro"
@@ -1371,7 +1373,7 @@ func _on_voice_end(voice_id):
 				"gib_wrong":
 					# penalize
 					S.play_sfx("option_wrong")
-					hud.punish_players(answers[0], bgs.G.value)
+					hud.punish_players(answers[0], 0 if no_wrong_penalty_cheat else bgs.G.value)
 					# Move the person incorrectly answering to bucket 1
 					answered_wrong.push_back(answers[0].pop_back())
 					# no people left to buzz in?
@@ -1470,23 +1472,23 @@ func _on_voice_end(voice_id):
 					elif responses[i] != RESPONSE_USED:
 						# evacuate all unannounced wrong answers
 						option_boxes[i].leave()
-						hud.punish_players(answers[i], point_value)
+						hud.punish_players(answers[i], 0 if no_wrong_penalty_cheat else point_value)
 						# keep score of audience
 						if audience_answered > 0:
 							if question_type == "T":
 								# [[index, point value], [index, point value], ...]
 								for kv_pair in answers_audience[i]:
-									hud.punish_players([kv_pair[0]], kv_pair[1])
+									hud.punish_players([kv_pair[0]], 0 if no_wrong_penalty_cheat else kv_pair[1])
 							else:
 								# [indices]
-								hud.punish_players(answers_audience[i], point_value)
+								hud.punish_players(answers_audience[i], 0 if no_wrong_penalty_cheat else point_value)
 				change_stage("outro")
 			else:
 				ep.send_scene('wrongReveal', {index = last_revealed_answer})
 				#ep.revert_scene('wrongReveal')
 				option_boxes[last_revealed_answer].wrong()
 				S.play_sfx("option_wrong")
-				hud.punish_players(answers[last_revealed_answer], point_value)
+				hud.punish_players(answers[last_revealed_answer], 0 if no_wrong_penalty_cheat else point_value)
 				yield(get_tree().create_timer(1.0), "timeout")
 				answered_wrong.append_array(answers[last_revealed_answer])
 				answers[last_revealed_answer] = []
@@ -1497,10 +1499,10 @@ func _on_voice_end(voice_id):
 						if question_type == "T":
 							# [[index, point value], [index, point value], ...]
 							for kv_pair in answers_audience[last_revealed_answer]:
-								hud.punish_players([kv_pair[0]], kv_pair[1])
+								hud.punish_players([kv_pair[0]], 0 if no_wrong_penalty_cheat else kv_pair[1])
 						else:
 							# [indices]
-							hud.punish_players(answers_audience[last_revealed_answer], point_value)
+							hud.punish_players(answers_audience[last_revealed_answer], 0 if no_wrong_penalty_cheat else point_value)
 						answers_audience[last_revealed_answer] = []
 				reveal_next_option()
 		"reveal_correct":
@@ -1817,7 +1819,7 @@ func S_show_question():
 		hud.hide_accuracy()
 		hud.hide_accuracy_audience()
 		hud.reward_players(winners, 0)
-		hud.punish_players(losers, 0)
+		hud.punish_players(losers, 0) # purely visual
 		hud.reset_playerboxes(breakevens)
 	else:
 		stage = "sorta_questions"
@@ -1881,7 +1883,7 @@ func S_show_answer():
 					accuracy_audience[(p - len(R.players)) * 2] += 1
 					accuracy_audience[(p - len(R.players)) * 2 + 1] += 1
 		else:
-			hud.punish_players(answers[j], point_value)
+			hud.punish_players(answers[j], 0 if no_wrong_penalty_cheat else point_value)
 			for p in answers[j]:
 				if p < len(R.players):
 					#accuracy[p][0] += 1 # Don't, they got it wrong.
