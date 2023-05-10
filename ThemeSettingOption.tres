@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://KeyBox_Pressed.stylebox" type="StyleBox" id=1]
 [ext_resource path="res://KeyBox_Highlight.stylebox" type="StyleBox" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://grabber_styleboix.tres" type="StyleBox" id=8]
 [ext_resource path="res://grabber_highlight_stylebox.tres" type="StyleBox" id=9]
 [ext_resource path="res://images/grabber_highlight.svg" type="Texture" id=10]
+[ext_resource path="res://images/rush_disabled.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 1, 1, 1, 1 )
@@ -56,6 +57,7 @@ Button/styles/normal = ExtResource( 3 )
 Button/styles/pressed = ExtResource( 1 )
 CheckBox/icons/checked = ExtResource( 7 )
 CheckBox/icons/unchecked = ExtResource( 5 )
+CheckBox/icons/unchecked_disabled = ExtResource( 11 )
 CheckBox/styles/focus = SubResource( 5 )
 CheckBox/styles/hover = SubResource( 1 )
 CheckBox/styles/hover_pressed = SubResource( 1 )
