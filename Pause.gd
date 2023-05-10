@@ -48,7 +48,7 @@ func _move_randomly(delta):
 
 
 func pause_modal(player_number, device_index):
-	if ep.penalize_pausing:
+	if ep.penalize_pausing and not("no_pause_penalty" in R.get_settings_value("cheat_codes_active")):
 		paused_times += 1
 		if paused_times >= 3:
 			var rand = R.rng.randf()
