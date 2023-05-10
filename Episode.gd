@@ -35,6 +35,7 @@ func _ready():
 #	c_box.vignette.modulate = Color.white
 	c_box.get_node("TechDiff").hide()
 	c_box.get_node("Final").hide()
+	c_box.achieve = self.achieve
 	q_box.connect("question_done", self, "load_next_question")
 	q_box.hud = hud
 	question_number = 0
