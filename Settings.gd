@@ -422,6 +422,10 @@ func _input(event):
 		_on_BackButton_back_pressed()
 	elif event.is_action_pressed("ui_select"):
 		_on_SaveButton_pressed()
+	elif event.is_action_pressed("ui_action"):
+		clear_question_cache()
+	elif event.is_action_pressed("ui_pause") and $ScreenStretch/ButtonAsset.visible:
+		clear_asset_cache()
 
 func change_title():
 	title.text = settings_dict[focus_index].t
