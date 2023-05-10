@@ -12,7 +12,7 @@ uniform vec2 blur_center = vec2( 0.5, 0.5 );
 uniform float blur_power : hint_range( 0.0, 1.0 ) = 0.01;
 // サンプリング回数
 //uniform int sampling_count : hint_range( 1, 64 ) = 6; // for GLES2 compatibility. can't loop a non-constant loop count
-const int sampling_count = 64;
+const int sampling_count = 32;
 
 uniform vec3 ray_color = vec3(1, 1, 1);
 
