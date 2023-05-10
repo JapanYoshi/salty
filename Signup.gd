@@ -14,8 +14,9 @@ var room_code_hidden: bool = true
 func _ready():
 	update_loading_progress(0, 13, -1)
 	R.rng.randomize()
+# warning-ignore:return_value_discarded
 	C.connect("gp_button", self, "_gp_button")
-	$LoadingPanel.hide()
+	$LoadingIndicator/LoadingPanel.hide()
 	$MouseMask.hide()
 	R.players = []; signup_now = {}; signup_queue = []; used_ids = [];
 	p_count = 0
@@ -68,6 +69,7 @@ func room_tried(success: bool):
 		room_code_hidden = !R.get_settings_value("hide_room_code")
 		toggle_show_room_code()
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
+# warning-ignore:return_value_discarded
 		Fb.connect("player_joined", self, 'remote_queue')
 	else:
 		room_code = ""
@@ -197,8 +199,8 @@ func read_room_code():
 		room_code_being_read = false
 		$Instructions/SignupOnline/ReadAloud.set_text("Shift/Select: read room code aloud")
 
-# Just the remote game start thing.
-func _gp_button(player: int, button: int, pressed: bool):
+# Just the remote game start thing. Since it's remote, "pressed" is always true.
+func _gp_button(player: int, button: int, _pressed: bool):
 	if len(R.players) > 0\
 	and R.players[0].device == C.DEVICES.REMOTE\
 	and R.get_settings_value("remote_start")\
@@ -372,7 +374,8 @@ func check_full():
 		room_full = false;
 	print("DEBUG Player Count Check room_full=", room_full)
 
-func _process(delta):
+# Just runs every frame regardless of how long it took
+func _process(_delta):
 	if (
 		len(signup_now) == 0 # checking if the dictionary is empty
 	and
@@ -598,24 +601,4 @@ func give_player_nick(id):
 #	Fb.add_remote_audience(id, "p.namewhat the fuck")
 
 func update_loading_progress(partial: int, total: int, eta: int):
-	var time_text = "Time estimate unknown..."
-	if eta >= 60*1000:
-		time_text = "Please wait ≈%dʹ' %0.1f\"..." % [eta / (60*1000), (eta % (60*1000)) / 1000.0]
-	elif eta >= 1000:
-		time_text = "Please wait ≈%0.1f\"..." % (eta / 1000.0)
-	elif eta > 0:
-		time_text = "Almost there..."
-	elif eta == 0:
-		time_text = "Finished!"
-	# if the ETA is null or undefined, time_text stays as default
-	$LoadingPanel/Label.set_text(
-		"Downloading question pack. %s" % time_text
-	)
-	$LoadingPanel/ProgressBar.max_value = total
-	$LoadingPanel/ProgressBar.value = partial
-	$LoadingPanel/Progress.set_text(
-		"%d of %d questions (%05.1f%%)" % [partial, total, 100.0 * partial / total]
-	)
-	$LoadingProgress.set_text(
-		"Downloaded %d of %d questions" % [partial, total]
-	)
+	$LoadingIndicator.update_loading_progress(partial, total, eta)

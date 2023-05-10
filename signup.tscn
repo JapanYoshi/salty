@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://images/signup_gamepad.png" type="Texture" id=1]
 [ext_resource path="res://images/signup_keyboard.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://control_type_icon.tres" type="SpriteFrames" id=22]
 [ext_resource path="res://no_h_scrollbar.theme" type="Theme" id=23]
 [ext_resource path="res://images/signup_pointer.png.png" type="Texture" id=24]
+[ext_resource path="res://LoadingIndicator.gd" type="Script" id=25]
 
 [sub_resource type="Animation" id=8]
 resource_name = "Enter"
@@ -798,13 +799,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadingProgress" type="Label" parent="."]
+[node name="LoadingIndicator" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 25 )
+
+[node name="LoadingProgress" type="Label" parent="LoadingIndicator"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -300.0
-margin_top = 8.0
 margin_right = 300.0
-margin_bottom = 56.0
+margin_bottom = 48.0
 rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 300, 0 )
 custom_fonts/font = ExtResource( 11 )
@@ -814,7 +819,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadingPanel" type="Panel" parent="."]
+[node name="LoadingPanel" type="Panel" parent="LoadingIndicator"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -825,7 +830,7 @@ margin_right = 512.0
 margin_bottom = 72.0
 rect_pivot_offset = Vector2( 512, 72 )
 
-[node name="ProgressBar" type="ProgressBar" parent="LoadingPanel"]
+[node name="ProgressBar" type="ProgressBar" parent="LoadingIndicator/LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
@@ -839,7 +844,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="LoadingPanel"]
+[node name="Label" type="Label" parent="LoadingIndicator/LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -72.0
@@ -850,7 +855,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Progress" type="Label" parent="LoadingPanel"]
+[node name="Progress" type="Label" parent="LoadingIndicator/LoadingPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 72.0

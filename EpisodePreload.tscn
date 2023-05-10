@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://ThemeOption.theme" type="Theme" id=1]
+[ext_resource path="res://EpisodePreload.gd" type="Script" id=2]
+[ext_resource path="res://fonts/body_bold.tres" type="DynamicFont" id=9]
+[ext_resource path="res://LoadingIndicator.gd" type="Script" id=16]
+[ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=20]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=22]
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.0431373, 0.521569, 0.180392, 1 )
+border_width_top = 36
+border_color = Color( 0.0745098, 0.717647, 0.372549, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=11]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.184314, 0.235294, 0.239216, 1 )
+border_width_top = 36
+border_color = Color( 0.305882, 0.380392, 0.384314, 1 )
+border_blend = true
+
+[node name="EpisodePreload" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 200.0
+margin_right = 338.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 20 )
+text = "Preload questions"
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -400.0
+margin_top = 81.0
+margin_right = 400.0
+margin_bottom = 279.0
+rect_min_size = Vector2( 800, 0 )
+theme = ExtResource( 1 )
+text = "Preparing to download questions for this episode..."
+autowrap = true
+
+[node name="LoadingIndicator" type="Control" parent="."]
+margin_left = 490.0
+margin_top = 8.0
+margin_right = 530.0
+margin_bottom = 48.0
+script = ExtResource( 16 )
+
+[node name="LoadingProgress" type="Label" parent="LoadingIndicator"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 580.0
+margin_bottom = 48.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 300, 0 )
+custom_fonts/font = ExtResource( 22 )
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingPanel" type="Panel" parent="LoadingIndicator"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -382.0
+margin_top = 260.0
+margin_right = 642.0
+margin_bottom = 404.0
+rect_pivot_offset = Vector2( 512, 72 )
+
+[node name="ProgressBar" type="ProgressBar" parent="LoadingIndicator/LoadingPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LoadingIndicator/LoadingPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -72.0
+custom_fonts/font = ExtResource( 9 )
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Label" parent="LoadingIndicator/LoadingPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 72.0
+custom_fonts/font = ExtResource( 22 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
