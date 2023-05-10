@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MenuRoot.gd" type="Script" id=1]
+[ext_resource path="res://CheatIndicator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://MenuBG.tscn" type="PackedScene" id=3]
 [ext_resource path="res://BackButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ScreenStretch.tscn" type="PackedScene" id=5]
@@ -21,6 +22,9 @@ stretch_mode = 7
 time_speed = 0.5
 
 [node name="BackButton" parent="ScreenStretch" instance=ExtResource( 4 )]
+
+[node name="CheatIndicator" parent="ScreenStretch" instance=ExtResource( 2 )]
+position = Vector2( 0, 680 )
 
 [node name="Tween" type="Tween" parent="."]
 

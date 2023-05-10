@@ -3,13 +3,15 @@ extends Control
 onready var current_page
 var first_page = preload("res://Episodes.tscn")
 var signup = preload("res://signup.tscn")
+var preload_page = preload("res://EpisodePreload.tscn")
 onready var tween = $Tween
 onready var click_mask = $ClickMask
 var question_pack_is_downloaded = false
 var waiting_for_game_start = false
 var cancel_loading = false
 
-signal next_question_please
+# warning-ignore:unused_signal
+signal next_question_please # it *IS* emitted and yielded, the linter lies
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,7 +39,11 @@ func back():
 		tween.start()
 #		Ws._disconnect()
 		yield(get_tree().create_timer(0.5), "timeout")
+# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Title.tscn")
+	elif current_page.name == "EpisodePreload":
+		current_page._on_leave_page()
+		change_scene_to(first_page.instance())
 	else:
 		cancel_loading = true
 		# free the added controller slots, so that we can reuse them next time
@@ -77,6 +83,10 @@ var time_start = -1
 var load_start = -1
 const RAND_PREFIX = "RNG_"
 var load_order = []
+
+func preload_episode(id):
+	R.pass_between.episode_data = Loader.episodes[id].duplicate(true)
+	change_scene_to(preload_page.instance())
 
 func load_episode(ep):
 	Loader.reset_question_text()
@@ -199,7 +209,7 @@ func load_episode(ep):
 	for q in range(len(load_order)):
 		yield(get_tree(), "idle_frame")
 		print("MenuRoot: DOWNLOAD_QUESTION")
-		download_question(load_order[q]) # this was the issue
+		download_question(load_order[q], self, "_load_question") # this was the issue
 		print("MenuRoot: YIELD START")
 		yield(self, "next_question_please")
 		assert(len(Loader.question_texts.keys()) == 14 - len(load_order) + q, "Only %d question texts are preemptively loaded." % len(Loader.question_texts.keys()))
@@ -215,7 +225,7 @@ func load_episode(ep):
 
 onready var http_request = $HTTPRequest
 
-func download_question(q):
+func download_question(q: String, node_to_call: Node, func_to_call: String):
 	print("download_question(%s)" % q)
 	var url = Loader.question_url + Loader.q_cache_filename % q
 	# Create an HTTP request node and connect its completion signal.
@@ -228,7 +238,7 @@ func download_question(q):
 	http_request.set_download_file(download_file)
 	http_request.download_chunk_size = 262144
 	http_request.disconnect("request_completed", self, "_http_request_completed")
-	http_request.connect("request_completed", self, "_http_request_completed", [q])
+	http_request.connect("request_completed", self, "_http_request_completed", [q, node_to_call, func_to_call])
 
 	var error = http_request.request(url)
 	if error != OK:
@@ -238,7 +248,7 @@ func download_question(q):
 
 
 # Called when the HTTP request is completed.
-func _http_request_completed(result, response_code, headers, body, q):
+func _http_request_completed(result, response_code, _headers, _body, q, node_to_call, func_to_call):
 	prints("MenuRoot._http_request_completed(", response_code, ", ", q, ")")
 	http_request.disconnect("request_completed", self, "_http_request_completed")
 	var error_message = ""
@@ -271,8 +281,8 @@ func _http_request_completed(result, response_code, headers, body, q):
 				error_message += "Request timed out."
 	elif response_code >= 400:
 		error_message = (
-			"Tried to load question ID %s, but the Web request did not succeed. " + 
-			"The HTTP response code was %d.\n" % [q, response_code]
+			("Tried to load question ID %s, but the Web request did not succeed. " + 
+			"The HTTP response code was %d.\n") % [q, response_code]
 		)
 	if !error_message.empty():
 		error_message += "Please check that your Internet connection is strong and stable, and try again."
@@ -281,7 +291,8 @@ func _http_request_completed(result, response_code, headers, body, q):
 		R.crash(error_message)
 		return
 	Loader.append_question_cache(q)
-	_load_question(q)
+	if is_instance_valid(node_to_call) and node_to_call.has_method(func_to_call):
+		node_to_call.call(func_to_call, q)
 
 
 ## Called after HTTP request is completed or local file is confirmed to exist.
@@ -334,7 +345,7 @@ func start_game():
 		# This function will be called again once it's done.
 		waiting_for_game_start = true
 		current_page.get_node("MouseMask").color = Color(0, 0, 0, 0.5)
-		current_page.get_node("LoadingPanel").show()
+		current_page.get_node("LoadingIndicator/LoadingPanel").show()
 		return
 	# Fade the music. (Takes 0.5 seconds.)
 	S.play_track(0, 0.1)
@@ -344,7 +355,7 @@ func start_game():
 	#self.rect_pivot_offset = Vector2(640,360)
 	tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.interpolate_property(self, "rect_scale", Vector2.ONE, Vector2.ONE * 1.1, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	tween.interpolate_property(current_page.get_node("LoadingPanel"), "rect_scale", Vector2.ONE, Vector2.ONE * 1.25, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	tween.interpolate_property(current_page.get_node("LoadingIndicator"), "rect_scale", Vector2.ONE, Vector2.ONE * 1.25, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	yield(tween, "tween_all_completed")
 	get_tree().call_deferred("change_scene", "res://Episode.tscn")
