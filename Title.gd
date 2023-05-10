@@ -12,8 +12,12 @@ const desc = [
 const desc_webpage = "Take a look at our webpage, haitouch.ga."
 onready var tween = Tween.new()
 
+const CHEAT_MENU_CODE = PoolStringArray(["ui_up", "ui_left", "ui_right", "ui_down", "ui_select", "ui_accept"])
+var cheat_menu_code_index: int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$ScreenStretch/VersionCode.text = "Version code: " + R.version_code
 	R._set_visual_quality(-1)
 	add_child(tween)
 	$ScreenStretch/Logo.play_intro()
@@ -45,7 +49,13 @@ func _process(delta):
 	$ScreenStretch/About/PanelContainer/ScrollContainer.scroll_vertical += delta * current_scroll_speed
 
 
-func _input(e):
+func _input(e: InputEvent):
+	if e.is_action_pressed(CHEAT_MENU_CODE[cheat_menu_code_index]):
+		cheat_menu_code_index += 1
+		if cheat_menu_code_index >= len(CHEAT_MENU_CODE):
+			get_tree().change_scene("res://CheatCodes.tscn")
+	else:
+		cheat_menu_code_index = 0
 	if e.is_action_pressed("ui_down"):
 		if $ScreenStretch/About.visible:
 			current_scroll_speed = SCROLL_SPEED

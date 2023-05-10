@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://MenuBG.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/bg0.png" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://images/controls.png" type="Texture" id=11]
 [ext_resource path="res://ScreenStretch.gd" type="Script" id=12]
 [ext_resource path="res://ThemeSmallerText.tres" type="Theme" id=13]
+[ext_resource path="res://CheatIndicator.tscn" type="PackedScene" id=14]
+[ext_resource path="res://essential/default_font_b.tres" type="DynamicFont" id=15]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 content_margin_left = 16.0
@@ -131,7 +133,10 @@ margin_top = 16.0
 margin_right = -16.0
 bbcode_enabled = true
 
+[node name="CheatIndicator" parent="ScreenStretch" instance=ExtResource( 14 )]
+
 [node name="About" type="ColorRect" parent="ScreenStretch"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.752941 )
@@ -157,8 +162,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScreenStretch/About/PanelContainer/ScrollContainer"]
-margin_right = 912.0
-margin_bottom = 1848.0
+margin_right = 944.0
+margin_bottom = 708.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 13 )
@@ -279,6 +284,16 @@ text = "×"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VersionCode" type="Label" parent="ScreenStretch"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 15 )
+align = 1
+valign = 1
 
 [connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button" to="." method="_on_Button_mouse_entered" binds= [ 0 ]]
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button" to="." method="_on_Play_pressed"]

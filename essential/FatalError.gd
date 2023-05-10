@@ -4,6 +4,7 @@ func _ready():
 	if !R.html:
 		$ScreenStretch/ColorRect/VBoxContainer/Button.text = "Quit game"
 	$ScreenStretch/ColorRect/VBoxContainer/Button.grab_focus()
+	$ScreenStretch/ColorRect/VBoxContainer/BuildCode.text = "The build code of this version is %s." % R.VERSION_CODE
 
 func set_reason(text):
 	$ScreenStretch/ColorRect/VBoxContainer/Reason.set_text(text)

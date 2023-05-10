@@ -1,4 +1,7 @@
 extends Node
+
+const VERSION_CODE = "05-10-HANGS-READING"
+
 ### "Root", for data that every page should have.
 signal change_audience_count(audience_count)
 
@@ -33,6 +36,7 @@ var DEFAULT_CFG = {
 	hide_room_code_ingame = false,
 	awesomeness = true,
 	currency_format = "fmt_usd.json",
+	cheat_codes_active = [],
 }
 
 const DEFAULT_SAVE = {
@@ -75,7 +79,8 @@ const DEFAULT_SAVE = {
 	misc = {
 		cuss_history = [],
 		guests_seen = [],
-	}
+		cheat_codes_unlocked = [],
+	},
 }
 var save_data = DEFAULT_SAVE.duplicate(true)
 
@@ -212,6 +217,7 @@ func get_high_score(ep_id: String):
 
 
 func submit_high_score(score: int, accuracy: float):
+	if not (get_settings_value("cheat_codes_active").empty()): return
 	if not (pass_between.episode_data.filename in save_data.history.keys()):
 		init_high_score(pass_between.episode_data.filename)
 	var edited_high_score: bool = false
@@ -239,6 +245,12 @@ func submit_high_score(score: int, accuracy: float):
 				save_data.history[unlock].locked = false
 	if edited_high_score:
 		save_save_data()
+
+func unlock_all_episodes():
+	for filename in unlocks.keys():
+		for unlock in unlocks[filename]:
+			if save_data.history[unlock].locked:
+				save_data.history[unlock].locked = false
 
 ### currency formatting
 var currency_data = {
