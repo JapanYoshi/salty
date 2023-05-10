@@ -30,7 +30,7 @@
 [ext_resource path="res://fonts/title_normal.tres" type="DynamicFont" id=28]
 [ext_resource path="res://images/round2.png" type="Texture" id=29]
 [ext_resource path="res://fonts/icons_data.tres" type="DynamicFontData" id=30]
-[ext_resource path="res://fonts/display_regular_data.tres" type="DynamicFontData" id=31]
+[ext_resource path="res://images/final_scores.png" type="Texture" id=31]
 [ext_resource path="res://FinalPBox.gd" type="Script" id=32]
 [ext_resource path="res://fonts/body_bold_data.tres" type="DynamicFontData" id=33]
 [ext_resource path="res://fonts/timer_font.tres" type="DynamicFont" id=34]
@@ -52,6 +52,7 @@
 [ext_resource path="res://ThemeSettingOption.tres" type="Theme" id=50]
 [ext_resource path="res://audio/sfx/key_move.wav" type="AudioStream" id=51]
 [ext_resource path="res://achievements/Achievements.tscn" type="PackedScene" id=52]
+[ext_resource path="res://CheatIndicator.tscn" type="PackedScene" id=53]
 
 [sub_resource type="ShaderMaterial" id=30]
 shader = ExtResource( 46 )
@@ -253,7 +254,7 @@ tracks/4/keys = {
 resource_name = "final_standings"
 length = 6.0
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_position:x")
+tracks/0/path = NodePath("ScreenStretch/Cutscenes/Final/FinalScores:rect_position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -263,17 +264,17 @@ tracks/0/keys = {
 "times": PoolRealArray(  )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_position:y")
+tracks/1/path = NodePath("ScreenStretch/Cutscenes/Final/FinalScores:rect_position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( 564, -0.25, 0, 0, 0, 420, 0, 0, 0.25, -0.033, 128, -0.1, -2, 0.25, 0 ),
+"points": PoolRealArray( 438, -0.25, 0, 0, 0, 198, 0, 0, 0.25, -0.033, -24, -0.1, -2, 0.25, 0 ),
 "times": PoolRealArray( 0, 4.7, 5 )
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_scale")
+tracks/2/path = NodePath("ScreenStretch/Cutscenes/Final/FinalScores:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -285,7 +286,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.4, 0.4 ), Vector2( 0.4, 0.4 ), Vector2( 1.04, 1.04 ), Vector2( 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("ScreenStretch/Cutscenes/Final/Label:rect_rotation")
+tracks/3/path = NodePath("ScreenStretch/Cutscenes/Final/FinalScores:rect_rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -297,7 +298,7 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0, 2.8 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("ScreenStretch/Cutscenes/Final/Label:modulate")
+tracks/4/path = NodePath("ScreenStretch/Cutscenes/Final/FinalScores:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -457,7 +458,7 @@ tracks/17/path = NodePath("ScreenStretch/Cutscenes/Color:color")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
-tracks/17/enabled = true
+tracks/17/enabled = false
 tracks/17/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -1078,19 +1079,10 @@ corner_radius_top_right = 80
 corner_radius_bottom_right = 80
 corner_radius_bottom_left = 80
 
-[sub_resource type="DynamicFont" id=20]
-size = 240
-outline_color = Color( 0, 0, 0, 1 )
-use_filter = true
-extra_spacing_top = -32
-extra_spacing_bottom = -32
-font_data = ExtResource( 31 )
-fallback/0 = ExtResource( 30 )
-
 [sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 35 )
 shader_param/blur_center = Vector2( 0.5, 0.05 )
-shader_param/blur_power = 0.015
+shader_param/blur_power = 0.02
 shader_param/ray_color = Vector3( 1, 0.993, 0.561 )
 
 [sub_resource type="StyleBoxFlat" id=23]
@@ -1307,6 +1299,7 @@ flip_v = true
 [node name="ScreenStretch" parent="." instance=ExtResource( 43 )]
 
 [node name="Standard" parent="ScreenStretch" instance=ExtResource( 1 )]
+visible = false
 
 [node name="Cutscenes" type="Control" parent="ScreenStretch"]
 anchor_right = 1.0
@@ -1316,7 +1309,7 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="Color" type="TextureRect" parent="ScreenStretch/Cutscenes"]
-modulate = Color( 0, 0, 0, 1 )
+modulate = Color( 0.211765, 0.360784, 0.270588, 1 )
 material = SubResource( 30 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1562,7 +1555,6 @@ scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 40 )
 
 [node name="Final" type="ColorRect" parent="ScreenStretch/Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -1571,7 +1563,6 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="ScreenStretch/Cutscenes/Final"]
-modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -1590,45 +1581,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ScreenStretch/Cutscenes/Final"]
-modulate = Color( 0, 0, 0, 1 )
+[node name="FinalScores" type="TextureRect" parent="ScreenStretch/Cutscenes/Final"]
+modulate = Color( 0.313726, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -850.713
-margin_top = 204.0
-margin_right = 835.287
-margin_bottom = 687.01
-rect_min_size = Vector2( 1600, 120 )
-rect_scale = Vector2( 0.4, 0.4 )
-rect_pivot_offset = Vector2( 852.714, 220.612 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 20 )
-text = "FINAL
-SCORES"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = -768.0
+margin_top = -384.0
+margin_right = 768.0
+margin_bottom = 384.002
+rect_min_size = Vector2( 1536, 768 )
+rect_rotation = 2.8
+rect_pivot_offset = Vector2( 768, 384 )
+texture = ExtResource( 31 )
+expand = true
+stretch_mode = 6
 
 [node name="Filter" type="ColorRect" parent="ScreenStretch/Cutscenes/Final"]
 material = SubResource( 22 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.866667 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0.913725, 0.819608, 0.607843, 0.619608 )
 
 [node name="FinalLeaderboard" type="VBoxContainer" parent="ScreenStretch/Cutscenes/Final"]
-modulate = Color( 0.592157, 0.4, 0.231373, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 240.0
-margin_bottom = 240.0
-rect_scale = Vector2( 0.5, 0.5 )
 rect_pivot_offset = Vector2( 640, 360 )
 custom_constants/separation = 0
 alignment = 1
@@ -1703,7 +1681,6 @@ align = 2
 valign = 1
 
 [node name="CreditBox" type="Panel" parent="ScreenStretch/Cutscenes"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 620.0
@@ -1857,6 +1834,9 @@ __meta__ = {
 visible = false
 margin_left = -222.0
 margin_right = -6.0
+
+[node name="CheatIndicator" parent="ScreenStretch" instance=ExtResource( 53 )]
+position = Vector2( 952, 680 )
 
 [node name="SubManager" parent="." instance=ExtResource( 6 )]
 __meta__ = {
