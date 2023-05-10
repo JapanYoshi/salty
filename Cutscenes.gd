@@ -5,6 +5,7 @@ onready var logo = $Logo
 onready var tween = $Tween
 onready var backdrop = $Color
 onready var vignette = $Circle
+var achieve: Node # Episode.gd sets this
 
 var ranking
 
@@ -120,7 +121,7 @@ func show_final_leaderboard():
 	# calculate the placement of each player, taking ties into account.
 	for i in range(len(ranking)):
 		if ranking[i].score == 0:
-			get_parent().achieve.increment_progress("score_0", 1)
+			achieve.increment_progress("score_0", 1)
 		var placement = i
 		while placement > 0 and ranking[placement - 1].score == ranking[i].score:
 			ranking[i].tied = true
@@ -232,10 +233,10 @@ func show_final_leaderboard():
 	R.submit_high_score(ranking[0].score, best_accuracy)
 	# Achievements: Cumulative score
 	if ranking[0].score > 0:
-		get_parent().achieve.increment_progress("score_cumulative", ranking[0].score)
+		achieve.increment_progress("score_cumulative", ranking[0].score)
 	# Achievements: Perfect score
 	if len(ranking) == 1 and best_accuracy == 1.0:
-		get_parent().achieve.increment_progress("perfect", 1)
+		achieve.increment_progress("perfect", 1)
 	
 	$CreditBox.load_credits()
 #	anim.play("credits_roll", 0, 0.001, false)
