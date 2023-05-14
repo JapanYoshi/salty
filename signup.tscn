@@ -802,6 +802,7 @@ __meta__ = {
 [node name="LoadingIndicator" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 25 )
 
 [node name="LoadingProgress" type="Label" parent="LoadingIndicator"]
