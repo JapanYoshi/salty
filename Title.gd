@@ -17,7 +17,7 @@ var cheat_menu_code_index: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$ScreenStretch/VersionCode.text = "Version code: " + R.version_code
+	$ScreenStretch/VersionCode.text = "Version code: " + R.VERSION_CODE
 	R._set_visual_quality(-1)
 	add_child(tween)
 	$ScreenStretch/Logo.play_intro()
@@ -50,12 +50,14 @@ func _process(delta):
 
 
 func _input(e: InputEvent):
-	if e.is_action_pressed(CHEAT_MENU_CODE[cheat_menu_code_index]):
-		cheat_menu_code_index += 1
-		if cheat_menu_code_index >= len(CHEAT_MENU_CODE):
-			get_tree().change_scene("res://CheatCodes.tscn")
-	else:
-		cheat_menu_code_index = 0
+	if e.is_pressed():
+		if e.is_action_pressed(CHEAT_MENU_CODE[cheat_menu_code_index]):
+			cheat_menu_code_index += 1
+			if cheat_menu_code_index >= len(CHEAT_MENU_CODE):
+				get_tree().change_scene("res://CheatCodes.tscn")
+		else:
+			cheat_menu_code_index = 0
+	print(cheat_menu_code_index)
 	if e.is_action_pressed("ui_down"):
 		if $ScreenStretch/About.visible:
 			current_scroll_speed = SCROLL_SPEED

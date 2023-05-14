@@ -135,6 +135,9 @@ bbcode_enabled = true
 
 [node name="CheatIndicator" parent="ScreenStretch" instance=ExtResource( 14 )]
 
+[node name="Label" parent="ScreenStretch/CheatIndicator" index="0"]
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
 [node name="About" type="ColorRect" parent="ScreenStretch"]
 visible = false
 anchor_right = 1.0
@@ -306,3 +309,5 @@ valign = 1
 [connection signal="mouse_entered" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Button_mouse_entered" binds= [ 4 ]]
 [connection signal="pressed" from="ScreenStretch/VBoxContainer/Button5" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="ScreenStretch/About/Close" to="." method="_on_Close_pressed"]
+
+[editable path="ScreenStretch/CheatIndicator"]
