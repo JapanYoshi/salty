@@ -9,6 +9,7 @@ var start_time: int = 0
 onready var LoadingIndicator: Control = $LoadingIndicator
 
 func _ready():
+	$Confirm.hide()
 	LoadingIndicator.get_node("LoadingProgress").hide()
 	status_label.set_text("Preparing to download questions for " + R.pass_between.episode_data.episode_name + "...")
 	
@@ -47,9 +48,10 @@ func _ready():
 	else:
 		waiting_to_start = true
 		status_label.set_text(
-			"Do you want to pre-download the {0} questions that are not locally cached yet? Press Enter/㍝ to confirm."\
+			"Do you want to pre-download the {0} questions that are not locally cached yet?"\
 			.format([len(questions)])
 		)
+		$Confirm.show()
 		S.play_track(0, 0)
 		S.play_track(1, 1)
 		S.play_track(2, 0)
@@ -64,6 +66,7 @@ func _input(e: InputEvent):
 		return
 
 func start_downloading():
+	$Confirm.hide()
 	waiting_to_start = false
 	status_label.set_text("Preloading {0} questions. This can be canceled at any time.".format([len(questions)]))
 	update_loading_progress()
@@ -134,3 +137,7 @@ func update_loading_progress():
 func _on_leave_page():
 	# probably don't need to abort the connection so eagerly
 	pass
+
+
+func _on_Confirm_pressed():
+	start_downloading()
