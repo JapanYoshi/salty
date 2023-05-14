@@ -246,11 +246,22 @@ func submit_high_score(score: int, accuracy: float):
 	if edited_high_score:
 		save_save_data()
 
-func unlock_all_episodes():
+# returns whether or not the save data was changed
+func unlock_episode(episode_to_unlock: String) -> bool:
+	if episode_to_unlock in save_data.history and save_data.history[episode_to_unlock].locked:
+		save_data.history[episode_to_unlock].locked = false
+		return true
+	return false
+
+# returns whether or not the save data was changed
+func unlock_all_episodes() -> bool:
+	var change: bool = false
 	for filename in unlocks.keys():
 		for unlock in unlocks[filename]:
 			if save_data.history[unlock].locked:
+				change = true
 				save_data.history[unlock].locked = false
+	return change
 
 ### currency formatting
 var currency_data = {
