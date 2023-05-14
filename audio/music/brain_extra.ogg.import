@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/brain_extra.ogg-d506c4d2342edf794688c7bd44003989.oggstr"
+
+[deps]
+
+source_file="res://audio/music/brain_extra.ogg"
+dest_files=[ "res://.import/brain_extra.ogg-d506c4d2342edf794688c7bd44003989.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
