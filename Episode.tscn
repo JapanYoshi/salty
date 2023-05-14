@@ -1961,33 +1961,33 @@ custom_fonts/font = ExtResource( 16 )
 text = "Paused"
 align = 2
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label2" type="Label" parent="Pause/NprContainer/NinePatchRect"]
 anchor_right = 1.0
 margin_left = 64.0
-margin_top = 128.0
+margin_top = 110.0
 margin_right = -64.0
-margin_bottom = 176.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 640, 64 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_constants/line_spacing = -5
 custom_fonts/font = ExtResource( 11 )
 text = "You have paused 0 time(s) this game."
+autowrap = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pause/NprContainer/NinePatchRect"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 64.0
-margin_top = -232.0
+margin_top = -206.0
 margin_right = -64.0
-margin_bottom = -56.0
+margin_bottom = -60.0
 
 [node name="Button2" type="Button" parent="Pause/NprContainer/NinePatchRect/HBoxContainer"]
 margin_right = 318.0
-margin_bottom = 176.0
+margin_bottom = 146.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 13 )
 custom_styles/hover = ExtResource( 18 )
@@ -2002,7 +2002,7 @@ __meta__ = {
 [node name="Button" type="Button" parent="Pause/NprContainer/NinePatchRect/HBoxContainer"]
 margin_left = 322.0
 margin_right = 640.0
-margin_bottom = 176.0
+margin_bottom = 146.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 13 )
 custom_styles/hover = ExtResource( 18 )

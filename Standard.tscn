@@ -416,7 +416,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.3, 1 ),
 "update": 0,
-"values": [ 40.0, -36.0 ]
+"values": [ 36.0, -36.0 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Title:modulate:a")
@@ -674,7 +674,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 16, -36 ), Vector2( 16, 40 ) ]
+"values": [ Vector2( 16, -36 ), Vector2( 16, 36 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("Value:modulate:a")
@@ -1466,12 +1466,8 @@ bbcode_text = "To [code]sleep(1);[/code] Perchance to Dream htoe hutsnae hutnoeh
 meta_underlined = false
 text = "To sleep(1); Perchance to Dream htoe hutsnae hutnoeh untaeo hutneao huntaoe uheoanu haneot"
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Value" type="RichTextLabel" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 16.0
 margin_top = -36.0
 margin_right = 376.0
