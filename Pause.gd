@@ -48,12 +48,12 @@ func _move_randomly(delta):
 
 
 func pause_modal(player_number, device_index):
-	if ep.penalize_pausing and not("no_pause_penalty" in R.get_settings_value("cheat_codes_active")):
+	if ep.penalize_pausing:
 		paused_times += 1
 		if paused_times >= 3:
 			var rand = R.rng.randf()
 			var thres = (paused_times - 3) / 5.0
-			if rand < thres:
+			if rand < thres and not("no_pause_penalty" in R.get_settings_value("cheat_codes_active")):
 				print("too many pauses")
 				ep.too_many_pauses()
 				C.disconnect("gp_button", self, "_gp_button")
@@ -64,21 +64,36 @@ func pause_modal(player_number, device_index):
 	else:
 		$NprContainer/NinePatchRect/Sprite.show()
 		number_label.set_text("%d" % (player_number + 1))
-	match paused_times:
-		0:
-			count_label.set_text("What now, contestant?")
-		1:
-			count_label.set_text("Don’t pause too much during a question.")
-		2:
-			count_label.set_text("Busy? Come back soon.")
-		3:
-			count_label.set_text("You’re being a bit suspicious right now.")
-		4:
-			count_label.set_text("The host is getting upset.")
-		5:
-			count_label.set_text("You’re on thin ice.")
-		_:
-			count_label.set_text("Dude, why are you doing this?")
+	if "no_pause_penalty" in R.get_settings_value("cheat_codes_active"):
+		match paused_times:
+			0:
+				count_label.set_text("You have the “infinite pauses” cheat code on.")
+			1:
+				count_label.set_text("You paused once this game.")
+			2:
+				count_label.set_text("You paused twice this game.")
+			3:
+				count_label.set_text("Normally, the third pause onward may get you DQ’d.")
+			8:
+				count_label.set_text("Normally, the 8th pause onward is a guaranteed DQ.")
+			_:
+				count_label.set_text("Abusing the cheat code, you paused %d times." % paused_times)
+	else:
+		match paused_times:
+			0:
+				count_label.set_text("What now, contestant?")
+			1:
+				count_label.set_text("Don’t pause too much during a question.")
+			2:
+				count_label.set_text("Busy? Come back soon.")
+			3:
+				count_label.set_text("You’re being a bit suspicious right now.")
+			4:
+				count_label.set_text("The host is getting upset.")
+			5:
+				count_label.set_text("You’re on thin ice.")
+			_:
+				count_label.set_text("Dude, why are you doing this?")
 	_on_size_changed()
 	show()
 	anim.play("show")
