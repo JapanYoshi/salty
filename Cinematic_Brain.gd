@@ -36,22 +36,26 @@ func _on_AnimationPlayer2_animation_finished(anim_name):
 	if anim_name == "intro":
 		emit_signal("intro_ended")
 
-func show_question():
+func tween_boxes(delays: PoolIntArray):
 	anim.play("question_enter")
+	for i in range(6):
+		_tween_nth_box(i, delays[i] * 1000.0)
+	tween.start()
 
-func tween_nth_box(n: int):
+func _tween_nth_box(n: int, delay_sec: float):
 	var c = $Qbox.get_child(n)
 	tween.interpolate_property(
 		c, "rect_scale",
 		Vector2.ZERO, Vector2.ONE,
-		0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT,
+		delay_sec
 	)
 	tween.interpolate_property(
 		c, "rect_position",
 		c.rect_position + Vector2.RIGHT * 128, c.rect_position,
-		0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT
+		0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT,
+		delay_sec
 	)
-	tween.start()
 
 func show_question_text():
 	tween.interpolate_property(

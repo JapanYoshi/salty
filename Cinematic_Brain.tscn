@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Cinematic_Brain.gd" type="Script" id=1]
 [ext_resource path="res://ThemeQuestion.theme" type="Theme" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://fonts/postit_bolditalic.tres" type="DynamicFont" id=11]
 [ext_resource path="res://fonts/postit_bold.tres" type="DynamicFont" id=12]
 [ext_resource path="res://images/brain_box2.png" type="Texture" id=13]
-[ext_resource path="res://images/brain_template.png" type="Texture" id=14]
 [ext_resource path="res://images/brain_box1.png" type="Texture" id=15]
 [ext_resource path="res://images/brain_box0.png" type="Texture" id=16]
 
@@ -403,11 +402,6 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -241.5, -175.5 )
 texture = ExtResource( 3 )
 offset = Vector2( 10, 70 )
-
-[node name="BrainTemplate" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 14 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Qbox")

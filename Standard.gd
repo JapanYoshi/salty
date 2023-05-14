@@ -33,6 +33,7 @@ const musics: Dictionary = {
 	"S": ["sort_intro", "sort_base", "sort_extra", "sort_outro"],
 	"G": ["gibberish_intro", "gibberish_base", "gibberish_extra", "gibberish_end"],
 	"T": ["thousand_intro", "thousand_loop", "tick_loop"],
+	"B": ["brain_intro", "brain_base", "brain_extra", "brain_outro"],
 	"L": ["like_loop_base", "like_loop_ingame", "like_outro"],
 	"R": [
 		"rush_intro",
@@ -147,7 +148,7 @@ func set_buzz_in(enabled):
 #			if len(R.audience_keys):
 #				Ws.connect("remote_typing", self, "_on_gib_audience_submit")
 		# lifesaver button
-		elif question_type in ["N", "C", "O"]:
+		elif question_type in ["N", "C", "O", "B"]:
 			if R.get_lifesaver_count() > 0:
 				$LSButton.show()
 	else:
@@ -158,7 +159,7 @@ func set_buzz_in(enabled):
 		if question_type in ["G"]:
 			$TouchButton.hide()
 		# lifesaver button
-		elif question_type in ["N", "C", "O"]:
+		elif question_type in ["N", "C", "O", "B"]:
 			$LSButton.hide()
 
 func stop_remote_buzz_in():
@@ -222,7 +223,7 @@ func _gp_button(input_player, button, pressed):
 		!is_audience and can_buzz_in
 	):
 		match question_type:
-			"N", "C", "O":
+			"N", "C", "O", "B":
 				if not pressed: return
 				if (
 					no_answer_audience.find(player)
@@ -688,6 +689,19 @@ func change_stage(next_stage):
 				point_value = 300 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true) + "×7")
 				$Value.show()
+			"B":
+				$BG/Noise.set_process(true)
+				$BG/Noise.show()
+				$BG/Color.modulate = Color("#a4576d")
+				bgs.B = load("res://Cinematic_Brain.tscn").instance()
+				$BG.add_child(bgs.B)
+				bgs.B.init()
+				bgs.B.show()
+				$Options.set_theme(theme_normal)
+				hud.enable_lifesaver(true)
+				point_value = 1500 * (1 if question_number < 6 else 2)
+				$Value.set_text(R.format_currency(point_value, true))
+				$Value.show()
 			"C":
 				$BG/Noise.set_process(true)
 				$BG/Noise.show()
@@ -790,12 +804,16 @@ func change_stage(next_stage):
 				})
 				point_value = 36000 / (4 * 5)
 				Fb.connect("remote_finale", self, "_on_remote_finale")
-		if question_type in ["N", "C", "O", "T"]:
-			question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
-			question.bbcode_text = ""
-			question.visible_characters = 0
-			for el in question_queue:
-				question.bbcode_text += el.text
+		if question_type in ["N", "C", "O", "T", "B"]:
+			if question_type == "B":
+				bgs.B.set_fields(data.cards.t, data.question.t.strip_edges())
+			else:
+				question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
+				question.bbcode_text = ""
+				question.visible_characters = 0
+				for el in question_queue:
+					question.bbcode_text += el.text
+			
 			for i in range(0, 4):
 				option_boxes[i].set_content(
 					data.options.t[i]
@@ -812,7 +830,7 @@ func change_stage(next_stage):
 			ep.send_scene(
 				"thousand" if question_type == "T" else
 				"candy" if question_type == "C" else
-				# TODO: Implement Rage question type on controller
+				"brain" if question_type == "B" else
 				"rage" if question_type == "O" else
 				"normal", {
 				"question": question.bbcode_text,
@@ -860,6 +878,14 @@ func change_stage(next_stage):
 		stage = "intro"
 		bgs.O.connect("intro_ended", self, "intro_O_ended", [], CONNECT_ONESHOT)
 		bgs.O.intro()
+	# brain intro
+	elif stage == "title" and next_stage == "preintro_B":
+		stage = "preintro_B"
+		S.play_voice("preintro")
+	elif stage == "preintro_B" and next_stage == "intro_B":
+		stage = "intro"
+		bgs.B.connect("intro_ended", self, "intro_B_ended", [], CONNECT_ONESHOT)
+		bgs.B.intro()
 	# sorta kinda intro
 	elif stage == "title" and next_stage == "intro_S":
 		stage = "intro"
@@ -928,12 +954,19 @@ func change_stage(next_stage):
 		stage = "question"
 		hud.slide_playerbar(true)
 		if question_type == "N":
-			S.play_multitrack("reading_question_base", true, "reading_question_extra", true)
+			S.play_multitrack("reading_question_base", 1.0, "reading_question_extra", 1.0)
 		elif question_type == "C":
 			S.play_track(0, 1.0)
 			S.play_track(1, 1.0)
 		elif question_type == "O":
 			S.play_multitrack("rage_loop", 0.5)
+		elif question_type == "B":
+			S.play_multitrack("brain_base", 0.5, "brain_extra", 0.0)
+			bgs.B.tween_boxes(data.cards.delay)
+			S.play_voice("cards")
+			ep.send_scene('showQuestion')
+			ep.set_pause_penalty(true)
+			return
 		else:
 			# Implementing a new question type, are we?
 			breakpoint
@@ -947,7 +980,10 @@ func change_stage(next_stage):
 		stage = "options"
 		S.play_sfx("option_show")
 		S.play_voice("options")
-		anim.play("question_shrink")
+		if question_type == "B":
+			bgs.B.question_shrink()
+		else:
+			anim.play("question_shrink")
 		for i in range(4):
 			option_boxes[i].enter(i)
 		set_buzz_in(true)
@@ -962,6 +998,9 @@ func change_stage(next_stage):
 			S.play_track(2, true)
 		elif question_type == "O":
 			S.play_multitrack("rage_answer_now", 1.0)
+		elif question_type == "B":
+			S.play_track(0, 0.8)
+			S.play_track(1, 0.8)
 		else:
 			# Implementing a new question type, are we?
 			breakpoint
@@ -1153,6 +1192,8 @@ func change_stage(next_stage):
 			S.play_music("candy_base", 1.0)
 		elif question_type == "O":
 			S.play_music("rage_outro", 1.0)
+		elif question_type == "B":
+			S.play_music("brain_outro", 1.0)
 		else:
 			# Implementing a new question type, are we?
 			breakpoint
@@ -1169,8 +1210,9 @@ func change_stage(next_stage):
 		ep.send_scene('endQuestion')
 		S.play_sfx("question_leave")
 		# all the question types with question text, title, or point value
-		if question_type in ["N", "C", "O", "T", "G", "S"]:
-			anim.play("question_exit")
+		#if question_type in ["N", "C", "O", "T", "G", "S", "B"]:
+		anim.play("question_exit")
+		#endif (should be inaccessible from finale anyway)
 		$Vignette.close()
 #		if question_number != 5:
 #			$Vignette.connect("tween_finished", self, "show_loading_logo", [], CONNECT_ONESHOT)
@@ -1185,24 +1227,11 @@ func change_stage(next_stage):
 			print("DEBUG PRINT WAIT FOR VIGNETTE")
 			yield(get_tree(), "idle_frame")
 		print("DEBUG PRINT UNLOAD BG")
-		if question_type == "T" or question_type == "G":
-			if is_instance_valid(bgs.G):
-				bgs.G.queue_free()
-		elif question_type == "S":
-			if is_instance_valid(bgs.S):
-				bgs.S.queue_free()
-		elif question_type == "R":
-			if is_instance_valid(bgs.R):
-				bgs.R.queue_free()
-		elif question_type == "L":
-			if is_instance_valid(bgs.L):
-				bgs.L.queue_free()
-		elif question_type == "C":
-			if is_instance_valid(bgs.C):
-				bgs.C.queue_free()
-		elif question_type == "O":
-			if is_instance_valid(bgs.O):
-				bgs.O.queue_free()
+		# TQQ reuses Gibberish background
+		var q_to_unload = "G" if question_type == "T" else question_type
+		if q_to_unload != "N":
+			if is_instance_valid(bgs[q_to_unload]):
+				bgs[q_to_unload].queue_free()
 		emit_signal("question_done")
 	elif next_stage == "before_countdown":
 		# just finished revealing lifesaver decoys
@@ -1236,8 +1265,9 @@ func _on_voice_end(voice_id):
 				anim.play("title_exit")
 				#stage("intro") # This happens when the animation stops playing
 		"preintro_O":
-			# so far, only Old Man has preintro line
 			change_stage("intro_O")
+		"preintro_B":
+			change_stage("intro_B")
 		"intro":
 			# is this a Candy Trivia, and if so, is there a candy joke?
 			if question_type == "C" and data.has("setup"):
@@ -1412,6 +1442,9 @@ func _on_voice_end(voice_id):
 			change_stage("rush_stage")
 		
 		"question":
+			if question_type == "B" and voice_id == "cards":
+				S.play_voice("question")
+				bgs.B.show_question_text()
 			change_stage("options")
 		"options":
 			change_stage("countdown")
@@ -1636,7 +1669,7 @@ func _on_anim_finished(anim_name):
 	if anim_name == "title_exit":
 		anim.play("title_reenter")
 		match question_type:
-			"N", "S", "C", "O":
+			"N", "S", "C", "O", "B":
 				pass
 				#anim.play("title_reenter")
 			"G":
@@ -1657,6 +1690,9 @@ func _on_anim_finished(anim_name):
 			"O":
 				$Qbox/Candy.hide()
 				change_stage("preintro_O")
+			"B":
+				$Qbox/Candy.hide()
+				change_stage("preintro_B")
 	elif anim_name == "finale_enter":
 		if question_type == "R":
 			change_stage("intro_R")
@@ -1672,7 +1708,7 @@ func _on_question_time_up():
 		kb.submit()
 		return
 	# Some special question types should not play default "time up" sound effect.
-	if question_type in ["N", "C", "L"]:
+	if question_type in ["N", "C", "L", "B"]:
 		S.play_sfx("time_up")
 	change_stage("reveal")
 
@@ -1698,6 +1734,11 @@ func intro_O_ended():
 	$BG/Noise.hide()
 	# question
 	S.play_multitrack("rage_loop", 0.5)
+	S.play_voice("intro")
+
+func intro_B_ended():
+	# question
+	S.play_multitrack("brain_base", 0.5)
 	S.play_voice("intro")
 
 # Sorta Kinda intro ended.
