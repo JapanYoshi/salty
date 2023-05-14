@@ -3,13 +3,15 @@ extends ColorRect
 class CheatCode:
 	var sequence: PoolByteArray
 	var cheat_code: String
+	var run_once: bool
 	var cheat_name: String
 	var description: String
 	var on_string: String
 	var off_string: String
-	func _init(sequence: PoolByteArray, cheat_code: String = "new_cheat", cheat_name: String = "New Cheat Code", description: String = "No description", on_string: String = "on", off_string: String = "off"):
+	func _init(sequence: PoolByteArray, cheat_code: String = "new_cheat", run_once: bool = false, cheat_name: String = "New Cheat Code", description: String = "No description", on_string: String = "on", off_string: String = "off"):
 		self.sequence = sequence
 		self.cheat_code = cheat_code
+		self.run_once = run_once
 		self.cheat_name = cheat_name
 		self.description = description
 		self.on_string = on_string
@@ -20,28 +22,40 @@ onready var CHEAT_CODE_INPUTS = [ # classes may not be const
 	CheatCode.new(
 		PoolByteArray([0, 1, 3, 3, 1, 2, 2, 0]),
 		"no_pause_penalty",
+		false,
 		"No Pause Penalty",
 		"Normally, you can only pause up to a certain number of times per game before you get kicked out. This cheat code disables this feature, so that you can play with time to your heart’s content."
 	),
 	CheatCode.new(
 		PoolByteArray([1, 0, 0, 2, 1, 3, 3, 0]),
 		"no_wrong_penalty",
+		false,
 		"No Wrong Penalty",
 		"Normally, you lose money when you answer wrong. Enabling this cheat code will prevent you from these penalties."
 	),
 	CheatCode.new(
+		PoolByteArray([1, 0, 2, 0, 3, 1, 2, 3]),
+		"unlock_episode_004",
+		true,
+		"Unlock Episode 4",
+		"You unlocked Episode 4 without playing Episodes 1 through 3!"
+	),
+	CheatCode.new(
 		PoolByteArray([2, 1, 3, 0, 0, 1, 2, 2]),
 		"unlock_all_episodes",
+		true,
 		"Unlock All Episodes",
-		"Once you go back to the title screen, you will get all episodes unlocked without playing the game."
+		"You unlocked all episodes unlocked without playing the game!"
 	),
 	CheatCode.new(
 		PoolByteArray([3, 1, 3, 0, 2, 2, 2, 0]),
 		"unlock_all_achievements",
+		true,
 		"Unlock All Achievements",
-		"Once you go back to the title screen, you will get all achievements unlocked instantly."
+		"You got all achievements unlocked instantly!"
 	),
 ]
+var CHEAT_CODE_BUTTONS = []
 const CHEAT_CODE_INDEX = {
 	"ui_select": 0,
 	"ui_action": 1,
@@ -54,6 +68,9 @@ var input_mode: int = 0
 
 var unlocked_temp: Array = R.get_save_data_item("misc", "cheat_codes_unlocked", [])
 var active_temp: Array = R.get_settings_value("cheat_codes_active")
+
+var savedata_changed: bool = false
+var settings_changed: bool = false
 
 var focus_index: int = -1
 
@@ -68,6 +85,7 @@ onready var arcade = $ScreenStretch/CheatCodePad/CheatArcade
 onready var code_bg = $ScreenStretch/CheatCodePad/CheatArcade/Screen/TextBox
 onready var code_box = $ScreenStretch/CheatCodePad/CheatArcade/Screen/TextBox/Code
 onready var retry_timer = $ScreenStretch/CheatCodePad/RetryTimer
+onready var bg = $ScreenStretch/CheatCodePad/Bg
 
 func _get_unlock_state(cheat_code: String) -> bool:
 	return cheat_code in unlocked_temp
@@ -79,17 +97,53 @@ func _set_active_state(cheat_code: String, activated: bool):
 	if activated:
 		if active_temp.has(cheat_code): return
 		active_temp.push_back(cheat_code)
+		settings_changed = true
 	else:
 		var i = active_temp.find(cheat_code)
 		if i == -1: return
 		active_temp.remove(i)
+		settings_changed = true
 
 func _unlock_cheat(cc: CheatCode):
+	_cheat_get_dialog(cc)
+	if cc.run_once:
+		match cc.cheat_code:
+			"unlock_episode_004":
+				savedata_changed = savedata_changed or R.unlock_episode("ep_004")
+			"unlock_all_episodes":
+				savedata_changed = savedata_changed or R.unlock_all_episodes()
+			"unlock_all_achievements":
+				var achievement_list = Loader.get_achievement_list()
+				for k in achievement_list.keys():
+					var existing_save = R.get_save_data_item("achievements", k, {progress=0, achieved=false, date=0})
+					if existing_save.achieved: continue
+					savedata_changed = true
+					R.set_save_data_item("achievements", k, {
+						"progress": achievement_list[k].steps,
+						"achieved": true,
+						"date": 0,
+					})
+			_:
+				printerr("Unimplemented run_once cheat!")
+		return
 	unlocked_temp.push_back(cc.cheat_code)
 	var element = vbox_children[cc.cheat_code]
 	element.get_node("VBox/HSplit/Label").set_text(cc.cheat_name)
 	element.get_node("VBox/HSplit/value").text = cc.off_string
 	element.get_node("VBox/HSplit/SBox").disabled = false
+
+func _cheat_get_dialog(cc: CheatCode):
+	var box = $ScreenStretch/CheatCodePad/CheatGet
+	box.get_node("name").set_text(cc.cheat_name)
+	if cc.run_once:
+		box.get_node("desc").set_text(cc.description)
+	else:
+		box.get_node("desc").set_text("Try enabling the cheat code you just got by selecting it in the cheat code list.")
+	var btween = box.get_node("Tween")
+	btween.stop_all()
+	btween.interpolate_property(box, "rect_scale", Vector2.ZERO, Vector2.ONE, 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+	btween.interpolate_property(box, "rect_scale", Vector2.ONE, Vector2.ZERO, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT, 3)
+	btween.start()
 
 func _ready():
 	S.play_music("main_theme", 1.0)
@@ -101,23 +155,27 @@ func _ready():
 #		unlocked_temp = []
 	# populate list of cheat codes
 	for i in range(len(CHEAT_CODE_INPUTS)):
-		var element: Node = vbox.get_node("Bool")
+		if CHEAT_CODE_INPUTS[i].run_once: continue
+		CHEAT_CODE_BUTTONS.push_back(i)
+		var element: Control = vbox.get_node("Bool")
 		if i > 0:
 			element = element.duplicate()
 			vbox.add_child(element)
+		element.connect("mouse_entered", self, "_change_focus", [len(vbox_children)])
 		var checkbox = element.get_node("VBox/HSplit/SBox") as CheckBox
-		checkbox.set_pressed_no_signal(_get_active_state(CHEAT_CODE_INPUTS[i].cheat_code))
-		checkbox.connect("toggled", self, "_on_check_toggled", [i])
-		checkbox.connect("focus_entered", self, "_change_focus", [i])
-		vbox.move_child(element, i + 1)
 		if _get_unlock_state(CHEAT_CODE_INPUTS[i].cheat_code):
 			element.get_node("VBox/HSplit/Label").set_text(CHEAT_CODE_INPUTS[i].cheat_name)
 			element.get_node("VBox/HSplit/value").text = CHEAT_CODE_INPUTS[i].on_string if _get_active_state(CHEAT_CODE_INPUTS[i].cheat_code) else CHEAT_CODE_INPUTS[i].off_string
 			checkbox.disabled = false
+			checkbox.set_pressed_no_signal(_get_active_state(CHEAT_CODE_INPUTS[i].cheat_code))
 		else:
 			element.get_node("VBox/HSplit/Label").set_text("Enter password to unlock this cheat code.")
 			element.get_node("VBox/HSplit/value").text = "N/A"
 			checkbox.disabled = true
+			checkbox.set_pressed_no_signal(false)
+		checkbox.connect("toggled", self, "_on_check_toggled", [i])
+		checkbox.connect("focus_entered", self, "_change_focus", [i])
+		vbox.move_child(element, i + 1)
 		vbox_children[CHEAT_CODE_INPUTS[i].cheat_code] = element
 	
 	_change_focus(0, false)
@@ -128,9 +186,9 @@ func _change_focus(index: int, sound: bool = true):
 	focus_index = index
 	if sound:
 		S.play_sfx("menu_move")
-	var cc = CHEAT_CODE_INPUTS[index]
+	var cc = CHEAT_CODE_INPUTS[CHEAT_CODE_BUTTONS[index]]
 	vbox_children[cc.cheat_code].get_node("VBox/HSplit/SBox").grab_focus()
-	if _get_unlock_state(cc.cheat_name):
+	if _get_unlock_state(cc.cheat_code):
 		$ScreenStretch/CheatCodeList/Details/V/Name.text = cc.cheat_name
 		$ScreenStretch/CheatCodeList/Details/V/Desc.bbcode_text = (cc.description)
 	else:
@@ -139,18 +197,18 @@ func _change_focus(index: int, sound: bool = true):
 		
 
 func _on_check_toggled(button_pressed: bool, index: int):
-	var cc = CHEAT_CODE_INPUTS[index]
+	var cc = CHEAT_CODE_INPUTS[CHEAT_CODE_BUTTONS[index]]
 	var element = vbox_children[cc.cheat_code]
 	
 	_set_active_state(cc.cheat_code, button_pressed)
 	S.play_sfx("rush_o" + ("n" if button_pressed else "ff"))
 	element.get_node("VBox/HSplit/value").text = cc.on_string if button_pressed else cc.off_string
 
-func _on_option_mouse_entered(extra_arg_0):
-	var element = vbox_children[CHEAT_CODE_INPUTS[extra_arg_0].cheat_code]
+func _on_option_mouse_entered(index):
+	var element = vbox_children[CHEAT_CODE_INPUTS[CHEAT_CODE_BUTTONS[index]].cheat_code]
 	var cb: Node = element.get_node("VBox/HSplit/SBox") as CheckBox
 	cb.grab_focus()
-	_change_focus(extra_arg_0)
+	_change_focus(index)
 
 func _input(event):
 	if tween.is_active(): return
@@ -170,12 +228,18 @@ func _paginate(to_pad: bool):
 		Vector2(-1280 if to_pad else 0, 0),
 		0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT
 	)
-#	tween.interpolate_property(
-#		pg_pad, "rect_position",
-#		Vector2(1280 if to_pad else 0, 0),
-#		Vector2(0 if to_pad else 1280, 0),
-#		0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
-#	)
+	tween.interpolate_property(
+		bg, "rect_position",
+		Vector2(-7 if to_pad else -313, -129 if to_pad else -584),
+		Vector2(-313 if to_pad else -7, -584 if to_pad else -129),
+		0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
+	tween.interpolate_property(
+		bg, "rect_scale",
+		Vector2.ONE * (0.75 if to_pad else 1),
+		Vector2.ONE * (1 if to_pad else 0.75),
+		0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT
+	)
 	tween.interpolate_property(
 		arcade, "position",
 		Vector2(800 if to_pad else 256, -128 if to_pad else -292),
@@ -276,31 +340,17 @@ func _on_Details_gui_input(event):
 func _back_to_title():
 	input_mode = -1
 	S.play_track(0, 0)
-	var unlock_eps: int = active_temp.find("unlock_all_episodes")
-	if unlock_eps != -1:
-		active_temp.remove(unlock_eps)
-		R.unlock_all_episodes()
-	var unlock_ach: int = active_temp.find("unlock_all_achievements")
-	if unlock_ach != -1:
-		active_temp.remove(unlock_ach)
-		var achievement_list = Loader.get_achievement_list()
-		for k in achievement_list.keys():
-			var existing_save = R.get_save_data_item("achievements", k, {progress=0, achieved=false, date=0})
-			if existing_save.achieved: continue
-			R.set_save_data_item("achievements", k, {
-				"progress": achievement_list[k].steps,
-				"achieved": true,
-				"date": 0,
-			})
 	
 	tween.interpolate_property(pg_pad, "rect_scale", Vector2.ONE, Vector2.ONE * 1.05, 0.5)
 	tween.interpolate_property(pg_list, "rect_scale", Vector2.ONE, Vector2.ONE * 1.2, 0.5)
 	tween.interpolate_property(self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	yield(get_tree().create_timer(0.5), "timeout")
-	R.set_settings_value("cheat_codes_active", active_temp)
-	R.set_save_data_item("misc", "cheat_codes_unlocked", unlocked_temp)
-	R.save_settings()
-	R.save_save_data()
+	if savedata_changed:
+		R.set_save_data_item("misc", "cheat_codes_unlocked", unlocked_temp)
+		R.save_save_data()
+	if settings_changed:
+		R.set_settings_value("cheat_codes_active", active_temp)
+		R.save_settings()
 # warning-ignore:return_value_discarded
 	get_tree().change_scene("res://Title.tscn")
