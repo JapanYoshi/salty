@@ -14,14 +14,12 @@ func init():
 	if R.get_settings_value("cutscenes"):
 		anim.seek(0, true)
 		hide()
-	if R.get_settings_value("graphics_quality") < 1:
-		$Particles.hide()
-	else:
-		$Particles.show()
 
 func set_fields(items: PoolStringArray, question: String):
 	for i in range(6):
-		$Qbox.get_child(i).bbcode_text = "[center]%s[/center]" % items[i]
+		var note = $Qbox/box.get_child(i)
+		note.rect_scale = Vector2.ZERO
+		note.get_child(0).get_child(0).bbcode_text = "[center]%s[/center]" % items[i]
 	$Qbox/Question.bbcode_text = question
 	$Qbox/Question.visible_characters = 0
 
@@ -39,11 +37,11 @@ func _on_AnimationPlayer2_animation_finished(anim_name):
 func tween_boxes(delays: PoolIntArray):
 	anim.play("question_enter")
 	for i in range(6):
-		_tween_nth_box(i, delays[i] * 1000.0)
+		_tween_nth_box(i, delays[i] / 1000.0)
 	tween.start()
 
 func _tween_nth_box(n: int, delay_sec: float):
-	var c = $Qbox.get_child(n)
+	var c = $Qbox/box.get_child(n)
 	tween.interpolate_property(
 		c, "rect_scale",
 		Vector2.ZERO, Vector2.ONE,
@@ -52,10 +50,24 @@ func _tween_nth_box(n: int, delay_sec: float):
 	)
 	tween.interpolate_property(
 		c, "rect_position",
-		c.rect_position + Vector2.RIGHT * 128, c.rect_position,
+		c.rect_position + Vector2.DOWN * 256, c.rect_position,
 		0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT,
 		delay_sec
 	)
+	if n % 2 == 0:
+		var s = $Qbox/BrainBlank.get_child(n / 2)
+		tween.interpolate_property(
+			s, "scale",
+			Vector2.ZERO, Vector2.ONE,
+			0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT,
+			delay_sec
+		)
+		tween.interpolate_property(
+			s, "rotation",
+			-0.3 if n else 0.3, 0,
+			0.3, Tween.TRANS_CUBIC, Tween.EASE_OUT,
+			delay_sec
+		)
 
 func show_question_text():
 	tween.interpolate_property(

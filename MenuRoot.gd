@@ -109,7 +109,7 @@ func load_episode(ep):
 		])
 		return
 	var question_types = {
-		"n": 0, "s": 0, "c": 0, "t": 0, "g": 0, "o": 0, "l": 0, "r": 0
+		"n": 0, "s": 0, "c": 0, "b": 0, "t": 0, "g": 0, "o": 0, "l": 0, "r": 0
 	}
 	R.rng.randomize()
 	# If the last question ID is blank or begins with "RNG_",
@@ -175,6 +175,16 @@ func load_episode(ep):
 					q_id[q] = Loader.random_questions_of_type("o", 1)[0]
 					search_order.remove(i)
 					print("Add random Rage Question:\n", q_id)
+					break
+	if len(search_order) > 0:
+		# * A 12/128 chance for Big Brain Storming ("b")
+		if question_types["b"] == 0 and randi() % 128 < 12:
+			for i in range(len(search_order)):
+				var q = search_order[i]
+				if "o" in q_id[q]:
+					q_id[q] = Loader.random_questions_of_type("b", 1)[0]
+					search_order.remove(i)
+					print("Add random Big Brain Storming:\n", q_id)
 					break
 	if len(search_order) > 0:
 		# * Rest are all normal 4-choicers / Shorties ("n")

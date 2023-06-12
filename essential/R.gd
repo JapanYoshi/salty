@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION_CODE = "05-10-HANGS-READING"
+const VERSION_CODE = "05-19-AMONG-ARRIVES"
 
 ### "Root", for data that every page should have.
 signal change_audience_count(audience_count)

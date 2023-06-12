@@ -48,6 +48,19 @@ func _ready():
 	add_child(http_request)
 	r_separator.compile("\\[#\\d+#\\]")
 	rng.randomize()
+	# preload question cache list
+	var dir: Directory = Directory.new()
+	var file: File = File.new()
+	var exists: bool = dir.file_exists(q_cache_path + "_cached_questions.csv")
+	if exists:
+		file.open(q_cache_path + "_cached_questions.csv", File.READ)
+		var text: String = file.get_as_text()
+		for id in text.split(",", false):
+			cached[id] = true
+	else:
+		file.open(q_cache_path + "_cached_questions.csv", File.WRITE)
+		file.store_string("")
+	file.close()
 	# var dir: Directory = Directory.new()
 	# if !(dir.dir_exists(q_cache_path)):
 	# 	dir.make_dir_recursive(q_cache_path)
@@ -82,18 +95,43 @@ func is_question_cached(id):
 
 func append_question_cache(id):
 	cached[id] = true
+	
+	var file: File = File.new()
+	file.open(q_cache_path + "_cached_questions.csv", File.READ_WRITE)
+	file.seek_end()
+	file.store_string(",")
+	file.store_string(id)
+	file.close()
 
 
-func remove_from_question_cache(id):
+func remove_from_question_cache(id, save_text_file: bool = true):
 	cached[id] = false
 	var dir = Directory.new()
 	dir.remove(q_cache_path + q_cache_filename % id)
+	
+	if !save_text_file: return
+	var file: File = File.new()
+	file.open(q_cache_path + "_cached_questions.csv", File.WRITE)
+	var not_first: bool = false
+	for id in cached:
+		if cached[id]:
+			if not_first:
+				file.store_string(",")
+			else:
+				not_first = true
+			file.store_string(id)
+	file.close()
 
 
 func clear_question_cache():
 	var dir = Directory.new()
 	for id in cached:
-		remove_from_question_cache(id)
+		remove_from_question_cache(id, false)
+	
+	var file: File = File.new()
+	file.open(q_cache_path + "_cached_questions.csv", File.WRITE)
+	file.store_string("")
+	file.close()
 
 
 func mount_cached_question(id):
@@ -488,6 +526,15 @@ func load_question(id, first_question: bool, q_box: Node):
 			keys = [
 				"pretitle", "title", "preintro", "intro",
 				"question",
+				"options", "option0", "option1", "option2", "option3",
+				"used_lifesaver",
+				"reveal", "reveal_crickets", "reveal_jinx",
+				"reveal_split", "reveal_correct", "outro"
+			]
+		"B":
+			keys = [
+				"pretitle", "title", "preintro", "intro",
+				"cards", "question",
 				"options", "option0", "option1", "option2", "option3",
 				"used_lifesaver",
 				"reveal", "reveal_crickets", "reveal_jinx",

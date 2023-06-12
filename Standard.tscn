@@ -1270,7 +1270,6 @@ expand = true
 stretch_mode = 7
 
 [node name="QNum" type="Sprite" parent="BG"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
 position = Vector2( 640, 360 )
 texture = ExtResource( 1 )
 hframes = 4

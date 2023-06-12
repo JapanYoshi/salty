@@ -628,6 +628,7 @@ func change_stage(next_stage):
 		hud.reset_all_playerboxes()
 		#hud.slide_playerbar(false)
 		reset_answers()
+		$BG/QNum.modulate = Color(0.5, 0.5, 0.5, 0.5)
 		$BG/QNum.hide()
 		# Which mode next?
 		for k in musics[question_type]:
@@ -692,7 +693,9 @@ func change_stage(next_stage):
 			"B":
 				$BG/Noise.set_process(true)
 				$BG/Noise.show()
-				$BG/Color.modulate = Color("#a4576d")
+				$BG/QNum.frame = question_number + 1
+				$BG/QNum.show()
+				$BG/Color.modulate = Color("#3b2a22")
 				bgs.B = load("res://Cinematic_Brain.tscn").instance()
 				$BG.add_child(bgs.B)
 				bgs.B.init()
@@ -738,7 +741,6 @@ func change_stage(next_stage):
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
 				bgs.G.set_process(true)
-				bgs.G.connect("checkpoint", self, "_on_TextTick_checkpoint")
 				bgs.G.init_gibberish(
 					data.gib_genre.t if data.gib_genre.t else "phrase",
 					data.question.t,
@@ -766,7 +768,7 @@ func change_stage(next_stage):
 				$BG.add_child(bgs.G)
 				bgs.G.set_process(true)
 				bgs.G.init_thousand()
-				bgs.G.connect('checkpoint', self, "T_checkpoint")
+				bgs.G.connect('time_up', self, "T_checkpoint")
 				bgs.G.show()
 				$Options.set_theme(theme_normal)
 				hud.enable_lifesaver(false)
@@ -827,15 +829,21 @@ func change_stage(next_stage):
 					responses[i] = 0
 			revealed_count = 0
 			timer.initialize(15)
+			var q_data = {
+				"question": question.bbcode_text,
+				"options": data.options.t
+			}
+			if question_type == "B":
+				q_data.question = data.question.t # doesn't use the question element, and has no timestamps to filter out
+				q_data.cards = data.cards.t
 			ep.send_scene(
 				"thousand" if question_type == "T" else
 				"candy" if question_type == "C" else
 				"brain" if question_type == "B" else
 				"rage" if question_type == "O" else
-				"normal", {
-				"question": question.bbcode_text,
-				"options": data.options.t
-			})
+				"normal",
+				q_data
+			)
 		if anim.is_playing():
 			yield(anim, "animation_finished")
 		finish_loading_screen()
@@ -886,6 +894,8 @@ func change_stage(next_stage):
 		stage = "intro"
 		bgs.B.connect("intro_ended", self, "intro_B_ended", [], CONNECT_ONESHOT)
 		bgs.B.intro()
+		var tween = get_tree().create_tween()
+		tween.tween_property($BG/QNum, "modulate", Color.transparent, 0.6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	# sorta kinda intro
 	elif stage == "title" and next_stage == "intro_S":
 		stage = "intro"
@@ -961,7 +971,7 @@ func change_stage(next_stage):
 		elif question_type == "O":
 			S.play_multitrack("rage_loop", 0.5)
 		elif question_type == "B":
-			S.play_multitrack("brain_base", 0.5, "brain_extra", 0.0)
+			S.play_track(1, 0.5)
 			bgs.B.tween_boxes(data.cards.delay)
 			S.play_voice("cards")
 			ep.send_scene('showQuestion')
@@ -999,8 +1009,8 @@ func change_stage(next_stage):
 		elif question_type == "O":
 			S.play_multitrack("rage_answer_now", 1.0)
 		elif question_type == "B":
-			S.play_track(0, 0.8)
-			S.play_track(1, 0.8)
+			S.play_track(0, 1)
+			S.play_track(1, 1)
 		else:
 			# Implementing a new question type, are we?
 			breakpoint
@@ -1212,6 +1222,8 @@ func change_stage(next_stage):
 		# all the question types with question text, title, or point value
 		#if question_type in ["N", "C", "O", "T", "G", "S", "B"]:
 		anim.play("question_exit")
+		if question_type == "B":
+			bgs.B.question_exit()
 		#endif (should be inaccessible from finale anyway)
 		$Vignette.close()
 #		if question_number != 5:
@@ -1445,7 +1457,8 @@ func _on_voice_end(voice_id):
 			if question_type == "B" and voice_id == "cards":
 				S.play_voice("question")
 				bgs.B.show_question_text()
-			change_stage("options")
+			else:
+				change_stage("options")
 		"options":
 			change_stage("countdown")
 		"reveal":
@@ -1738,7 +1751,7 @@ func intro_O_ended():
 
 func intro_B_ended():
 	# question
-	S.play_multitrack("brain_base", 0.5)
+	S.play_multitrack("brain_base", 0.5, "brain_extra", 0.0)
 	S.play_voice("intro")
 
 # Sorta Kinda intro ended.
@@ -1945,9 +1958,6 @@ func S_show_answer():
 func S_answer_shown():
 	S.stop_voice()
 	S_show_question()
-
-func _on_TextTick_checkpoint():
-	printerr("DEPRECATED")
 
 func G_checkpoint(id: int):
 	match id:
