@@ -4,6 +4,8 @@ var mode = "T"
 var count: int = 0
 var max_value: int = 1000 * 1000 # 1000 dollars per question
 var value: int = 0
+var counting_down: bool = false
+var time: float = 0.0
 
 # used to move the nonsense phrase into view while typing
 const outside_y: float = -48.0
@@ -12,7 +14,7 @@ const question_up_y: float = 4.0
 const question_y: float = 86.0
 
 signal intro_ended
-signal checkpoint(checkpoint)
+signal checkpoint(which)
 
 onready var dollars = $PriceBox/Label
 onready var anim = $AnimationPlayer
@@ -51,25 +53,35 @@ func _ready():
 	gib_anim.play("reset")
 	pass
 
+
+func _process(delta):
+	if !counting_down: return
+	var new_time = time + delta
+	anim.seek(new_time)
+	if floor(new_time * (1.0 if mode == "G" else 2.0))\
+	!= floor(time * (1.0 if mode == "G" else 2.0)):
+		update_price()
+	time = new_time
+
 func countdown(first_time: bool = false):
+	counting_down = true
 	if mode == "T":
-		anim.play("countdown")
+		anim.set_current_animation("countdown")
 	else:
 		if first_time:
 			gib_bars[0].flip_in(tween, 0.0, 10.0)
 			tween.start()
-		anim.play("countdown_gib")
+		anim.set_current_animation("countdown_gib")
 
 func countdown_pause(paused: bool = true):
 	if paused:
+		counting_down = false
 		anim.stop(false) # stop without seeking back to 0s
-	else:
-		if anim.current_animation == "countdown":
-			anim.play() # continue current animation
-		elif anim.current_animation == "countdown_gib":
-			anim.play() # continue current animation
-		else:
-			countdown()
+		return
+	counting_down = true
+	if anim.current_animation == "countdown" or anim.current_animation == "countdown_gib":
+		return
+	countdown()
 
 func init_thousand():
 	mode = "T"; count = 0; max_value = 1_000_000; value = max_value;
@@ -144,7 +156,7 @@ func show_price():
 	anim.play("entry")
 
 func update_price():
-	count = round(anim.current_animation_position * 2)
+	count = round(time * 2)
 	# TQQs tick twice every second. AOSs tick once every second, but goes in 2s.
 	var dollar_tween = $PriceBox/Tween
 	dollar_tween.stop_all()
@@ -167,26 +179,28 @@ func update_price():
 			if count >= 110.0 and int(count) & 1 == 0:
 				S.play_sfx("time_close")
 		elif count == 120.0: # Time's up
-			value = 0
-			anim.stop(false)
-			emit_signal("checkpoint", 0)
+			counting_down = false
+			emit_signal("checkpoint", 0) # signal to Standard.gd
 		dollars.set_text(R.format_currency(value, true, 3))
 		print(str(count) + ": The question is worth " + str(value) + " points.")
 	elif mode == "G":
 		value = int(max_value * (80.0 - count) / 80.0)
 		match count:
 			20:
-				emit_signal("checkpoint", 0)
+				emit_signal("checkpoint", 0) # signal to Standard.gd
+				_on_TextTick_checkpoint(0)
 			40:
-				emit_signal("checkpoint", 1)
+				emit_signal("checkpoint", 1) # signal to Standard.gd
+				_on_TextTick_checkpoint(1)
 			60:
-				emit_signal("checkpoint", 2)
+				emit_signal("checkpoint", 2) # signal to Standard.gd
+				_on_TextTick_checkpoint(2)
 			70, 72, 74, 76, 78:
 				S.play_sfx("time_close")
 			80:
-				emit_signal("checkpoint", 3) # signals to Standard.gd
+				emit_signal("checkpoint", 3) # signal to Standard.gd
 				S.play_sfx("time_up")
-				anim.stop(false)
+				counting_down = false
 #			_:
 #				pass
 		dollars.set_text(R.format_currency(value, true))
@@ -302,7 +316,6 @@ func thou_tute_set_value():
 func _on_TextTick_checkpoint(checkpoint):
 	print("DEBUG: Checkpoint %d reached." % checkpoint)
 	if mode == "G":
-		if checkpoint >= 3: return
 		gib_clue(checkpoint)
 		gib_bars[checkpoint + 1].flip_in(
 			tween, float(checkpoint + 1) * 10.0, float(checkpoint + 2) * 10.0
