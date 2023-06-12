@@ -473,6 +473,13 @@ texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
+[node name="RatingCover" type="ColorRect" parent="."]
+margin_left = 624.0
+margin_top = 648.0
+margin_right = 1080.0
+margin_bottom = 696.0
+color = Color( 0, 0, 0, 1 )
+
 [node name="LogoContainer" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5

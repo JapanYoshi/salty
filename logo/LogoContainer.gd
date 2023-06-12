@@ -1,5 +1,6 @@
 extends Control
 onready var anim: AnimationPlayer = $AnimationPlayer
+var title_loader: ResourceInteractiveLoader
 var title: PackedScene
 var ready_to_play_intro: bool = false
 # Animated logo for hai!touch Studios.
@@ -7,9 +8,20 @@ var ready_to_play_intro: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("LogoContainer._ready()")
+	title_loader = ResourceLoader.load_interactive("res://Title.tscn")
 	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
 	anim.play("rating_fadein")
+	call_deferred("_check_title_loader")
+
+
+func _check_title_loader():
+	if title_loader.poll() != ERR_FILE_EOF:
+		call_deferred("_check_title_loader")
+	else:
+		title = title_loader.get_resource()
+		get_parent().get_node("RatingCover").hide()
+		ready_to_play_intro = true
 
 
 func _on_size_changed():
@@ -23,10 +35,7 @@ func _on_size_changed():
 # Called when the logo is finished animating.
 # Also called when the user skips the logo.
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "rating_fadein":
-		title = load("res://Title.tscn")
-		ready_to_play_intro = true
-	elif anim_name == "fadeout":
+	if anim_name == "fadeout":
 		anim.play("haitouch")
 	elif anim_name == "haitouch":
 		anim.play("godot")
