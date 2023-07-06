@@ -834,7 +834,7 @@ func change_stage(next_stage):
 				"options": data.options.t
 			}
 			if question_type == "B":
-				q_data.question = data.question.t # doesn't use the question element, and has no timestamps to filter out
+				q_data.question = data.question.t # it doesn't use the question element, and qtext has no timestamps to filter out
 				q_data.cards = data.cards.t
 			ep.send_scene(
 				"thousand" if question_type == "T" else

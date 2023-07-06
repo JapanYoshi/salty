@@ -1,0 +1,86 @@
+{
+  "episode_name": "Bittersweet Love",
+  "episode_id": "E5",
+  "episode_desc": "Aww, it seems like Candy’s in love! But will it last? The fact that we’re asking should clue you in a bit, because in this very special episode, Hell hath no fury like a woman scorned.",
+  "audio": {
+    "welcome": {
+      "v": "welcome",
+      "s": "[b]Candy:[/b] Hi, I’m Candy Barre, and have I told you about my dear boyfriend Kyle? Oh, you gotta meet him some time soon, but probably after we finish this episode of Salty Trivia with Candy Barre."
+    },
+    "player_1": {
+      "v": "default"
+    },
+    "player_2": {
+      "v": "default"
+    },
+    "player_3": {
+      "v": "default"
+    },
+    "player_4": {
+      "v": "default"
+    },
+    "lifesaver": {
+      "v": "default"
+    },
+    "lifesaver_tute0": {
+      "v": "default"
+    },
+    "lifesaver_tute1": {
+      "v": "default"
+    },
+    "lifesaver_tute2": {
+      "v": "default"
+    },
+    "lifesaver_tute3": {
+      "v": "default"
+    },
+    "intermission": {
+      "v": "intermission",
+      "s": "[b]Candy:[/b] That’s it for Round 1! Here’s what the scores look like for now. With enough money, you might not be single by the time you finish this game! Hahaha, it’s funny because I’m objectifying sexual partners as something you can buy. See ya later!"
+    },
+    "round2": {
+      "v": "welcome_back",
+      "s": "[b]Candy:[/b] Welcome back to Salty Trivia! I’m so glad that my boyfriend Kyle is watching this episode right now. Hey Kyle, see you after the show! (aside:) Stay positive. Trust and confidence. Stifle your doubt, Candy."
+    },
+    "round2_tute": {
+      "v": "default"
+    },
+    "lifesaver2": {
+      "v": "default"
+    },
+    "lifesaver2_tute0": {
+      "v": "default"
+    },
+    "lifesaver2_tute1": {
+      "v": "default"
+    },
+    "lifesaver2_tute2": {
+      "v": "default"
+    },
+    "outro_game": {
+      "v": "outro",
+      "s": "[b]Candy:[/b] Thanks for coming to this episode. I hope you now know how much of a dirty cheater Kyle is.[#5000#]I hope his rapping career never takes off.[#7640#]"
+    },
+    "outro_slam": {
+      "v": "outro_slam",
+      "s": "[b]Candy:[/b] Guys, the phone call was staged. Kyle isn’t even a real person.[#2708#]We make up half this sh** that happens on this show."
+    }
+  },
+  "question_id": [
+    "n062",
+    "s010",
+    "n063",
+    "n064",
+    "n065",
+    "c015",
+
+    "b001",
+    "n066",
+    "n067",
+    "g013",
+    "n068",
+    "n069",
+    
+    "l005"
+  ]
+}
