@@ -542,6 +542,7 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 	for p in new_value.keys():
 		var slot = C.lookup_remote(p)
 		if slot == -1:
+			printerr("UUID ", p, " doesn't correspond to any players. Continuing...")
 			continue
 		if !old_value.has(p):
 			old_value[p] = {}
@@ -566,16 +567,19 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 						for i in range(7):
 							if (state >> i) & 1:
 								C.inject_button(slot, i, true)
+						prints("Player", slot, "input", old_value[p].input, "->", state)
 						# overwrite with 0 to reset button state
 						if state != 0:
 							all_players_ref.update({p + "/input": 0})
+						new_value[p].input = 0
 					"inputText":
-						print("inputText ", p, " ", new_value[p].inputText)
+						prints("Player", slot, "inputText", old_value[p].inputText, "->", new_value[p].inputText)
 						var player = R.slot2player(slot)
 						emit_signal("remote_typing", new_value[p].inputText, player)
 					"inputFinale":
-						print("inputFinale ", p, " ", new_value[p].inputFinale)
+						prints("Player", slot, "inputFinale", old_value[p].inputFinale, "->", new_value[p].inputFinale)
 						emit_signal("remote_finale", new_value[p].inputFinale, slot)
+		old_value[p] = new_value[p]
 #	var result = yield(all_players_ref.fetch(), "completed")
 
 # Listen for any changes in the reference holding the players' data.
@@ -596,11 +600,11 @@ func _all_audience_ref_changed(snapshot: FirebaseDataSnapshot):
 		if new_value[p] is Dictionary:
 			for k in new_value[p].keys():
 				if !old_value.has(k):
-					print(p, " ", k, " (nothing) -> ", new_value[p][k])
+					prints("Audience", p, "key", k, " (nothing) ->", new_value[p][k])
 					#old_value[p][k] = new_value[p][k] # not necessary
 				elif old_value[p][k] != new_value[p][k]:
 					# messages
-					print(p, " ", k, " ", old_value[p][k], " -> ", new_value[p][k])
+					prints("Audience", p, "key", k, old_value[p][k], "->", new_value[p][k])
 				# input
 				# inputText
 				match k:
@@ -613,12 +617,15 @@ func _all_audience_ref_changed(snapshot: FirebaseDataSnapshot):
 						if state != 0:
 							all_players_ref.update({p + "/input": 0})
 					"inputText":
-						print("inputText ", p, " ", new_value[p].inputText)
+						# playalong
+						prints("inputText ", p, " ", new_value[p].inputText)
 						var player = R.slot2player(slot)
 						emit_signal("remote_typing", new_value[p].inputText, player)
 					"inputFinale":
-						print("inputFinale ", p, " ", new_value[p].inputFinale)
+						# playalong
+						prints("inputFinale ", p, " ", new_value[p].inputFinale)
 						emit_signal("remote_finale", new_value[p].inputFinale, slot)
+		old_value[p] = new_value[p]
 #	var result = yield(all_players_ref.fetch(), "completed")
 
 # Update the per-room scenes remotely.
