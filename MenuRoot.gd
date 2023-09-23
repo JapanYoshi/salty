@@ -326,10 +326,11 @@ func _load_question(q):
 #			R.crash("Loaded resource pack for question ID %s, but it seems to be incomplete.\n" % q + "Cause of failure: res://q/%s/_question.gdcfg does not exist." % q)
 #			return
 #		print("_load_question(%s): " % q, "Loading question text preemptively...")
-		var result = Loader.load_question_text(q)
-		if result:
-			R.crash(("Loading question text for %s" % q) + " failed with error code %d." % result)
-			return
+		Loader.load_question_text(q)
+#		var result: int = Loader.load_question_text(q)
+#		if result:
+#			R.crash(("Loading question text for %s" % q) + (" failed with error code %d." % result))
+#			return
 #		# check last file
 #		q = R.pass_between.episode_data.question_id[0]
 #		if !file.file_exists("res://q/%s/title.wav.import" % q):
