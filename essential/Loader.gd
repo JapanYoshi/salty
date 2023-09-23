@@ -424,23 +424,16 @@ func reset_question_text():
 	question_texts.clear()
 
 
-func load_question_text(id) -> int:
-	var failed_count: int = 3
+func load_question_text(id):
 	var file = ConfigFile.new()
 	# I changed the name of the file during Alpha development.
-	var err = ERR_FILE_NOT_FOUND
+	var err: int = ERR_FILE_NOT_FOUND
 	var path = question_path + id + "/_question.gdcfg"
 	print("Trying to load the following file... " + path)
-	while failed_count:
-		err = file.load(path)
-		if !err:
-			break
-		failed_count -= 1
-		printerr("Load failed: ", err)
-		yield(get_tree().create_timer(0.2), "timeout")
+	err = file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data `_question.gdcfg` for ID '" + id + "' is missing.")
-		return err
+		return #err
 	elif err == ERR_PARSE_ERROR:
 		print("Found it, but it could not be parsed")
 		var textfile = File.new()
@@ -448,16 +441,16 @@ func load_question_text(id) -> int:
 		print(textfile.get_as_text())
 		textfile.close()
 		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
-		return err
+		return #err
 	elif err != OK:
 		R.crash("Loading question data `_question.gdcfg` for ID '" + id + "' resulted in error code %d." % err)
-		return err
+		return #err
 	if len(file.get_sections()) == 0:
 		var textfile = File.new()
 		textfile.open(path, File.READ)
 		R.crash("Question data for ID '" + id + "' turned out empty. Text content:\n" + textfile.get_as_text())
 		textfile.close()
-		return ERR_FILE_EOF
+		return #ERR_FILE_EOF
 	question_texts[id] = {}
 	for section in file.get_sections():
 		if section == "root":
@@ -467,9 +460,9 @@ func load_question_text(id) -> int:
 			question_texts[id][section] = {}
 			for section_key in file.get_section_keys(section):
 				question_texts[id][section][section_key] = file.get_value(section, section_key)
-	if question_texts.has(id):
-		return OK
-	return ERR_SCRIPT_FAILED
+#	if question_texts.has(id):
+#		return OK
+#	return ERR_SCRIPT_FAILED
 
 
 func load_question(id, first_question: bool, q_box: Node):
