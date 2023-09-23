@@ -80,6 +80,7 @@ func preload_music(name):
 	var player = AudioStreamPlayer.new()
 	player.set_stream(music)
 	player.bus = "BGM"
+	player.set_volume_db(-6.0)
 	add_child(player)
 	music_dict[name] = player
 
@@ -145,6 +146,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
+	player.set_volume_db(linear2db(0.75))
 	add_child(player)
 	voice_list[key] = {
 		player = player,

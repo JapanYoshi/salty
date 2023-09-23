@@ -100,6 +100,7 @@ var room_code_hidden_count: int = 0
 onready var rc_player = $AudioStreamPlayer
 onready var bgm_tween = $AudioStreamPlayer/Tween
 onready var bgm_bus = AudioServer.get_bus_index("BGM")
+onready var init_bgm_vol = AudioServer.get_bus_volume_db(bgm_bus)
 func _set_bgm_volume(db: float):
 	AudioServer.set_bus_volume_db(bgm_bus, db)
 
@@ -108,7 +109,7 @@ func duck_bgm_volume(enabled: bool):
 	bgm_tween.interpolate_method(
 		self, "_set_bgm_volume",
 		AudioServer.get_bus_volume_db(bgm_bus),
-		-12.0 if enabled else 0.0,
+		min(-16.0, init_bgm_vol) if enabled else init_bgm_vol,
 		0.35
 	)
 	bgm_tween.start()
