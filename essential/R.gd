@@ -87,6 +87,9 @@ var save_data = DEFAULT_SAVE.duplicate(true)
 var unlocks = {
 	ep_001 = ["ep_002"],
 	ep_002 = ["ep_003"],
+	ep_003 = ["ep_004"],
+	ep_004 = ["ep_005"],
+	ep_005 = ["ep_006"],
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -375,12 +378,13 @@ func crash(reason):
 	audience_keys = []
 	
 # warning-ignore:return_value_discarded
-	get_tree().change_scene('res://essential/FatalError.tscn')
 	call_deferred(
 		"_deferred_crash", reason
 	)
 
 func _deferred_crash(reason):
+	get_tree().change_scene('res://essential/FatalError.tscn')
+	yield(get_tree(), "idle_frame")
 # warning-ignore:unsafe_method_access
 	get_tree().get_root().get_node('Error').set_reason(reason)
 	S.play_sfx("naughty")
