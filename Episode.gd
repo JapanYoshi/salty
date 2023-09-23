@@ -369,12 +369,14 @@ func play_intro():
 				S.play_voice("special_guest"); yield(S, "voice_end")
 				q_box.hud.reset_playerboxes([special_guest])
 				S.unload_voice("special_guest")
+		
+	var must_react_to_cuss = R.get_settings_value("cutscenes") and (special_guest < 0)
 	match len(censored_players):
 		0: # we deal with "more than 3" later
 			pass;
 		1:
 			achieve.increment_progress("cuss_name", 1)
-			if R.get_settings_value("cutscenes"):
+			if must_react_to_cuss:
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -389,13 +391,13 @@ func play_intro():
 #					'playerIndex': R.players[censored_players[0]].player_number,
 #					'isVip': false
 #				});
-			if R.get_settings_value("cutscenes"):
+			if must_react_to_cuss:
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				q_box.hud.reset_playerboxes(censored_players)
 				S.play_voice("give_name"); yield(S, "voice_end")
 		2, 3:
-			if R.get_settings_value("cutscenes"):
+			if must_react_to_cuss:
 				q_box.hud.highlight_players(censored_players)
 				S.play_sfx("option_highlight")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -440,7 +442,7 @@ func play_intro():
 #						'playerIndex': R.players[censored_players[i]].player_number,
 #						'isVip': false
 #					});
-			if R.get_settings_value("cutscenes"):
+			if must_react_to_cuss:
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
@@ -458,7 +460,7 @@ func play_intro():
 #						'isVip': false
 #					});
 			q_box.hud.punish_players(range(len(R.players)), 50001)
-			if R.get_settings_value("cutscenes"):
+			if must_react_to_cuss:
 				S.play_sfx("naughty")
 				yield(get_tree().create_timer(1.0), "timeout")
 				S.play_voice("give_multiple_names"); yield(S, "voice_end")
