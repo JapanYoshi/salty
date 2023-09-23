@@ -5,7 +5,7 @@
   "audio": {
     "welcome": {
       "v": "welcome",
-      "s": "[b]Candy:[/b] Hi, I’m Candy Barre, and have I told you about my dear boyfriend Kyle? Oh, you gotta meet him some time soon, but probably after we finish this episode of Salty Trivia with Candy Barre."
+      "s": "[b]Candy:[/b] Hi, I’m Candy Barre, and have I told you about my dear boyfriend Kyle?[#4456#]Oh, you gotta meet him some time soon,[#6230#]but probably after we finish this episode of Salty Trivia with Candy Barre."
     },
     "player_1": {
       "v": "default"
@@ -36,11 +36,11 @@
     },
     "intermission": {
       "v": "intermission",
-      "s": "[b]Candy:[/b] That’s it for Round 1! Here’s what the scores look like for now. With enough money, you might not be single by the time you finish this game! Hahaha, it’s funny because I’m objectifying sexual partners as something you can buy. See ya later!"
+      "s": "[b]Candy:[/b] That’s it for Round 1! Here’s what the scores look like for now.[#3250#]With enough money, you might not be single by the time you finish this game![#6600#]Hahaha, it’s funny because I’m objectifying sexual partners as something you can buy.[#11616#]See ya later!"
     },
     "round2": {
       "v": "welcome_back",
-      "s": "[b]Candy:[/b] Welcome back to Salty Trivia! I’m so glad that my boyfriend Kyle is watching this episode right now. Hey Kyle, see you after the show! (aside:) Stay positive. Trust and confidence. Stifle your doubt, Candy."
+      "s": "[b]Candy:[/b] Welcome back to Salty Trivia![#1823#]I’m so glad that my boyfriend Kyle is watching this episode right now.[#5161#]Hey Kyle, see you after the show![#7239#][i][aside][/i] Stay positive. Trust and confidence. Stifle your doubt, Candy."
     },
     "round2_tute": {
       "v": "default"
@@ -67,20 +67,20 @@
     }
   },
   "question_id": [
-    "n062",
-    "s010",
-    "n063",
-    "n064",
-    "n065",
-    "c015",
+    "n070",
+    "n071",
+    "n072",
+    "g014",
+    "n073",
+    "n074",
 
-    "b001",
-    "n066",
-    "n067",
-    "g013",
-    "n068",
-    "n069",
+    "n075",
+    "n076",
+    "n077",
+    "s011",
+    "c016",
+    "n078",
     
-    "l005"
+    "l006"
   ]
 }

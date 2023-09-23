@@ -5,7 +5,7 @@
   "audio": {
     "welcome": {
       "v": "welcome",
-      "s": "[b]Candy:[/b] I’m your host Candy Barre, and I [i]would[/i] formally welcome you,[##]but I’ve ordered some food before this game started, and it’s still not here, so I’m going in skipping a meal.[##]So expect extra crankiness."
+      "s": "[b]Candy:[/b] I’m your host Candy Barre, and I [i]would[/i] formally welcome you,[#3026#]but I’ve ordered some food before this game started, and it’s still not here, so I’m going in skipping a meal.[#8097#]So expect extra crankiness."
     },
     "player_1": {
       "v": "default"
@@ -36,11 +36,11 @@
     },
     "intermission": {
       "v": "intermission",
-      "s": "[b]Candy:[/b] That’s all for Round 1. Let’s hope the food arrives real soon, because I’m getting impatient.[##][b]Daisy:[/b] Hey Candy, want some of mine?[##][b]Candy:[/b] Is it Heinz beans on toast again, like every single day?[##][b]Daisy:[/b] What? No.[##][b]Candy:[/b] Oh, that’s a relief.[##][b]Daisy:[/b] I put it in a cone today.[##][b]Candy:[/b] I refuse."
+      "s": "[b]Candy:[/b] That’s all for Round 1. Let’s hope the food arrives real soon, because I’m getting impatient.[#4751#][b]Daisy:[/b] Hey Candy, want some of mine?[#6160#][b]Candy:[/b] Is it Heinz beans on toast again, like every single day?[#9596#][b]Daisy:[/b] What? No.[#10760#][b]Candy:[/b] Oh, that’s a relief.[#12113#][b]Daisy:[/b] I put it in a cone.\n[b]Candy:[/b] I refuse."
     },
     "round2": {
       "v": "welcome_back",
-      "s": "[b]Candy:[/b] Oh, hey, you don’t seem like the delivery guy.[#2793#]Yeah. I’m still waiting for him to deliver that food I ordered.[#7320#]Where the hell is it?! We’re halfway through this episode and he STILL hasn’t arrived![#10656#][i](groan)[/i] Let’s just get on with this.[#13489#][i](clears throat)[/i][#15025#][i][exaggeratedly cheerful][/i] Welcome to Salty Trivia!"
+      "s": "[b]Candy:[/b] Oh, hey, you don’t seem like the delivery guy.[#2793#]Yeah. I’m still waiting for him to deliver that food I ordered. Where the hell is it?![#7320#]We’re halfway through this episode and he STILL hasn’t arrived![#10656#][i](groan)[/i] Let’s just get on with this.[#13489#][i](clears throat)[/i][#15025#][i][exaggeratedly cheerful][/i] Welcome to Salty Trivia!"
     },
     "round2_tute": {
       "v": "default"
@@ -58,8 +58,8 @@
       "v": "default"
     },
     "outro_game": {
-      "v": "outro",
-      "s": "[b]Candy:[/b] I’m back from absolutely demolishing my lunch![##][b]Daisy:[/b] I saw. It was the scariset thing I’ve ever seen.[##][b]Candy:[/b] I’m still pissed that it took this [i]entire game[/i] for my food to arrive.[##]Damn it, Uber, why do you make something this slow and release it to the public?![##]"
+      "v": "outro_game",
+      "s": "[b]Candy:[/b] I’m back from absolutely demolishing my lunch![#2369#][b]Daisy:[/b] I saw. It was the scariset thing I’ve ever seen.[#6408#][b]Candy:[/b] I’m still pissed that it took this [i]entire game[/i] for my food to arrive.[#10235#]Damn it, Uber, why do you make something this slow and release it to the public?![#14888#]"
     },
     "outro_slam": {
       "v": "outro_slam",
@@ -67,20 +67,20 @@
     }
   },
   "question_id": [
-    "n062",
-    "s010",
-    "n063",
-    "n064",
-    "n065",
-    "c015",
+    "n079",
+    "b002",
+    "n080",
+    "s012",
+    "n081",
+    "c017",
 
-    "b001",
-    "n066",
-    "n067",
-    "g013",
-    "n068",
-    "n069",
+    "n082",
+    "t006",
+    "o004",
+    "n083",
+    "g016",
+    "n084",
     
-    "l005"
+    "r010"
   ]
 }

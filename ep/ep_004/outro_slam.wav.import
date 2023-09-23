@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/outro_slam.wav-80abd3a357a64531feca96b58a48bbf4.sample"
+
+[deps]
+
+source_file="res://ep/ep_004/outro_slam.wav"
+dest_files=[ "res://.import/outro_slam.wav-80abd3a357a64531feca96b58a48bbf4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=1
