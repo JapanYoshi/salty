@@ -113,7 +113,7 @@ func remove_from_question_cache(id, save_text_file: bool = true):
 	var file: File = File.new()
 	file.open(q_cache_path + "_cached_questions.csv", File.WRITE)
 	var not_first: bool = false
-	for id in cached:
+	for id in cached.keys().sort():
 		if cached[id]:
 			if not_first:
 				file.store_string(",")
@@ -371,7 +371,9 @@ func load_episodes_list():
 			ep_name = ep_name.strip_edges()
 			var ep_file = File.new()
 			ep_file.open(episode_path + ep_name + "/ep.json", File.READ)
-			var result = JSON.parse(ep_file.get_as_text())
+			var result = JSON.parse(
+				remove_jsonc_comments(ep_file.get_as_text())
+			)
 			if result.error == OK:
 				episodes[ep_name] = result.result
 				episodes[ep_name].filename = ep_name
@@ -433,23 +435,27 @@ func load_question_text(id):
 	err = file.load(path)
 	if err == ERR_FILE_NOT_FOUND:
 		R.crash("Question data `_question.gdcfg` for ID '" + id + "' is missing.")
+		printerr("question id ", id, " has missing GDCFG")
+		yield(get_tree(), "idle_frame")
 		return #err
 	elif err == ERR_PARSE_ERROR:
-		print("Found it, but it could not be parsed")
 		var textfile = File.new()
 		textfile.open(path, File.READ)
-		print(textfile.get_as_text())
+		printerr("question id ", id, " has bad GDCFG:\n", textfile.get_as_text())
 		textfile.close()
 		R.crash("Question data for ID '" + id + "' cannot be parsed. Please look at the console for output.")
+		yield(get_tree(), "idle_frame")
 		return #err
 	elif err != OK:
 		R.crash("Loading question data `_question.gdcfg` for ID '" + id + "' resulted in error code %d." % err)
+		yield(get_tree(), "idle_frame")
 		return #err
 	if len(file.get_sections()) == 0:
 		var textfile = File.new()
 		textfile.open(path, File.READ)
-		R.crash("Question data for ID '" + id + "' turned out empty. Text content:\n" + textfile.get_as_text())
 		textfile.close()
+		R.crash("Question data for ID '" + id + "' turned out empty. Text content:\n" + textfile.get_as_text())
+		yield(get_tree(), "idle_frame")
 		return #ERR_FILE_EOF
 	question_texts[id] = {}
 	for section in file.get_sections():
