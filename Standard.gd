@@ -622,6 +622,7 @@ func change_stage(next_stage):
 		stage = "init"
 		print("CHANGE STAGE TO INIT")
 		can_buzz_in = false
+		$DebugQuestionID.set_text(get_parent().get_parent().episode_data.question_id[question_number])
 		question_type = data.type
 		title.bbcode_text = data.title.t
 		question.set_text("")
@@ -638,23 +639,27 @@ func change_stage(next_stage):
 		lifesaver_is_activated = false
 		match question_type:
 			"N":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
-				$BG/Color.modulate = [
-					Color("#ffffff"),
-					Color("#ff9514"),
-					Color("#306f18"),
-					Color("#fffdc0"),
-					Color("#363430"),
-					Color("#6ca780"),
-					
-					Color("#d01d27"),
-					Color("#010a31"),
-					Color("#efefee"),
-					Color("#3d4247"),
-					Color("#4d0708"),
-					Color("#f9f3f3"),
-				][question_number]
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
+					$BG/Color.modulate = [
+						Color("#ffffff"),
+						Color("#ff9514"),
+						Color("#306f18"),
+						Color("#fffdc0"),
+						Color("#363430"),
+						Color("#6ca780"),
+						
+						Color("#d01d27"),
+						Color("#010a31"),
+						Color("#efefee"),
+						Color("#3d4247"),
+						Color("#4d0708"),
+						Color("#f9f3f3"),
+					][question_number]
 				hud.enable_lifesaver(true)
 				$BG/QNum.frame = question_number + 1
 				$BG/QNum.show()
@@ -703,8 +708,12 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true) + "×7")
 				$Value.show()
 			"B":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
 				$BG/QNum.frame = question_number + 1
 				$BG/QNum.show()
 				$BG/Color.modulate = Color("#3b2a22")
@@ -718,9 +727,13 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"C":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
-				$BG/Color.modulate = Color("#a4576d")
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
+					$BG/Color.modulate = Color("#a4576d")
 				bgs.C = load("res://Cinematic_Candy.tscn").instance()
 				$BG.add_child(bgs.C)
 				bgs.C.init()
@@ -735,8 +748,12 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"O":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
 				$BG/Color.modulate = Color("#365c45")
 				bgs.O = load("res://Cinematic_Rage.tscn").instance()
 				$BG.add_child(bgs.O)
@@ -747,8 +764,12 @@ func change_stage(next_stage):
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
 			"G":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
 				$BG/Color.modulate = Color("#196892")
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
@@ -773,8 +794,12 @@ func change_stage(next_stage):
 				})
 				$Value.hide()
 			"T":
-				$BG/Noise.set_process(true)
-				$BG/Noise.show()
+				if R.get_settings_value("graphics_quality") == 0:
+					$BG/Noise.set_process(false)
+					$BG/Noise.hide()
+				else:
+					$BG/Noise.set_process(true)
+					$BG/Noise.show()
 				$BG/Color.modulate = Color("#675c49")
 				bgs.G = load("res://TextTick.tscn").instance()
 				$BG.add_child(bgs.G)
