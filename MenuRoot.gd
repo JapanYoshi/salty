@@ -327,6 +327,7 @@ func _load_question(q):
 #			return
 #		print("_load_question(%s): " % q, "Loading question text preemptively...")
 		Loader.load_question_text(q)
+		yield(get_tree(), "idle_frame")
 #		var result: int = Loader.load_question_text(q)
 #		if result:
 #			R.crash(("Loading question text for %s" % q) + (" failed with error code %d." % result))
