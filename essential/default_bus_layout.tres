@@ -7,7 +7,7 @@ gain = -0.5
 
 [sub_resource type="AudioEffectCompressor" id=2]
 resource_name = "Compressor"
-gain = -6.7
+gain = -9.0
 
 [sub_resource type="AudioEffectLimiter" id=3]
 resource_name = "Limiter"
