@@ -34,7 +34,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Qbox/BrainBlank/BrainString0:scale")
+tracks/1/path = NodePath("Qbox/BrainString0:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -46,7 +46,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Qbox/BrainBlank/BrainString1:scale")
+tracks/2/path = NodePath("Qbox/BrainString1:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -58,7 +58,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Qbox/BrainBlank/BrainString2:scale")
+tracks/3/path = NodePath("Qbox/BrainString2:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -764,20 +764,20 @@ position = Vector2( 516, -120 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 18 )
 
-[node name="BrainString0" type="Sprite" parent="Qbox/BrainBlank"]
-position = Vector2( -15, 24 )
+[node name="BrainString0" type="Sprite" parent="Qbox"]
+position = Vector2( 577, -96 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 17 )
 offset = Vector2( -172, 48 )
 
-[node name="BrainString1" type="Sprite" parent="Qbox/BrainBlank"]
-position = Vector2( 2, 28 )
+[node name="BrainString1" type="Sprite" parent="Qbox"]
+position = Vector2( 577, -96 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 14 )
 offset = Vector2( 4, 48 )
 
-[node name="BrainString2" type="Sprite" parent="Qbox/BrainBlank"]
-position = Vector2( 17, 25 )
+[node name="BrainString2" type="Sprite" parent="Qbox"]
+position = Vector2( 577, -96 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 17 )
 offset = Vector2( 170.671, 49.1124 )
