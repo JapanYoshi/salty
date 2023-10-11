@@ -421,25 +421,24 @@ func uuid_reset():
 	slot_dict.clear()
 
 ### Audience join (here because people might join/leave mid-game)
-# [TODO] Not implemented for Firebase
 
-func listen_for_audience_join():
+func listen_for_new_remote_join():
 	pass
 	if get_settings_value("room_openness") != 0 and get_settings_value("audience"):
-#		Ws.connect("player_joined", self, 'audience_join')
+#		Ws.connect("player_joined", self, 'new_remote_join')
 # warning-ignore:return_value_discarded
-		Fb.connect("player_joined", self, 'audience_join')
+		Fb.connect("player_joined", self, 'new_remote_join')
 #		Ws.connect('player_requested_nick', self, "give_audience_nick")
 
-func stop_listening_for_audience_join():
+func stop_listening_for_new_remote_join():
 	pass
-#	Ws.disconnect("player_joined", self, 'audience_join')
-	Fb.disconnect("player_joined", self, 'audience_join')
+#	Ws.disconnect("player_joined", self, 'new_remote_join')
+	Fb.disconnect("player_joined", self, 'new_remote_join')
 #	Ws.disconnect('player_requested_nick', self, "give_audience_nick")
 
-func audience_join(data):
+func new_remote_join(data):
 	# join as audience if permitted
-	if get_settings_value("audience"):
+	if not(data.name in Fb.players_list) and get_settings_value("audience"):
 		# accept
 		if not(data.name in audience_keys):
 			var device_number = C.add_controller(C.DEVICES.REMOTE, data.name)

@@ -261,6 +261,7 @@ func establish_room() -> bool:
 		just_finished = "establish_room"; emit_signal("finished")
 		return false
 	print(room_code + "Room established!")
+	print("FirebaseManager: players:", players_list, "audience:", audience_list)
 	scene_ref = db.get_reference_lite("rooms/" + room_code + "/scene")
 	ts_ref = db.get_reference_lite("rooms/" + room_code + "/lastUpdate")
 	# Store reference for the currently joined players list
@@ -337,33 +338,30 @@ func clear_scenes() -> bool:
 # }
 
 func _new_player_entry(data: FirebaseDataSnapshot):
-	print("DATA.VALUE = ", data.value())
+	print("_new_player_entry DATA.VALUE = ", data.value())
 	var v = data.value()
-#	# check if rejoin
-#	for p in R.players:
-#		if p.device_name == v.uuid:
-#			init_controller(v.uuid, p.name)
-#			return
-	# not a rejoin, sign up
 	emit_signal("player_joined", {name = v.uuid, nick = v.nick})
 
 # When an existing user disconnects and tries to join again, just the "status" var changes.
+# Sometimes this gets fired when a new player joins for some odd reason
 func _player_rejoin(data: FirebaseDataSnapshot):
 	var v = data.value()
-	print("DATA.VALUE = ", v)
+	print("_player_rejoin DATA.VALUE = ", v)
 	if v.status != 1:
 		return # not a rejoin
 	# check if this is an audience member or not
-	for p in R.players:
-		if p.device_name == v.uuid:
-			init_controller(v.uuid, false)
-			return
-	for p in R.audience:
-		if p.device_name == v.uuid:
-			init_controller(v.uuid, true)
-			return
-	# not a rejoin, sign up
-	emit_signal("player_joined", {name = v.uuid, nick = v.nick})
+	if v.uuid in players_list:
+		resolve_signup_status(v.uuid, false)
+		print("Player ", v.uuid, " re-joined! players:", players_list, "audience:", audience_list)
+		return
+	elif v.uuid in audience_list:
+		resolve_signup_status(v.uuid, true)
+		print("Audience ", v.uuid, " re-joined! players:", players_list, "audience:", audience_list)
+		return
+	else:
+		# not a rejoin, sign up
+		emit_signal("player_joined", {name = v.uuid, nick = v.nick})
+		print("New player ", v.uuid, " joined! players:", players_list, "audience:", audience_list)
 
 func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 	C.add_controller(C.DEVICES.REMOTE, uuid, 0) # let the controller handler handle it
@@ -401,7 +399,7 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 			uuid: { # we want the variable uuid, not the text "uuid"
 				nick = nick,
 				score = 0,
-				scoreText = R.format_currency(0, true),
+				scoreText = R.format_currency(0),
 				input = 0,
 				inputText = "",
 				inputFinale = "000000",
@@ -421,7 +419,7 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 			all_players_ref.connect("value_changed", self, "_all_players_ref_changed")
 		# inform the player that they're connected
 	# i should yield but i won't unless I have to
-	init_controller(uuid, as_audience)
+	resolve_signup_status(uuid, as_audience)
 
 # number of players currently joined
 func add_remote_player(uuid, nick, number):
@@ -444,7 +442,7 @@ func reject_remote_player(uuid):
 	})
 
 # Reset the status in the "sign up" queue.
-func init_controller(uuid, as_audience: bool):
+func resolve_signup_status(uuid, as_audience: bool):
 	var this_guy_in_particular = db.get_reference_lite(
 		"rooms/" + room_code + "/pending/" + uuid
 	)
@@ -548,8 +546,11 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 			old_value[p] = {}
 		if new_value[p] is Dictionary:
 			for k in new_value[p].keys():
-				if (old_value[p].has(k) and old_value[p][k] == new_value[p][k]):
-					continue
+				var this_old_value = -1
+				if old_value.has(p) and old_value[p].has(k):
+					this_old_value = old_value[p][k]
+					if this_old_value == new_value[p][k]:
+						continue
 #				if !old_value[p].has(k):
 ##					print(p, " ", k, " (nothing) -> ", new_value[p][k])
 #					pass
@@ -567,17 +568,17 @@ func _all_players_ref_changed(snapshot: FirebaseDataSnapshot):
 						for i in range(7):
 							if (state >> i) & 1:
 								C.inject_button(slot, i, true)
-						prints("Player", slot, "input", old_value[p].input, "->", state)
+						prints("Player", slot, "input", this_old_value, "->", state)
 						# overwrite with 0 to reset button state
 						if state != 0:
 							all_players_ref.update({p + "/input": 0})
 						new_value[p].input = 0
 					"inputText":
-						prints("Player", slot, "inputText", old_value[p].inputText, "->", new_value[p].inputText)
+						prints("Player", slot, "inputText", this_old_value, "->", new_value[p].inputText)
 						var player = R.slot2player(slot)
 						emit_signal("remote_typing", new_value[p].inputText, player)
 					"inputFinale":
-						prints("Player", slot, "inputFinale", old_value[p].inputFinale, "->", new_value[p].inputFinale)
+						prints("Player", slot, "inputFinale", this_old_value, "->", new_value[p].inputFinale)
 						emit_signal("remote_finale", new_value[p].inputFinale, slot)
 		old_value[p] = new_value[p]
 #	var result = yield(all_players_ref.fetch(), "completed")
@@ -644,3 +645,7 @@ func close_room():
 		var result = yield(ref.remove(), "completed")
 	room_code = ""
 	connected_to_room = false
+	C.remove_all_remote()
+	players_list.clear()
+	audience_list.clear()
+	R.stop_listening_for_new_remote_join()

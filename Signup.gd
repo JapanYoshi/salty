@@ -562,7 +562,7 @@ func start_game():
 	$MouseMask.show()
 	R.uuid_reset()
 	# pass on the duty of registering new audience members to Root while the game is on
-	R.listen_for_audience_join()
+	R.listen_for_new_remote_join()
 	menu_root.start_game()
 
 func _on_TouchButton_pressed():
