@@ -12,8 +12,6 @@ signal gp_axis(index, axis, value)
 signal gp_button_paused(index, button, pressed)
 signal gp_axis_paused(index, axis, value)
 
-
-
 # List of registered controllers.
 # By default, indices 0-3 will be occupied by the keyboard,
 # and index 4 will be occupied by the "touchscreen" player.
@@ -215,3 +213,9 @@ func lookup_axis(device, axis):
 		if c.device_type == DEVICES.GAMEPAD and c.device == device and axis in c.axes:
 			map.player = i; map.axis = c.axes.find(axis)
 	return map
+
+func remove_all_remote():
+	for index in range(len(ctrl) - 1, 4, -1):
+		if ctrl[index].device_type == DEVICES.REMOTE:
+			ctrl.remove(index)
+			ignore_axis.remove(index)
