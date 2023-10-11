@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://images/thumbnails.png" type="Texture" id=1]
 [ext_resource path="res://Noise.gd" type="Script" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://images/touchprism-text.png" type="Texture" id=22]
 [ext_resource path="res://images/touchprism-rays-top.png" type="Texture" id=23]
 [ext_resource path="res://radial_gradient.tres" type="Texture" id=24]
+[ext_resource path="res://fonts/email_body.tres" type="DynamicFont" id=25]
+[ext_resource path="res://images/errata.png" type="Texture" id=26]
+[ext_resource path="res://images/rush_false.png" type="Texture" id=27]
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = ExtResource( 19 )
@@ -924,6 +927,249 @@ tracks/7/keys = {
 "values": [ 1.0, 0.0, 0.0 ]
 }
 
+[sub_resource type="Animation" id=33]
+resource_name = "flip"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Errata:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ScrollContainer:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Errata:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -3, 1 ),
+"update": 0,
+"values": [ Vector2( 128, 24 ), Vector2( 0, 24 ) ]
+}
+
+[sub_resource type="Animation" id=38]
+resource_name = "hide"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 256, 90 ), Vector2( 256, 190 ) ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "popup"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 0.353554, 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 160, -0.25, 0, 0.25, -64, 90, -0.3, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.6 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 0, 1, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Errata:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Errata:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.6, 1 ),
+"transitions": PoolRealArray( 0.3, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 24 ), Vector2( 128, 24 ) ]
+}
+
+[sub_resource type="Animation" id=35]
+resource_name = "reset"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 0.353554 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 160, -0.25, 0, 0.25, -64 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Errata:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ScrollContainer:rect_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Errata:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 24 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 0.152941, 0.137255, 0.129412, 1 )
+border_width_left = 2
+border_width_top = 48
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.866667, 0.0470588, 0.0470588, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 4
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 24.0
+expand_margin_bottom = 2.0
+shadow_size = 8
+shadow_offset = Vector2( 0, 2 )
+
+[sub_resource type="StyleBoxFlat" id=37]
+content_margin_left = 12.0
+content_margin_right = 12.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0, 0, 0, 1 )
+anti_aliasing = false
+
 [sub_resource type="Theme" id=13]
 Label/colors/font_color = Color( 0.109804, 0.0901961, 0.239216, 1 )
 Label/fonts/font = ExtResource( 15 )
@@ -1326,6 +1572,99 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[node name="Errata" type="Control" parent="Qbox"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Qbox/Errata"]
+root_node = NodePath("../Panel")
+anims/flip = SubResource( 33 )
+anims/hide = SubResource( 38 )
+anims/popup = SubResource( 34 )
+anims/reset = SubResource( 35 )
+
+[node name="Timer" type="Timer" parent="Qbox/Errata"]
+one_shot = true
+
+[node name="Tween" type="Tween" parent="Qbox/Errata"]
+
+[node name="Panel" type="Panel" parent="Qbox/Errata"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -384.0
+margin_top = -200.0
+margin_right = 384.0
+margin_bottom = 248.0
+rect_min_size = Vector2( 768, 448 )
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 384, 270 )
+custom_styles/panel = SubResource( 36 )
+
+[node name="Errata" type="Sprite" parent="Qbox/Errata/Panel"]
+position = Vector2( 0, 24 )
+scale = Vector2( 1e-05, 1e-05 )
+texture = ExtResource( 26 )
+centered = false
+offset = Vector2( 0, -46 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Qbox/Errata/Panel"]
+margin_left = 4.0
+margin_top = 28.0
+margin_right = 768.0
+margin_bottom = 446.0
+rect_min_size = Vector2( 764, 418 )
+rect_scale = Vector2( 1e-05, 1 )
+rect_pivot_offset = Vector2( 764, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Qbox/Errata/Panel/ScrollContainer"]
+margin_right = 750.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 750, 512 )
+
+[node name="Label2" type="Label" parent="Qbox/Errata/Panel/ScrollContainer/VBoxContainer"]
+margin_right = 750.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 25 )
+text = "Message body text:"
+autowrap = true
+
+[node name="BodyPanel" type="PanelContainer" parent="Qbox/Errata/Panel/ScrollContainer/VBoxContainer"]
+margin_top = 45.0
+margin_right = 750.0
+margin_bottom = 594.0
+custom_styles/panel = SubResource( 37 )
+
+[node name="Label" type="Label" parent="Qbox/Errata/Panel/ScrollContainer/VBoxContainer/BodyPanel"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 738.0
+margin_bottom = 537.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 25 )
+text = "Good day to you, ma'am, it has come to my attention that one of your writers has published an inaccuracy concerning the British monarchy. While it is true that the current era is called the Carolean era, our current ruler is, in fact, King Charles III, not II as you claimed. There were two Charlies in a short span of time during the Stuart Era, though I presume that you do not know who came between.
+
+Dearly yours, K.W."
+autowrap = true
+
+[node name="Label" type="Label" parent="Qbox/Errata/Panel"]
+margin_left = 3.0
+margin_top = -20.0
+margin_right = 766.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 25 )
+text = "Salty Trivia complaints inbox"
+autowrap = true
+
+[node name="RushFalse" type="Sprite" parent="Qbox/Errata/Panel/Label"]
+position = Vector2( 746, 20 )
+scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 27 )
+
 [node name="Candy" type="Node2D" parent="Qbox"]
 visible = false
 position = Vector2( 376, 720 )
@@ -1592,6 +1931,21 @@ texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
 frame = 1
+
+[node name="DebugQuestionID" type="RichTextLabel" parent="."]
+margin_left = 3.0
+margin_top = 596.0
+margin_right = 363.0
+margin_bottom = 660.0
+rect_min_size = Vector2( 360, 64 )
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+size_flags_horizontal = 0
+theme = ExtResource( 5 )
+meta_underlined = false
+text = "????"
+fit_content_height = true
+scroll_active = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_anim_finished"]
 [connection signal="timeout" from="Qbox/QuestionRevealTimer" to="." method="_on_QuestionRevealTimer_timeout"]

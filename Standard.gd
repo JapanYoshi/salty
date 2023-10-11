@@ -633,6 +633,7 @@ func change_stage(next_stage):
 		# Which mode next?
 		for k in musics[question_type]:
 			S.preload_music(k)
+		$Qbox/Errata.hide()
 		$Qbox/Candy.hide()
 		lifesaver_is_activated = false
 		match question_type:
@@ -661,6 +662,17 @@ func change_stage(next_stage):
 				point_value = 1000 * (1 if question_number < 6 else 2)
 				$Value.set_text(R.format_currency(point_value, true))
 				$Value.show()
+				if data.has("errata"):
+					if  data.errata.has("t")\
+					and data.errata.has("start")\
+					and data.errata.has("end"):
+						$Qbox/Errata.show()
+						$Qbox/Errata/Timer.connect("timeout", $Qbox/Errata/AnimationPlayer, "play", ["flip"])
+						$Qbox/Errata/AnimationPlayer.play("reset")
+						$Qbox/Errata/Panel/ScrollContainer/VBoxContainer/BodyPanel/Label.set_text(data["errata"]["t"].strip_edges())
+						$Qbox/Errata/Panel/ScrollContainer.scroll_vertical = 9999999999
+					else:
+						printerr("Errata does not have the three required tags: t, start, end")
 			"S":
 				$BG/Noise.set_process(false)
 				$BG/Noise.hide()
@@ -869,6 +881,23 @@ func change_stage(next_stage):
 	# normal intro
 	elif stage == "title" and next_stage == "intro":
 		stage = "intro"
+		if data.has("errata"):
+			# animate scroll
+			$Qbox/Errata/Tween.interpolate_property(
+				$Qbox/Errata/Panel/ScrollContainer, "scroll_vertical",
+				-64,
+				$Qbox/Errata/Panel/ScrollContainer.scroll_vertical + 128, # add a slight margin
+				(data.errata.end - data.errata.start) * 0.001,
+				Tween.TRANS_LINEAR,
+				Tween.EASE_IN_OUT,
+				data.errata.start * 0.001
+			)
+			$Qbox/Errata/Panel/ScrollContainer.scroll_vertical = 0
+			$Qbox/Errata/Tween.start()
+			# queue up flip to email body text
+			$Qbox/Errata/Timer.start((data.errata.start * 0.001) - 0.5)
+			# pop up email logo
+			$Qbox/Errata/AnimationPlayer.play("popup")
 		if data.has("intro") and data.intro.v != "":
 			S.play_voice("intro")
 		else:
@@ -965,6 +994,8 @@ func change_stage(next_stage):
 		hud.slide_playerbar(true)
 		if question_type == "N":
 			S.play_multitrack("reading_question_base", 1.0, "reading_question_extra", 1.0)
+			if data.has("errata"):
+				$Qbox/Errata/AnimationPlayer.play("hide")
 		elif question_type == "C":
 			S.play_track(0, 1.0)
 			S.play_track(1, 1.0)
