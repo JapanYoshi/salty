@@ -42,7 +42,7 @@ func change_focus_to(i):
 			$ScreenStretch/Panel/RichTextLabel.bbcode_text = desc[i]
 		now_focused = i
 
-const SCROLL_SPEED: float = 512.0
+const SCROLL_SPEED: float = 1000.0
 var current_scroll_speed: float = 0.0
 
 func _process(delta):
@@ -50,6 +50,7 @@ func _process(delta):
 
 
 func _input(e: InputEvent):
+	# cheat code
 	if e.is_pressed():
 		if e.is_action_pressed(CHEAT_MENU_CODE[cheat_menu_code_index]):
 			cheat_menu_code_index += 1
@@ -57,29 +58,37 @@ func _input(e: InputEvent):
 				get_tree().change_scene("res://CheatCodes.tscn")
 		else:
 			cheat_menu_code_index = 0
-	print(cheat_menu_code_index)
-	if e.is_action_pressed("ui_down"):
-		if $ScreenStretch/About.visible:
-			current_scroll_speed = SCROLL_SPEED
-		else:
-			change_focus_to((now_focused + 1) % len(desc))
-		accept_event()
-	elif e.is_action_pressed("ui_up"):
-		if $ScreenStretch/About.visible:
-			current_scroll_speed = -SCROLL_SPEED
-		else:
-			change_focus_to(posmod(now_focused - 1, len(desc)))
-		accept_event()
-	elif $ScreenStretch/About.visible and (
-		e.is_action_released("ui_down") or e.is_action_released("ui_up")
-	):
-		current_scroll_speed = 0
-		accept_event()
-	elif e.is_action_pressed("ui_cancel"):
-		if $ScreenStretch/About.visible:
-			_on_Close_pressed()
+	# scrolling
+	if $ScreenStretch/About.visible:
+		if e is InputEventKey and e.is_echo():
+			accept_event(); return
+		if e.is_action_pressed("ui_down"):
 			accept_event()
-
+			$ScreenStretch/About/Close.grab_focus()
+			current_scroll_speed = SCROLL_SPEED
+		elif e.is_action_pressed("ui_up"):
+			accept_event()
+			$ScreenStretch/About/Close.grab_focus()
+			current_scroll_speed = -SCROLL_SPEED
+		elif (
+			e.is_action_released("ui_down") or e.is_action_released("ui_up")
+		):
+			accept_event()
+			$ScreenStretch/About/Close.grab_focus()
+			current_scroll_speed = 0
+		elif e.is_action_pressed("ui_cancel"):
+			accept_event()
+			$ScreenStretch/About/Close.grab_focus()
+			_on_Close_pressed()
+	else:
+		if e.is_action_pressed("ui_down"):
+			change_focus_to((now_focused + 1) % len(desc))
+			accept_event()
+		elif e.is_action_pressed("ui_up"):
+			change_focus_to(posmod(now_focused - 1, len(desc)))
+			accept_event()
+			current_scroll_speed = 0
+			accept_event()
 
 func _scene_transition(path: String):
 	release_focus()

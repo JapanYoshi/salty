@@ -138,6 +138,9 @@ bbcode_enabled = true
 [node name="Label" parent="ScreenStretch/CheatIndicator" index="0"]
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
+[node name="Cheat20" parent="ScreenStretch/CheatIndicator" index="1"]
+frame = 0
+
 [node name="About" type="ColorRect" parent="ScreenStretch"]
 visible = false
 anchor_right = 1.0
