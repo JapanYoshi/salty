@@ -302,25 +302,64 @@ func clear_asset_cache():
 					dir.remove(file_name)
 			file_name = dir.get_next()
 
+## Old version that didn't allow "//" inside text
+# func remove_jsonc_comments(text: String) -> String:
+# 	# remove block comments
+# 	# as a side effect of me not bothering to parse the entire thing, strings cannot contain /* or */
+# 	var start: int = text.find("/*"); var end: int = text.find("*/", start)
+# 	while start != -1:
+# 		if end == -1:
+# 			return "// Parse error in remove_jsonc_comments: Unterminated block comment."
+# 		text.erase(start, end - start + 2)
+# 		start = text.find("/*"); end = text.find("*/", start)
+# 	# remove line comments
+# 	start = text.find("//"); end = text.find("\n", start)
+# 	while start != -1:
+# 		if end == -1:
+# 			# delete until EOF
+# 			text = text.left(start)
+# 		else:
+# 			text.erase(start, end - start + 1)
+# 		start = text.find("//"); end = text.find("\n", start)
+# 	return text
 
+## New version with a primitive check to see if we're inside a string
 func remove_jsonc_comments(text: String) -> String:
-	# remove block comments
-	# as a side effect of me not bothering to parse the entire thing, strings cannot contain /* or */
-	var start: int = text.find("/*"); var end: int = text.find("*/", start)
-	while start != -1:
-		if end == -1:
-			return "// Parse error in remove_jsonc_comments: Unterminated block comment."
-		text.erase(start, end - start + 2)
-		start = text.find("/*"); end = text.find("*/", start)
-	# remove line comments
-	start = text.find("//"); end = text.find("\n", start)
-	while start != -1:
-		if end == -1:
-			# delete until EOF
-			text = text.left(start)
-		else:
-			text.erase(start, end - start + 1)
-		start = text.find("//"); end = text.find("\n", start)
+	var inside_a_string: bool = false
+	var closing_tag: String
+	var i: int = -1
+	while i < len(text) - 1:
+		i += 1
+		# JSON only allows double quotes to start and end a string.
+		if text[i] == '"':
+			if inside_a_string:
+				if text[i - 1] == "\\":
+					# Literal quotation mark inside a string. Ignore.
+					continue
+				inside_a_string = !inside_a_string
+			continue
+		if text[i] == "/":
+			# Slashes are used in all comment tags.
+			if inside_a_string:
+				# Literal slash inside a string. Ignore.
+				continue
+			if text[i + 1] == "/":
+				# Single line comment.
+				closing_tag = "\n"
+			elif text[i + 1] == "*":
+				# Multiline comment.
+				closing_tag = "*/"
+			else:
+				# Not a comment, but a misplaced slash. Leave it for the JSON parser to find.
+				continue
+			# Find the end of the comment.
+			var end = text.find(closing_tag, i)
+			if end == -1:
+				# delete until EOF
+				text = text.left(i)
+				break
+			else:
+				text.erase(i, end - i + len(closing_tag))
 	return text
 
 
