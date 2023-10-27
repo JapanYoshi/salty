@@ -107,9 +107,9 @@ rect_min_size = Vector2( 0, 64 )
 
 [node name="Details" type="Panel" parent="."]
 margin_left = 40.0
-margin_top = 464.0
+margin_top = 424.0
 margin_right = 616.0
-margin_bottom = 768.0
+margin_bottom = 728.0
 theme = ExtResource( 2 )
 
 [node name="V" type="VBoxContainer" parent="Details"]
