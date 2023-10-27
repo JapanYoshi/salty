@@ -1,0 +1,88 @@
+[ep]
+
+episode_name="The Killer Episode"
+episode_id="E6"
+episode_desc="Someone keeps sending Candy death threats on Instagram, but she’s only worried about her delayed lunch delivery. Will this very special episode be Candy’s last act? Play and confirm your pretty obvious guess."
+question_id=[ "n079", "b002", "n080", "s012", "n081", "c017", "n082", "t006", "o004", "n083", "g016", "n084", "r010" ]
+
+[audio_welcome]
+
+v="welcome"
+s="[b]Candy:[/b] I’m your host Candy Barre, and I [i]would[/i] formally welcome you,[#3026#]but I’ve ordered some food before this game started, and it’s still not here, so I’m going in skipping a meal.[#8097#]So expect extra crankiness."
+
+[audio_player_1]
+
+v="default"
+
+[audio_player_2]
+
+v="default"
+
+[audio_player_3]
+
+v="default"
+
+[audio_player_4]
+
+v="default"
+
+[audio_lifesaver]
+
+v="default"
+
+[audio_lifesaver_tute0]
+
+v="default"
+
+[audio_lifesaver_tute1]
+
+v="default"
+
+[audio_lifesaver_tute2]
+
+v="default"
+
+[audio_lifesaver_tute3]
+
+v="default"
+
+[audio_intermission]
+
+v="intermission"
+s="[b]Candy:[/b] That’s all for Round 1. Let’s hope the food arrives real soon, because I’m getting impatient.[#4751#][b]Daisy:[/b] Hey Candy, want some of mine?[#6160#][b]Candy:[/b] Is it Heinz beans on toast again, like every single day?[#9596#][b]Daisy:[/b] What? No.[#10760#][b]Candy:[/b] Oh, that’s a relief.[#12113#][b]Daisy:[/b] I put it in a cone.
+[b]Candy:[/b] I refuse."
+
+[audio_round2]
+
+v="welcome_back"
+s="[b]Candy:[/b] Oh, hey, you don’t seem like the delivery guy.[#2793#]Yeah. I’m still waiting for him to deliver that food I ordered. Where the hell is it?![#7320#]We’re halfway through this episode and he STILL hasn’t arrived![#10656#][i](groan)[/i] Let’s just get on with this.[#13489#][i](clears throat)[/i][#15025#][i][exaggeratedly cheerful][/i] Welcome to Salty Trivia!"
+
+[audio_round2_tute]
+
+v="default"
+
+[audio_lifesaver2]
+
+v="default"
+
+[audio_lifesaver2_tute0]
+
+v="default"
+
+[audio_lifesaver2_tute1]
+
+v="default"
+
+[audio_lifesaver2_tute2]
+
+v="default"
+
+[audio_outro_game]
+
+v="outro_game"
+s="[b]Candy:[/b] I’m back from absolutely demolishing my lunch![#2369#][b]Daisy:[/b] I saw. It was the scariset thing I’ve ever seen.[#6408#][b]Candy:[/b] I’m still pissed that it took this [i]entire game[/i] for my food to arrive.[#10235#]Damn it, Uber, why do you make something this slow and release it to the public?![#14888#]"
+
+[audio_outro_slam]
+
+v="outro_slam"
+s="[b]Candy:[/b] Then again, Crysis was released..."

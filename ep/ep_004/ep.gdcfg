@@ -1,0 +1,88 @@
+[ep]
+
+episode_name="Pandering to Gamers"
+episode_id="E4"
+episode_desc="Candy is really into watching eSports streams now, and she’s leaning into that obsession hard in this very special episode, dedicated to gamers of all sorts, PC, console, or Jackbox. Where would we be without you?"
+question_id=[ "n062", "s010", "n063", "n064", "n065", "c015", "b001", "n066", "n067", "g013", "n068", "n069", "l005" ]
+
+[audio_welcome]
+
+v="welcome"
+s="[b]Candy:[/b] What’s up, gamers? Get ready to dominate at Salty Trivia with Candy Barre.[#4947#]I brought some unsponsored corn chips and energy drinks! I’m not sharing them. Get your own snacks, scrub."
+
+[audio_player_1]
+
+v="default"
+
+[audio_player_2]
+
+v="default"
+
+[audio_player_3]
+
+v="default"
+
+[audio_player_4]
+
+v="default"
+
+[audio_lifesaver]
+
+v="default"
+
+[audio_lifesaver_tute0]
+
+v="default"
+
+[audio_lifesaver_tute1]
+
+v="default"
+
+[audio_lifesaver_tute2]
+
+v="default"
+
+[audio_lifesaver_tute3]
+
+v="default"
+
+[audio_intermission]
+
+v="intermission"
+s="[b]Candy:[/b] That’s it for Round 1![#1416#]If you’re playing as teams, feel free to take this time to rebalance your teams for Round 2.[#5970#]If you’re playing battle royale, please kick half of the contestants out of the game.[#9581#]We’ll be back in a moment!"
+
+[audio_round2]
+
+v="welcome_back"
+s="[b]Candy:[/b] Welcome back to Salty Trivia![#2185#]I hope you took some time to rehydrate yourselves before another[#5100#]ruthless, cutthroat, competitive round of this game."
+
+[audio_round2_tute]
+
+v="round2_tute"
+s="Round 2 comes with a +100% buff for game show winnings![#4057#]But that also means you could also take 100% more damage, so watch out!"
+
+[audio_lifesaver2]
+
+v="default"
+
+[audio_lifesaver2_tute0]
+
+v="default"
+
+[audio_lifesaver2_tute1]
+
+v="default"
+
+[audio_lifesaver2_tute2]
+
+v="default"
+
+[audio_outro_game]
+
+v="outro"
+s="[b]Candy:[/b] GG, everyone! I mean, I say GG even if my team lost horribly, just absolutely destroyed, just completely demolished by the other team, and I went down like 7 ranks in one game."
+
+[audio_outro_slam]
+
+v="outro_slam"
+s="[b]Candy:[/b] Totally not venting. Nope."

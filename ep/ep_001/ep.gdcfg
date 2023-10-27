@@ -1,0 +1,105 @@
+[ep]
+
+episode_name="Pilot"
+episode_id="E1"
+episode_desc="You’ve been cordially invited to play the very special first episode of [i]Salty Trivia with Candy Barre[/i]! Viewer discretion is advised."
+question_id=[ "n016", "n017", "s003", "n018", "n019", "c002", "n020", "g002", "n021", "n022", "n023", "n024", "l002" ]
+
+[audio_welcome_before]
+
+v="welcome_before"
+s="[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#4217#]where the—[#5519#]Hold on, what happened to the teleprompter?[#7757#]It’s gone totally blank! Miles?![#10198#][b]Miles:[/b] Ugh... Stand by, please!"
+
+[audio_welcome_standby]
+
+v="welcome_standby"
+s="[b]Miles:[/b] Alright, who unplugged the teleprompter?[#2289#][b]Daisy:[/b] It wasn't me, I swear![#3620#][b]Candy:[/b] Come on, Daisy, whenever something bad happens in the studio, 9 times out of 10, it's your prank.[#8614#][b]Miles:[/b] Candy, Daisy was in front of the audio deck this whole time.[#11513#]I can vouch for her, for once.[#13317#][b]Daisy:[/b] Oh, thank goodness, Miles-ey![#14884#][b]Miles:[/b] For the umpteenth time, stop calling me that.[#17131#][b]Candy:[/b] Oh hey, the teleprompter is back up![#18990#][b]Miles:[/b] Good. Everyone back to battle stations and cue intro!"
+
+[audio_welcome]
+
+v="welcome"
+s="[b]Candy:[/b] Welcome to the very first episode of Salty Trivia with Candy Barre,[#3500#]where the questions are ridiculous but the answers are serious![#6478#]I’m your host, Candy Barre, and I’ll be meting out the questions and sass for today.[#10856#]Now lift your trays to the upright position and prepare for take-off.[#14608#]Or don’t, I’m not your flight attendant."
+
+[audio_player_1]
+
+v="default"
+
+[audio_player_2]
+
+v="default"
+
+[audio_player_3]
+
+v="default"
+
+[audio_player_4]
+
+v="default"
+
+[audio_lifesaver]
+
+v="default"
+
+[audio_lifesaver_tute0]
+
+v="default"
+
+[audio_lifesaver_tute1]
+
+v="default"
+
+[audio_lifesaver_tute2]
+
+v="default"
+
+[audio_lifesaver_tute3]
+
+v="default"
+
+[audio_intermission]
+
+v="intermission"
+s="[b]Candy:[/b] We’ll be right back after these messages.[#2090#]Not from our sponsors, but these thirsty guys trying to slide into my DMs.[#5782#]I gotta go block those real quick. See ya.[#8270#]"
+
+[audio_round2]
+
+v="welcome_back"
+s="[b]Candy:[/b] Welcome back to Salty Trivia. Remember me?[#2599#]I remember the first time we met like it was only yesterday.[#5832#]Let’s carry on to Round 2!"
+
+[audio_round2_tute]
+
+v="default"
+
+[audio_lifesaver2]
+
+v="default"
+
+[audio_lifesaver2_tute0]
+
+v="default"
+
+[audio_lifesaver2_tute1]
+
+v="default"
+
+[audio_lifesaver2_tute2]
+
+v="default"
+
+[audio_outro_game]
+
+v="outro_game"
+s="[b]Candy:[/b] From the bottom of my heart, thank you for participating in this very first episode of Salty Trivia with Candy Barre.[#5900#]"
+
+[audio_outro_slam]
+
+v="outro_slam"
+s="[b]Candy:[/b] Now get out."
+
+[audio_skip]
+
+v="default"
+
+[audio_skip_round2]
+
+v="default"

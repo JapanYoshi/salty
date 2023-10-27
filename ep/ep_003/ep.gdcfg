@@ -1,0 +1,87 @@
+[ep]
+
+episode_name="Give Me Your Answers Do"
+episode_id="E3"
+episode_desc="Introducing the tireless, smirking, and chaotic audio engineer, Daisy Chaine. She enjoys pranking the other crew members, but what is she up to this time? Find out on this very special episode."
+question_id=[ "n033", "n034", "g004", "o001", "n035", "c004", "n036", "n037", "s005", "n038", "t003", "n039", "r003" ]
+
+[audio_welcome]
+
+v="welcome"
+s="[b]Candy:[/b] Welcome to Salty Trivia with Candy Barre![#2647#]After this game, Daisy Chaine, our sound guy, is hosting a massive karaoke party, and Miles and I are going.[#8232#]So let’s get this episode finished so I can sing other people’s songs with subpar technique!"
+
+[audio_player_1]
+
+v="default"
+
+[audio_player_2]
+
+v="default"
+
+[audio_player_3]
+
+v="default"
+
+[audio_player_4]
+
+v="default"
+
+[audio_lifesaver]
+
+v="default"
+
+[audio_lifesaver_tute0]
+
+v="default"
+
+[audio_lifesaver_tute1]
+
+v="default"
+
+[audio_lifesaver_tute2]
+
+v="default"
+
+[audio_lifesaver_tute3]
+
+v="default"
+
+[audio_intermission]
+
+v="intermission"
+s="[b]Candy:[/b] That’s all for Round 1![#2000#]Wait, there’s [i]another[/i] round left?![#4676#]Oh, you’d lose your pants when you hear that there’s a third bonus round![#8148#]But we’ll come to that later. Stay on the channel!"
+
+[audio_round2]
+
+v="welcome_back"
+s="[b]Candy:[/b] Welcome back to Salty Trivia![#1590#]We have a great crew back here, just excellent at making my humor really pop.[#5666#](pop sound effect)[#6236#]Thanks, Daisy, perfectly timed!"
+
+[audio_round2_tute]
+
+v="default"
+
+[audio_lifesaver2]
+
+v="default"
+
+[audio_lifesaver2_tute0]
+
+v="default"
+
+[audio_lifesaver2_tute1]
+
+v="default"
+
+[audio_lifesaver2_tute2]
+
+v="default"
+
+[audio_outro_game]
+
+v="outro"
+s="[b]Candy:[/b] That’s it![#811#]I hope you’ve learned how capable of an audio engineer Daisy is.[#4197#]But considering what she uses her capabilities for,[#6893#]sometimes I wish she were [i]less[/i] capable.[#8767#]"
+
+[audio_outro_slam]
+
+v="outro_slam"
+s="[b]Candy:[/b] Daisy, I know you’re snickering back there!"

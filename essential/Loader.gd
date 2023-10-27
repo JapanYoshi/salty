@@ -408,14 +408,29 @@ func load_episodes_list():
 		var names = file.get_as_text().split(",")
 		for ep_name in names:
 			ep_name = ep_name.strip_edges()
-			var ep_file = File.new()
-			ep_file.open(episode_path + ep_name + "/ep.json", File.READ)
-			var result = JSON.parse(
-				remove_jsonc_comments(ep_file.get_as_text())
-			)
-			if result.error == OK:
-				episodes[ep_name] = result.result
-				episodes[ep_name].filename = ep_name
+#			var ep_file = File.new()
+#			ep_file.open(episode_path + ep_name + "/ep.json", File.READ)
+#			var result = JSON.parse(
+#				remove_jsonc_comments(ep_file.get_as_text())
+#			)
+#			if result.error == OK:
+#				episodes[ep_name] = result.result
+#				episodes[ep_name].filename = ep_name
+#			else:
+#				print("Couldn't load episode: " + ep_name)
+			var ep_file = ConfigFile.new()
+			var load_err = ep_file.load(episode_path + ep_name + "/ep.gdcfg")
+			if load_err == OK:
+				episodes[ep_name] = {audio = {}}
+				for section in ep_file.get_sections():
+					if section == "ep":
+						for key in ep_file.get_section_keys("ep"):
+							episodes[ep_name][key] = ep_file.get_value("ep", key)
+					else:
+						if section.begins_with("audio_"):
+							episodes[ep_name].audio[section.trim_prefix("audio_")] = {}
+							for key in ep_file.get_section_keys(section):
+								episodes[ep_name].audio[section.trim_prefix("audio_")][key] = ep_file.get_value(section, key)
 			else:
 				print("Couldn't load episode: " + ep_name)
 	print("Loader: Episode data loaded.")
