@@ -1933,6 +1933,7 @@ vframes = 4
 frame = 1
 
 [node name="DebugQuestionID" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 3.0
 margin_top = 596.0
 margin_right = 363.0

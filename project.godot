@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "HTTPSSEClient",
 "language": "GDScript",
 "path": "res://firebase_database_lite/http_sse_client.gd"
+}, {
+"base": "Control",
+"class": "Standard",
+"language": "GDScript",
+"path": "res://Standard.gd"
 } ]
 _global_script_class_icons={
 "Firebase": "res://firebase_app_lite/icon.png",
@@ -75,7 +80,8 @@ _global_script_class_icons={
 "FirebaseEventProcessorLite": "res://firebase_database_lite/icon.png",
 "FirebaseReference": "res://firebase_database_lite/icon.png",
 "FirebaseUser": "res://firebase_auth_lite/icon.png",
-"HTTPSSEClient": "res://firebase_database_lite/icon.png"
+"HTTPSSEClient": "res://firebase_database_lite/icon.png",
+"Standard": ""
 }
 
 [application]

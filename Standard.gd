@@ -1,4 +1,4 @@
-extends Control
+class_name Standard extends Control
 
 signal question_done
 
