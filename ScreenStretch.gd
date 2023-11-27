@@ -1,3 +1,4 @@
+class_name ScreenStretch
 extends Control
 
 const base_resolution = Vector2(1280, 720)
