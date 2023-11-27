@@ -77,6 +77,7 @@ const DEFAULT_SAVE = {
 	achievements = {
 	},
 	misc = {
+		never_seen_disclaimer = true,
 		cuss_history = [],
 		guests_seen = [],
 		cheat_codes_unlocked = [],
