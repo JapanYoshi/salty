@@ -39,7 +39,7 @@ func _ready():
 func preload_sounds():
 	print("S.preload_sounds()")
 	var f = File.new()
-	var r = f.open(sfx_path + "_.json", File.READ)
+	var r = f.open(sfx_path + "_.jsonc", File.READ)
 	if r != OK:
 		printerr("Could not load list of sound effects.")
 	var jsonparse = JSON.parse(f.get_as_text())
@@ -420,7 +420,7 @@ func _on_voice_end(voice_id):
 	emit_signal("voice_end", voice_id)
 
 func set_music_volume(percentage: float):
-	AudioServer.set_bus_volume_db(bgm_bus, linear2db(percentage * percentage))
+	AudioServer.set_bus_volume_db(bgm_bus, linear2db(0.8 * percentage * percentage))
 
 func set_overall_volume(percentage: float):
 	AudioServer.set_bus_volume_db(0, linear2db(percentage * percentage))
