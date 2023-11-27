@@ -18,6 +18,11 @@ func _ready():
 	$ScreenStretch/ColorRect/Label5.set_text(time)
 	S.play_music("trolled", 0.8)
 
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_accept"):
+		_on_back_pressed()
+
 func _on_back_pressed():
 	if tween.is_active():
 		print("Tween is still active, can't go back")
