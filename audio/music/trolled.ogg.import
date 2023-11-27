@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/trolled.ogg-da86960146c060c3b83537c82236c424.oggstr"
+
+[deps]
+
+source_file="res://audio/music/trolled.ogg"
+dest_files=[ "res://.import/trolled.ogg-da86960146c060c3b83537c82236c424.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=1.929

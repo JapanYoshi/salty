@@ -108,7 +108,13 @@ func _scene_transition(path: String):
 func _on_Play_pressed():
 	if not active: return
 	active = false
-	_scene_transition("res://MenuRoot.tscn")
+	var timestamp = Time.get_unix_time_from_system()
+	var cuss_timestamp = R.get_save_data_item("misc", "cuss_timestamp", 0)
+	if cuss_timestamp > timestamp:
+		S.preload_music("trolled")
+		_scene_transition("res://Timeout.tscn")
+	else:
+		_scene_transition("res://MenuRoot.tscn")
 
 
 func _on_About_pressed():

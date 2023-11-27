@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/body_code.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/body_normal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Timeout.gd" type="Script" id=3]
+[ext_resource path="res://BackButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/gibberish_big_italic.tres" type="DynamicFont" id=5]
+
+[node name="Timeout" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 3 )
+
+[node name="ScreenStretch" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="ScreenStretch"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -611.0
+margin_top = -246.0
+margin_right = 611.0
+margin_bottom = -202.0
+custom_fonts/font = ExtResource( 2 )
+text = "You are now seeing"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -623.0
+margin_top = -182.0
+margin_right = 623.0
+margin_bottom = -122.0
+custom_fonts/font = ExtResource( 5 )
+text = "The Big Black Screen of Shame™"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -621.0
+margin_top = -110.0
+margin_right = 621.0
+margin_bottom = -66.0
+custom_fonts/font = ExtResource( 2 )
+text = "for conspiring to cuss the host out."
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -622.0
+margin_top = 90.0
+margin_right = 622.0
+margin_bottom = 134.0
+custom_fonts/font = ExtResource( 2 )
+text = "Your ability to play the game will return on"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -609.0
+margin_top = 146.0
+margin_right = 609.0
+margin_bottom = 206.0
+custom_fonts/font = ExtResource( 1 )
+text = "The Big Black Screen of Shame™"
+align = 1
+valign = 1
+
+[node name="BackButton" parent="ScreenStretch" instance=ExtResource( 4 )]
+rect_pivot_offset = Vector2( 390, 111 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="back_pressed" from="ScreenStretch/BackButton" to="." method="_on_back_pressed"]

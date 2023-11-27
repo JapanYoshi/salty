@@ -79,6 +79,8 @@ const DEFAULT_SAVE = {
 	misc = {
 		never_seen_disclaimer = true,
 		cuss_history = [],
+		cuss_counter = 0,
+		cuss_timestamp = 0,
 		guests_seen = [],
 		cheat_codes_unlocked = [],
 	},

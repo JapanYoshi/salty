@@ -553,10 +553,22 @@ func answer_submitted(text):
 		else:
 			ep.achieve.increment_progress("cuss_gib_3", 1)
 			ep.achieve.increment_progress("ragequit", 1)
+			# set timeout
+			# timeout lengths are in minutes
+			var timeout_lengths = PoolIntArray([5, 10, 15, 20, 30, 60, 120, 180, 360, 1440, 2880, 10080])
+			var cuss_counter: int = R.get_save_data_item("misc", "cuss_counter", 0)
+			var timeout_length: int = timeout_lengths[cuss_counter] if cuss_counter < len(timeout_lengths) else timeout_lengths[-1]
+			var now: int = int(Time.get_unix_time_from_system())
+			var end_timeout: int = now + timeout_length * 60 + 15
+			print("timeout end is ", Time.get_datetime_string_from_unix_time(end_timeout, true))
+			R.set_save_data_item("misc", "cuss_counter", cuss_counter + 1)
+			# add 15 seconds to compensate for voice line length
+			R.set_save_data_item("misc", "cuss_timestamp", end_timeout)
+			R.save_save_data()
 			# "you know what we quit"
 			S.play_voice("cuss_c0")
 			yield(S, "voice_end")
-			ep.disqualified()
+			ep.shutter()
 			return
 	else:
 		print("incorrect")
