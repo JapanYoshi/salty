@@ -434,9 +434,9 @@ func listen_for_new_remote_join():
 #		Ws.connect('player_requested_nick', self, "give_audience_nick")
 
 func stop_listening_for_new_remote_join():
-	pass
 #	Ws.disconnect("player_joined", self, 'new_remote_join')
-	Fb.disconnect("player_joined", self, 'new_remote_join')
+	if Fb.is_connected("player_joined", self, "new_remote_join"):
+		Fb.disconnect("player_joined", self, 'new_remote_join')
 #	Ws.disconnect('player_requested_nick', self, "give_audience_nick")
 
 func new_remote_join(data):
