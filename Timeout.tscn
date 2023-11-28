@@ -70,11 +70,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -622.0
+margin_top = 26.0
+margin_right = 622.0
+margin_bottom = 70.0
+custom_fonts/font = ExtResource( 2 )
+text = "Your {} timeout will end"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="ScreenStretch/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -622.0
 margin_top = 90.0
 margin_right = 622.0
 margin_bottom = 134.0
 custom_fonts/font = ExtResource( 2 )
-text = "Your ability to play the game will return on"
+text = "and your ability to play the game will return on"
 align = 1
 valign = 1
 
@@ -88,7 +102,7 @@ margin_top = 146.0
 margin_right = 609.0
 margin_bottom = 206.0
 custom_fonts/font = ExtResource( 1 )
-text = "The Big Black Screen of Shame™"
+text = "1970 January 1 00:00:00 AM"
 align = 1
 valign = 1
 

@@ -1,15 +1,22 @@
 extends ColorRect
 
 onready var tween = $Tween
+const MONTH_NAMES: PoolStringArray = PoolStringArray(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+# actual timeout lengths are in Standard.gd -> answer_submitted()
+const TIMEOUT_LENGTHS: PoolStringArray = PoolStringArray(["five-minute", "ten-minute", "quarter-hour", "twenty-minute", "half-hour", "hour-long", "two-hour", "three-hour", "six-hour", "one-day", "two-day", "week-long"])
 
 func _ready():
+	# length of timeout
+	var cuss_counter = R.get_save_data_item("misc", "cuss_counter", 1) - 1
+	var timeout_length = TIMEOUT_LENGTHS[cuss_counter] if cuss_counter < len(TIMEOUT_LENGTHS) else TIMEOUT_LENGTHS[-1]
+	$ScreenStretch/ColorRect/Label4.set_text($ScreenStretch/ColorRect/Label4.text.replace("{}", timeout_length))
 	# timestamp
 	var timestamp = R.get_save_data_item("misc", "cuss_timestamp", int(Time.get_unix_time_from_system()))
 	var timezone = Time.get_time_zone_from_system()
 	timestamp += timezone.bias * 60
 	var date_dict = Time.get_datetime_dict_from_unix_time(timestamp)
 	print(timestamp, timezone, date_dict)
-	date_dict.month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][date_dict.month - 1]
+	date_dict.month_name = MONTH_NAMES[date_dict.month - 1]
 	date_dict.hour_str = "%02d" % (posmod(date_dict.hour - 1, 12) + 1)
 	date_dict.minute_str = "%02d" % date_dict.minute
 	date_dict.second_str = "%02d" % date_dict.second
