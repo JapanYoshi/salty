@@ -92,7 +92,7 @@ func check_if_connected(call_node: Node, call_function: String):
 			call_node.call(call_function, true)
 
 func timestamp_room(call_node: Node, call_function: String):
-	var result = yield(ts_ref.put(Time.get_unix_time_from_system()), "completed")
+	var result = yield(ts_ref.put(int(Time.get_unix_time_from_system())), "completed")
 	if result is FirebaseError:
 		pass
 #		if is_instance_valid(call_node):
@@ -643,6 +643,7 @@ func close_room():
 	if is_instance_valid(db):
 		var ref = db.get_reference_lite("roomCodes/" + room_code)
 		var result = yield(ref.remove(), "completed")
+	PingTimer.stop()
 	room_code = ""
 	connected_to_room = false
 	C.remove_all_remote()
