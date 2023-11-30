@@ -750,7 +750,7 @@ func play_outro():
 	c_box.set_radius(0)
 #	intermission_played = false
 	# Achievement: Complete specific episode
-	achieve.increment_progress("episode_" + episode_data.filename, 1)
+	achieve.increment_progress("episode_" + R.pass_between.episode_name, 1)
 	S.preload_music("drum_roll")
 	if R.get_settings_value("cutscenes"):
 		_load_outro_cutscene()
