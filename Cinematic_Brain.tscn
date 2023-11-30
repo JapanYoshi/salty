@@ -469,10 +469,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 0.3, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.15, 0.25 ),
+"transitions": PoolRealArray( 0.3, -3, -3, 1 ),
 "update": 0,
-"values": [ Vector2( 580, -120 ), Vector2( 580, -190 ) ]
+"values": [ Vector2( 580, -120 ), Vector2( 504, -190 ), Vector2( 526, -190 ), Vector2( 520, -190 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Qbox/BrainBlank:modulate")
@@ -558,9 +558,9 @@ offset = Vector2( 10, 70 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 64.0
-margin_top = 256.0
+margin_top = 72.0
 margin_right = -176.0
-margin_bottom = -259.0
+margin_bottom = -443.001
 
 [node name="box" type="Control" parent="Qbox"]
 margin_left = 60.0
@@ -760,6 +760,7 @@ fit_content_height = true
 scroll_active = false
 
 [node name="BrainBlank" type="Sprite" parent="Qbox"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 516, -120 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 18 )
@@ -788,6 +789,7 @@ margin_top = 158.0
 margin_right = 1152.0
 margin_bottom = 211.0
 rect_min_size = Vector2( 1152, 0 )
+rect_scale = Vector2( 0.9, 0.9 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Which [b]video game company[/b] is the missing link?"
