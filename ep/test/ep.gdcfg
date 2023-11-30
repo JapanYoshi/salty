@@ -1,0 +1,137 @@
+[ep]
+episode_name="Test Episode"
+episode_id="TE"
+episode_desc="Should not be available in final build"
+question_id=[
+;done:
+;  "s016",
+;  "g017",
+;  "g018",
+;  "g019",
+;  "r011",
+;  "r012",
+;  "r013",
+;  "n089",
+;  "n091",
+;  "n048",
+;  "n061",
+;  "n085",
+;  "n086",
+;  "n087",
+;  "n088",
+;  "r015",
+
+;  "n090",
+;  "b003",
+;  "b004",
+;  "r014",
+;  "b006",
+;  "b005",
+;  "l008",
+;  "l009",
+;  "l007",
+;  "o007",
+;  "o006",
+;  "s013",
+;  "s014",
+;  "s015",
+;  "g019",
+
+;  "t007",
+  "o005",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+  "RNG_n",
+
+  "RNG_rl",
+;to test:
+]
+
+[audio_welcome]
+
+v="default"
+
+[audio_player_1]
+
+v="default"
+
+[audio_player_2]
+
+v="default"
+
+[audio_player_3]
+
+v="default"
+
+[audio_player_4]
+
+v="default"
+
+[audio_lifesaver]
+
+v="default"
+
+[audio_lifesaver_tute0]
+
+v="default"
+
+[audio_lifesaver_tute1]
+
+v="default"
+
+[audio_lifesaver_tute2]
+
+v="default"
+
+[audio_lifesaver_tute3]
+
+v="default"
+
+[audio_intermission]
+
+v="default"
+
+[audio_round2]
+
+v="default"
+
+[audio_round2_tute]
+
+v="default"
+
+[audio_lifesaver2]
+
+v="default"
+
+[audio_lifesaver2_tute0]
+
+v="default"
+
+[audio_lifesaver2_tute1]
+
+v="default"
+
+[audio_lifesaver2_tute2]
+
+v="default"
+
+[audio_outro_game]
+
+v="default"
+
+[audio_outro_slam]
+
+v="default"
+
+[audio_skip]
+
+v="default"
