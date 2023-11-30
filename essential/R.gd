@@ -245,7 +245,7 @@ func submit_high_score(score: int, accuracy: float):
 		save_data.history[pass_between.episode_name].best_accuracy = accuracy
 		save_data.history[pass_between.episode_name].best_accuracy_time = now
 	# check if new episode is unlocked
-	if pass_between.episode_data.filename in unlocks.keys():
+	if pass_between.episode_name in unlocks.keys():
 		for unlock in unlocks[pass_between.episode_name]:
 			if save_data.history[unlock].locked:
 				edited_high_score = true
