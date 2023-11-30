@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION_CODE = "05-19-AMONG-ARRIVES"
+const VERSION_CODE = "11-30-MOIRA-DIAGRAM"
 
 ### "Root", for data that every page should have.
 signal change_audience_count(audience_count)
