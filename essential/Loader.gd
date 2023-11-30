@@ -652,6 +652,27 @@ func load_question(id, first_question: bool, q_box: Node):
 				var result = yield(S, "voice_preloaded")
 				if result != OK:
 					failed.push_back(key)
+		# Sorta Kinda Lifesaver tutorial.
+		elif key == "sort_lifesaver":
+			var real_key = "sort_lifesaver" if R.get_lifesaver_count() > 0 else "sort_no_lifesaver"
+			# account for the possibility that it may be random
+			if data[real_key]["v"] == "random":
+				load_random_voice_line(key, real_key)
+				var result = yield(self, "voice_line_loaded")
+				if result != OK:
+					failed.push_back(key)
+			elif data[real_key]["v"].begins_with("_"):
+				load_random_voice_line(key, data[real_key]["v"].substr(1))
+				var result = yield(self, "voice_line_loaded")
+				if result != OK:
+					failed.push_back(key)
+			else:
+				S.call_deferred("preload_voice",
+					key, id + "/" + real_key, true, data[real_key].s
+				)
+				var result = yield(S, "voice_preloaded")
+				if result != OK:
+					failed.push_back(real_key)
 		elif data.has(key) and data[key]["v"] != "":
 			if data[key]["v"] != "random":
 				# not random
