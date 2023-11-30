@@ -336,9 +336,9 @@ func _axis_tilted(which_input, which_axis, axis_value):
 	else:
 		axis.x = axis_value
 	if which_keyboard == 1:
-		$DW/KbBase/KbStick.position = (Vector2.ONE + axis.clamped(1.0)) * 128.0
+		$DW/KbBase/KbStick.position = (Vector2.ONE + axis.limit_length(1.0)) * 128.0
 	else:
-		$SP/KbBase/KbStick.position = (Vector2.ONE + axis.clamped(1.0)) * 128.0
+		$SP/KbBase/KbStick.position = (Vector2.ONE + axis.limit_length(1.0)) * 128.0
 	var axis_magn = axis.length()
 	if axis_magn < stick_deadzone:
 #		print("Center")
