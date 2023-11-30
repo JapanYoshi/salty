@@ -225,28 +225,28 @@ func get_high_score(ep_id: String):
 
 func submit_high_score(score: int, accuracy: float):
 	if not (get_settings_value("cheat_codes_active").empty()): return
-	if not (pass_between.episode_data.filename in save_data.history.keys()):
-		init_high_score(pass_between.episode_data.filename)
+	if not (pass_between.episode_name in save_data.history.keys()):
+		init_high_score(pass_between.episode_name)
 	var edited_high_score: bool = false
 	var now = OS.get_unix_time()
-	save_data.history[pass_between.episode_data.filename].last_played = now
+	save_data.history[pass_between.episode_name].last_played = now
 	# check if high score is better
-	if save_data.history[pass_between.episode_data.filename].high_score_time == 0\
-	or score > save_data.history[pass_between.episode_data.filename].high_score:
+	if save_data.history[pass_between.episode_name].high_score_time == 0\
+	or score > save_data.history[pass_between.episode_name].high_score:
 		edited_high_score = true
-		save_data.history[pass_between.episode_data.filename].high_score = score
-		save_data.history[pass_between.episode_data.filename].high_score_time = now
+		save_data.history[pass_between.episode_name].high_score = score
+		save_data.history[pass_between.episode_name].high_score_time = now
 	# check if accuarcy is better
 	if !is_nan(accuracy) and (
-		save_data.history[pass_between.episode_data.filename].best_accuracy_time == 0\
-		or accuracy > save_data.history[pass_between.episode_data.filename].best_accuracy
+		save_data.history[pass_between.episode_name].best_accuracy_time == 0\
+		or accuracy > save_data.history[pass_between.episode_name].best_accuracy
 	):
 		edited_high_score = true
-		save_data.history[pass_between.episode_data.filename].best_accuracy = accuracy
-		save_data.history[pass_between.episode_data.filename].best_accuracy_time = now
+		save_data.history[pass_between.episode_name].best_accuracy = accuracy
+		save_data.history[pass_between.episode_name].best_accuracy_time = now
 	# check if new episode is unlocked
 	if pass_between.episode_data.filename in unlocks.keys():
-		for unlock in unlocks[pass_between.episode_data.filename]:
+		for unlock in unlocks[pass_between.episode_name]:
 			if save_data.history[unlock].locked:
 				edited_high_score = true
 				save_data.history[unlock].locked = false
@@ -473,7 +473,7 @@ func update_audience_count():
 ## ref: https://bulbapedia.bulbagarden.net/wiki/List_of_censored_words_in_Generation_V
 ## If a search for swear words led you here, I'm sorry.
 const bad_room_codes = ["ARSE","ARSH","BICH","BITC","BITE","BSTD","BTCH","CAZI","CAZO","CAZZ","CHNK","CLIT","COCC","COCK","COCU","COKC","COKK","CONO","COON","CUCK","CULE","CULO","CUUL","CUMM","CUMS","CUNT","CUUM","DAMN","DICC","DICK","DICS","DICX","DIKC","DIKK","DIKS","DIKX","DIXX","DKHD","DYKE","FAAG","FAGG","FAGS","FFAG","FICA","FICK","FIGA","FOTZ","FCUK","FUCC","FUCK","FUCT","FUCX","FUKC","FUKK","FUKT","FUKX","FUXX","GIMP","GYPS","HEIL","HOES","HOMO","HORE","HTLR","JODA","JODE","JAPS","JEWS","JIPS","JIZZ","KACK","KIKE","KUNT","MERD","MRCA","MRCN","MRDE","NAZI","NCUL","NEGR","NGGR","NGRR","NGRS","NIGG","NIGR","NUTE","NUTT","PAKI","PCHA","PEDE","PEDO","PHUC","PHUK","PINE","PISS","PLLA","PNIS","POOP","PORN","POYA","PUTA","PUTE","PUTN","PUTO","RAEP","RAPE","SECS","SECX","SEKS","SEKX","SEXX","SHAT","SHIT","SHIZ","SHYT","SIMP","SLAG","SPAS","SPAZ","SPRM","TARD","TITS","TROA","TROI","TWAT","VAGG","VIOL","WANK","WHOR"];
-const bad_room_substr = ["ASS","CUM","FAG","KKK"];
+const bad_room_substr = ["ASS","BCH","CUM","FAG","FCK","FUK","FUC","KKK","SHT"];
 func generate_room_code():
 	var buf: PoolByteArray = [0, 0, 0, 0]
 	var code: String = ""
