@@ -1,28 +1,50 @@
 extends ColorRect
 
+onready var timer = $Timer
 onready var tween = $Tween
+var end_time
+var timezone = Time.get_time_zone_from_system()
 const MONTH_NAMES: PoolStringArray = PoolStringArray(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
 # actual timeout lengths are in Standard.gd -> answer_submitted()
 const TIMEOUT_LENGTHS: PoolStringArray = PoolStringArray(["five-minute", "ten-minute", "quarter-hour", "twenty-minute", "half-hour", "hour-long", "two-hour", "three-hour", "six-hour", "one-day", "two-day", "week-long"])
+onready var TimeoutLength = $ScreenStretch/ColorRect/v/TimeoutLength
+onready var EndTime = $ScreenStretch/ColorRect/v/EndTime
+onready var CurrentTime = $ScreenStretch/ColorRect/v/h/CurrentTime
 
-func _ready():
-	# length of timeout
-	var cuss_counter = R.get_save_data_item("misc", "cuss_counter", 1) - 1
-	var timeout_length = TIMEOUT_LENGTHS[cuss_counter] if cuss_counter < len(TIMEOUT_LENGTHS) else TIMEOUT_LENGTHS[-1]
-	$ScreenStretch/ColorRect/Label4.set_text($ScreenStretch/ColorRect/Label4.text.replace("{}", timeout_length))
-	# timestamp
-	var timestamp = R.get_save_data_item("misc", "cuss_timestamp", int(Time.get_unix_time_from_system()))
-	var timezone = Time.get_time_zone_from_system()
-	timestamp += timezone.bias * 60
+const date_template = "{year} {month_name} {day} {hour_str}:{minute_str}:{second_str} {ampm}"
+
+
+func _format_date(timestamp: int) -> String:
 	var date_dict = Time.get_datetime_dict_from_unix_time(timestamp)
-	print(timestamp, timezone, date_dict)
 	date_dict.month_name = MONTH_NAMES[date_dict.month - 1]
 	date_dict.hour_str = "%02d" % (posmod(date_dict.hour - 1, 12) + 1)
 	date_dict.minute_str = "%02d" % date_dict.minute
 	date_dict.second_str = "%02d" % date_dict.second
 	date_dict.ampm = "PM" if date_dict.hour >= 12 else "AM"
-	var time = "{year} {month_name} {day} {hour_str}:{minute_str}:{second_str} {ampm}".format(date_dict)
-	$ScreenStretch/ColorRect/Label5.set_text(time)
+	return date_template.format(date_dict)
+
+
+func _on_tick():
+	var now: float = Time.get_unix_time_from_system()
+	var timestamp: int = int(now)
+	if timestamp >= end_time:
+		_on_back_pressed()
+	timestamp += timezone.bias * 60
+	CurrentTime.set_text(_format_date(timestamp))
+	timer.start(1.0 - fposmod(now, 1.0))
+
+func _ready():
+	timer.connect("timeout", self, "_on_tick")
+	# length of timeout
+	var cuss_counter = R.get_save_data_item("misc", "cuss_counter", 1) - 1
+	var timeout_length = TIMEOUT_LENGTHS[cuss_counter] if cuss_counter < len(TIMEOUT_LENGTHS) else TIMEOUT_LENGTHS[-1]
+	TimeoutLength.set_text(TimeoutLength.text.replace("{}", timeout_length))
+	# timestamp
+	var now: float = Time.get_unix_time_from_system()
+	end_time = R.get_save_data_item("misc", "cuss_timestamp", int(now))
+	timer.start(1.0 - fposmod(now, 1.0))
+	EndTime.set_text(_format_date(end_time + timezone.bias * 60))
+	_on_tick()
 	S.play_music("trolled", 0.8)
 
 
