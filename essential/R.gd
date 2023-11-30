@@ -377,6 +377,7 @@ func _set_visual_quality(quality: int = -1):
 
 func crash(reason):
 #	Ws.close_room()
+	Fb.close_room()
 	S.stop_voice()
 	S.play_music("", 0)
 	audience_keys = []
