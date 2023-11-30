@@ -8,8 +8,7 @@ var ready_to_play_intro: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("LogoContainer._ready()")
-	var title_filename = "res://Disclaimers.tscn" if R.get_save_data_item("misc", "never_seen_disclaimer", true) else "res://Title.tscn"
-	title_loader = ResourceLoader.load_interactive(title_filename)
+	title_loader = ResourceLoader.load_interactive("res://Title.tscn")
 	_on_size_changed()
 	get_viewport().connect("size_changed", self, "_on_size_changed")
 	anim.play("rating_fadein")

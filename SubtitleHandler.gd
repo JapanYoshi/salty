@@ -11,6 +11,7 @@ var last_duration: int = 0
 func _ready():
 #	clear_contents()
 	S.sub_node = self
+	tbox.bbcode_text = ""
 	### Testing
 	#queue_subtitles("Welcome to Salty Trivia with Candy Barre,[#3000#]and I woke up like this.[#5500#]Disheveled.")
 	### End testing

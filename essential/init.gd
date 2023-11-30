@@ -85,4 +85,5 @@ func _load_sounds():
 
 
 func _assets_loaded():
-	get_tree().change_scene("res://logo/SplashScreen.tscn")
+	var title_filename = "res://disclaimer/Disclaimers.tscn" if R.get_save_data_item("misc", "never_seen_disclaimer", true) else "res://logo/SplashScreen.tscn"
+	get_tree().change_scene(title_filename)
