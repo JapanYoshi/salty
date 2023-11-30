@@ -1125,6 +1125,49 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
         "s": "[b]Candy:[/b] [i][without faith][/i] You know what? This is just pathetic. I don’t...[#2805#]I don’t have the time or patience to deal with a pack of two-year-old shitheads who have nothing better to do[#7298#]than come into a game and tell me to go fuck myself and—[#10314#]Actually, no, I bet it’s just one 40-year-old bastard, sitting in his mom’s basement,[#15493#]getting a boner to the sound of my voice.[#18245#]You do realize that this is all a video game, right?[#20861#]I’m just some guy named Haley, talking to a mic in a bedroom somewhere in Japan.[#25564#]Yeah, Japan. Small world, huh?[#28517#]Anyway, Candy isn’t a real person. Shit, you’d better fucking hope Candy isn’t a real person,[#33337#]not with all the shit we’ve written her to do.[#36258#]Because, if you’re actually jacking off to some sarcastically enthusiastic goth girl that you can’t even see,[#42470#]you have some serious issues, buddy.[#44464#]And you know what? I’m not going to let you finish. Game’s over.[#48081#]Come back when you’re ready to play this trivia game the way God fucking intended.[#52068#]"
       },
     ],
+    // Version that plays when "Stream-friendly All Outta Salt" is on.
+    "cuss_a_short": [
+      {
+        "v": "cuss_a_short_0",
+        "s": "[b]Candy:[/b] You know what? I’m not gonna put up with this."
+      },
+      {
+        "v": "cuss_a_short_1",
+        "s": "[b]Candy:[/b] Damn, bruh, you got the whole squad laughing."
+      },
+      {
+        "v": "cuss_a_short_2",
+        "s": "[b]Candy:[/b] Someone woke up on the wrong side of the bed today."
+      },
+    ],
+    "cuss_b_short": [
+      {
+        "v": "cuss_b_short_0",
+        "s": "[b]Candy:[/b] Same to you, loser."
+      },
+      {
+        "v": "cuss_b_short_1",
+        "s": "[b]Candy:[/b] You really need friends."
+      },
+      {
+        "v": "cuss_b_short_2",
+        "s": "[b]Candy:[/b] Does someone else want to answer [i]for real[/i] this time?"
+      },
+    ],
+    "cuss_c_short": [
+      {
+        "v": "cuss_c_short_0",
+        "s": "[b]Candy:[/b] Screw it, we’re skipping this question."
+      },
+      {
+        "v": "cuss_c_short_1",
+        "s": "[b]Candy:[/b] You’re not engaged, so let’s move on."
+      },
+      {
+        "v": "cuss_c_short_2",
+        "s": "[b]Candy:[/b] Y’know, this is all your fault for being such a sour lemon."
+      },
+    ],
     // Line that plays when the player paused too many times during a question. To prevent pause-scumming, the game counts how many times the game gets paused during a question. The user gets 3 free pauses, and after that, the probability of a game over increases with each pause. 8 pauses guarantees a game over.
     "too_many_pauses": [
       {
@@ -2724,4 +2767,43 @@ NOTE: Godot allows JSON files to have trailing commas, but not comments. I coded
       ],
     },
   },
+  // Disclaimer audio.
+  "disclaimer": {
+    "disclaimer0": [
+      {
+        "v": "disclaimer0",
+        "s": "[b]Candy:[/b] Check one two, testing!"
+      }
+    ],
+    "disclaimer1": [
+      {
+        "v": "disclaimer1",
+        "s": "[b]Candy:[/b] Hey, thanks for playing Salty Trivia! I’m Candy Barre, and you’ll be hearing my voice [i]a lot[/i] throughout the game.[#5797#]Before we start, we gotta clear a few things up."
+      }
+    ],
+    "disclaimer2": [
+      {
+        "v": "disclaimer2",
+        "s": "[b]Candy:[/b] First of all, this game contains some censored profanity, double-entendres,[#4124#]audio gags that reference violence, drug and alcohol references, and other disrespectful material.[#9418#]That’s why we recommend an age rating of 12 and above, and we urge you to remember that this is all just fictional."
+      }
+    ],
+    "disclaimer3": [
+      {
+        "v": "disclaimer3",
+        "s": "[b]Candy:[/b] Also, speaking of “fictional”, we’re gonna be talking about giving you prize money,[#3423#]but remember that nobody here can, or will, reach past the fourth wall to give you money for playing this game.[#9596#]We’re already presenting this game for free, so I think it’s only fair."
+      }
+    ],
+    "disclaimer4": [
+      {
+        "v": "disclaimer4",
+        "s": "[b]Candy:[/b] Finally, we’re gonna mention a lot of trademarks and copyrighted words.[#3609#]This does not mean that we’re associated with the copyright holder in any capacity, alright?[#8567#]I’m pretty sure that our just making questions about Mickey Mouse isn’t going to violate Disney’s copyright,[#13477#]since parody, education, and commentary all fall under Fair Use.[#17959#]And because we aren’t actually showing you any copyrighted footage.[#20882#]This game is released under Creative Commons.[#23016#]But in case you want to fork this game, remember that none of the performers have waived the copyright for their voice performance,[#28336#]so you have to replace all the voice acting."
+      }
+    ],
+    "disclaimer5": [
+      {
+        "v": "disclaimer5",
+        "s": "[b]Candy:[/b] Alright, with that over with, are you ready to have your brain twisted with lateral thinking and bad puns?[#5738#]Great, let’s get you to the game.[#7430#]And look sharp, the clothes make the show!"
+      }
+    ],
+  }
 }

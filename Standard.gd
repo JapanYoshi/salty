@@ -482,93 +482,142 @@ func answer_submitted(text):
 	if null != matched:
 		S.play_track(0, 0.0)
 		print("fuck you right back, player")
+		var no_ragequit = R.get_settings_value("no_ragequit")
+		# Total number of points to deduct. Make it a multiple of 10.
+		var total_money_deduction: int = 100000
 		if cuss_level == 0:
-			ep.achieve.increment_progress("cuss_gib", 1)
-			# Host-specific cuss lines. Choose between the 4 sets.
-			# Total number of points to deduct. Make it a multiple of 10.
-			var total_money_deduction: int = 100000
-			# Name to rename the player as. If it's blank, deduct scores in 2 stages instead.
-			var cuss_names = {
-				"legacy": "",
-				"daisy": "Dig Dunny",
-				"miles": "Limp Prick",
-				"ozzy": ""
-			}
-			var cuss_categories = cuss_names.keys()
-			# Don't choose the same co-host as before,
-			# until the player has seen all of them.
-			var used_cuss_lines = R.save_data.misc.cuss_history
-			if len(used_cuss_lines) < len(cuss_categories):
-				for k in used_cuss_lines:
-					cuss_categories.erase(k)
-			else:
-				used_cuss_lines = []
-			var cuss_category = cuss_categories[
-				R.rng.randi_range(0, len(cuss_categories) - 1)
-			]
-			# save it back
-			used_cuss_lines.push_back(cuss_category)
-			R.set_save_data_item("misc", "cuss_history", used_cuss_lines)
-			R.save_save_data()
-			# Alright, it's screw-back time
-			cuss_level = 1
-			# preload lines
-			for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
-				var value = Loader.random_dict.audio_episode[key + "_" + cuss_category][0]
-				S.call_deferred("preload_ep_voice", key, value.v, "", value.s)
-				yield(S, "voice_preloaded")
-				
-			# "come on why do people do this"
-			S.play_voice("cuss_a0")
-			yield(S, "voice_end")
-			# deduct score
-			S.play_sfx("naughty")
-			if cuss_names[cuss_category] == "":
-				hud.punish_players(answers[0], total_money_deduction / 10)
-			else:
-				hud.punish_players(answers[0], total_money_deduction)
-			yield(get_tree().create_timer(1.25), "timeout")
-			# "why don't we take away some more points"
-			S.play_voice("cuss_a1")
-			yield(S, "voice_end")
-			# deduct score again
-			if cuss_names[cuss_category] == "":
+			if no_ragequit:
+				var cuss_lines = Loader.random_dict.audio_episode["cuss_a_short"]
+				var random_i: int = randi() % len(cuss_lines)
+				# Shortened FU reaction
+				cuss_level = 1
+				# preload lines
+				for key in ["cuss_a_short", "cuss_b_short", "cuss_c_short"]:
+					var value = Loader.random_dict.audio_episode[key][random_i]
+					S.call_deferred("preload_ep_voice", key, value.v, "", value.s)
+					yield(S, "voice_preloaded")
+				# "come on why do people do this"
+				S.play_voice("cuss_a_short")
+				yield(S, "voice_end")
+				# deduct score
 				S.play_sfx("naughty")
-				hud.punish_players(answers[0], total_money_deduction * 9 / 10)
+				hud.set_player_name(answers[0][0], "Spoilsport")
+				hud.punish_players(answers[0], total_money_deduction)
 				yield(get_tree().create_timer(1.25), "timeout")
+				# let's get back to the game
+				G_prepare_next_player()
+				return
 			else:
-				hud.set_player_name(answers[0][0], cuss_names[cuss_category])
-				S.play_sfx("name_change")
-				yield(get_tree().create_timer(0.5), "timeout")
-			# let's get back to the game
-			S.play_voice("cuss_a2")
-			return
+				ep.achieve.increment_progress("cuss_gib", 1)
+				# Host-specific cuss lines. Choose between the 4 sets.
+				# Name to rename the player as. If it's blank, deduct scores in 2 stages instead.
+				var cuss_names = {
+					"legacy": "",
+					"daisy": "Dig Dunny",
+					"miles": "Limp Prick",
+					"ozzy": ""
+				}
+				var cuss_categories = cuss_names.keys()
+				# Don't choose the same co-host as before,
+				# until the player has seen all of them.
+				var used_cuss_lines = R.save_data.misc.cuss_history
+				if len(used_cuss_lines) < len(cuss_categories):
+					for k in used_cuss_lines:
+						cuss_categories.erase(k)
+				else:
+					used_cuss_lines = []
+				var cuss_category = cuss_categories[
+					R.rng.randi_range(0, len(cuss_categories) - 1)
+				]
+				# save it back
+				used_cuss_lines.push_back(cuss_category)
+				R.set_save_data_item("misc", "cuss_history", used_cuss_lines)
+				R.save_save_data()
+				# Alright, it's screw-back time
+				cuss_level = 1
+				# preload lines
+				for key in ["cuss_a0", "cuss_a1", "cuss_a2", "cuss_b0", "cuss_c0"]:
+					var value = Loader.random_dict.audio_episode[key + "_" + cuss_category][0]
+					S.call_deferred("preload_ep_voice", key, value.v, "", value.s)
+					yield(S, "voice_preloaded")
+					
+				# "come on why do people do this"
+				S.play_voice("cuss_a0")
+				yield(S, "voice_end")
+				# deduct score
+				S.play_sfx("naughty")
+				if cuss_names[cuss_category] == "":
+					hud.punish_players(answers[0], total_money_deduction / 10)
+				else:
+					hud.punish_players(answers[0], total_money_deduction)
+				yield(get_tree().create_timer(1.25), "timeout")
+				# "why don't we take away some more points"
+				S.play_voice("cuss_a1")
+				yield(S, "voice_end")
+				# deduct score again
+				if cuss_names[cuss_category] == "":
+					S.play_sfx("naughty")
+					hud.punish_players(answers[0], total_money_deduction * 9 / 10)
+					yield(get_tree().create_timer(1.25), "timeout")
+				else:
+					hud.set_player_name(answers[0][0], cuss_names[cuss_category])
+					S.play_sfx("name_change")
+					yield(get_tree().create_timer(0.5), "timeout")
+				# let's get back to the game
+				S.play_voice("cuss_a2")
+				return
 		elif cuss_level == 1:
 			cuss_level = 2
-			# "take a look at your score"
-			# DON'T deduct score
-			# let's get back to the game
-			S.play_voice("cuss_b0")
+			if no_ragequit:
+				S.play_voice("cuss_b_short")
+				yield(S, "voice_end")
+				# deduct score
+				S.play_sfx("naughty")
+				hud.set_player_name(answers[0][0], "Copycat")
+				hud.punish_players(answers[0], total_money_deduction)
+				yield(get_tree().create_timer(1.25), "timeout")
+				# let's get back to the game
+				G_prepare_next_player()
+				return
+			else:
+				# "take a look at your score"
+				# DON'T deduct score
+				# let's get back to the game
+				S.play_voice("cuss_b0")
 			return
 		else:
-			ep.achieve.increment_progress("cuss_gib_3", 1)
-			ep.achieve.increment_progress("ragequit", 1)
-			# set timeout
-			# timeout lengths are in minutes
-			var timeout_lengths = PoolIntArray([5, 10, 15, 20, 30, 60, 120, 180, 360, 1440, 2880, 10080])
-			var cuss_counter: int = R.get_save_data_item("misc", "cuss_counter", 0)
-			var timeout_length: int = timeout_lengths[cuss_counter] if cuss_counter < len(timeout_lengths) else timeout_lengths[-1]
-			var now: int = int(Time.get_unix_time_from_system())
-			var end_timeout: int = now + timeout_length * 60 + 15
-			print("timeout end is ", Time.get_datetime_string_from_unix_time(end_timeout, true))
-			R.set_save_data_item("misc", "cuss_counter", cuss_counter + 1)
-			# add 15 seconds to compensate for voice line length
-			R.set_save_data_item("misc", "cuss_timestamp", end_timeout)
-			R.save_save_data()
-			# "you know what we quit"
-			S.play_voice("cuss_c0")
-			yield(S, "voice_end")
-			ep.shutter()
+			if no_ragequit:
+				S.play_voice("cuss_c_short")
+				yield(S, "voice_end")
+				# deduct score
+				S.play_sfx("naughty")
+				hud.set_player_name(answers[0][0], "Last Straw")
+				hud.punish_players(answers[0], total_money_deduction)
+				yield(get_tree().create_timer(1.25), "timeout")
+				# let's skip it
+				# first trick the game into thinking we're past the outro, so that we can skip it
+				stage = "outro"
+				# then change the stage to "end" to trigger the cleanup
+				change_stage("end")
+				return
+			else:
+				ep.achieve.increment_progress("cuss_gib_3", 1)
+				# set timeout
+				# timeout lengths are in minutes
+				var timeout_lengths = PoolIntArray([5, 10, 15, 20, 30, 60, 120, 180, 360, 1440, 2880, 10080])
+				var cuss_counter: int = R.get_save_data_item("misc", "cuss_counter", 0)
+				var timeout_length: int = timeout_lengths[cuss_counter] if cuss_counter < len(timeout_lengths) else timeout_lengths[-1]
+				var now: int = int(Time.get_unix_time_from_system())
+				var end_timeout: int = now + timeout_length * 60 + 15
+				print("timeout end is ", Time.get_datetime_string_from_unix_time(end_timeout, true))
+				R.set_save_data_item("misc", "cuss_counter", cuss_counter + 1)
+				# add 15 seconds to compensate for voice line length
+				R.set_save_data_item("misc", "cuss_timestamp", end_timeout)
+				R.save_save_data()
+				# "you know what we quit"
+				S.play_voice("cuss_c0")
+				yield(S, "voice_end")
+				ep.shutter()
 			return
 	else:
 		print("incorrect")

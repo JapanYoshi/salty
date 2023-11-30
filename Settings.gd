@@ -258,6 +258,22 @@ var settings_dict = [
 		r = [], # will programmatically fill these in
 		o = [],
 	},{
+		k = "no_ragequit",
+		t = "Stream-friendly All Outta Salt",
+		r = [0, 1],
+		o = [
+			{
+				v = false,
+				t = "off",
+				d = "When turned on, prevents the secret All Outta Salt response from force-quitting the game and putting you in time-out. Recommended for games with strangers."
+			},
+			{
+				v = true,
+				t = "on",
+				d = "The secret All Outta Salt response will no longer force-quit the game and put you in time-out as intended. If you want to play with trusted people and unlock all achievements, turn this back off."
+			}
+		]
+	},{
 		k = "awesomeness",
 		t = "Detect awesomeness",
 		r = [0, 1],

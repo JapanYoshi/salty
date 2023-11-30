@@ -215,6 +215,7 @@ color = Color( 0, 0, 0, 1 )
 script = ExtResource( 6 )
 
 [node name="ScreenStretch" parent="." instance=ExtResource( 7 )]
+script = null
 
 [node name="r" type="Control" parent="ScreenStretch"]
 anchor_right = 1.0

@@ -36,6 +36,7 @@ var DEFAULT_CFG = {
 	hide_room_code_ingame = false,
 	awesomeness = true,
 	currency_format = "fmt_usd.json",
+	no_ragequit = false,
 	cheat_codes_active = [],
 }
 

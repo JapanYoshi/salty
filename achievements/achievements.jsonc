@@ -91,7 +91,7 @@
   },
   "cuss_3": {
     "title": "You’re All Babies",
-    "description": "Have three players upset the host in one question.",
+    "description": "With the power of three players, get locked out of the game.",
     "type": "cuss_gib_3",
     "steps": 1,
   },

@@ -65,11 +65,6 @@ _global_script_classes=[ {
 "path": "res://firebase_database_lite/http_sse_client.gd"
 }, {
 "base": "Control",
-"class": "ScreenStretch",
-"language": "GDScript",
-"path": "res://ScreenStretch.gd"
-}, {
-"base": "Control",
 "class": "Standard",
 "language": "GDScript",
 "path": "res://Standard.gd"
@@ -86,7 +81,6 @@ _global_script_class_icons={
 "FirebaseReference": "res://firebase_database_lite/icon.png",
 "FirebaseUser": "res://firebase_auth_lite/icon.png",
 "HTTPSSEClient": "res://firebase_database_lite/icon.png",
-"ScreenStretch": "",
 "Standard": ""
 }
 
