@@ -1,12 +1,15 @@
-class_name ScreenStretch
 extends Control
 
 const base_resolution = Vector2(1280, 720)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anchor_left = 0
+	anchor_top = 0
+	anchor_right = 0
+	anchor_bottom = 0
 	rect_size = base_resolution
-	rect_pivot_offset = base_resolution * 0.5
+	rect_pivot_offset = Vector2.ZERO
 	rect_clip_content = true
 	_on_size_changed() # initialize size
 	get_viewport().connect("size_changed", self, "_on_size_changed")
@@ -14,10 +17,13 @@ func _ready():
 
 func _on_size_changed():
 	var resolution = get_viewport_rect().size
+	rect_size = base_resolution
 	rect_scale = Vector2.ONE * min(
 		resolution.y / base_resolution.y,
 		resolution.x / base_resolution.x
 	)
-	var parent = get_parent()
-	if parent is Control:
-		parent.rect_pivot_offset = resolution * 0.5
+	rect_position = (resolution - rect_scale * base_resolution) * 0.5
+	# what the hell does this code do?
+#	var parent = get_parent()
+#	if parent is Control:
+#		parent.rect_pivot_offset = resolution * 0.5
