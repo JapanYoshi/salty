@@ -44,6 +44,7 @@ func _on_size_changed():
 		# too narrow
 		viewport_scale = resolution.x / base_resolution.x
 		self.rect_position = Vector2(0.0, 0.5 * (resolution.y - base_resolution.y * viewport_scale))
+	print("SubtitleHandler resized: ", resolution, " : ", viewport_scale)
 	#$ColorRect.rect_size = base_resolution * viewport_scale
 	vbox.size = Vector2(900, 96) * viewport_scale
 	sbox.rect_size = vbox.size
