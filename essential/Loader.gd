@@ -16,7 +16,7 @@ var random_questions = {}
 # ProjectSettings.globalize_path forbids this from being a const
 var q_cache_path = ProjectSettings.globalize_path("user://")
 const question_url = "https://haitouch.ga/me/salty/q/"
-const q_cache_filename = "%s.zip"
+const q_cache_filename = "%s.pck"
 var cached = {}
 
 # update this when releasing new version
@@ -61,6 +61,7 @@ func _ready():
 		file.open(q_cache_path + "_cached_questions.csv", File.WRITE)
 		file.store_string("")
 	file.close()
+	print("asset cache path is " + ProjectSettings.globalize_path(asset_cache_path))
 	# var dir: Directory = Directory.new()
 	# if !(dir.dir_exists(q_cache_path)):
 	# 	dir.make_dir_recursive(q_cache_path)
@@ -166,25 +167,32 @@ func mount_cached_question(id):
 var assets_done: bool = false
 func head_request_assets(callback_node: Node, callback_function_name: String):
 	print("Loader.download_assets(): Getting ready to contact this url: ", asset_cache_url + asset_cache_filename)
+	# Because HEAD request stopped working, set the body size limit to a comically small value instead
+	http_request.set_body_size_limit(16)
 	http_request.connect("request_completed", self, "_head_request_completed", [callback_node, callback_function_name], CONNECT_ONESHOT)
-	var result = http_request.request(
+	var result = http_request.request_raw(
 		asset_cache_url + asset_cache_filename,
-		["Accept-Encoding: identity"], true, HTTPClient.METHOD_HEAD
+		["Accept-Encoding: identity"]
 	)
 	if result:
 		printerr("http_request() HEAD did not succeed: ", result)
 		if is_instance_valid(callback_node):
 			callback_node.call(callback_function_name, 8)
 		return
+	else:
+		print("http_request() HEAD succeeded")
 
 
 func _head_request_completed(\
 	result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray,\
 	callback_node: Node, callback_function_name: String):
-	print("_head_request_completed ", result, " ", response_code, " ", headers, " ", body)
+	print("_head_request_completed: result=", result, " response_code=", response_code, " headers=", headers, " body=", body)
+#	if result == HTTPRequest.RESULT_CONNECTION_ERROR:
+#		callback_node.call(callback_function_name, 10, 0)
+#		return
 	# get last modified date
 	var file: File = File.new()
-	var last_mod_saved: String = ""
+	var last_mod_saved: String = "not downloaded"
 	if file.file_exists(asset_cache_path + "last-modified.txt"):
 		file.open(asset_cache_path + "last-modified.txt", File.READ)
 		last_mod_saved = file.get_as_text()
@@ -209,6 +217,8 @@ func _head_request_completed(\
 
 func download_assets_confirm(callback_node: Node, callback_function_name: String):
 	http_request.set_download_file(asset_cache_path + asset_cache_filename)
+	# Unset the body size limit
+	http_request.set_body_size_limit(-1)
 	http_request.download_chunk_size = 262144
 	http_request.connect("request_completed", self, "_download_assets_request_completed", [], CONNECT_ONESHOT)
 	# Perform the HTTP request.
@@ -285,9 +295,12 @@ func _download_assets_request_completed(\
 func load_assets():
 	var result = ProjectSettings.load_resource_pack(asset_cache_path + asset_cache_filename)
 	print("Resource pack load result is ", result)
-	yield(get_tree().create_timer(0.5), "timeout")
-	emit_signal("loaded")
-	return
+	if result:
+		yield(get_tree().create_timer(0.5), "timeout")
+		emit_signal("loaded")
+		return
+	else:
+		clear_asset_cache()
 
 
 func clear_asset_cache():

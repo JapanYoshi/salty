@@ -33,24 +33,36 @@ func update_download_progress(result: int, param: int = -1):
 			$ColorRect.show()
 			$ColorRect/Label.text = "Checking for updates; please wait..."
 		8: # connection failed
-			$ColorRect/Label.text = "Failed to connect to the server that has the asset files."
+			$ColorRect/Label.text = "Failed to connect to the server that has the asset files.\n" +\
+			"Please make sure you’re on the latest version of the game, and the network isn’t blocking connections to " + Loader.asset_cache_url + "."
 		9: # connection success, same file
 			$ColorRect/Label.text = "No updates to asset files. Please wait while we extract and load the resources..."
 			_load_assets()
+		10: #connection success, but file not found
+			$ColorRect/Label.text = "The asset file could not be found.\nMaybe this version of the game is outdated, and the server no longer has the correct version of the asset files.\n" +\
+			"Please make sure you’re on the latest version of the game, and the network isn’t blocking connections to " + Loader.asset_cache_url + "."
+			
 		0: # connection success, different file
 			# the number reported in the header was inaccurate in testing
-			var total_float = param * (155229333.0 / 118225409.0)
-			total_size = int(total_float)
-			$ColorRect/Label.text = "Before starting the game, it needs to download the asset files (estimated %.1f MB).\nPlease confirm that you want to start this download by pressing the button below." % (float(total_size) / 1048576)
+			var filesize_estimate: String
+			if param != 0:
+				var total_float = param * (155229333.0 / 118225409.0)
+				total_size = int(total_float)
+				filesize_estimate = "estimated %.1f MiB" % (float(total_size) / 1048576)
+			else:
+				filesize_estimate = "file size unknown"
+			$ColorRect/Label.text = "Before starting the game, it needs to download the asset files (" + filesize_estimate + ").\nPlease confirm that you want to start this download by pressing the button below."
 			$ColorRect/Button.show()
 			$ColorRect/Button.grab_focus()
 		1: # loading
 			if param < total_size:
-				$ColorRect/Label.text = "Downloading asset files; please wait...\n%.1f MB of estimated %.1f MB (%.1f%%) downloaded" % [
+				$ColorRect/Label.text = "Downloading asset files; please wait...\n%.1f MiB of estimated %.1f MiB (%.1f%%) downloaded" % [
 					float(param) / 1048576, float(total_size) / 1048576, float(param * 100) / float(total_size)
 				]
 			else:
-				$ColorRect/Label.text = "Finishing downloading the asset files..."
+				$ColorRect/Label.text = "Hold on... (%.1f MiB downloaded)" % [
+					float(param) / 1048576
+				]
 		2: # loaded
 			$ColorRect/Label.text = "Downloaded the asset files. Please wait while we extract and load the assets..."
 			_load_assets()
