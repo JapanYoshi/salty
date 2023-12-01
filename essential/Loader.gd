@@ -206,13 +206,21 @@ func _head_request_completed(\
 			size = int(h_split[1])
 		elif h_split[0] == "last-modified":
 			last_mod = h_split[1]
-	if is_instance_valid(callback_node):
 		if last_mod == last_mod_saved:
 			print("New last-modified header value <", last_mod, ">== cached last-modified header value <", last_mod_saved, ">")
-			callback_node.call(callback_function_name, 9, size)
+			var load_result = load_assets()
+			if load_result:
+				if is_instance_valid(callback_node):
+					callback_node.call(callback_function_name, 9, size)
+					return
+			else:
+				print("Could not load asset file, requesting redownload")
+				if is_instance_valid(callback_node):
+					callback_node.call(callback_function_name, 0, size)
 		else:
 			print("New last-modified header value <", last_mod, "> != cached last-modified header value <", last_mod_saved, ">")
-			callback_node.call(callback_function_name, 0, size)
+			if is_instance_valid(callback_node):
+				callback_node.call(callback_function_name, 0, size)
 
 
 func download_assets_confirm(callback_node: Node, callback_function_name: String):
@@ -298,9 +306,9 @@ func load_assets():
 	if result:
 		yield(get_tree().create_timer(0.5), "timeout")
 		emit_signal("loaded")
-		return
 	else:
 		clear_asset_cache()
+	return result
 
 
 func clear_asset_cache():
@@ -311,7 +319,11 @@ func clear_asset_cache():
 		while file_name != "":
 			if !dir.current_is_dir():
 				print("Found file: " + asset_cache_path + file_name)
-				if file_name.begins_with("_assets") and file_name.ends_with(".pck"):
+				if (
+					file_name.begins_with("_assets") and file_name.ends_with(".pck")
+				) or (
+					file_name == "last-modified.txt"
+				):
 					dir.remove(file_name)
 			file_name = dir.get_next()
 
