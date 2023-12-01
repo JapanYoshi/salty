@@ -41,7 +41,7 @@ func preload_sounds():
 	var f = File.new()
 	var r = f.open(sfx_path + "_.jsonc", File.READ)
 	if r != OK:
-		printerr("Could not load list of sound effects.")
+		printerr("Could not load list of sound effects. Error number: %d" % r)
 	var jsonparse = JSON.parse(f.get_as_text())
 	sfx_list = jsonparse.result
 	for k in sfx_list.keys():
