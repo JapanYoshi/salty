@@ -55,7 +55,11 @@ func update_download_progress(result: int, param: int = -1):
 			$ColorRect/Button.show()
 			$ColorRect/Button.grab_focus()
 		1: # loading
-			if param < total_size:
+			if param == 0:
+				$ColorRect/Label.text = "Waiting for download to start; please wait...\nestimated file size %.1f MiB" % [
+					float(total_size) / 1048576
+				]
+			elif param < total_size:
 				$ColorRect/Label.text = "Downloading asset files; please wait...\n%.1f MiB of estimated %.1f MiB (%.1f%%) downloaded" % [
 					float(param) / 1048576, float(total_size) / 1048576, float(param * 100) / float(total_size)
 				]
