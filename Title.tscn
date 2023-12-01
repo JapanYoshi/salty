@@ -38,6 +38,7 @@ margin_left = -640.0
 margin_top = -360.0
 margin_right = 640.0
 margin_bottom = 360.0
+rect_pivot_offset = Vector2( 640, 360 )
 rect_clip_content = true
 script = ExtResource( 12 )
 
@@ -115,11 +116,10 @@ theme = ExtResource( 10 )
 text = "Exit"
 
 [node name="Panel" type="Panel" parent="ScreenStretch"]
-anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1238.0
+margin_left = 42.0
 margin_top = -129.0
 margin_right = -520.0
 margin_bottom = -40.0
@@ -137,6 +137,9 @@ bbcode_enabled = true
 
 [node name="Label" parent="ScreenStretch/CheatIndicator" index="0"]
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="Cheat20" parent="ScreenStretch/CheatIndicator" index="1"]
+frame = 0
 
 [node name="About" type="ColorRect" parent="ScreenStretch"]
 visible = false
@@ -220,13 +223,13 @@ stretch_mode = 6
 [node name="Control2" type="PanelContainer" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
 margin_top = 1078.0
 margin_right = 912.0
-margin_bottom = 1828.0
+margin_bottom = 1858.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer/Control2"]
 margin_left = 16.0
 margin_right = 912.0
-margin_bottom = 750.0
+margin_bottom = 780.0
 bbcode_enabled = true
 bbcode_text = "Each player has control of 7 buttons or keys.
 
@@ -267,9 +270,9 @@ Phone: Additional players can connect via a Web browser on a smartphone, tablet,
 fit_content_height = true
 
 [node name="EndMargin" type="Control" parent="ScreenStretch/About/PanelContainer/ScrollContainer/VBoxContainer"]
-margin_top = 1832.0
+margin_top = 1862.0
 margin_right = 912.0
-margin_bottom = 1848.0
+margin_bottom = 1878.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="Close" type="Button" parent="ScreenStretch/About"]

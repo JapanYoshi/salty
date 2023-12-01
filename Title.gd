@@ -92,6 +92,7 @@ func _input(e: InputEvent):
 
 func _scene_transition(path: String):
 	release_focus()
+	self.rect_pivot_offset = self.rect_size * 0.5
 	S.play_sfx("menu_confirm")
 	tween.interpolate_property(
 		self, "modulate", Color.white, Color.black, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0
