@@ -21,7 +21,7 @@ b = ["Haley Walker"]
 [music]
 h = "Music"
 b = [
-  "Haley Walker — Salty Trivia, Salty Trivia (classic) • Candy Trivia • Sorta Kinda • All Outta Salt • Sugar Rush • Like It or Leave It • Thousand-Question Question • Scoreboard • End Credits",
+  "Haley Walker — Salty Trivia, Salty Trivia (classic) • Candy Trivia • Sorta Kinda • All Outta Salt • Sugar Rush • Like It or Leave It • Thousand-Question Question • Scoreboard • End Credits • Big Brain Storming",
   "Tri-Tachyon — Rage Against the Times (from [url=https://opengameart.org/content/heavy-metal-riffs-4hrdm8]Heavy Metal Riffs[/url])",
 ]
 
@@ -32,6 +32,7 @@ b = [
   "RiverKath — [i]Daisy Chaine[/i]",
   "Walter Mack — [i]Miles Stone[/i]",
   "The Primordial Clok-Roo — [i]Ozzy[/i]",
+  "indecorousPyrrhonist — [i]The Killer (Episode 6)[/i]",
 ]
 
 [writers]
@@ -48,7 +49,7 @@ b = [
 h = "Technologies Used"
 b = [
   "Godot Engine — [i]game engine[/i]",
-  "Gotm.io — [i]game hosting[/i]",
+  "itch.io — [i]game hosting[/i]",
   "GitHub — [i]version control[/i]",
   "Firebase Realtime Database — [i]Web controller system[/i]",
   "Firebase Web Hosting — [i]Web controller hosting[/i]",
@@ -86,6 +87,6 @@ b = [
 [announcement]
 h = "Announcement"
 b = [
-  "Stay tuned for Episodes 4, 5, and 6!",
+  "Stay tuned for Episodes 7, 8, and 9!",
   "[url=https://discord.gg/95JWgy9gue]Join our Discord![/url]",
 ]
