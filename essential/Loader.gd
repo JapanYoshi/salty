@@ -208,10 +208,10 @@ func _head_request_completed(\
 			last_mod = h_split[1]
 	if is_instance_valid(callback_node):
 		if last_mod == last_mod_saved:
-			print("New last-modified header value ", last_mod, " == cached last-modified header value", last_mod_saved)
+			print("New last-modified header value <", last_mod, ">== cached last-modified header value <", last_mod_saved, ">")
 			callback_node.call(callback_function_name, 9, size)
 		else:
-			print("New last-modified header value ", last_mod, " != cached last-modified header value", last_mod_saved)
+			print("New last-modified header value <", last_mod, "> != cached last-modified header value <", last_mod_saved, ">")
 			callback_node.call(callback_function_name, 0, size)
 
 
@@ -281,7 +281,7 @@ func _download_assets_request_completed(\
 	# save last modified date
 	var last_mod: String = ""
 	for h in headers:
-		var h_split = h.split(":", 1)
+		var h_split = h.split(":", true, 1)
 		if h_split[0] == "last-modified":
 			last_mod = h_split[1]
 			break
