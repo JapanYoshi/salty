@@ -8,11 +8,12 @@ onready var b_long = $Viewport/OptionsVP/Scale/PanelB/Center/RTL
 onready var a_short = $Viewport/OptionsVP/Scale/PanelA/Center/Short
 onready var b_short = $Viewport/OptionsVP/Scale/PanelB/Center/Short
 var has_both = false
+var waiting_for_resize: bool = false
 
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "_on_size_changed")
 	yield(get_tree(), "idle_frame")
-	_on_size_changed()
+	waiting_for_resize = true
 #	hide()
 	init()
 	# debug
@@ -138,12 +139,14 @@ func _on_TouchAB_pressed():
 	# 4 = touchscreen, 1 = up face button, true = pressed
 	C.inject_button(4, 1, true)
 
-const base_resolution = Vector2(1280, 720)
-var scale: float = 1.0
 func _on_size_changed():
+	waiting_for_resize = true
+
+const base_resolution = Vector2(1280, 720)
+func _resize():
 	var resolution: Vector2 = get_viewport_rect().size
-	# Can assume that aspect ratio is 16:9, since it is inside the resizer
-	scale = resolution.y / base_resolution.y
+	# Calculate the scale (I wish I could do something with the resizer)
+	var scale: float = min(resolution.x / base_resolution.x, resolution.y / base_resolution.y)
 	
 	$Viewport.size = base_resolution * scale # enlarge to native res
 	

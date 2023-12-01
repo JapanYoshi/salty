@@ -23,7 +23,4 @@ func _on_size_changed():
 		resolution.x / base_resolution.x
 	)
 	rect_position = (resolution - rect_scale * base_resolution) * 0.5
-	# what the hell does this code do?
-#	var parent = get_parent()
-#	if parent is Control:
-#		parent.rect_pivot_offset = resolution * 0.5
+#	print("_on_size_changed():", resolution, "->", rect_scale)
