@@ -28,8 +28,11 @@ var music_dict = {}
 var sfx_dict = {}
 var voice_list = {}
 
-var tracks = ["", "", ""]
-var last_voice = ""
+var tracks: PoolStringArray = ["", "", ""]
+var requested_voices: Array = []
+
+const VOL_MUTE = -INF
+const VOL_PLAY = -2.5
 
 func _ready():
 	for t in tweens:
@@ -37,7 +40,7 @@ func _ready():
 
 
 func preload_sounds():
-	print("S.preload_sounds()")
+#	print("S.preload_sounds()")
 	var f = File.new()
 	var r = f.open(sfx_path + "_.jsonc", File.READ)
 	if r != OK:
@@ -46,7 +49,7 @@ func preload_sounds():
 	sfx_list = jsonparse.result
 	for k in sfx_list.keys():
 		preload_sfx(k)
-	print("S.preload_sounds(): Preloaded SFX.")
+#	print("S.preload_sounds(): Preloaded SFX.")
 	for k in [
 		"answer_now", "answer_now_2", "answer_now_3", "answer_now_4", "answer_now_5",
 		"hiphop", "house",
@@ -56,7 +59,7 @@ func preload_sounds():
 		"signup_base", "signup_extra", "signup_extra2",
 	]:
 		preload_music(k)
-	print("S.preload_sounds(): Preloaded music.")
+#	print("S.preload_sounds(): Preloaded music.")
 	### Testing
 #	preload_music("signup_base")
 #	preload_music("signup_extra")
@@ -72,7 +75,7 @@ func preload_sounds():
 		yield(get_tree(), "idle_frame")
 	set_music_volume(  R.get_settings_value("music_volume"  ) / 15.0)
 	set_overall_volume(R.get_settings_value("overall_volume") / 15.0)
-	print("S.preload_sounds(): Set volume.")
+#	print("S.preload_sounds(): Set volume.")
 
 func preload_music(name):
 	if music_dict.has(name): return
@@ -117,7 +120,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		return
 	var voice = loader.get_resource() # try loading, and if it doesn't load, fallback
 	if voice == null and file.file_exists(filepath + ".import"):
-		print(filepath + ".import exists. Loading.")
+#		print(filepath + ".import exists. Loading.")
 		# find out what the actual data is called.
 		# WARNING: Very hacky maneuver because automatically redirecting WAV
 		# files breaks when loading from pck file apparently.
@@ -127,7 +130,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		var start = text.find('path="res://.import/') + 6
 		var end = text.find('.sample"', start) + 7
 		var redir_path = text.substr(start, end - start)
-		print("Redirect to: ", redir_path)
+#		print("Redirect to: ", redir_path)
 		voice = load(redir_path)
 	if voice == null:
 		printerr("Voice line could not load! File path: " + filepath)
@@ -135,7 +138,7 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", ERR_DOES_NOT_EXIST)
 		return
-	print("Voice preloaded: " + filename)
+#	print("Voice preloaded: " + filename)
 	# avoid duplicate keys
 	if voice_list.has(key):
 		voice_list[key].player.set_stream(voice)
@@ -146,7 +149,8 @@ func preload_voice(key, filename, question_specific: bool = false, subtitle_stri
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
-	player.set_volume_db(linear2db(0.75))
+	# hacky workaround for simultaneous play-stop bug
+	player.set_volume_db(VOL_MUTE)
 	add_child(player)
 	voice_list[key] = {
 		player = player,
@@ -181,10 +185,12 @@ func preload_ep_voice(key, filename, episode_name, subtitle_string=""):
 		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", OK)
 		return
-	print("Voice preloaded: " + filename)
+#	print("Voice preloaded: " + filename)
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
+	# hacky workaround for simultaneous play-stop bug
+	player.set_volume_db(VOL_MUTE)
 	# we'll connect when we play it
 #	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
@@ -219,10 +225,12 @@ func preload_guest_voice(key):
 		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", OK)
 		return
-	print("Voice preloaded: " + filename)
+#	print("Voice preloaded: " + filename)
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
+	# hacky workaround for simultaneous play-stop bug
+	player.set_volume_db(VOL_MUTE)
 	# we'll connect when we play it
 #	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
@@ -256,10 +264,12 @@ func preload_disclaimer_voice(key="disclaimer0"):
 		yield(get_tree().create_timer(0), "timeout")
 		emit_signal("voice_preloaded", OK)
 		return
-	print("Voice preloaded: " + filename)
+#	print("Voice preloaded: " + filename)
 	var player = AudioStreamPlayer.new()
 	player.set_stream(voice)
 	player.bus = "VOX"
+	# hacky workaround for simultaneous play-stop bug
+	player.set_volume_db(VOL_MUTE)
 	# we'll connect when we play it
 #	player.connect("finished", self, "_on_voice_end", [key])
 	add_child(player)
@@ -308,7 +318,7 @@ func _stop_music(name):
 		_log("Stopped music ", name, music_dict[name].get_playback_position())
 
 func _set_music_vol(track: int, vol: float, dont_tween = true):
-	print("S: _set_music_vol(%d, %f, %s)" % [track, vol, str(dont_tween)])
+#	print("S: _set_music_vol(%d, %f, %s)" % [track, vol, str(dont_tween)])
 	if is_instance_valid(music_dict[tracks[track]]):
 		var voldb = max(-80, linear2db(vol) + max_music_db)
 		if dont_tween:
@@ -317,7 +327,7 @@ func _set_music_vol(track: int, vol: float, dont_tween = true):
 			var vol_old = music_dict[tracks[track]].volume_db
 			tweens[track].stop_all()
 			if vol_old != voldb:
-				print("Interpolating track " + str(track) + " from " + str(music_dict[tracks[track]].volume_db) + " to " + str(voldb))
+#				print("Interpolating track " + str(track) + " from " + str(music_dict[tracks[track]].volume_db) + " to " + str(voldb))
 				tweens[track].interpolate_property(
 					music_dict[tracks[track]],
 					"volume_db",
@@ -377,10 +387,10 @@ func play_track(track = 0, volume: float = 1.0, dont_tween = false):
 		_set_music_vol(track, volume, dont_tween)
 		if track != 0:
 			music_dict[tracks[track]].seek(music_dict[tracks[0]].get_playback_position())
-			print(" playback offsets: ",
-			music_dict[tracks[0]].get_playback_position() if tracks[0] else "", " ",
-			music_dict[tracks[1]].get_playback_position() if tracks[1] else "", " ",
-			music_dict[tracks[2]].get_playback_position() if tracks[2] else "")
+#			print(" playback offsets: ",
+#			music_dict[tracks[0]].get_playback_position() if tracks[0] else "", " ",
+#			music_dict[tracks[1]].get_playback_position() if tracks[1] else "", " ",
+#			music_dict[tracks[2]].get_playback_position() if tracks[2] else "")
 
 func play_sfx(name, speed = 1.0):
 	var sfx = sfx_dict[name]
@@ -391,9 +401,11 @@ func play_sfx(name, speed = 1.0):
 	else:
 		printerr("SFX not found: ", name)
 
+
 func play_voice(id):
-	if last_voice in voice_list and voice_list[last_voice].player.is_playing():
-		stop_voice(last_voice)
+	stop_voice()
+	print("S.PLAY_VOICE <", id, ">", requested_voices)
+	var i: int = 0
 	# retrieve the voice line "struct" and put it here.
 	# we'll use the 'id', 'subtitle', and 'player' properties
 	var voice_line: Dictionary = {}
@@ -405,42 +417,48 @@ func play_voice(id):
 		return
 	if is_instance_valid(sub_node):
 		sub_node.queue_subtitles(voice_line.subtitle)
-	last_voice = id
 	# call_deferred causes a frame-perfect double audio glitch.
 	# if you stop the audio on the exact frame you start playing a voice,
 	# this tries to stop an audio player that's already stopped
 #	voice_line.player.call_deferred("play")
+	# hacky workaround for simultaneous play-stop bug
+	voice_line.player.set_volume_db(VOL_PLAY)
 	voice_line.player.connect("finished", self, "_on_voice_end", [id], CONNECT_ONESHOT)
 	voice_line.player.play()
+	requested_voices.push_back(id)
+	print("S.PLAY_VOICE FINISHED <", id, ">", requested_voices)
 #	_log("Played voice ", id, voice_line.player.get_playback_position())
 
-# Stop the currently playing voice.
-# DEPRECATED: supply the voice line that should be playing right now.
+# Stop a certain voice. If the ID isn't given, stops any currently playing voice.
 func stop_voice(should_be_playing = ""):
-	if should_be_playing != last_voice:
-		if should_be_playing != "":
-			printerr("Tried to stop ", should_be_playing, " which isn't the currently playing voice line.")
-		should_be_playing = last_voice
-	if (
-		last_voice in voice_list
-	) and voice_list[last_voice].player.is_playing():
-		if is_instance_valid(sub_node):
-			sub_node.clear_contents()
-		voice_list[last_voice].player.disconnect("finished", self, "_on_voice_end")
-		voice_list[last_voice].player.stop()
-		_log("Manually stopped voice ", last_voice, voice_list[last_voice].player.get_playback_position())
-		last_voice = ""
-		return
-	printerr("Could not stop voice ", last_voice, " because I couldn't find it")
+	print("S.STOP_VOICE <", should_be_playing, ">", requested_voices)
+	if should_be_playing == "":
+		for id in requested_voices:
+			if id in voice_list:
+				_stop_this_voice(id)
+		requested_voices.clear()
+	else:
+		if should_be_playing in requested_voices and should_be_playing in voice_list:
+			_stop_this_voice(should_be_playing)
+		else:
+			printerr("stop_voice called with ", should_be_playing, " while requested_voices is ", requested_voices)
 
+func _stop_this_voice(id):
+	if is_instance_valid(sub_node):
+		sub_node.clear_contents()
+	var player = voice_list[id].player
+	if is_instance_valid(player):
+		# hacky workaround for simultaneous play-stop bug
+		player.set_volume_db(VOL_MUTE)
+		player.disconnect("finished", self, "_on_voice_end")
+		player.stop()
+	requested_voices.erase(id)
+
+# Get the progress of the currently playing voice
 func get_voice_time() -> float:
-	if !voice_list.has(last_voice):
-		print("Last_voice is ", last_voice, " which was not found.")
-		# The ID of the last voice line is not found.
-		# This shouldn't happen, but I'll account for this. 
+	if requested_voices.empty() or not(voice_list.has(requested_voices[0])):
 		return 0.0
-	print("Last_voice is ", last_voice, " whose progress is ", voice_list[last_voice].player.get_playback_position())
-	return voice_list[last_voice].player.get_playback_position()
+	return voice_list[requested_voices[0]].player.get_playback_position()
 
 ## literally just used once which is Rush intro
 func get_voice_length(voice_id) -> float:
@@ -453,7 +471,7 @@ func _on_voice_end(voice_id):
 	if is_instance_valid(sub_node):
 		sub_node.signal_end_subtitle()
 #	if voice_id == last_voice:
-	last_voice = ""
+	requested_voices.erase(voice_id)
 	emit_signal("voice_end", voice_id)
 
 func set_music_volume(percentage: float):
@@ -463,4 +481,5 @@ func set_overall_volume(percentage: float):
 	AudioServer.set_bus_volume_db(0, linear2db(percentage * percentage))
 
 func _log(msg, id, seek):
-	print(msg + id + " (%f)" % seek)
+	pass
+#	print(msg + id + " (%f)" % seek)
