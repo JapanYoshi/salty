@@ -26,7 +26,7 @@ var waiting_for_resize: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_tree().connect("screen_resized", self, "_on_screen_resized")
+	get_viewport().connect("screen_resized", self, "_on_screen_resized")
 	_initialize_achievements()
 	for i in len(toasties):
 		toasties[i].position.y = -TOASTIE_DISTANCE
@@ -69,6 +69,7 @@ func _resize_element():
 		resolution.y / 720.0,
 		resolution.x / 1080.0
 	)
+	print("Achievements resize", resolution, ":", rect_scale)
 
 
 func _initialize_achievements():
