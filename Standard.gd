@@ -1353,7 +1353,7 @@ func change_stage(next_stage):
 			b.reset()
 		print("Question is successfully finished!")
 		while $Vignette.tween.is_active():
-			print("DEBUG PRINT WAIT FOR VIGNETTE")
+#			print("DEBUG PRINT WAIT FOR VIGNETTE")
 			yield(get_tree(), "idle_frame")
 		print("DEBUG PRINT UNLOAD BG")
 		# TQQ reuses Gibberish background
