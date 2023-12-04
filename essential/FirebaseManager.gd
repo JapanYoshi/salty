@@ -23,7 +23,7 @@ const firebase_config = {
 }
 var default_room = {
 	gameName = "Salty Trivia with Candy Barre",
-	controllerName = "controller_salty",
+	controllerName = "salty",
 	playerCount = 0,
 	maxPlayers = 8, # can be changed in config
 	audienceCount = 0,
