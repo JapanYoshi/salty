@@ -2,15 +2,17 @@
 
 Salty Trivia is a trivia game where the questions are ridiculous, but the answers are serious. It can be played locally, or online using a normal Web browser (like Jackbox games).
 
-The game is written on Godot Engine (a free and open source game engine), and implements a mix of features from You Don't Know Jack 2015, You Don't Know Jack: Full Stream, and several other You Don't Know Jack entries.
+The game is written on Godot Engine v3.5.2.stable.official (a free and open source game engine), and implements a mix of features from You Don't Know Jack 2015, You Don't Know Jack: Full Stream, and several other You Don't Know Jack entries.
 
 ## Features
 
 Instead of the Screw from the You Don't Know Jack series, this game implements an item called the **Lifesaver**, which acts similarly to the 50/50 in *Who Wants to Be a Millionaire?*, in that it eliminates two of the choices for yourself. It can be used once per player per game, except in question types that are not multiple-choice.
 
 * **Normal** - A standard 4-choice question.
+  * **LitErrata** - A 4-choice question introduced by a complaint about a previously published question.
 * **Candy Trivia with Salty Barre** - A 4-choice question where the question is related to candy, or it's linked to a dumb joke on a candy wrapper. Analogous to Cookie's Fortune Cookie Fortunes with Cookie "Fortune Cookie" Masterson from the 2011 series.
 * **Rage Against the Times with Ozzy** - A 4-choice question where the question is presented as a skit with "Ozzy, our 'resident' Australian squatter" who is an old man who is angry about one thing or another. Analogous to Foggy Facts with Old Man from 2015, except our Old Man is way grumpier.
+* **Big Brain Storming** - A 4-choice question where the question is presented as a mind map. The mind map consists of three threads of three items, the first item being the common thread. Players must figure out what that common thread is.
 * **Sorta Kinda** - A quick-fire round where 7 items each have to be sorted into two categories (sometimes both). Basically DisOrDat with a different name.
 * **All Outta Salt** - Given a category and a nonsense phrase, find the phrase with syllables that rhyme with it. (e.g. With the category "With what proper name does this rhyme?" and the nonsense phrase "Forge bubble the tush.", the answer would be "George W. Bush".) Basically a Gibberish Question.
 * **The Thousand-Question Question** - A special question type where the prize money starts out at $1,000,000, but since the host takes time to read the whole question text, by the time you're allowed to buzz in, the prize money dwindles down to about $2,000 at best. First-come first-served; only one person can get the prize money. Inspired by The Two-Million-Dollar Question from the short-lived ABC TV show. The Lifesaver cannot be used on this question type, despite being a 4-choice question.
@@ -21,19 +23,19 @@ Instead of the Screw from the You Don't Know Jack series, this game implements a
 
 The current public build is published on [the Gotm webpage](https://gotm.io/haitouch/salty-trivia). Note that this version may not be the latest version with the latest features and question packs.
 
-## How to Develop a Fork
-
-1. Install the Godot Engine from the [official website](https://godotengine.org). As of writing this Readme file, the version used is 3.5 (non-Mono).
-
-2. Download or fork the repository, and open the folder once you've booted Godot.
-
 ## License and Copyright for a Fork
 
 This game is released as free and open source software, which means that you are free to run the program, study and modify the program’s files, and redistribute the program whether modified or not. In order to achieve these freedoms, all the game’s code is open-source and visible on this repository.
 
 However, this does not mean that the assets of this game are free of copyright. You may not use the code to impersonate us, or otherwise scam people. The music, voice assets, and graphical assets are available for ease of modification, but if you release a modification, you must replace all the provided voice files, unless you have the voice actors’ permission.
 
-## How to Make Your Own Questions, Episodes, and Controller for a Fork
+## How to Get Started with a Fork
+
+1. Install the Godot Engine from the [official website](https://godotengine.org). As of writing this Readme file, the version used is 3.5 (non-Mono).
+
+2. Download or fork the repository, and open the folder once you've booted Godot.
+
+## How to Make Your Own Questions, Episodes, and Controller
 
 To use your own **question files**, use [the `salty_data` repository](https://github.com/JapanYoshi/salty_data) as a template. I don't recommend downloading the entire thing because it has hella WAV files and it takes space; just get everything except for the `/q/` folder, and follow the tutorial on that repository.
 
@@ -43,11 +45,11 @@ To make your own **episodes**, go to [the `/ep/` folder](https://github.com/Japa
 
 * 2. Add the ID to `list.txt`, which is the list of episodes to display in the episode select screen.
 
-* 3. Within the episode folder, change the contents of `ep.json` to list the question IDs to use, and any non-random voice lines to play. Non-random voice lines must be stored within the episode folder as well.
+* 3. Within the episode folder, change the contents of `ep.gdcfg` to list the question IDs to use, and any non-random voice lines to play. Non-random voice lines must be stored within the episode folder as well.
 
-To use a different **phones-as-controller app and server**, fork [this other GitHub repository](https://github.com/JapanYoshi/haitouch-firebase) and host it on your Firebase instance.
+To use a different **phones-as-controller app and server**, fork [the `haitouch-firebase` repository](https://github.com/JapanYoshi/haitouch-firebase) and host it on your Firebase instance.
 
-You will need to set up your own instance of Firebase Realtime Database and Firebase Web Hosting, and change `const firebaseConfig` within `public/index.html` to make it connect to your database and not mine. Similarly, you will need to change `const firebase_config` within [`FirebaseManager.gd`](https://github.com/JapanYoshi/salty/tree/main/FirebaseManager.gd). To get the Firebase configuration data, please follow [this official “Add Firebase to your JavaScript project” tutorial from Firebase](https://firebase.google.com/docs/web/setup).
+You will need to set up your own instance of Firebase Realtime Database and Firebase Web Hosting (if you don't want your controller app to interact with my game, or my controller app with your game). To do that, and change `const firebaseConfig` within `public/index.html` to make it connect to your database and not mine. Similarly, you will need to change `const firebase_config` within [`FirebaseManager.gd`](https://github.com/JapanYoshi/salty/tree/main/FirebaseManager.gd). To get the Firebase configuration data, please follow [this official “Add Firebase to your JavaScript project” tutorial from Firebase](https://firebase.google.com/docs/web/setup).
 
 ## Control schemes
 
@@ -83,12 +85,10 @@ Note to localizers: You will have to manually tweak a lot of stuff to change the
 
 ### "Phones as Controllers"
 
-A standard Web browser can be used to play the game by accessing [the hai!touch Controller webpage](https://haitouch.onrender.com). Its code is maintained in [this other GitHub repository](https://github.com/JapanYoshi/haitouch-heroku).
-
 As an improvement to the official You Don't Know Jack games, the full question text and options text are displayed on the device, as well as the correctness of your choices.
 
 If the player slots are full, or the game has already started, extra players can connect to a game as audience members and play along using the controller app.
 
 ### Touchscreen/Mouse
 
-Since this game also runs on phones, you can also play the game solo using the mouse cursor.
+To make this game also playable on phones, you can also play the game solo using the mouse cursor.
