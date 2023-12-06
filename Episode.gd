@@ -12,7 +12,7 @@ var intermission_played = false
 var skippable = false
 var skipped = false
 var DEBUG = false
-# make a list of players using phones-as-controllers
+# make a list of players using phones-as-controllers (index)
 var remote_players = []
 var penalize_pausing = false
 
@@ -161,13 +161,7 @@ func play_intro():
 		q_box.hud.set_player_name(i, R.players[i].name)
 		if i in remote_players:
 			Fb.change_nick(R.players[i].device_name, R.players[i].name)
-#			Ws.send('message', {
-#				'to': R.players[i].device_name,
-#				'action': 'changeNick',
-#				'nick': R.players[i].name,
-#				'playerIndex': R.players[i].player_number,
-#				'isVip': false
-#			});
+
 	# censored names will be given later
 	# will be used later if cutscenes are on.
 	var show_tech_diff: bool = false
@@ -383,14 +377,8 @@ func play_intro():
 				S.play_voice("name_censored"); yield(S, "voice_end")
 			R.players[censored_players[0]].name = names[chosen_names[0]].name
 			q_box.hud.set_player_name(censored_players[0], R.players[censored_players[0]].name, true)
-#			if censored_players[0] in remote_players:
-#				Ws.send('message', {
-#					'to': R.players[censored_players[0]].device_name,
-#					'action': 'changeNick',
-#					'nick': R.players[censored_players[0]].name,
-#					'playerIndex': R.players[censored_players[0]].player_number,
-#					'isVip': false
-#				});
+			if censored_players[0] in remote_players:
+				Fb.change_nick(R.players[censored_players[0]].device_name, R.players[censored_players[0]].name)
 			if must_react_to_cuss:
 				S.play_sfx("name_change")
 				yield(get_tree().create_timer(0.5), "timeout")
@@ -434,6 +422,8 @@ func play_intro():
 			for i in range(len(censored_players)):
 				R.players[censored_players[i]].name = new_names[i]
 				q_box.hud.set_player_name(censored_players[i], new_names[i], true)
+				if censored_players[i] in remote_players:
+					Fb.change_nick(R.players[censored_players[i]].device_name, R.players[censored_players[i]].name)
 #				if censored_players[i] in remote_players:
 #					Ws.send('message', {
 #						'to': R.players[censored_players[i]].device_name,
@@ -451,14 +441,8 @@ func play_intro():
 			for i in range(len(R.players)):
 				R.players[i].name = "Number %d" % (i + 1)
 				q_box.hud.set_player_name(i, R.players[i].name)
-#				if i in remote_players:
-#					Ws.send('message', {
-#						'to': R.players[i].device_name,
-#						'action': 'changeNick',
-#						'nick': R.players[i].name,
-#						'playerIndex': R.players[i].player_number,
-#						'isVip': false
-#					});
+				if i in remote_players:
+					Fb.change_nick(R.players[i].device_name, R.players[i].name)
 			q_box.hud.punish_players(range(len(R.players)), 50001)
 			if must_react_to_cuss:
 				S.play_sfx("naughty")
