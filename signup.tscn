@@ -813,6 +813,7 @@ __meta__ = {
 [node name="LoadingIndicator" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 640, 360 )
 mouse_filter = 2
 script = ExtResource( 25 )
 
