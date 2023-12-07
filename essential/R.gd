@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION_CODE = "12-06-ARGUE-REALIZE"
+const VERSION_CODE = "12-07-COVER-SLIDING"
 
 ### "Root", for data that every page should have.
 signal change_audience_count(audience_count)
