@@ -883,9 +883,6 @@ func change_stage(next_stage):
 				
 				hud.show_finale_box(1)
 				hud.show_accuracy(accuracy)
-				ep.send_scene("rush", {
-					'title': data.title.t
-				})
 				point_value = 36000 / (6 * 6)
 				Fb.connect("remote_finale", self, "_on_remote_finale")
 			"L":
@@ -899,16 +896,13 @@ func change_stage(next_stage):
 				$BG.add_child(bgs.L)
 				hud.show_finale_box(2)
 				hud.show_accuracy(accuracy)
-				ep.send_scene("like", {
-					'title': data.title.t,
-				})
 				point_value = 36000 / (4 * 5)
 				Fb.connect("remote_finale", self, "_on_remote_finale")
 		if question_type in ["N", "C", "O", "T", "B"]:
 			if question_type == "B":
 				bgs.B.set_fields(data.cards.t, data.question.t.strip_edges())
 			else:
-				question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true)
+				question_queue = Loader.parse_time_markers(data.question.t.strip_edges(), true, true)
 				question.bbcode_text = ""
 				question.visible_characters = 0
 				for el in question_queue:
@@ -928,7 +922,7 @@ func change_stage(next_stage):
 			revealed_count = 0
 			timer.initialize(15)
 			var q_data = {
-				"question": question.bbcode_text,
+				"question": Loader.use_real_soft_hyphens(data.question.t.strip_edges()),
 				"options": data.options.t
 			}
 			if question_type == "B":
@@ -1028,6 +1022,9 @@ func change_stage(next_stage):
 	elif stage == "init" and next_stage == "intro_R":
 		stage = "intro_R"
 		anim.play("finale_out")
+		ep.send_scene("rush", {
+			'title': data.title.t
+		})
 		if R.get_settings_value("cutscenes"):
 			enable_skip()
 			S.play_voice("rush_intro")
@@ -1053,6 +1050,9 @@ func change_stage(next_stage):
 		stage = "intro_L"
 		bgs.L.play_intro()
 		anim.play("finale_out")
+		ep.send_scene("like", {
+			'title': data.title.t
+		})
 		yield(get_tree().create_timer(0.7), "timeout")
 		S.play_track(0, 0.75)
 		S.play_voice("like_intro")

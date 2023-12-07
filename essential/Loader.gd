@@ -771,6 +771,15 @@ func load_question(id, first_question: bool, q_box: Node):
 			error_message += "\n" + s
 		R.crash(error_message)
 
+
+# Like calling parse_time_markers with filter_soft_hyphens set to true, but without time markers.
+func use_real_soft_hyphens(contents: String):
+	print("use_real_soft_hyphens(", contents, ")")
+	contents = contents.replace("[shy]", "\u00AD")
+	print("result:", contents)
+	return contents
+
+
 # Parses the time markers in the subtitle files.
 # Timing is encoded in milliseconds since the start of the audio file, in this format: [#9999#]
 # RETURNS:
@@ -795,7 +804,7 @@ func load_question(id, first_question: bool, q_box: Node):
 # # (revealing characters by visible character count),
 # # and set to "false" if parsing time markers for subtitle text
 # # (revealing characters by substringing).
-func parse_time_markers(contents = "", exclude_formatting = false):
+func parse_time_markers(contents = "", exclude_formatting = false, filter_soft_hyphens = true):
 	var queue = []
 	var texts = []
 	var indices = [0]
@@ -811,21 +820,26 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 	if len(indices) > 1:
 		for i in range(0, len(timings) - 1):
 			texts.append(contents.substr(indices[i*2], indices[i*2+1] - indices[i*2]))
-			if exclude_formatting:
+			if exclude_formatting or filter_soft_hyphens:
 				var copy = texts[i]
-				copy = copy.replace("[b]", "")
-				copy = copy.replace("[/b]", "")
-				copy = copy.replace("[i]", "")
-				copy = copy.replace("[/i]", "")
-				copy = copy.replace("[code]", "")
-				copy = copy.replace("[/code]", "")
+				if exclude_formatting:
+					copy = copy.replace("[b]", "")
+					copy = copy.replace("[/b]", "")
+					copy = copy.replace("[i]", "")
+					copy = copy.replace("[/i]", "")
+					copy = copy.replace("[code]", "")
+					copy = copy.replace("[/code]", "")
+				if filter_soft_hyphens:
+					copy = copy.replace("\u00AD", "")
+					copy = copy.replace("[shy]", "-\u200B")
+				else:
+					copy = copy.replace("[shy]", "\u00AD")
 				skipped_chars = len(texts[i]) - len(copy)
 			if timings[i+1] > timings[i]:
 				# normal one
 				queue.append({
 					"text": texts[i],
 					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
-#					"duration": timings[i+1] - timings[i]
 					"time": timings[i+1]
 				})
 			elif texts[i] == "":
@@ -836,7 +850,6 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 				queue.append({
 					"text": texts[i],
 					"chars": indices[i*2+1] - indices[i*2] - skipped_chars,
-#					"duration": -1
 					"time": -1
 				})
 	else:
@@ -845,7 +858,6 @@ func parse_time_markers(contents = "", exclude_formatting = false):
 		queue.append({
 			"text": contents,
 			"chars": len(contents),
-#			"duration": -1
 			"time": -1
 		})
 	return queue
