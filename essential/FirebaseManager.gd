@@ -174,27 +174,33 @@ func update_room_list():
 			if kv[k]:
 				room_codes.push_back(k)
 	print("Room list fetched. ", room_codes)
-	if len(room_codes) > 16:
-		remove_unused_rooms()
+	# this functionality was moved to the webapp
+	# if len(room_codes) > 32:
+	# 	remove_unused_rooms()
 	just_finished = "update_room_list"; emit_signal("finished")
 	return result
 
-func remove_unused_rooms():
-	var now = Time.get_unix_time_from_system()
-	for r in room_codes:
-		var ref: FirebaseReference = db.get_reference_lite("rooms/%s" % r)
-		var result = yield(ref.fetch(), "completed")
-		if result is FirebaseError: continue
-		var kv = result.value()
-		if typeof(kv) != TYPE_DICTIONARY: continue
-		if kv.lastUpdate + 5 * 60 < now:
-			# unused room.
-			print("%s is unused for at least 5 minutes. Deleting." % r)
-			yield(ref.remove(), "completed")
-			var rc_ref: FirebaseReference = db.get_reference_lite("roomCodes/%s" % r)
-			yield(rc_ref.remove(), "completed")
-		else:
-			print("%s is possibly still in use." % r)
+# func remove_unused_rooms():
+# 	var now = Time.get_unix_time_from_system()
+# 	var ref: FirebaseReference = db.get_reference_lite("rooms")
+# 	var result = yield(ref.fetch(), "completed")
+# 	if result is FirebaseError:
+# 		return
+# 	var rooms = result.value()
+# 	if typeof(rooms) != TYPE_DICTIONARY:
+# 		return
+# 	for rc in rooms.keys():
+# 		if typeof(rooms[rc]) != TYPE_DICTIONARY or\
+# 		   not("lastUpdate" in rooms[rc]) or\
+# 		   rooms[rc].lastUpdate + 5 * 60 < now:
+# 			# unused room.
+# 			print("%s is unused for at least 5 minutes. Deleting." % rc)
+# 			ref = db.get_reference_lite("rooms/%s" % rc)
+# 			yield(ref.remove(), "completed")
+# 			var rc_ref: FirebaseReference = db.get_reference_lite("roomCodes/%s" % rc)
+# 			yield(rc_ref.remove(), "completed")
+# 		else:
+# 			print("%s is possibly still in use." % rc)
 
 # Checks if a room is free. DOES NOT check the Realtime Database!
 # Set the variable `room_code` beforehand
