@@ -409,7 +409,8 @@ func _add_remote(uuid, nick, as_audience: bool, player_number: int):
 				input = 0,
 				inputText = "",
 				inputFinale = "000000",
-				lifesaver = false,
+				# If cutscenes are on, the Lifesaver will be given during the intro!
+				lifesaver = not R.get_settings_value("cutscenes"),
 				messages = {
 					action = "none",
 					time = 0,
