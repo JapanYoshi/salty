@@ -831,10 +831,11 @@ func parse_time_markers(contents = "", exclude_formatting = false, filter_soft_h
 					copy = copy.replace("[/code]", "")
 				if filter_soft_hyphens:
 					copy = copy.replace("\u00AD", "")
-					copy = copy.replace("[shy]", "-\u200B")
+					copy = copy.replace("[shy]", "- ")
 				else:
 					copy = copy.replace("[shy]", "\u00AD")
 				skipped_chars = len(texts[i]) - len(copy)
+				texts[i] = copy
 			if timings[i+1] > timings[i]:
 				# normal one
 				queue.append({
